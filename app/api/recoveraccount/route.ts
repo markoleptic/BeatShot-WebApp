@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { users } from "@/models";
-import { createRecoveryToken, sendRecoveryEmail } from "../authfunctions";
+import { createRecoveryToken, hostUrl, sendRecoveryEmail } from "../authfunctions";
 
 
 // Emails a link that directs to /recover/[token], where they can change their password
@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const confToken = await createRecoveryToken(user);
-    const result = await sendRecoveryEmail(user, confToken, req.nextUrl.origin);
+    const result = await sendRecoveryEmail(user, confToken, hostUrl as string);
 
     if (result && result?.messageId) {
       return NextResponse.json(

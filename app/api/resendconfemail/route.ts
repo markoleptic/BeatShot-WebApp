@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { users } from "@/models";
-import { sendConfEmail, createConfToken } from "../authfunctions";
+import { sendConfEmail, createConfToken, hostUrl } from "../authfunctions";
 
 export async function POST(req: NextRequest) {
   const { email } = await req.json();
@@ -23,7 +23,7 @@ export async function POST(req: NextRequest) {
 
   try {
     const confToken = await createConfToken(foundUser);
-    const result = await sendConfEmail(foundUser, confToken, req.nextUrl.origin);
+    const result = await sendConfEmail(foundUser, confToken, hostUrl as string);
 
     if (result && result?.messageId) {
       return NextResponse.json(

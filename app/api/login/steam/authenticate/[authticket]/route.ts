@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { authenticateUserTicket, fetchSteamUser } from "@/app/api/authfunctions";
+import { authenticateUserTicket, fetchSteamUser, hostUrl  } from "@/app/api/authfunctions";
 import { SteamAuthTicketParams, SteamAuthTicketResponse, SteamUser, refreshTokenLength } from "@/app/api/interfaces";
 import { sign } from "jsonwebtoken";
 import { cookies } from "next/headers";
@@ -10,7 +10,7 @@ export async function GET(req: NextRequest, { params }: SteamAuthTicketParams) {
   const authTicket = params.authticket;
 
   if (!authTicket) {
-    return NextResponse.redirect(`${req.nextUrl.origin}/redirect/?context=authsteamuser&success=false`, {
+    return NextResponse.redirect(`${hostUrl}/redirect/?context=authsteamuser&success=false`, {
       status: 302,
     });
   }
@@ -18,7 +18,7 @@ export async function GET(req: NextRequest, { params }: SteamAuthTicketParams) {
   try {
     const authResponse = (await authenticateUserTicket(authTicket)) as SteamAuthTicketResponse;
     if (!authResponse || authResponse.result !== "OK") {
-      return NextResponse.redirect(`${req.nextUrl.origin}/redirect/?context=authsteamuser&success=false`, {
+      return NextResponse.redirect(`${hostUrl}/redirect/?context=authsteamuser&success=false`, {
         status: 302,
       });
     }
@@ -27,7 +27,7 @@ export async function GET(req: NextRequest, { params }: SteamAuthTicketParams) {
     if (!foundUser) {
       const steamUser = (await fetchSteamUser(authResponse.steamid)) as SteamUser;
       if (!steamUser) {
-        return NextResponse.redirect(`${req.nextUrl.origin}/redirect/?context=fetchsteamuser&success=false`, {
+        return NextResponse.redirect(`${hostUrl}/redirect/?context=fetchsteamuser&success=false`, {
           status: 302,
         });
       }
@@ -52,9 +52,9 @@ export async function GET(req: NextRequest, { params }: SteamAuthTicketParams) {
       maxAge: 24 * 60 * 60 * 365 * 5,
     });
 
-    return NextResponse.redirect(`${req.nextUrl.origin}/profile/${foundUser.userID}`, { status: 302 });
+    return NextResponse.redirect(`${hostUrl}/profile/${foundUser.userID}`, { status: 302 });
   } catch (error) {
     console.log(error);
-    return NextResponse.redirect(`${req.nextUrl.origin}/redirect/?context=unknown&success=false`, { status: 302 });
+    return NextResponse.redirect(`${hostUrl}/redirect/?context=unknown&success=false`, { status: 302 });
   }
 }

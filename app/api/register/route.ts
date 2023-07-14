@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { users } from "@/models";
 import bcrypt from "bcrypt";
-import { createConfToken, sendConfEmail } from "../authfunctions";
+import { createConfToken, hostUrl, sendConfEmail } from "../authfunctions";
 import { saltRounds } from "../interfaces";
 
 export async function POST(req: NextRequest) {
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
     }
 
     const confToken = await createConfToken(newUser);
-    const result = await sendConfEmail(newUser, confToken, req.nextUrl.origin);
+    const result = await sendConfEmail(newUser, confToken, hostUrl as string);
 
     if (result && result?.messageId) {
       return NextResponse.json(
