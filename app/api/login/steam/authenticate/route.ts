@@ -56,12 +56,12 @@ export async function GET(req: NextRequest) {
     await foundUser.update({ refreshToken: refreshToken });
 
     // Send long-lived refresh token as cookie
-    cookies().set("jwt", refreshToken as string, {
+/*     cookies().set("jwt", refreshToken as string, {
       httpOnly: true,
       sameSite: "none",
       secure: true,
       maxAge: 24 * 60 * 60 * 365 * 5,
-    });
+    }); */
 
     return NextResponse.redirect(`${hostUrl as string}/profile/${foundUser.userID}`, { status: 302 });
   } catch (error) {

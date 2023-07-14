@@ -11,6 +11,7 @@ import {
 
 // return URI from Steam
 export async function GET(req: NextRequest) {
+  console.log("Log message from steamlink authenticate");
   // get userID param
   const userID = req.nextUrl.searchParams.get("userid");
 

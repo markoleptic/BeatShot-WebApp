@@ -102,7 +102,10 @@ export async function fetchSteamUser(steamID: string): Promise<SteamUser | strin
 }
 
 // calls verifyAssertion on the request
-export async function authenticateSteamUser(req: NextRequest|string, relyingParty: RelyingParty): Promise<AuthResult> {
+export async function authenticateSteamUser(
+  req: NextRequest | string,
+  relyingParty: RelyingParty
+): Promise<AuthResult> {
   return new Promise<AuthResult>((resolve, reject) => {
     relyingParty.verifyAssertion(req, async (error, result) => {
       if (error) {
@@ -110,11 +113,9 @@ export async function authenticateSteamUser(req: NextRequest|string, relyingPart
         return reject({ message: error.message, status: 400 } as AuthResult);
       }
       if (!result || !result.authenticated) {
-        console.log("!result || !result.authenticated");
         return reject({ message: "Unable to authenticate", status: 401 } as AuthResult);
       }
       if (!URLRegex.test(result.claimedIdentifier as string)) {
-        console.log("!URLRegex.test(result.claimedIdentifier as string)");
         return reject({ message: "Invalid Claimed Identifier", status: 401 } as AuthResult);
       }
       return resolve({ message: "Verified Assertion", status: 200, result } as AuthResult);
