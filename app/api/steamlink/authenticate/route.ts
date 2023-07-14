@@ -53,6 +53,7 @@ export async function GET(req: NextRequest) {
     );
     return NextResponse.redirect(`${hostUrl as string}/redirect/?context=steamlink&success=true`, { status: 302 });
   } catch (error) {
+    console.log(error);
     return NextResponse.redirect(`${hostUrl as string}/redirect/?context=unknown&success=false`, { status: 302 });
   }
 }

@@ -13,19 +13,24 @@ import {
 
 // return URI from Steam
 export async function GET(req: NextRequest) {
+  console.log("made it inside steam/authenticate/route.ts");
   try {
     // verify
     const authResult = await authenticateSteamUser(req, createRelyingParty(createSteamVerifyUrl()));
     if (!authResult.result || authResult.status >= 400) {
-      return NextResponse.redirect(`${hostUrl as string}/redirect/?context=authsteamuser&success=false`, { status: 302 });
+      return NextResponse.redirect(`${hostUrl as string}/redirect/?context=authsteamuser&success=false`, {
+        status: 302,
+      });
     }
 
     // fetch SteamUser
     const steamID = authResult.result.claimedIdentifier as string;
-    steamID.replace(process.env.STEAM_OPENID_URL as string, "")
+    steamID.replace(process.env.STEAM_OPENID_URL as string, "");
     const user = await fetchSteamUser(steamID);
     if (!instanceOfSteamUser(user)) {
-      return NextResponse.redirect(`${hostUrl as string}/redirect/?context=fetchsteamuser&success=false`, { status: 302 });
+      return NextResponse.redirect(`${hostUrl as string}/redirect/?context=fetchsteamuser&success=false`, {
+        status: 302,
+      });
     }
 
     let foundUser = await users.findOne({ where: { userID: user.steamid } });
