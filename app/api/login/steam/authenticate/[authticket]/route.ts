@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { authenticateUserTicket, fetchSteamUser, hostUrl  } from "@/app/api/authfunctions";
+import { authenticateUserTicket, fetchSteamUser } from "@/app/api/authfunctions";
 import { SteamAuthTicketParams, SteamAuthTicketResponse, SteamUser, refreshTokenLength } from "@/app/api/interfaces";
 import { sign } from "jsonwebtoken";
 import { cookies } from "next/headers";
@@ -7,6 +7,7 @@ import { users } from "@/models";
 
 // client in game sends session ticket to this endpoint for verification
 export async function GET(req: NextRequest, { params }: SteamAuthTicketParams) {
+  const hostUrl = process.env.NODE_ENV === "production" ? process.env.host_production : process.env.host_development;
   const authTicket = params.authticket;
 
   if (!authTicket) {
@@ -55,7 +56,6 @@ export async function GET(req: NextRequest, { params }: SteamAuthTicketParams) {
     return NextResponse.redirect(`${hostUrl as string}/profile/${foundUser.userID}`, { status: 302 });
   } catch (error) {
     console.log(error);
-    console.log("api/login/steam/authenticate/authticket redirecting to unknown error");
     return NextResponse.redirect(`${hostUrl as string}/redirect/?context=unknown&success=false`, { status: 302 });
   }
 }

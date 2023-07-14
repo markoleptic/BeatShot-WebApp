@@ -4,44 +4,54 @@ import { users } from "@/models";
 import {
   authenticateSteamUser,
   createRelyingParty,
-  createSteamVerifyUrl,
   fetchSteamUser,
-  hostUrl,
+  createSteamVerifyLinkAccountUrl,
 } from "@/app/api/authfunctions";
 
 // return URI from Steam
 export async function GET(req: NextRequest) {
-  console.log("Log message from steamlink authenticate");
+  const hostUrl = process.env.NODE_ENV === "production" ? process.env.host_production : process.env.host_development;
+
   // get userID param
   const userID = req.nextUrl.searchParams.get("userid");
-
   if (!userID) {
     return NextResponse.redirect(`${hostUrl as string}/redirect/?context=nouserid&success=false`, { status: 302 });
   }
 
+  // verify
+  const verifyUrl = createSteamVerifyLinkAccountUrl(userID);
+  const relyingParty = createRelyingParty(verifyUrl);
   try {
-    // verify
-    const authResult = await authenticateSteamUser(req.url, createRelyingParty(createSteamVerifyUrl(userID)));
+    const authResult = await authenticateSteamUser(req.url, relyingParty);
+
     if (!authResult.result || authResult.status > 400 || !authResult.result.authenticated) {
-      return NextResponse.redirect(`${hostUrl as string}/redirect/?context=createsteamverifyurl&success=false`, { status: 302 });
+      return NextResponse.redirect(`${hostUrl as string}/redirect/?context=createsteamverifyurl&success=false`, {
+        status: 302,
+      });
     }
 
     // fetch SteamUser
     const steamID = authResult.result.claimedIdentifier as string;
-    steamID.replace(process.env.STEAM_OPENID_URL as string, "")
+    steamID.replace(process.env.STEAM_OPENID_URL as string, "");
     const steamUser = await fetchSteamUser(steamID);
     if (!instanceOfSteamUser(steamUser)) {
-      return NextResponse.redirect(`${hostUrl as string}/redirect/?context=fetchsteamuser&success=false`, { status: 302 });
+      return NextResponse.redirect(`${hostUrl as string}/redirect/?context=fetchsteamuser&success=false`, {
+        status: 302,
+      });
     }
 
     // fetch user in database
     const foundUser = await users.findOne({ where: { userID: userID } });
     if (!foundUser) {
-      return NextResponse.redirect(`${hostUrl as string}/redirect/?context=steamlinknouser&success=false`, { status: 302 });
+      return NextResponse.redirect(`${hostUrl as string}/redirect/?context=steamlinknouser&success=false`, {
+        status: 302,
+      });
     }
 
     if (foundUser.confirmed === 0) {
-      return NextResponse.redirect(`${hostUrl as string}/redirect/?context=steamlinkemail&success=false`, { status: 302 });
+      return NextResponse.redirect(`${hostUrl as string}/redirect/?context=steamlinkemail&success=false`, {
+        status: 302,
+      });
     }
 
     if (foundUser.userID === steamUser.steamid) {
@@ -55,7 +65,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(`${hostUrl as string}/redirect/?context=steamlink&success=true`, { status: 302 });
   } catch (error) {
     console.log(error);
-    console.log("api/login/steam/authenticate/steamlink/authenticate redirecting to unknown error");
     return NextResponse.redirect(`${hostUrl as string}/redirect/?context=unknown&success=false`, { status: 302 });
   }
 }

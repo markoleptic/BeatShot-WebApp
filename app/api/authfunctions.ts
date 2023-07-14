@@ -1,4 +1,3 @@
-import { NextRequest } from "next/server";
 import openid, { RelyingParty } from "openid";
 import {
   SteamUser,
@@ -14,36 +13,9 @@ import { SESClient } from "@aws-sdk/client-ses";
 import { users } from "@/models";
 import { sign } from "jsonwebtoken";
 
-const URLRegex = /^https?:\/\/steamcommunity\.com\/openid\/id\/\d+$/;
-
-const getPlayerSummariesKey = "/?key=";
-const getPlayerSummariesSteamIds = "&steamids=";
-
-const authUserTicketURL =
-  process.env.NODE_ENV === "production"
-    ? process.env.STEAM_AUTH_USER_TICKET_URL_production
-    : process.env.STEAM_AUTH_USER_TICKET_URL_development;
-
-const getPlayerSummariesURL =
-  process.env.NODE_ENV === "production"
-    ? process.env.STEAM_GET_PLAYER_SUMMARIES_URL_production
-    : process.env.STEAM_GET_PLAYER_SUMMARIES_URL_development;
-
-const steamVerifyUrl =
-  process.env.NODE_ENV === "production"
-    ? process.env.STEAM_VERIFY_URL_production
-    : process.env.STEAM_VERIFY_URL_development;
-
-const steamVerifyLinkAccountUrl =
-  process.env.NODE_ENV === "production"
-    ? process.env.STEAM_VERIFY_LINK_ACCOUNT_URL_production
-    : process.env.STEAM_VERIFY_LINK_ACCOUNT_URL_development;
-
-export const hostUrl =
-  process.env.NODE_ENV === "production" ? process.env.host_production : process.env.host_development;
-
 // creates a relying party for the specific verify Url
 export function createRelyingParty(verifyUrl: string): RelyingParty {
+  const hostUrl = process.env.NODE_ENV === "production" ? process.env.host_production : process.env.host_development;
   return new openid.RelyingParty(
     verifyUrl, // Verification URL
     hostUrl as string,
@@ -53,18 +25,20 @@ export function createRelyingParty(verifyUrl: string): RelyingParty {
   );
 }
 
-// returns a regular steam verify URL if no userID provided, otherwise returns one with userID as searchParam
-export function createSteamVerifyUrl(userID?: string): string {
-  if (userID !== undefined) {
-    return steamVerifyLinkAccountUrl?.concat("?userid=", userID) as string;
-  }
-  return steamVerifyUrl as string;
+// returns a steam verify URL with userID as searchParam
+export function createSteamVerifyLinkAccountUrl(userID: string): string {
+  const steamVerifyLinkAccountUrl =
+    process.env.NODE_ENV === "production"
+      ? process.env.STEAM_VERIFY_LINK_ACCOUNT_URL_production
+      : process.env.STEAM_VERIFY_LINK_ACCOUNT_URL_development;
+  return steamVerifyLinkAccountUrl?.concat("?userid=", userID) as string;
 }
 
 // Associate and return authentication URL
 export async function getRedirectUrl(relyingParty: RelyingParty): Promise<string> {
+  const steamOpenIdUrl = process.env.STEAM_OPENID_URL as string;
   return new Promise<string>((resolve, reject) => {
-    relyingParty.authenticate(process.env.STEAM_OPENID_URL as string, false, (error, authUrl) => {
+    relyingParty.authenticate(steamOpenIdUrl, false, (error, authUrl) => {
       if (error) return reject("Authentication failed: " + error);
       if (!authUrl) return reject("Authentication failed.");
       resolve(authUrl);
@@ -74,6 +48,12 @@ export async function getRedirectUrl(relyingParty: RelyingParty): Promise<string
 
 // Fetch the SteamUser json object
 export async function fetchSteamUser(steamID: string): Promise<SteamUser | string> {
+  const getPlayerSummariesKey = "/?key=";
+  const getPlayerSummariesSteamIds = "&steamids=";
+  const getPlayerSummariesURL =
+    process.env.NODE_ENV === "production"
+      ? process.env.STEAM_GET_PLAYER_SUMMARIES_URL_production
+      : process.env.STEAM_GET_PLAYER_SUMMARIES_URL_development;
   return new Promise<SteamUser | string>(async (resolve, reject) => {
     try {
       const response = await fetch(
@@ -101,8 +81,9 @@ export async function fetchSteamUser(steamID: string): Promise<SteamUser | strin
   });
 }
 
-// calls verifyAssertion on the request
+// calls verifyAssertion using the requestURL and the relyingParty created from a previous request
 export async function authenticateSteamUser(requestURL: string, relyingParty: RelyingParty): Promise<AuthResult> {
+  const URLRegex = /^https?:\/\/steamcommunity\.com\/openid\/id\/\d+$/;
   return new Promise<AuthResult>((resolve, reject) => {
     relyingParty.verifyAssertion(requestURL, async (error, result) => {
       if (error) {
@@ -122,6 +103,10 @@ export async function authenticateSteamUser(requestURL: string, relyingParty: Re
 
 // uses the AuthenticateUserTicket request from the ISteamUserAuthInterface
 export async function authenticateUserTicket(authTicket: string) {
+  const authUserTicketURL =
+    process.env.NODE_ENV === "production"
+      ? process.env.STEAM_AUTH_USER_TICKET_URL_production
+      : process.env.STEAM_AUTH_USER_TICKET_URL_development;
   return new Promise<SteamAuthTicketResponse | SteamAuthTicketResponseError>(async (resolve, reject) => {
     const response = await fetch(
       `${authUserTicketURL}/?key=${process.env.STEAM_API_KEY}&appid=${process.env.BEATSHOT_APPID}&ticket=${authTicket}&identity=${process.env.STEAM_AUTH_TICKET_PCH_IDENTITY}`
@@ -153,7 +138,8 @@ export async function createConfToken(user: users): Promise<string> {
   return confToken;
 }
 
-export async function sendRecoveryEmail(user: users, emailToken: string, origin: string) {
+export async function sendRecoveryEmail(user: users, emailToken: string) {
+  const hostUrl = process.env.NODE_ENV === "production" ? process.env.host_production : process.env.host_development;
   const sesClient = new SESClient({
     credentials: {
       accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
@@ -173,7 +159,7 @@ export async function sendRecoveryEmail(user: users, emailToken: string, origin:
     html: `Hello ${user.displayName},
         <br/>
         <br/>
-        Please click <a href="${origin}/recover/${emailToken}">here</a> to change your password. This link expires in 5 minutes.
+        Please click <a href="${hostUrl}/recover/${emailToken}">here</a> to change your password. This link expires in 5 minutes.
         <br/>
         <br/>
         Happy Shootin,
@@ -183,7 +169,8 @@ export async function sendRecoveryEmail(user: users, emailToken: string, origin:
   return sendMessageInfo;
 }
 
-export async function sendConfEmail(user: users, emailToken: string, origin: string) {
+export async function sendConfEmail(user: users, emailToken: string) {
+  const hostUrl = process.env.NODE_ENV === "production" ? process.env.host_production : process.env.host_development;
   const config: aws.SESClientConfig = {
     credentials: {
       accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
@@ -202,7 +189,7 @@ export async function sendConfEmail(user: users, emailToken: string, origin: str
     html: `Thanks for creating an account with BeatShot, ${user.displayName}!
       <br/>
       <br/>
-      Please click <a href=${origin}/confirmation/${emailToken}>here</a> to confirm your email. This link expires in 24 hours.
+      Please click <a href=${hostUrl}/confirmation/${emailToken}>here</a> to confirm your email. This link expires in 24 hours.
       <br/>
       <br/>
       Happy Shootin,

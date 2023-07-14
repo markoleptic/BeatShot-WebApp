@@ -7,7 +7,6 @@ import { accessTokenLength, refreshTokenLength } from "../interfaces";
 
 export async function POST(req: NextRequest) {
   const { username, email, password } = await req.json();
-  console.log("Logging in")
   if ((username === "" && email === "") || (!username && !email) || !password) {
     return NextResponse.json({ message: "Username/Email and password are required." }, { status: 400 });
   }
