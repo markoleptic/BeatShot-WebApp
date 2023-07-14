@@ -5,6 +5,7 @@ const nextConfig = {
     config.externals.push("sequelize");
     config.externals.push("sequelize-typescript");
     if (!isServer) {
+      config.optimization.minimizer[0].options.terserOptions.compress.drop_console = false;
       config.module.rules.push({
         test: /\.(js|mjs|jsx)$/,
         exclude: /node_modules/,
