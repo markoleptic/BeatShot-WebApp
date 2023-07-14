@@ -13,6 +13,8 @@ const sequelize = new Sequelize({
   dialect: sequelizeConfig.dialect,
   username: sequelizeConfig.username,
   password: sequelizeConfig.password,
+  host: sequelizeConfig.host,
+  port: Number(sequelizeConfig.port),
   models: [users, scores]
 });
 
