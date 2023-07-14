@@ -17,12 +17,6 @@ const nextConfig = {
         },
       });
     }
-    if (isServer) {
-      // Enable console logs on the server side
-      config.node = {
-        console: true,
-      };
-    }
     return config;
   },
   async redirects() {
