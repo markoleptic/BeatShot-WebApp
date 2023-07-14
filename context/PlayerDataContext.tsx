@@ -40,7 +40,6 @@ export const PlayerDataProvider = ({ children }: { children: React.ReactNode }) 
               responseData[scores].difficulty = "None";
             }
           }
-          console.log(responseData)
           setData(responseData);
         } else {
           setErrMsg(responseData.message);
