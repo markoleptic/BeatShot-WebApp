@@ -9,7 +9,7 @@ import React from "react";
 import "./globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
-export const metadata: Metadata = SEO({ title: "BeatShot", type: "website" });
+export const metadata: Metadata = SEO({ title: "BeatShot", type: "website", isRoot: true });
 
 const montserrat = Montserrat({
   weight: ["400", "500", "600", "700", "800", "900"],
