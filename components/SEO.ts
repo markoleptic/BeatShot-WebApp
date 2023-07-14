@@ -1,5 +1,3 @@
-
-const host = process.env.NODE_ENV === "development" ? process.env.host_development : process.env.host_production;
 import { Metadata } from "next";
 import type { OpenGraphType } from "next/dist/lib/metadata/types/opengraph-types";
 
@@ -15,6 +13,7 @@ export interface SEOInterface {
 }
 
 export default function SEO(params: SEOInterface): Metadata {
+  const host = process.env.NODE_ENV === "development" ? process.env.host_development : process.env.host_production;
   let {
     title,
     type,
@@ -29,6 +28,7 @@ export default function SEO(params: SEOInterface): Metadata {
   type = type || "website";
   description = description || "the rhythm-based aim trainer";
   url = url ? `${host}${url}` : `${host}`;
+  const actualUrl = new URL(url);
   twitterCard = twitterCard || "summary";
   let keywords = ["beatshot","game","aim trainer","aim-trainer","rhythm","music"];
   if (clearDefaultKeywords) {
@@ -41,7 +41,7 @@ export default function SEO(params: SEOInterface): Metadata {
   return {
     title: title,
     description: description,
-    metadataBase: new URL(url),
+    metadataBase: actualUrl,
     keywords: keywords,
     alternates: {
       canonical: "/",
@@ -52,7 +52,7 @@ export default function SEO(params: SEOInterface): Metadata {
     openGraph: {
       title: ogTwitterTitle || title,
       description: description,
-      url: new URL(url),
+      url: actualUrl,
       siteName: "BeatShot",
       locale: "en_US",
       type: type,

@@ -4,6 +4,7 @@ export const metadata: Metadata = SEO({
   title: "Sign In | BeatShot",
   type: "website",
   additionalKeywords: ["login", "sign in", "log in", "steam"],
+  url: "/login"
 });
 
 const Layout = ({ children }: { children: React.ReactNode }) => {

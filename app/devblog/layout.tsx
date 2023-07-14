@@ -6,6 +6,7 @@ export const metadata: Metadata = SEO({
   type: "website",
   additionalKeywords: ["beatshot", "game", "unreal", "engine", "c++", "game", "developer"],
   clearDefaultKeywords: true,
+  url: "/devblog"
 });
 
 const Layout = ({ children }: { children: React.ReactNode }) => {

@@ -4,7 +4,7 @@ import AuthCheck from "@/components/Auth/AuthCheck";
 import SEO from "@/components/SEO";
 import { Metadata } from "next";
 import React from "react";
-export const metadata: Metadata = SEO({ title: "Profile | BeatShot", type: "website" });
+export const metadata: Metadata = SEO({ title: "Profile | BeatShot", type: "website", url: "/profile" });
 
 export default function Profile({ children }: { children: React.ReactNode }) {
   return (

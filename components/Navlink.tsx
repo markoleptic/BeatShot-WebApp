@@ -11,7 +11,7 @@ type NavLinkProps = React.PropsWithChildren<LinkProps> & {
 export const NavLink = ({ children, activeClassName = "active", className, ...props }: NavLinkProps) => {
 
   const pathname = usePathname();
-  const isActive = pathname === props.href || pathname === props.as;
+  const isActive = pathname.startsWith(props.href.toString()) || pathname === props.as;
 
   return (
     <Link {...props} className={isActive ? className + ' ' + activeClassName : className}>
