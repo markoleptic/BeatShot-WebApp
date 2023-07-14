@@ -16,7 +16,9 @@ export async function GET(req: NextRequest) {
   console.log("made it inside steam/authenticate/route.ts");
   try {
     // verify
-    const authResult = await authenticateSteamUser(req, createRelyingParty(createSteamVerifyUrl()));
+    const steamVerifyUrl = createSteamVerifyUrl();
+    const relyingParty = createRelyingParty(steamVerifyUrl);
+    const authResult = await authenticateSteamUser(req, relyingParty);
     if (!authResult.result || authResult.status >= 400) {
       return NextResponse.redirect(`${hostUrl as string}/redirect/?context=authsteamuser&success=false`, {
         status: 302,

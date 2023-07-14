@@ -4,7 +4,8 @@ import { getRedirectUrl, createRelyingParty, createSteamVerifyUrl, hostUrl } fro
 // steam login endpoint, returns redirectURL or error
 export async function GET(req: NextRequest) {
   try {
-    const relyingParty = createRelyingParty(createSteamVerifyUrl());
+    const steamVerifyUrl = createSteamVerifyUrl();
+    const relyingParty = createRelyingParty(steamVerifyUrl);
     const authUrl = await getRedirectUrl(relyingParty);
 
     if (authUrl.startsWith("Authentication failed")) {

@@ -56,9 +56,9 @@ export function createRelyingParty(verifyUrl: string): RelyingParty {
 // returns a regular steam verify URL if no userID provided, otherwise returns one with userID as searchParam
 export function createSteamVerifyUrl(userID?: string): string {
   if (userID !== undefined) {
-    return steamVerifyLinkAccountUrl?.concat("?userid=", userID) || "";
+    return steamVerifyLinkAccountUrl?.concat("?userid=", userID) as string;
   }
-  return steamVerifyUrl || "";
+  return steamVerifyUrl as string;
 }
 
 // Associate and return authentication URL
