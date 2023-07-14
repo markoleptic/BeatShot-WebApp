@@ -1,16 +1,11 @@
 /** @type {import('next').NextConfig} */
 /** @type {import('webpack').Configuration} */
-const TerserPlugin = require('terser-webpack-plugin');
+
 const nextConfig = {
   webpack: (config, { buildId, dev, isServer, defaultLoaders, nextRuntime, webpack }) => {
     config.externals.push("sequelize");
     config.externals.push("sequelize-typescript");
     if (!isServer) {
-      config.optimization.minimizer.forEach((minimizer) => {
-        if (minimizer instanceof TerserPlugin) {
-          minimizer.options.terserOptions.compress.drop_console = false;
-        }
-      });
       config.module.rules.push({
         test: /\.(js|mjs|jsx)$/,
         exclude: /node_modules/,
@@ -21,6 +16,12 @@ const nextConfig = {
           },
         },
       });
+    }
+    if (isServer) {
+      // Enable console logs on the server side
+      config.node = {
+        console: true,
+      };
     }
     return config;
   },
