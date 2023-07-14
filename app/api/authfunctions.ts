@@ -106,12 +106,15 @@ export async function authenticateSteamUser(req: NextRequest, relyingParty: Rely
   return new Promise<AuthResult>((resolve, reject) => {
     relyingParty.verifyAssertion(req, async (error, result) => {
       if (error) {
+        console.log(error);
         return reject({ message: error.message, status: 400 } as AuthResult);
       }
       if (!result || !result.authenticated) {
+        console.log("!result || !result.authenticated");
         return reject({ message: "Unable to authenticate", status: 401 } as AuthResult);
       }
       if (!URLRegex.test(result.claimedIdentifier as string)) {
+        console.log("!URLRegex.test(result.claimedIdentifier as string)");
         return reject({ message: "Invalid Claimed Identifier", status: 401 } as AuthResult);
       }
       return resolve({ message: "Verified Assertion", status: 200, result } as AuthResult);

@@ -8,11 +8,12 @@ export async function GET(req: NextRequest) {
     const authUrl = await getRedirectUrl(relyingParty);
 
     if (authUrl.startsWith("Authentication failed")) {
-      return NextResponse.redirect(`${hostUrl}/redirect/?context=createsteamverifyurl&success=false`, { status: 302 });
+      return NextResponse.redirect(`${hostUrl as string}/redirect/?context=createsteamverifyurl&success=false`, { status: 302 });
     } else {
-      return NextResponse.redirect(authUrl, { status: 302 });
+      return NextResponse.redirect(`${authUrl}`, { status: 302 });
     }
   } catch (error) {
-    return NextResponse.redirect(`${hostUrl}/redirect/?context=unknown&success=false`, { status: 302 });
+    console.log(error);
+    return NextResponse.redirect(`${hostUrl as string}/redirect/?context=unknown&success=false`, { status: 302 });
   }
 }

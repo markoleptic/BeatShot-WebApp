@@ -17,7 +17,7 @@ export async function GET(req: NextRequest) {
     // verify
     const authResult = await authenticateSteamUser(req, createRelyingParty(createSteamVerifyUrl()));
     if (!authResult.result || authResult.status >= 400) {
-      return NextResponse.redirect(`${hostUrl}/redirect/?context=authsteamuser&success=false`, { status: 302 });
+      return NextResponse.redirect(`${hostUrl as string}/redirect/?context=authsteamuser&success=false`, { status: 302 });
     }
 
     // fetch SteamUser
@@ -25,7 +25,7 @@ export async function GET(req: NextRequest) {
     steamID.replace(process.env.STEAM_OPENID_URL as string, "")
     const user = await fetchSteamUser(steamID);
     if (!instanceOfSteamUser(user)) {
-      return NextResponse.redirect(`${hostUrl}/redirect/?context=fetchsteamuser&success=false`, { status: 302 });
+      return NextResponse.redirect(`${hostUrl as string}/redirect/?context=fetchsteamuser&success=false`, { status: 302 });
     }
 
     let foundUser = await users.findOne({ where: { userID: user.steamid } });
@@ -57,8 +57,9 @@ export async function GET(req: NextRequest) {
       maxAge: 24 * 60 * 60 * 365 * 5,
     });
 
-    return NextResponse.redirect(`${hostUrl}/profile/${foundUser.userID}`, { status: 302 });
+    return NextResponse.redirect(`${hostUrl as string}/profile/${foundUser.userID}`, { status: 302 });
   } catch (error) {
-    return NextResponse.redirect(`${hostUrl}/redirect/?context=unknown&success=false`, { status: 302 });
+    console.log(error);
+    return NextResponse.redirect(`${hostUrl as string}/redirect/?context=unknown&success=false`, { status: 302 });
   }
 }
