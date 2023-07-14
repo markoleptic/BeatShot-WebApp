@@ -67,6 +67,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(`${hostUrl as string}/profile/${foundUser.userID}`, { status: 302 });
   } catch (error) {
     console.log(error);
+    console.log("api/login/steam/auth redirecting to unknown error");
     return NextResponse.redirect(`${hostUrl as string}/redirect/?context=unknown&success=false`, { status: 302 });
   }
 }

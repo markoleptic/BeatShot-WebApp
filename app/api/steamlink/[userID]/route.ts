@@ -19,6 +19,7 @@ export async function GET(req: NextRequest, { params }: UserIDParams) {
     }
   } catch (error) {
     console.log(error);
+    console.log("api/login/steam/authenticate/steamlink/userid redirecting to unknown error");
     return NextResponse.redirect(`${hostUrl as string}/redirect/?context=unknown&success=false`, { status: 302 });
   }
 }

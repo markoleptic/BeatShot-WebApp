@@ -54,6 +54,7 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(`${hostUrl as string}/redirect/?context=steamlink&success=true`, { status: 302 });
   } catch (error) {
     console.log(error);
+    console.log("api/login/steam/authenticate/steamlink/authenticate redirecting to unknown error");
     return NextResponse.redirect(`${hostUrl as string}/redirect/?context=unknown&success=false`, { status: 302 });
   }
 }
