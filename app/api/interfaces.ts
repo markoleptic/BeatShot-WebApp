@@ -1,6 +1,6 @@
 import { verify } from "jsonwebtoken";
 
-export const accessTokenLength = "5s";
+export const accessTokenLength = "30s";
 export const refreshTokenLength = "1825d";
 export const recoveryTokenLength = "5m";
 export const confirmationTokenLength = "24h";
