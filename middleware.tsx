@@ -13,7 +13,7 @@ export async function middleware(req: NextRequest) {
 
   if (url.pathname.startsWith("/login/steam")) {
     url.pathname = url.pathname.replace("/login/steam", "/api/login/steam");
-    return NextResponse.redirect(url);
+    return NextResponse.rewrite(url);
   }
 
   if (url.pathname.startsWith("/steamlink")) {
