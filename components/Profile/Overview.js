@@ -34,7 +34,6 @@ const ProfileOverview = () => {
       async function AsyncInitPageWrapper(data) {
         await initPage(data);
       }
-      console.log(data);
       if (data) {
         AsyncInitPageWrapper(data);
       }

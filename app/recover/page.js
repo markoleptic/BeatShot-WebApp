@@ -42,7 +42,6 @@ const RecoverAccount = () => {
       }
       setRegMsg(data.message);
     } catch (err) {
-      console.log('catching')
       setSuccessMessage(false);
       setRegMsg("Recovery Failed.");
     }
