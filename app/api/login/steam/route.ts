@@ -16,6 +16,6 @@ export async function GET(req: NextRequest) {
   } catch (error) {
     console.log(error);
     console.log("api/login/steam redirecting to unknown error");
-    return NextResponse.redirect(`${hostUrl as string}/redirect/?context=unknown&success=false`, { status: 302 });
+    return NextResponse.redirect(`${hostUrl as string}/redirect/?context=unknown&success=false&error=${error}`, { status: 302 });
   }
 }
