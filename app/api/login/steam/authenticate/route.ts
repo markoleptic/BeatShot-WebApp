@@ -13,12 +13,11 @@ import {
 
 // return URI from Steam
 export async function GET(req: NextRequest) {
-  console.log("made it inside steam/authenticate/route.ts");
   try {
     // verify
     const steamVerifyUrl = createSteamVerifyUrl();
     const relyingParty = createRelyingParty(steamVerifyUrl);
-    const authResult = await authenticateSteamUser(req, relyingParty);
+    const authResult = await authenticateSteamUser(req.url, relyingParty);
     if (!authResult.result || authResult.status >= 400) {
       return NextResponse.redirect(`${hostUrl as string}/redirect/?context=authsteamuser&success=false`, {
         status: 302,
@@ -67,7 +66,6 @@ export async function GET(req: NextRequest) {
     return NextResponse.redirect(`${hostUrl as string}/profile/${foundUser.userID}`, { status: 302 });
   } catch (error) {
     console.log(error);
-    console.log("api/login/steam/auth redirecting to unknown error");
     return NextResponse.redirect(`${hostUrl as string}/redirect/?context=unknown&success=false&error=${error}`, { status: 302 });
   }
 }
