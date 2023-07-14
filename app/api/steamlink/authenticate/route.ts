@@ -21,7 +21,7 @@ export async function GET(req: NextRequest) {
 
   try {
     // verify
-    const authResult = await authenticateSteamUser(req, createRelyingParty(createSteamVerifyUrl(userID)));
+    const authResult = await authenticateSteamUser(req.url, createRelyingParty(createSteamVerifyUrl(userID)));
     if (!authResult.result || authResult.status > 400 || !authResult.result.authenticated) {
       return NextResponse.redirect(`${hostUrl as string}/redirect/?context=createsteamverifyurl&success=false`, { status: 302 });
     }

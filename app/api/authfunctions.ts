@@ -102,12 +102,9 @@ export async function fetchSteamUser(steamID: string): Promise<SteamUser | strin
 }
 
 // calls verifyAssertion on the request
-export async function authenticateSteamUser(
-  req: NextRequest | string,
-  relyingParty: RelyingParty
-): Promise<AuthResult> {
+export async function authenticateSteamUser(requestURL: string, relyingParty: RelyingParty): Promise<AuthResult> {
   return new Promise<AuthResult>((resolve, reject) => {
-    relyingParty.verifyAssertion(req, async (error, result) => {
+    relyingParty.verifyAssertion(requestURL, async (error, result) => {
       if (error) {
         console.log(error);
         return reject({ message: error.message, status: 400 } as AuthResult);
