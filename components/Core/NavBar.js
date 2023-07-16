@@ -24,13 +24,16 @@ const NavBar = () => {
         <Link className="link" href="/">
           <Image className="logo" src={logo} alt="logo" />
         </Link>
+        <div className="mobile-nav-toggle-background">
         <FontAwesomeIcon
           icon={faBars}
           onClick={() => setVisibilty(!visible)}
           className="mobile-nav-toggle link blue-hover"
           aria-controls="primary-navigation"
           aria-expanded="false"
+          data-visible={visible}
         ></FontAwesomeIcon>
+        </div>
         <nav>
           <ul id="primary-navigation" className="primary-navigation flex fs-300" data-visible={visible}>
             <li className="uppercase">

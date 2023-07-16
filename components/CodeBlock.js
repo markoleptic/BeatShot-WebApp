@@ -15,6 +15,7 @@ const inlineCodeBlockStyle = {
   fontFamily: "inherit",
   padding: "0px",
   lineHeight: "inherit",
+  whiteSpace: "normal",
 };
 
 const codeContainerStyle = {
@@ -82,33 +83,29 @@ const BSInlineCodeBlock = ({
 }) => {
   inlineCodeBlockStyle.lineHeight = lineHeight;
   return (
-    <span className="inline inline-code">
-      <CodeBlock
-        customStyle={{
-          display: "inline",
-          overflowY: "clip",
-          overflowWrap: "anywhere",
-          whiteSpace: "inherit",
-          fontSize: fontSize,
-          lineHeight: lineHeight,
-          padding: padding,
-          color: color,
-        }}
-        text={code}
-        language={language || "c"}
-        showLineNumbers={showLineNumbers || false}
-        theme={regularTheme}
-        codeBlockStyle={inlineCodeBlockStyle}
-        codeContainerStyle={inlineCodeBlockStyle}
-        wrapLines={true}
-      />
-    </span>
+    <CodeBlock
+      text={code}
+      language={language || "c"}
+      showLineNumbers={showLineNumbers || false}
+      theme={regularTheme}
+      codeBlockStyle={inlineCodeBlockStyle}
+      codeContainerStyle={inlineCodeBlockStyle}
+      customStyle={{
+        display: "inline",
+        overflowY: "clip",
+        overflowWrap: "anywhere",
+        fontSize: fontSize,
+        lineHeight: lineHeight,
+        padding: padding,
+        color: color,
+      }}
+      wrapLines={true}
+    />
   );
 };
 
 let inlineTheme = Object.assign({}, dracula);
-inlineTheme.backgroundColor = 'transparent';
-
+inlineTheme.backgroundColor = "transparent";
 const BSInlineFunction = ({
   className,
   functionName,
@@ -139,7 +136,6 @@ const BSInlineFunction = ({
         codeBlockStyle={inlineCodeBlockStyle}
         codeContainerStyle={inlineCodeBlockStyle}
         wrapLines={true}
-        
       />
       <CodeBlock
         customStyle={{

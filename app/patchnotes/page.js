@@ -3,12 +3,7 @@ import React from "react";
 const PatchNotes = () => {
   return (
     <>
-{/*     <SEO 
-      title={"Patch Notes | BeatShot"}
-      type={"website"}
-      description={"patch notes for the rhythm-based aim-trainer"}
-    /> */}
-      <div className="flex-container pn-container">
+      <div className="flex-container-column">
         <div className="content">
           <div className="content-header">
             <h2 className="pn-title">Patch Notes</h2>

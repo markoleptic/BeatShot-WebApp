@@ -510,7 +510,7 @@ const TargetSpawningSystem = () => {
             </div>
           </div>
           <article className="flex-container-column" id="article">
-            <p className="margin-bottom-05rem">
+            <p className="margin-bottom-1rem">
               I wrote this article with the goal that the reader doesn&#39;t need to understand C++ to grasp the main
               concepts that BeatShot uses in its target spawning system. The code blocks are supplementary and I follow
               a general pattern when inserting them: introduce the function and context, insert code block, describe
