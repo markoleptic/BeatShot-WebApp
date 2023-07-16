@@ -1404,7 +1404,7 @@ td.combined > p {
   .mobile-nav-toggle {
     display: block !important;
     z-index: 9999;
-    height: calc(var(--header-height) - 2vh);
+    height: calc(var(--header-height) - 2vh) !important;
     right: 1rem;
     top: 1vh;
     position: absolute;
