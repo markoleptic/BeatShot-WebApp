@@ -305,15 +305,15 @@ const CustomModes = () => {
             <div>
               <LineChart
                 labels={dates}
-                data={scores ? scores.map((value) => value.streak) : ""}
-                myOptions={streakOptions}
+                data={scores ? scores.map((value) => value.completion) : ""}
+                myOptions={completionOptions}
               />
             </div>
             <div>
               <LineChart
                 labels={dates}
-                data={scores ? scores.map((value) => value.completion) : ""}
-                myOptions={completionOptions}
+                data={scores ? scores.map((value) => value.streak) : ""}
+                myOptions={streakOptions}
               />
             </div>
             <div>

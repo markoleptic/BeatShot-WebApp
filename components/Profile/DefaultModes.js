@@ -255,7 +255,7 @@ const DefaultModes = () => {
                 </div>
               </div>
             </div>
-            <div className={"best-avg-container"}>
+            <div id="best-avg" className="chart-scroll best-avg-container">
               <div className="best-container">
                 <ul className="best-list">
                   <li className="table-header">
@@ -313,42 +313,42 @@ const DefaultModes = () => {
             </div>
           </div>
           <div className={"content-main"}>
-            <div>
+            <div id="scores-chart" className="chart-scroll">
               <LineChart
                 labels={dates}
                 data={scores ? scores.map((value) => value.score) : ""}
                 myOptions={scoreOptions}
               />
             </div>
-            <div>
+            <div id="accuracy-chart" className="chart-scroll">
               <LineChart
                 labels={dates}
                 data={scores ? scores.map((value) => value.accuracy) : ""}
                 myOptions={accuracyOptions}
               />
             </div>
-            <div>
-              <LineChart
-                labels={dates}
-                data={scores ? scores.map((value) => value.streak) : ""}
-                myOptions={streakOptions}
-              />
-            </div>
-            <div>
+            <div id="completion-chart" className="chart-scroll">
               <LineChart
                 labels={dates}
                 data={scores ? scores.map((value) => value.completion) : ""}
                 myOptions={completionOptions}
               />
             </div>
-            <div>
+            <div id="streak-chart" className="chart-scroll">
+              <LineChart
+                labels={dates}
+                data={scores ? scores.map((value) => value.streak) : ""}
+                myOptions={streakOptions}
+              />
+            </div>
+            <div id="avg-time-offset-chart" className="chart-scroll">
               <LineChart
                 labels={dates}
                 data={scores ? scores.map((value) => value.timeOffset) : ""}
                 myOptions={avgTimeOffsetOptions}
               />
             </div>
-            <div>
+            <div id="location-accuracy-chart" className="chart-scroll">
               <LocationAccuracyHeatmap
                 labels={null}
                 data={scores ? scores.map((value) => value.locationAccuracy) : ""}

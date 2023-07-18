@@ -33,7 +33,7 @@ export class scores extends Model<scoresAttributes, scoresAttributes> implements
     field: "scoreID",
     primaryKey: true,
     type: DataType.UUID,
-	defaultValue: DataType.UUIDV4,
+	  defaultValue: DataType.UUIDV4,
   })
   @Index({
     name: "PRIMARY",
