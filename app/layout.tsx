@@ -6,7 +6,6 @@ import SEO from "@/components/SEO";
 import AuthUpdate from "@/components/Auth/AuthUpdate";
 import { Roboto, Roboto_Mono, Montserrat } from "next/font/google";
 import React from "react";
-import { GCScript } from "next-goatcounter";
 import "./globals.css";
 import "@fortawesome/fontawesome-svg-core/styles.css";
 
@@ -39,7 +38,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" className={`${montserrat.variable} ${roboto.variable} ${roboto_mono.variable}`}>
       <body>
-        <GCScript siteUrl={"https://site.goatcounter.com/count"} />
+      <script data-goatcounter="https://beatshot.goatcounter.com/count"
+        async src="//gc.zgo.at/count.js"></script>
         <AuthProvider>
           <AuthUpdate>
             <Navbar />
