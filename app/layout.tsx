@@ -7,7 +7,6 @@ import AuthUpdate from "@/components/Auth/AuthUpdate";
 import { Roboto, Roboto_Mono, Montserrat } from "next/font/google";
 import React from "react";
 import "./globals.css";
-import "@fortawesome/fontawesome-svg-core/styles.css";
 
 export const metadata: Metadata = SEO({ title: "BeatShot", type: "website", isRoot: true });
 

@@ -89,7 +89,23 @@ const ChangePassword = ({ params }) => {
     handleRegisterMsg();
   }, [regMsg, checkEmailMsg]);
 
+  const getEmailClassName = () => {
+    if (email.length === 0) return "hide";
+    return validEmail ? "valid" : "invalid";
+  };
+
+  const getPasswordClassName = () => {
+    if (password.length === 0) return "hide";
+    return validPassword ? "valid" : "invalid";
+  };
+
+  const getPasswordMatchClassName = () => {
+    if (passwordMatch.length === 0) return "hide";
+    return validPassword && validPasswordMatch ? "valid" : "invalid";
+  };
+
   return (
+    <div className="flex-container-column padding-1rem">
     <div className="form-container">
       <p className={regMsgClassName} aria-live="assertive">
         {regMsg}
@@ -99,8 +115,7 @@ const ChangePassword = ({ params }) => {
         <div className="label-input-container">
           <label className="form-label" htmlFor="email">
             Email:
-            <FontAwesomeIcon icon={faSquareCheck} className={validEmail ? "valid" : "hide"} />
-            <FontAwesomeIcon icon={faSquareXmark} className={validEmail || !email ? "hide" : "invalid"} />
+            <FontAwesomeIcon icon={validEmail ? faSquareCheck : faSquareXmark} className={getEmailClassName()} />
           </label>
           <input
             className="form-text"
@@ -125,8 +140,10 @@ const ChangePassword = ({ params }) => {
         <div className="label-input-container">
           <label className="form-label" htmlFor="password">
             Password:
-            <FontAwesomeIcon icon={faSquareCheck} className={validPassword ? "valid" : "hide"} />
-            <FontAwesomeIcon icon={faSquareXmark} className={validPassword || !password ? "hide" : "invalid"} />
+            <FontAwesomeIcon
+                  icon={validPassword ? faSquareCheck : faSquareXmark}
+                  className={getPasswordClassName()}
+                />
           </label>
           <input
             className="form-text"
@@ -151,11 +168,10 @@ const ChangePassword = ({ params }) => {
         <div className="label-input-container">
           <label className="form-label" htmlFor="passwordMatch">
             Re-enter Password:
-            <FontAwesomeIcon icon={faSquareCheck} className={validPasswordMatch && passwordMatch ? "valid" : "hide"} />
             <FontAwesomeIcon
-              icon={faSquareXmark}
-              className={validPasswordMatch || !passwordMatch ? "hide" : "invalid"}
-            />
+                  icon={validPasswordMatch && validPassword ? faSquareCheck : faSquareXmark}
+                  className={getPasswordMatchClassName()}
+                />
           </label>
           <input
             className="form-text"
@@ -184,6 +200,7 @@ const ChangePassword = ({ params }) => {
           Back to Login
         </Link>
       </form>
+    </div>
     </div>
   );
 };

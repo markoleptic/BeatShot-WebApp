@@ -85,6 +85,7 @@ const Login = () => {
 
   return (
     <>
+    <div className="flex-container-column padding-1rem">
       <div className="form-container">
         <p className={errMsg ? "errmsg" : "hide"} aria-live="assertive">
           {errMsg}
@@ -138,7 +139,7 @@ const Login = () => {
             />
           </div>
           <div className="persistCheck form-label text-white hover-blue" onClick={onPersistClicked}>
-            <FontAwesomeIcon className="height-1em" icon={checked ? faSquareCheck : faSquare || faSquare} />
+            <FontAwesomeIcon className="height-1em" icon={checked ? faSquareCheck : faSquare} />
             <p className="persistCheck">Trust This Device</p>
           </div>
           <button id="login-button" disabled={!validPassword || (!validEmail && !validUsername) ? true : false}>
@@ -151,6 +152,7 @@ const Login = () => {
             Forgot Password or need another confirmation link?
           </Link>
         </form>
+      </div>
       </div>
     </>
   );

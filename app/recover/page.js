@@ -2,7 +2,7 @@
 import { useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
-import { emailValidates} from "../authfunctions"
+import { emailValidates } from "../authfunctions";
 import Link from "next/link";
 
 const RecoverAccount = () => {
@@ -85,57 +85,62 @@ const RecoverAccount = () => {
 
   return (
     <>
-      <div className="form-container">
-        <p className={regMsgClassName} aria-live="assertive">
-          {regMsg}
-        </p>
-        <h2 className="form-title">Account Recovery</h2>
-        <p className="fs-100 text-lightgrey text-center padding-bottom-05rem">
-          Enter your email and a link to create a new password or confirm your email will be sent to you.
-        </p>
-        <form className="form">
-          <div className="label-input-container">
-            <label className="form-label" htmlFor="email">
-              Email:
-            </label>
-            <input
-              className="form-text"
-              type="email"
-              id="email"
-              placeholder="icantaim@beatshot.gg"
-              autoComplete="on"
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              aria-invalid={validEmail ? "false" : "true"}
-              aria-describedby="emailnote"
-              onFocus={() => setEmailFocus(true)}
-              onBlur={() => setEmailFocus(false)}
-            />
-            <div id="emailnote" className={emailFocus && email && !validEmail ? "instructions-container" : "offscreen"}>
-              <div className="instructions-icon-container">
-                <FontAwesomeIcon icon={faInfoCircle} />
-                <p>Must be a valid email.</p>
+      <div className="flex-container-column padding-1rem">
+        <div className="form-container">
+          <p className={regMsgClassName} aria-live="assertive">
+            {regMsg}
+          </p>
+          <h2 className="form-title">Account Recovery</h2>
+          <p className="fs-100 text-lightgrey text-center padding-bottom-05rem">
+            Enter your email and a link to create a new password or confirm your email will be sent to you.
+          </p>
+          <form className="form">
+            <div className="label-input-container">
+              <label className="form-label" htmlFor="email">
+                Email:
+              </label>
+              <input
+                className="form-text"
+                type="email"
+                id="email"
+                placeholder="icantaim@beatshot.gg"
+                autoComplete="on"
+                onChange={(e) => setEmail(e.target.value)}
+                required
+                aria-invalid={validEmail ? "false" : "true"}
+                aria-describedby="emailnote"
+                onFocus={() => setEmailFocus(true)}
+                onBlur={() => setEmailFocus(false)}
+              />
+              <div
+                id="emailnote"
+                className={emailFocus && email && !validEmail ? "instructions-container" : "offscreen"}
+              >
+                <div className="instructions-icon-container">
+                  <FontAwesomeIcon icon={faInfoCircle} />
+                  <p>Must be a valid email.</p>
+                </div>
               </div>
             </div>
-          </div>
-          <button
-            disabled={!validEmail ? true : false}
-            className="button-recover margin-top-05rem"
-            onClick={onSendPasswordRecoveryLinkClicked}
-          >
-            Send Password Recovery Link
-          </button>
-          <button
-            disabled={!validEmail ? true : false}
-            className="button-recover"
-            onClick={onResendEmailConfirmationClicked}
-          >
-            Resend Email Confirmation Link
-          </button>
-          <Link className="link text-center text-white hover-blue fs-100 margin-top-05rem" href="/register">
-            Don&#39;t have an account?
-          </Link>
-        </form>
+            <button
+              disabled={!validEmail ? true : false}
+              className="button-recover margin-top-05rem"
+              onClick={onSendPasswordRecoveryLinkClicked}
+            >
+              Send Password Recovery Link
+            </button>
+            <button
+              disabled={!validEmail ? true : false}
+              className="button-recover"
+              onClick={onResendEmailConfirmationClicked}
+            >
+              Resend Email Confirmation Link
+            </button>
+            <Link className="link text-center text-white hover-blue fs-100 margin-top-05rem" href="/register">
+              Don&#39;t have an account?
+            </Link>
+          </form>
+        </div>
       </div>
     </>
   );

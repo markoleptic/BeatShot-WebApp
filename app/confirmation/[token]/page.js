@@ -30,8 +30,6 @@ const Page = ({ params }) => {
       }, 2000);
     }
   };
-
-  //setConfirmationResult(butt);
   useEffect(() => {
     sendRequest(params);
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -39,11 +37,7 @@ const Page = ({ params }) => {
 
   return (
     <>
-      {/* <SEO title={"Confirm Email | BeatShot"} 
-    type={"website"} 
-    description={"the rhythm-based aim-trainer"} 
-    url="/confirmation"
-    /> */}
+    <div className="flex-container-column padding-1rem">
       <div className="confirmation-container">
         <p className="fs-200  text-lightgrey">{confirmationResult}</p>
         <p className={redirectClassName}>You will automatically be redirected to the login page.</p>
@@ -52,6 +46,7 @@ const Page = ({ params }) => {
             {buttonText}
           </button>
         </Link>
+      </div>
       </div>
     </>
   );

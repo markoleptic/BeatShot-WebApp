@@ -798,7 +798,6 @@ button:disabled:hover {
 /* -------------------------- */
 
 .form-container {
-  position: relative;
   width: auto;
   max-width: 400px;
   margin-left: auto;
@@ -811,11 +810,9 @@ button:disabled:hover {
   gap: 0.5rem;
   font-size: 1rem;
   border-radius: 0.25rem;
-  top: 1rem;
 }
 
 .confirmation-container {
-  position: relative;
   max-width: 200px;
   max-width: 400px;
   margin-left: auto;
@@ -847,6 +844,8 @@ form {
 }
 .form-label {
   font-size: var(--fs-100);
+  display:flex;
+  align-items: center;
 }
 .form-text {
   font-size: var(--fs-200);
@@ -854,6 +853,7 @@ form {
   border: none;
   padding: 0.15rem;
   border-radius: 0.25rem;
+  width: 100%;
 }
 .label-input-container {
   display: flex;
@@ -953,16 +953,18 @@ form {
   left: -9999px;
 }
 .hide {
-  display: none;
+  display: none !important;
 }
 .show {
-  display: inline-block;
+  display: inline-block !important;
 }
 .valid {
+  display: inline-block !important;
   color: limegreen;
   margin-left: 0.25rem;
 }
 .invalid {
+  display: inline-block !important;
   color: red;
   margin-left: 0.25rem;
 }
@@ -1348,6 +1350,101 @@ td.combined > p {
   display: none !important;
 }
 
+
+.stats-loading-div {
+  height: 100%;
+  width: 100%;
+}
+
+.steam-login-container {
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+  width: max-content;
+}
+.steam-login-container:hover {
+  cursor: pointer;
+  color: hsl(var(--clr-beatshot-lightblue));
+}
+.steam-login-container-top {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-color: hsl(var(--clr-sidebar));
+  border-radius: 0.25rem 0.25rem 0 0;
+  padding: 0.25rem 0.75rem;
+  gap: 0.25rem;
+}
+.steam-login-container-bottom {
+  background-color: black;
+  border-radius: 0 0 0.25rem 0.25rem;
+  padding: 0.25rem 0.75rem;
+}
+.steam-login-text {
+  color: inherit;
+  font-weight: 400;
+  font-size: 0.65rem;
+}
+.steam-login-brand-text {
+  display: inline;
+  color: inherit;
+  font-weight: 600;
+  font-size: 1.25rem;
+  vertical-align: text-top;
+}
+.steam-login-tm {
+  display: inline;
+  color: inherit;
+  font-size: 0.4rem;
+  font-weight: 400;
+  vertical-align: super;
+}
+.steam-login-logo {
+  color: inherit !important;
+  height: 1.75rem !important;
+  width: auto !important;
+}
+.steam-login-text-bottom {
+  color: hsl(var(--clr-beatshot-lightgrey));
+  text-align: center;
+  font-size: 0.6rem;
+}
+.loading-container {
+  padding-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+.loading-text {
+  font-weight: var(--fw-600);
+  text-shadow: 0 0 4px rgba(62, 198, 235, 1);
+  color: rgba(62, 198, 235, 1);
+}
+
+.video {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  padding-top: 56.25%;
+  border-radius: 0.25rem;
+}
+.responsive-iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  width: 100%;
+  height: 100%;
+}
+.chart-scroll {
+  scroll-margin-top: calc(var(--header-height) + 0.5rem);
+}
+
+
 /*---------------*/
 /* mobile toggle */
 /*---------------*/
@@ -1485,6 +1582,9 @@ td.combined > p {
   }
   .stats-subtitle {
     max-width: 100%;
+  }
+  .steam-login-container {
+    width: auto;
   }
 }
 
@@ -1748,95 +1848,4 @@ td.combined > p {
 .height-1em {
   height: 1em;
 }
-.stats-loading-div {
-  height: 100%;
-  width: 100%;
-}
 
-.steam-login-container {
-  display: flex;
-  flex-direction: column;
-  margin: 0 auto;
-  width: max-content;
-}
-.steam-login-container:hover {
-  cursor: pointer;
-  color: hsl(var(--clr-beatshot-lightblue));
-}
-.steam-login-container-top {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-  background-color: hsl(var(--clr-sidebar));
-  border-radius: 0.25rem 0.25rem 0 0;
-  padding: 0.25rem 0.75rem;
-  gap: 0.25rem;
-}
-.steam-login-container-bottom {
-  background-color: black;
-  border-radius: 0 0 0.25rem 0.25rem;
-  padding: 0.25rem 0.75rem;
-}
-.steam-login-text {
-  color: inherit;
-  font-weight: 400;
-  font-size: 0.65rem;
-}
-.steam-login-brand-text {
-  display: inline;
-  color: inherit;
-  font-weight: 600;
-  font-size: 1.25rem;
-  vertical-align: text-top;
-}
-.steam-login-tm {
-  display: inline;
-  color: inherit;
-  font-size: 0.4rem;
-  font-weight: 400;
-  vertical-align: super;
-}
-.steam-login-logo {
-  color: inherit;
-  height: 1.75rem;
-  width: auto;
-}
-.steam-login-text-bottom {
-  color: hsl(var(--clr-beatshot-lightgrey));
-  text-align: center;
-  font-size: 0.6rem;
-}
-.loading-container {
-  padding-top: 1rem;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-}
-.loading-text {
-  font-weight: var(--fw-600);
-  text-shadow: 0 0 4px rgba(62, 198, 235, 1);
-  color: rgba(62, 198, 235, 1);
-}
-
-.video {
-  position: relative;
-  overflow: hidden;
-  width: 100%;
-  padding-top: 56.25%;
-  border-radius: 0.25rem;
-}
-.responsive-iframe {
-  position: absolute;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  right: 0;
-  width: 100%;
-  height: 100%;
-}
-.chart-scroll {
-  scroll-margin-top: calc(var(--header-height) + 0.5rem);
-}
