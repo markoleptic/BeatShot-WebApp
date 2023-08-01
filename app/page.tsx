@@ -14,11 +14,11 @@ export default function Home() {
             <Video />
           </Suspense>
           <Link
-            href="https://store.steampowered.com/app/2126580/BeatShot/"
+            href="https://store.steampowered.com/app/2126580/?utm_source=beatshot_website&utm_medium=web"
             className="link hover-blue fw-semibold"
             referrerPolicy="strict-origin-when-cross-origin"
           >
-            Wishlist on Steam!
+            Purchase On Steam!
           </Link>
         </div>
         <div className="home-centered-bordered-container">
