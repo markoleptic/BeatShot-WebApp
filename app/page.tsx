@@ -14,7 +14,7 @@ export default function Home() {
             <Video />
           </Suspense>
           <Link
-            href="https://store.steampowered.com/app/2126580/?utm_source=beatshot_website&utm_medium=web"
+            href="https://store.steampowered.com/app/2126580?utm_source=beatshotwebsite&utm_medium=web"
             className="link hover-blue fw-semibold"
             referrerPolicy="strict-origin-when-cross-origin"
           >

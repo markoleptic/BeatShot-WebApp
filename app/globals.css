@@ -672,13 +672,14 @@ article .updated-date {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin: auto;
+  margin: 0 auto auto auto;
   gap: 0.75rem;
   width: 100%;
   max-width: 800px;
   background-color: hsl(var(--clr-beatshot-darkblue));
   box-shadow: 0rem 0rem 0.25rem 0rem hsl(var(--clr-beatshot-lightblue));
   border-radius: 0.25rem;
+  padding: 1rem;
 }
 .centered-bordered-container-nogap {
   display: flex;
@@ -1005,13 +1006,13 @@ form {
 /* top level size */
 .pn-container > ul > li {
   font-size: var(--fs-400);
-  line-height: 1.25;
+  line-height: 1.1;
   font-weight: 700;
 }
 /* 2nd level size */
 .pn-container > ul > li > ul {
   font-size: var(--fs-200);
-  line-height: 1.25;
+  line-height: 1.1;
   font-weight: 400;
 }
 
@@ -1064,7 +1065,6 @@ form {
 .pn-container > ul ul > li ~ li {
   padding-top: 0.15em;
 }
-
 .pn-container > ul > li > ul {
   padding-top: 0.3em;
 }
@@ -1073,7 +1073,7 @@ form {
 .pn-container ul > p {
   padding: 0em 0em 0.3em 0em;
   font-size: var(--fs-200);
-  line-height: 1.25;
+  line-height: 1.1;
   font-weight: 400;
   text-indent: 0em;
   color: white;
@@ -1094,6 +1094,27 @@ form {
   font-weight: 500;
   text-shadow: 0 0 4px rgba(62, 198, 235, 1);
   color: rgba(62, 198, 235, 1);
+}
+
+.pn-version-number {
+  font-weight: 600;
+  color: white;
+  font-size: var(--fs-h3);
+  /*color: rgba(62, 198, 235, 1);*/
+}
+.pn-date {
+  display: flex;
+  justify-content: flex-end;
+  font-size: var(--fs-100);
+  letter-spacing: 0.05rem;
+  text-align: end;
+}
+.pn-version-date {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  line-height: 1.1rem;
+  padding-bottom:1rem;
 }
 
 /* .pn-container ul {
@@ -1129,24 +1150,6 @@ form {
   font-size: calc(var(--fs-200) * 0.9);
   width: calc(var(--fs-200) * 0.9);
   padding-right: 0.25em;
-}
-.pn-version-number {
-  font-size: var(--fs-300);
-  font-weight: 600;
-  color: rgba(62, 198, 235, 1);
-}
-.pn-date {
-  display: flex;
-  justify-content: flex-end;
-  font-size: var(--fs-100);
-  letter-spacing: 0.05rem;
-  text-align: end;
-}
-.pn-version-date {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  line-height: 1.1rem;
 }
 .pn-wrapper ul {
   display: flex;
