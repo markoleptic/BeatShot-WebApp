@@ -17,7 +17,7 @@ const PatchNotes = () => {
               >
                 Version 0.5.1
               </Link>
-              <p className="pn-date">August 8, 2023</p>
+              <p className="pn-date">August 4, 2023</p>
             </div>
             <ul>
               <p className="fs-300">
