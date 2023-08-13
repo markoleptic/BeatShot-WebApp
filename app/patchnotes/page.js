@@ -77,7 +77,7 @@ const PatchNotes = () => {
                 <ul>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>Fixed an issue where DLSS settings were not properly initializing.</p>
+                    <p>Fixed an issue where DLSS settings were not properly initializing for graphics cards not supported by DLSS.</p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
