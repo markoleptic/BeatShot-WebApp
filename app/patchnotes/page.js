@@ -81,6 +81,10 @@ const PatchNotes = () => {
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
+                    <p>Fixed an issue where DLSS Super Resolution Auto Mode was not correctly finding the optimal DLSS settings.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
                     <p>Improved DLSS Setting functionality.</p>
                   </li>
                 </ul>
