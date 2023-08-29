@@ -9,7 +9,286 @@ const PatchNotes = () => {
       <div className="flex-container-column gap-1rem padding-1rem">
         <h2 className="pn-title">Patch Notes</h2>
 
-        <div className="centered-bordered-container">
+        <div className="centered-bordered-container-1000">
+          <div className="pn-container">
+            <div className="pn-version-date">
+              <Link
+                className="link hover-blue fw-semibold pn-version-number"
+                href="https://store.steampowered.com/news/app/2126580/view/3678932376665208608?utm_source=beatshotwebsite&utm_medium=web"
+              >
+                0.5.3
+              </Link>
+              <p className="pn-date">August 29, 2023</p>
+            </div>
+            <ul>
+              <p className="fs-300">
+                This update enables players to preview game modes while editing them, modifies some custom game modes
+                options, and adjusts lighting for different scenarios.
+              </p>
+              <li>
+                <FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+                <p className="fs-300">Custom Game Modes</p>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      Added a new window to the Custom Game Modes Menu: <b>Creator View</b>
+                    </p>
+                    <ul>
+                      <p></p>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                          The top half shows a preview of the currently selected game mode with all features you see
+                          while playing (besides forward movement).
+                        </p>
+                      </li>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>The bottom half contains carousel which shows one custom game mode category at a time.</p>
+                      </li>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                          Make a change to any setting and quickly see the result by pressing the <i>Refresh Preview</i>{" "}
+                          button.
+                        </p>
+                      </li>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>Every target in the preview is damaged during its activation window if possible.</p>
+                      </li>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                          The old Custom Game Modes Menu is still available, and is now called <b>Property View</b>.
+                        </p>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      Changing default game modes and difficulties in the Default Game Mode Menu no longer changes the
+                      Custom Game Mode options. It now requires pressing the <i>Customize Selected</i> button.
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      Combined the <b>Game Mode Name</b> and <b>Base Game Mode</b> combo boxes into{" "}
+                      <b>Game Mode Template</b>.
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      Added new Spawning option: <b>Apply Velocity On Spawn</b>
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      Added new General option: <b>Infinite Health</b>
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      Replaced the <i>Save and Start</i> button with the <i>Start</i> button. It will still prompt you
+                      asking if you wish to overwrite, but only if you&#39;ve made any changes to the custom game mode
+                      you&#39;ve selected.
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      Replaced the <b>Lifetime Target Scaling Policy</b> option with the Target Activation Response:{" "}
+                      <b>Apply Lifetime Target Scaling</b>.
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      Replaced the <b>Move Targets Forward</b> option with the Moving Target Direction Mode:{" "}
+                      <b>Forward Only</b>.
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      Renamed the <b>Move Forward Distance</b> option to <b>Forward Spread</b>.
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Target Activation Responses:</p>
+                    <ul>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                          Added: <b>Apply Consecutive Target Scale</b>, <b>Apply Lifetime Target Scaling</b>
+                        </p>
+                      </li>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                          Removed: <b>Change Scale</b>
+                        </p>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Target Deactivation Responses:</p>
+                    <ul>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                          Added: <b>Apply Deactivated Target Scale Multiplier</b>, <b>Reset Scale To Activated Scale</b>
+                          , <b>Reset Position To Activated Position</b>
+                        </p>
+                      </li>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>Renamed: </p>
+                        <ul>
+                          <li>
+                            <FontAwesomeIcon icon={faPlay} />
+                            <p>
+                              <b>Reset Position</b> is now <b>Reset Position To Spawned Position</b>.
+                            </p>
+                          </li>
+                          <li>
+                            <FontAwesomeIcon icon={faPlay} />
+                            <p>
+                              <b>Reset Scale</b> is now <b>Reset Scale To Spawned Scale</b>.
+                            </p>
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Moving Target Direction Mode:</p>
+                    <ul>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                          <b>Horizontal Only</b> now forces targets to only move horizontally after bounces.
+                        </p>
+                      </li>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                          <b>Vertical Only</b> now forces targets to only move vertically after bounces.
+                        </p>
+                      </li>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                          <b>Alternate Horizontal Vertical</b> now forces targets to only move horizontally or
+                          vertically after bounces. Now alternates the starting direction between target spawns. Each
+                          subsequent activation of a target will also alternate, starting from the direction they
+                          spawned with.
+                        </p>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Target Distribution Policy:</p>
+                    <ul>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                          A warning now appears if the Target Distribution Policy is Headshot Height Only and AI is
+                          enabled.
+                        </p>
+                      </li>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                          If the Target Distribution Policy is Grid, the Horizontal Spread and Vertical Spread options
+                          are now automatically set to max, and their options hidden.
+                        </p>
+                      </li>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                          The Target Activation Selection Policy option is now hidden when the Target Distribution
+                          Policy is not Grid, since it only has an effect for Grid.
+                        </p>
+                      </li>
+                    </ul>
+                  </li>
+
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Updated many tooltips.</p>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+                <p className="fs-300">FAQ</p>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                    Updated the Game Modes section.
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                    Added content to the Audio Analyzer section.
+                    </p>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+                <p className="fs-300">Lighting</p>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                    The spotlights on the ceiling have been replaced with a rectangular light provides better lighting coverage when in night mode.
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                    A spotlight has been added that lights up the spawn area when in night mode.
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                    The brightness when playing on low global illumination settings now better matches the brightness when playing on other quality levels.
+                    </p>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+                <p className="fs-300">Video Settings</p>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                    Fixed an issue where the resolution scale was showing infinite values.
+                    </p>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="centered-bordered-container-1000">
           <div className="pn-container">
             <div className="pn-version-date">
               <Link
@@ -21,8 +300,9 @@ const PatchNotes = () => {
               <p className="pn-date">August 13, 2023</p>
             </div>
             <ul>
-            <p className="fs-300">
-                This update enables custom game mode sharing, adds visual hit timing feedback, and addresses some video settings bugs.
+              <p className="fs-300">
+                This update enables custom game mode sharing, adds visual hit timing feedback, and addresses some video
+                settings bugs.
               </p>
               <li>
                 <FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
@@ -43,9 +323,7 @@ const PatchNotes = () => {
                       </li>
                       <li>
                         <FontAwesomeIcon icon={faPlay} />
-                        <p>
-                        Useful for game modes that spawn all targets upfront.
-                        </p>
+                        <p>Useful for game modes that spawn all targets upfront.</p>
                       </li>
                       <li>
                         <FontAwesomeIcon icon={faPlay} />
@@ -67,7 +345,10 @@ const PatchNotes = () => {
                 <ul>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>Added a hit timing overlay to the player HUD. It&#39;s enabled by default but can be turned off in the game settings menu.</p>
+                    <p>
+                      Added a hit timing overlay to the player HUD. It&#39;s enabled by default but can be turned off in
+                      the game settings menu.
+                    </p>
                   </li>
                 </ul>
               </li>
@@ -77,11 +358,17 @@ const PatchNotes = () => {
                 <ul>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>Fixed an issue where DLSS settings were not properly initializing for graphics cards not supported by DLSS.</p>
+                    <p>
+                      Fixed an issue where DLSS settings were not properly initializing for graphics cards not supported
+                      by DLSS.
+                    </p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>Fixed an issue where DLSS Super Resolution Auto Mode was not correctly finding the optimal DLSS settings.</p>
+                    <p>
+                      Fixed an issue where DLSS Super Resolution Auto Mode was not correctly finding the optimal DLSS
+                      settings.
+                    </p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
@@ -93,7 +380,7 @@ const PatchNotes = () => {
           </div>
         </div>
 
-        <div className="centered-bordered-container">
+        <div className="centered-bordered-container-1000">
           <div className="pn-container">
             <div className="pn-version-date">
               <Link
@@ -145,7 +432,6 @@ const PatchNotes = () => {
             </ul>
           </div>
         </div>
-
       </div>
     </>
   );

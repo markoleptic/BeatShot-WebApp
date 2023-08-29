@@ -706,7 +706,20 @@ article .updated-date {
   margin-left: auto;
   margin-right: auto;
 }
-
+.centered-bordered-container-1000 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 0 auto auto auto;
+  gap: 0.75rem;
+  width: 100%;
+  max-width: 1000px;
+  background-color: hsl(var(--clr-beatshot-darkblue));
+  box-shadow: 0rem 0rem 0.25rem 0rem hsl(var(--clr-beatshot-lightblue));
+  border-radius: 0.25rem;
+  padding: 1rem;
+}
 .home-header {
   display: flex;
   justify-content: center;
@@ -1024,23 +1037,23 @@ form {
 
 /* space between 1st */
 .pn-container > ul > li ~ li {
-  padding-top: 0.2em;
+  padding-top: 0.25em;
 } 
 /* space between 1st and first 2nd */
 .pn-container > ul ul > li {
-  padding-top: 0.2em;
+  padding-top: 0.25em;
 }
 /* space between 2nd */
 .pn-container > ul ul > li ~ li {
-  padding-top: 0.2em;
+  padding-top: 0.25em;
 }
 /* space between 2nd and first 3rd */
 .pn-container > ul ul ul > li {
-  padding-top: 0.2em;
+  padding-top: 0.25em;
 }
 /* space between 3rd */
 .pn-container > ul ul ul > li ~ li {
-  padding-top: 0.2em;
+  padding-top: 0.25em;
 }
 
 /* Description p before 1st */
