@@ -1105,7 +1105,7 @@ form {
 /* 2nd level indent/padding */
 .pn-container ul ul li {
   text-indent: -1em;
-  padding-left: 1.25em;
+  padding-left: 1.40em;
 }
 
 /* top level icons */
@@ -1117,8 +1117,8 @@ form {
 /* 2nd level icons */
 .pn-container ul ul svg {
   height: auto;
-  width: 0.75em;
-  padding-right: 0.25em;
+  width: 0.60em;
+  padding-right: 0.40em;
 }
 
 .pn-wrapper {
@@ -1157,6 +1157,13 @@ form {
   align-items: center;
   line-height: 1.1rem;
   padding-bottom: 0.3em;
+}
+
+.pn-dev-note {
+  color: hsl(var(--clr-beatshot-lightblue));
+  text-indent: 0em!important;
+  padding-left: 0em!important;
+  line-height: 1.25em!important;
 }
 
 /* .pn-container ul {

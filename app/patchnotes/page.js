@@ -8,7 +8,6 @@ const PatchNotes = () => {
     <>
       <div className="flex-container-column gap-1rem padding-1rem">
         <h2 className="pn-title">Patch Notes</h2>
-
         <div className="centered-bordered-container-1000">
           <div className="pn-container">
             <div className="pn-version-date">
@@ -18,7 +17,7 @@ const PatchNotes = () => {
               >
                 0.5.3
               </Link>
-              <p className="pn-date">August 29, 2023</p>
+              <p className="pn-date">August 31, 2023</p>
             </div>
             <ul>
               <p className="fs-300">
@@ -122,6 +121,13 @@ const PatchNotes = () => {
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      The Target Activation/Deactivation Response: Change Direction is no longer explicitly required for
+                      velocity changing to have an effect.
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
                     <p>Target Activation Responses:</p>
                     <ul>
                       <li>
@@ -176,23 +182,43 @@ const PatchNotes = () => {
                       <li>
                         <FontAwesomeIcon icon={faPlay} />
                         <p>
-                          <b>Horizontal Only</b> now forces targets to only move horizontally after bounces.
+                          Horizontal Only now forces targets to only move horizontally after bounces.
                         </p>
                       </li>
                       <li>
                         <FontAwesomeIcon icon={faPlay} />
                         <p>
-                          <b>Vertical Only</b> now forces targets to only move vertically after bounces.
+                          Vertical Only now forces targets to only move vertically after bounces.
                         </p>
                       </li>
                       <li>
                         <FontAwesomeIcon icon={faPlay} />
                         <p>
-                          <b>Alternate Horizontal Vertical</b> now forces targets to only move horizontally or
+                          Alternate Horizontal Vertical now forces targets to only move horizontally or
                           vertically after bounces. Now alternates the starting direction between target spawns. Each
                           subsequent activation of a target will also alternate, starting from the direction they
                           spawned with.
                         </p>
+                      </li>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                          A warning now appears if None is selected and any of the following options:
+                        </p>
+                        <ul>
+                          <li>
+                            <FontAwesomeIcon icon={faPlay} />
+                            <p>Apply Velocity On Spawn</p>
+                          </li>
+                          <li>
+                            <FontAwesomeIcon icon={faPlay} />
+                            <p>Target Activation Response: Change Velocity or Change Direction</p>
+                          </li>
+                          <li>
+                            <FontAwesomeIcon icon={faPlay} />
+                            <p>Target Deactivation Response: Change Velocity or Change Direction</p>
+                          </li>
+                        </ul>
                       </li>
                     </ul>
                   </li>
@@ -202,31 +228,56 @@ const PatchNotes = () => {
                     <ul>
                       <li>
                         <FontAwesomeIcon icon={faPlay} />
-                        <p>
-                          A warning now appears if the Target Distribution Policy is Headshot Height Only and AI is
-                          enabled.
-                        </p>
+                        <p>A warning now appears if Headshot Height Only is selected and AI is enabled.</p>
                       </li>
                       <li>
                         <FontAwesomeIcon icon={faPlay} />
                         <p>
-                          If the Target Distribution Policy is Grid, the Horizontal Spread and Vertical Spread options
-                          are now automatically set to max, and their options hidden.
+                          When Grid is selected, the following options are now set to read-only and their values
+                          changed:
                         </p>
+                        <ul>
+                          <li>
+                            <FontAwesomeIcon icon={faPlay} />
+                            <p>The Horizontal Spread and Vertical Spread are set to their max values.</p>
+                          </li>
+                          <li>
+                            <FontAwesomeIcon icon={faPlay} />
+                            <p>The Bounds Scaling Policy is set to Static.</p>
+                          </li>
+                          <li className="pn-dev-note">
+                            <p className="pn-dev-note">
+                              <i>
+                                Since these settings have no effect on Grid, it makes sense to relay that information to
+                                the player. However, Grid will likely support Bounds Scaling Policy in the future.
+                              </i>
+                            </p>
+                          </li>
+                        </ul>
                       </li>
                       <li>
                         <FontAwesomeIcon icon={faPlay} />
-                        <p>
-                          The Target Activation Selection Policy option is now hidden when the Target Distribution
-                          Policy is not Grid, since it only has an effect for Grid.
-                        </p>
+                        <p>When Grid is NOT selected, the following options are hidden:</p>
+                        <ul>
+                          <li>
+                            <FontAwesomeIcon icon={faPlay} />
+                            <p>Target Activation Selection Policy</p>
+                          </li>
+                        </ul>
                       </li>
                     </ul>
                   </li>
-
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
                     <p>Updated many tooltips.</p>
+                  </li>
+                  <li className="pn-dev-note">
+                    <p>
+                      <i>
+                        The goal with these changes is to give players more flexibility when changing the position,
+                        velocity, and scale of targets at different points in their life cycle.
+                      </i>
+                    </p>
                   </li>
                 </ul>
               </li>
@@ -236,15 +287,11 @@ const PatchNotes = () => {
                 <ul>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>
-                    Updated the Game Modes section.
-                    </p>
+                    <p>Updated the Game Modes section.</p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>
-                    Added content to the Audio Analyzer section.
-                    </p>
+                    <p>Added content to the Audio Analyzer section.</p>
                   </li>
                 </ul>
               </li>
@@ -255,19 +302,19 @@ const PatchNotes = () => {
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
                     <p>
-                    The spotlights on the ceiling have been replaced with a rectangular light provides better lighting coverage when in night mode.
+                      The spotlights on the ceiling have been replaced with a rectangular light provides better lighting
+                      coverage when in night mode.
                     </p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>
-                    A spotlight has been added that lights up the spawn area when in night mode.
-                    </p>
+                    <p>A spotlight has been added that lights up the spawn area when in night mode.</p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
                     <p>
-                    The brightness when playing on low global illumination settings now better matches the brightness when playing on other quality levels.
+                      The brightness when playing on low global illumination settings now better matches the brightness
+                      when playing on other quality levels.
                     </p>
                   </li>
                 </ul>
@@ -278,9 +325,7 @@ const PatchNotes = () => {
                 <ul>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>
-                    Fixed an issue where the resolution scale was showing infinite values.
-                    </p>
+                    <p>Fixed an issue where the resolution scale was showing infinite values.</p>
                   </li>
                 </ul>
               </li>
