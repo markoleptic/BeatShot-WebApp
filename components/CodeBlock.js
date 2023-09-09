@@ -40,14 +40,7 @@ const customStyle = {
 let regularTheme = Object.assign({}, dracula);
 regularTheme.backgroundColor = backGroundColor;
 
-const BSCodeBlock = ({
-  code,
-  language,
-  showLineNumbers,
-  fontSize = "inherit",
-  maxHeight = "inherit",
-  lineHeight = "inherit",
-}) => {
+const BSCodeBlock = ({ code, language, showLineNumbers, fontSize = "inherit", maxHeight = "inherit", lineHeight = "inherit" }) => {
   customStyle.fontSize = fontSize;
   customStyle.lineHeight = lineHeight;
   codeBlockStyle.lineHeight = lineHeight;
@@ -107,8 +100,8 @@ const BSInlineCodeBlock = ({
 let inlineTheme = Object.assign({}, dracula);
 inlineTheme.backgroundColor = "transparent";
 const BSInlineFunction = ({
-  className,
-  functionName,
+  className = "",
+  functionName = "",
   language = "c",
   showLineNumbers = false,
   fontSize = "inherit",
@@ -117,78 +110,87 @@ const BSInlineFunction = ({
   inlineCodeBlockStyle.lineHeight = lineHeight;
   return (
     <span className="inline-code-bg">
-      <CodeBlock
-        customStyle={{
-          display: "inline",
-          overflowY: "clip",
-          overflowWrap: "anywhere",
-          whiteSpace: "inherit",
-          fontSize: fontSize,
-          lineHeight: lineHeight,
-          borderRadius: "3px 0 0 3px",
-          padding: "0 0 0 0.1em",
-          color: "inherit",
-        }}
-        text={className}
-        language={language}
-        showLineNumbers={showLineNumbers}
-        theme={inlineTheme}
-        codeBlockStyle={inlineCodeBlockStyle}
-        codeContainerStyle={inlineCodeBlockStyle}
-        wrapLines={true}
-      />
-      <CodeBlock
-        customStyle={{
-          display: "inline",
-          overflowY: "clip",
-          overflowWrap: "anywhere",
-          whiteSpace: "inherit",
-          fontSize: fontSize,
-          lineHeight: lineHeight,
-          borderRadius: "0",
-          padding: "0",
-          color: "white",
-        }}
-        text={"::"}
-        language={language}
-        showLineNumbers={showLineNumbers}
-        theme={inlineTheme}
-        codeBlockStyle={inlineCodeBlockStyle}
-        codeContainerStyle={inlineCodeBlockStyle}
-        wrapLines={true}
-      />
-      <CodeBlock
-        customStyle={{
-          display: "inline",
-          overflowY: "clip",
-          overflowWrap: "anywhere",
-          whiteSpace: "inherit",
-          fontSize: fontSize,
-          lineHeight: lineHeight,
-          borderRadius: "0 3px 3px 0",
-          padding: "0 0.1em 0 0",
-          color: "rgb(80, 250, 123)",
-        }}
-        text={functionName}
-        language={language}
-        showLineNumbers={showLineNumbers}
-        theme={inlineTheme}
-        codeBlockStyle={inlineCodeBlockStyle}
-        codeContainerStyle={inlineCodeBlockStyle}
-        wrapLines={true}
-      />
+      {className.length === 0 ? (
+        <></>
+      ) : (
+        <>
+          <CodeBlock
+            customStyle={{
+              display: "inline",
+              overflowY: "clip",
+              overflowWrap: "anywhere",
+              whiteSpace: "inherit",
+              fontSize: fontSize,
+              lineHeight: lineHeight,
+              borderRadius: "3px 0 0 3px",
+              padding: "0 0 0 0.1em",
+              color: "inherit",
+            }}
+            text={className}
+            language={language}
+            showLineNumbers={showLineNumbers}
+            theme={inlineTheme}
+            codeBlockStyle={inlineCodeBlockStyle}
+            codeContainerStyle={inlineCodeBlockStyle}
+            wrapLines={true}
+          />
+          {functionName.length === 0 || className.length === 0 ? (
+            <></>
+          ) : (
+            <CodeBlock
+              customStyle={{
+                display: "inline",
+                overflowY: "clip",
+                overflowWrap: "anywhere",
+                whiteSpace: "inherit",
+                fontSize: fontSize,
+                lineHeight: lineHeight,
+                borderRadius: "0",
+                padding: "0",
+                color: "white",
+              }}
+              text={"::"}
+              language={language}
+              showLineNumbers={showLineNumbers}
+              theme={inlineTheme}
+              codeBlockStyle={inlineCodeBlockStyle}
+              codeContainerStyle={inlineCodeBlockStyle}
+              wrapLines={true}
+            />
+          )}
+        </>
+      )}
+      {functionName.length === 0 ? (
+        <></>
+      ) : (
+        <>
+          <CodeBlock
+            customStyle={{
+              display: "inline",
+              overflowY: "clip",
+              overflowWrap: "anywhere",
+              whiteSpace: "inherit",
+              fontSize: fontSize,
+              lineHeight: lineHeight,
+              borderRadius: "0 3px 3px 0",
+              padding: "0 0.1em 0 0",
+              color: "rgb(80, 250, 123)",
+            }}
+            text={functionName}
+            language={language}
+            showLineNumbers={showLineNumbers}
+            theme={inlineTheme}
+            codeBlockStyle={inlineCodeBlockStyle}
+            codeContainerStyle={inlineCodeBlockStyle}
+            wrapLines={true}
+          />
+        </>
+      )}
     </span>
   );
 };
 
-const BSInlineEnum = ({
-  className,
-  valueName,
-  language = "c",
-  showLineNumbers = false,
-  fontSize = "inherit",
-  lineHeight = "inherit",
-}) => {
+const BSInlineEnum = ({ className, valueName, language = "c", showLineNumbers = false, fontSize = "inherit", lineHeight = "inherit" }) => {
   inlineCodeBlockStyle.lineHeight = lineHeight;
   return (
     <span className="inline-code-bg">
