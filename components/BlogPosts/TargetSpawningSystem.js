@@ -13,6 +13,7 @@ import image_SpawnMemory_Dynamic_FewRecent from "../../public/SpawnMemory_Dynami
 import image_SpawnMemory_Dynamic_ManyRecent from "../../public/SpawnMemory_Dynamic_ManyRecent.png";
 import React from "react";
 import { BlogHeading, BlogHeadingClass } from "./BlogComponents/BlogHeading";
+import Sidebar from "../Sidebar";
 
 const OnAudioAnalyzerBeat = `void ATargetManager::OnAudioAnalyzerBeat()
 {
@@ -308,189 +309,187 @@ const TargetSpawningSystem = () => {
           </div>
         </div>
         <div className="flex-container-row">
-          <div className="sidebar-container left">
-            <div className="sidebar-main">
-              <ul>
-                <li>
-                  <SidebarHashLink hash={`#classes-header`} text="Classes" onScreen={onScreen_Classes} topLevelLink={true} />
-                  <ul>
-                    <li>
-                      <SidebarHashLink hash={`#classes-USpawnArea`} text="Spawn Area" onScreen={onScreen_Classes && onScreen_USpawnArea} />
-                    </li>
-                    <li>
-                      <SidebarHashLink
-                        hash={`#classes-ATargetManager`}
-                        text="Target Manager"
-                        onScreen={onScreen_Classes && !onScreen_USpawnArea && onScreen_ATargetManager}
-                      />
-                      <ul>
-                        <li>
-                          <SidebarHashLink
-                            hash={`#classes-UBoxComponent`}
-                            text="Box Components"
-                            onScreen={onScreen_Classes && !onScreen_USpawnArea && onScreen_ATargetManager && onScreen_UBoxComponent}
-                          />
-                        </li>
-                        <li>
-                          <SidebarHashLink
-                            hash={`#classes-UReinforcementLearningComponent`}
-                            text="Reinforcement Learning Component"
-                            onScreen={
-                              onScreen_Classes &&
-                              !onScreen_USpawnArea &&
-                              onScreen_ATargetManager &&
-                              !onScreen_UBoxComponent &&
-                              onScreen_UReinforcementLearningComponent
-                            }
-                          />
-                        </li>
-                        <li>
-                          <SidebarHashLink
-                            hash={`#classes-USpawnAreaManagerComponent`}
-                            text="Spawn Area Manager Component"
-                            onScreen={
-                              onScreen_Classes &&
-                              !onScreen_USpawnArea &&
-                              onScreen_ATargetManager &&
-                              !onScreen_UReinforcementLearningComponent &&
-                              onScreen_USpawnAreaManagerComponent
-                            }
-                          />
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <SidebarHashLink
-                        hash={`#classes-ATarget`}
-                        text="Target"
-                        onScreen={onScreen_Classes && !onScreen_ATargetManager && onScreen_ATarget}
-                      />
-                      <ul>
-                        <li>
-                          <SidebarHashLink
-                            hash={`#classes-UProjectileMovementComponent`}
-                            text="Projectile Movement Component"
-                            onScreen={
-                              onScreen_Classes && !onScreen_ATargetManager && onScreen_ATarget && onScreen_UProjectileMovementComponent
-                            }
-                          />
-                        </li>
-                        <li>
-                          <SidebarHashLink
-                            hash={`#classes-UBSAbilitySystemComponent`}
-                            text="Ability System Component"
-                            onScreen={
-                              onScreen_Classes &&
-                              !onScreen_ATargetManager &&
-                              onScreen_ATarget &&
-                              !onScreen_UProjectileMovementComponent &&
-                              onScreen_UBSAbilitySystemComponent
-                            }
-                          />
-                        </li>
-                        <li>
-                          <SidebarHashLink
-                            hash={`#classes-UBSHealthComponent`}
-                            text="Health Component"
-                            onScreen={
-                              onScreen_Classes &&
-                              !onScreen_ATargetManager &&
-                              onScreen_ATarget &&
-                              !onScreen_UBSAbilitySystemComponent &&
-                              onScreen_UBSHealthComponent
-                            }
-                          />
-                        </li>
-                      </ul>
-                    </li>
-                    <li>
-                      <SidebarHashLink
-                        hash={`#classes-ABSGameMode`}
-                        text="BSGameMode"
-                        onScreen={onScreen_Classes && !onScreen_ATarget && onScreen_ABSGameMode}
-                      />
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <SidebarHashLink
-                    hash={`#target-lifecycle`}
-                    text="Target Lifecycle"
-                    onScreen={!onScreen_Classes && onScreen_TargetLifeCycle}
-                    topLevelLink={true}
-                  />
-                  <ul>
-                    <li>
-                      <SidebarHashLink
-                        hash={`#target-lifecycle-Initialization`}
-                        text="Initialization"
-                        onScreen={!onScreen_Classes && onScreen_TargetLifeCycle && onScreen_Initialization}
-                      />
-                    </li>
-                    <li>
-                      <SidebarHashLink
-                        hash={`#target-lifecycle-Spawning`}
-                        text="Spawning"
-                        onScreen={!onScreen_Classes && onScreen_TargetLifeCycle && !onScreen_Initialization && onScreen_Spawning}
-                      />
-                    </li>
-                    <li>
-                      <SidebarHashLink
-                        hash={`#target-lifecycle-Activation`}
-                        text="Activation"
-                        onScreen={
-                          !onScreen_Classes &&
-                          onScreen_TargetLifeCycle &&
-                          !onScreen_Initialization &&
-                          !onScreen_Spawning &&
-                          onScreen_Activation
-                        }
-                      />
-                    </li>
-                    <li>
-                      <SidebarHashLink
-                        hash={`#target-lifecycle-Deactivation`}
-                        text="Deactivation"
-                        onScreen={
-                          !onScreen_Classes &&
-                          onScreen_TargetLifeCycle &&
-                          !onScreen_Initialization &&
-                          !onScreen_Spawning &&
-                          !onScreen_Activation &&
-                          onScreen_Deactivation
-                        }
-                      />
-                    </li>
-                    <li>
-                      <SidebarHashLink
-                        hash={`#target-lifecycle-Destruction`}
-                        text="Destruction"
-                        onScreen={
-                          !onScreen_Classes &&
-                          onScreen_TargetLifeCycle &&
-                          !onScreen_Initialization &&
-                          !onScreen_Spawning &&
-                          !onScreen_Activation &&
-                          !onScreen_Deactivation &&
-                          onScreen_Destruction
-                        }
-                      />
-                    </li>
-                  </ul>
-                </li>
-                <li>
-                  <SidebarHashLink
-                    href={articlePath.concat(`#conclusion`)}
-                    hash={`#conclusion`}
-                    text="Conclusion"
-                    passHref={true}
-                    onScreen={!onScreen_TargetLifeCycle && onScreen_Conclusion}
-                    topLevelLink={true}
-                  />
-                </li>
-              </ul>
-            </div>
-          </div>
+          <Sidebar>
+            <ul>
+              <li>
+                <SidebarHashLink hash={`#classes-header`} text="Classes" onScreen={onScreen_Classes} topLevelLink={true} />
+                <ul>
+                  <li>
+                    <SidebarHashLink hash={`#classes-USpawnArea`} text="Spawn Area" onScreen={onScreen_Classes && onScreen_USpawnArea} />
+                  </li>
+                  <li>
+                    <SidebarHashLink
+                      hash={`#classes-ATargetManager`}
+                      text="Target Manager"
+                      onScreen={onScreen_Classes && !onScreen_USpawnArea && onScreen_ATargetManager}
+                    />
+                    <ul>
+                      <li>
+                        <SidebarHashLink
+                          hash={`#classes-UBoxComponent`}
+                          text="Box Components"
+                          onScreen={onScreen_Classes && !onScreen_USpawnArea && onScreen_ATargetManager && onScreen_UBoxComponent}
+                        />
+                      </li>
+                      <li>
+                        <SidebarHashLink
+                          hash={`#classes-UReinforcementLearningComponent`}
+                          text="Reinforcement Learning Component"
+                          onScreen={
+                            onScreen_Classes &&
+                            !onScreen_USpawnArea &&
+                            onScreen_ATargetManager &&
+                            !onScreen_UBoxComponent &&
+                            onScreen_UReinforcementLearningComponent
+                          }
+                        />
+                      </li>
+                      <li>
+                        <SidebarHashLink
+                          hash={`#classes-USpawnAreaManagerComponent`}
+                          text="Spawn Area Manager Component"
+                          onScreen={
+                            onScreen_Classes &&
+                            !onScreen_USpawnArea &&
+                            onScreen_ATargetManager &&
+                            !onScreen_UReinforcementLearningComponent &&
+                            onScreen_USpawnAreaManagerComponent
+                          }
+                        />
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <SidebarHashLink
+                      hash={`#classes-ATarget`}
+                      text="Target"
+                      onScreen={onScreen_Classes && !onScreen_ATargetManager && onScreen_ATarget}
+                    />
+                    <ul>
+                      <li>
+                        <SidebarHashLink
+                          hash={`#classes-UProjectileMovementComponent`}
+                          text="Projectile Movement Component"
+                          onScreen={
+                            onScreen_Classes && !onScreen_ATargetManager && onScreen_ATarget && onScreen_UProjectileMovementComponent
+                          }
+                        />
+                      </li>
+                      <li>
+                        <SidebarHashLink
+                          hash={`#classes-UBSAbilitySystemComponent`}
+                          text="Ability System Component"
+                          onScreen={
+                            onScreen_Classes &&
+                            !onScreen_ATargetManager &&
+                            onScreen_ATarget &&
+                            !onScreen_UProjectileMovementComponent &&
+                            onScreen_UBSAbilitySystemComponent
+                          }
+                        />
+                      </li>
+                      <li>
+                        <SidebarHashLink
+                          hash={`#classes-UBSHealthComponent`}
+                          text="Health Component"
+                          onScreen={
+                            onScreen_Classes &&
+                            !onScreen_ATargetManager &&
+                            onScreen_ATarget &&
+                            !onScreen_UBSAbilitySystemComponent &&
+                            onScreen_UBSHealthComponent
+                          }
+                        />
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <SidebarHashLink
+                      hash={`#classes-ABSGameMode`}
+                      text="BSGameMode"
+                      onScreen={onScreen_Classes && !onScreen_ATarget && onScreen_ABSGameMode}
+                    />
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <SidebarHashLink
+                  hash={`#target-lifecycle`}
+                  text="Target Lifecycle"
+                  onScreen={!onScreen_Classes && onScreen_TargetLifeCycle}
+                  topLevelLink={true}
+                />
+                <ul>
+                  <li>
+                    <SidebarHashLink
+                      hash={`#target-lifecycle-Initialization`}
+                      text="Initialization"
+                      onScreen={!onScreen_Classes && onScreen_TargetLifeCycle && onScreen_Initialization}
+                    />
+                  </li>
+                  <li>
+                    <SidebarHashLink
+                      hash={`#target-lifecycle-Spawning`}
+                      text="Spawning"
+                      onScreen={!onScreen_Classes && onScreen_TargetLifeCycle && !onScreen_Initialization && onScreen_Spawning}
+                    />
+                  </li>
+                  <li>
+                    <SidebarHashLink
+                      hash={`#target-lifecycle-Activation`}
+                      text="Activation"
+                      onScreen={
+                        !onScreen_Classes &&
+                        onScreen_TargetLifeCycle &&
+                        !onScreen_Initialization &&
+                        !onScreen_Spawning &&
+                        onScreen_Activation
+                      }
+                    />
+                  </li>
+                  <li>
+                    <SidebarHashLink
+                      hash={`#target-lifecycle-Deactivation`}
+                      text="Deactivation"
+                      onScreen={
+                        !onScreen_Classes &&
+                        onScreen_TargetLifeCycle &&
+                        !onScreen_Initialization &&
+                        !onScreen_Spawning &&
+                        !onScreen_Activation &&
+                        onScreen_Deactivation
+                      }
+                    />
+                  </li>
+                  <li>
+                    <SidebarHashLink
+                      hash={`#target-lifecycle-Destruction`}
+                      text="Destruction"
+                      onScreen={
+                        !onScreen_Classes &&
+                        onScreen_TargetLifeCycle &&
+                        !onScreen_Initialization &&
+                        !onScreen_Spawning &&
+                        !onScreen_Activation &&
+                        !onScreen_Deactivation &&
+                        onScreen_Destruction
+                      }
+                    />
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <SidebarHashLink
+                  href={articlePath.concat(`#conclusion`)}
+                  hash={`#conclusion`}
+                  text="Conclusion"
+                  passHref={true}
+                  onScreen={!onScreen_TargetLifeCycle && onScreen_Conclusion}
+                  topLevelLink={true}
+                />
+              </li>
+            </ul>
+          </Sidebar>
           <article className="flex-container-column" id="article">
             <p>
               I wrote this article with the goal that the reader doesn&#39;t need to understand C++ to grasp the main concepts that BeatShot

@@ -324,29 +324,40 @@ div.sidebar-container {
   background: hsl(var(--clr-sidebar));
 }
 div.sidebar-container.centered {
+  display: flex;
+  align-self: flex-start;
+  flex-direction: column;
   min-width: 250px;
   max-width: 250px;
   font-size: var(--fs-300);
   text-align: center;
+  padding: 1rem 0 1rem 0;
   background: hsl(var(--clr-beatshot-darkblue));
+  top: var(--header-height);
+  position: sticky;
 }
 div.sidebar-container.left {
+  display: flex;
+  align-self: flex-start;
+  flex-direction: column;
   min-width: 200px;
   max-width: 200px;
   font-size: var(--fs-75);
   text-align: left;
+  padding: 1rem 0 1rem 0;
   background: hsl(var(--clr-beatshot-darkblue));
+  top: var(--header-height);
+  position: sticky;
+  max-height: 92.5vh;
 }
 div.sidebar-main {
-  display: flex;
-  position: sticky;
-  align-self: flex-start;
-  flex-direction: column;
   width: 100%;
-  padding: 1rem 0 1rem 0;
-  gap: 0.5rem;
   top: var(--header-height);
+  gap: 0.5rem;
+  top: 1rem;
+  bottom: 1rem;
   color: hsl(var(--clr-white));
+  overflow-y: scroll;
 }
 
 /* All unordered sidebar lists */
@@ -473,6 +484,15 @@ article ul li {
   padding-left: calc((var(--fs-200) * 0.9) + 0.25em);
   text-indent: calc(calc((var(--fs-200) * 0.9) + 0.25em) * -1);
 }
+
+/*article ul > li ~ li,*/
+article ul ul > li:first-of-type,
+/*article ul ul > li ~ li,*/
+article ul ul ul > li:first-of-type
+/*article ul ul ul > li ~ li*/
+ {
+  padding-top: 0.25rem;
+} 
 article ol li {
   font-size: var(--fs-200);
   list-style-type: decimal;
@@ -507,10 +527,11 @@ article figure {
 }
 .blueprint {
   flex-grow: 1;
-  border:none;
-  margin:0;
-  padding:0;
+  border: none;
+  margin: 0;
+  padding: 0;
   min-height: 40vh;
+  overflow: hidden;
 }
 .blueprint-container {
   display: flex;
@@ -520,6 +541,7 @@ article figure {
   border-radius: 0.25rem;
   width: 100%;
   padding: 0.5rem;
+  overflow: hidden;
 }
 .blueprint-container figcaption {
   font-size: var(--fs-100);
@@ -1010,6 +1032,8 @@ form {
   text-align: center;
   text-decoration: none;
   outline: none;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
 }
 .profile-name-text:hover {
   text-shadow: 0 0 4px hsl(var(--clr-white));
@@ -1925,4 +1949,9 @@ td.combined > p {
 .height-1em {
   height: 1em;
 }
-
+.max-width-75 {
+  max-width: 75% !important;
+}
+.max-width-1000 {
+  max-width: 1000px !important;
+}

@@ -55,7 +55,7 @@ const getCodeBlock = (childClass: string, childClassLink: string) => {
     return <BSInlineCodeBlock code={childClass} padding={"0 0.1em"} language={"c"} showLineNumbers={false} />;
   }
   return (
-    <Link className= "link inherit-color hover-white" href={childClassLink}>
+    <Link className="link inherit-color hover-white" href={childClassLink}>
       <BSInlineCodeBlock code={childClass} padding={"0 0.1em"} language={"c"} showLineNumbers={false} />
     </Link>
   );
@@ -68,12 +68,6 @@ type BlogHeadingClassProps = {
   compOf?: string;
   compOfText?: string;
   childClassLink?: string;
-};
-
-type BlogHeadingProps = {
-  headingText: string;
-  headingLevel: number;
-  color?: string;
 };
 
 const BlogHeadingClass = ({
@@ -98,6 +92,12 @@ const BlogHeadingClass = ({
       <span className="line-bottom" />
     </div>
   );
+};
+
+type BlogHeadingProps = {
+  headingText: string;
+  headingLevel: number;
+  color?: string;
 };
 
 const getHeadingText = (headingText: string, headingLevel: number, color: string) => {
