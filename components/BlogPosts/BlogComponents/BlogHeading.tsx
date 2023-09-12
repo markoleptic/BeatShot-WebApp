@@ -3,6 +3,20 @@ import React from "react";
 import { BSInlineCodeBlock } from "@/components/CodeBlock";
 import Link from "next/link";
 
+const getBaseClassText = (baseClass: string) => {
+  if (baseClass.length === 0) {
+    return <></>;
+  }
+  return (
+    <>
+      <h4 className="inline vert-align-middle"> inherits from </h4>
+      <h4 className="inline-code-header">
+        <BSInlineCodeBlock code={baseClass} padding={"0 0.1em"} language={"c"} showLineNumbers={false} />
+      </h4>
+    </>
+  );
+};
+
 const getComponentOfText = (compOf: string, compOfText: string) => {
   if (compOf.length === 0) {
     return <></>;
@@ -18,75 +32,74 @@ const getComponentOfText = (compOf: string, compOfText: string) => {
   );
 };
 
-const getChildClassText = (headingLevel: number, childClass: string, childClassLink: string) => {
+const getChildClassText = (headingLevel: number, childClass: string, childClassLink: string, childClassColor: string) => {
   if (headingLevel === 0) {
     return <></>;
   }
   if (headingLevel === 1) {
     return (
       <>
-        <h1 className="inline-code-header">{getCodeBlock(childClass, childClassLink)}</h1>
+        <h1 className="inline-code-header">{getCodeBlock(childClass, childClassLink, childClassColor)}</h1>
       </>
     );
   }
   if (headingLevel === 2) {
     return (
       <>
-        <h2 className="inline-code-header">{getCodeBlock(childClass, childClassLink)}</h2>
+        <h2 className="inline-code-header">{getCodeBlock(childClass, childClassLink, childClassColor)}</h2>
       </>
     );
   }
   if (headingLevel === 3) {
     return (
       <>
-        <h3 className="inline-code-header">{getCodeBlock(childClass, childClassLink)}</h3>
+        <h3 className="inline-code-header">{getCodeBlock(childClass, childClassLink, childClassColor)}</h3>
       </>
     );
   }
   return (
     <>
-      <h4 className="inline-code-header">{getCodeBlock(childClass, childClassLink)}</h4>
+      <h4 className="inline-code-header">{getCodeBlock(childClass, childClassLink, childClassColor)}</h4>
     </>
   );
 };
 
-const getCodeBlock = (childClass: string, childClassLink: string) => {
+const getCodeBlock = (childClass: string, childClassLink: string, childClassColor: string) => {
   if (childClassLink.length === 0) {
-    return <BSInlineCodeBlock code={childClass} padding={"0 0.1em"} language={"c"} showLineNumbers={false} />;
+    return <BSInlineCodeBlock color={childClassColor} code={childClass} padding={"0 0.1em"} language={"c"} showLineNumbers={false} />;
   }
   return (
     <Link className="link inherit-color hover-white" href={childClassLink}>
-      <BSInlineCodeBlock code={childClass} padding={"0 0.1em"} language={"c"} showLineNumbers={false} />
+      <BSInlineCodeBlock color={childClassColor} code={childClass} padding={"0 0.1em"} language={"c"} showLineNumbers={false} />
     </Link>
   );
 };
 
 type BlogHeadingClassProps = {
-  baseClass: string;
   childClass: string;
+  baseClass?: string;
   headingLevel: number;
   compOf?: string;
   compOfText?: string;
   childClassLink?: string;
+  childClassColor?: string;
 };
 
 const BlogHeadingClass = ({
-  baseClass,
   childClass,
+  baseClass = "",
   headingLevel,
   compOf = "",
   compOfText = "component of ",
   childClassLink = "",
+  childClassColor = "inherit"
 }: BlogHeadingClassProps) => {
   return (
     <div className="article-heading">
       <span className="line-top" />
       <div className="inline">
-        {getChildClassText(headingLevel, childClass, childClassLink)}
-        <h4 className="inline vert-align-middle"> inherits from </h4>
-        <h4 className="inline-code-header">
-          <BSInlineCodeBlock code={baseClass} padding={"0 0.1em"} language={"c"} showLineNumbers={false} />
-        </h4>
+        {getChildClassText(headingLevel, childClass, childClassLink, childClassColor)}
+        {getBaseClassText(baseClass)}
         {getComponentOfText(compOf, compOfText)}
       </div>
       <span className="line-bottom" />

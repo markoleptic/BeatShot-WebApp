@@ -1,5 +1,6 @@
 "use client"
 import image_TargetSpawningSystem_teaser from "../../public/TargetSpawningSystem-teaser.png";
+import image_Hero from "../../public/GAS_Diagram.png";
 import Link from 'next/link';
 import Image from "next/image";
 import { useRouter } from 'next/navigation'
@@ -51,7 +52,7 @@ const BlogPostsMain = () => {
                 Article
                 <time dateTime="2023-09-10">September 10, 2023 </time>
               </p>
-              <Image src={image_TargetSpawningSystem_teaser} alt="TargetSpawningSystem-teaser" />
+              <Image src={image_Hero} alt="TargetSpawningSystem-teaser" />
               <div className="card-label">
                 <Link className="link" href="/devblog/target-spawning-system">
                 An Overview of Unreal&#39;s Gameplay Ability System in BeatShot

@@ -247,6 +247,7 @@ div.hero-container {
   align-items: baseline;
   vertical-align: baseline;
   font-size: var(--fs-200);
+
 }
 .card .card-sub-label {
   font-size: var(--fs-100);
@@ -262,6 +263,7 @@ div .card-label {
   display: flex;
   margin-top: 0.5rem;
   line-height: 1.1;
+  font-weight: var(--fw-600);
 }
 
 h1 {
@@ -428,20 +430,21 @@ article div {
   flex-direction: column;
   scroll-margin-top: var(--header-height);
 }
-.article-section {
-  gap: 0.5rem;
-}
-.article-subsection {
-  gap: 0.5rem;
-}
-.article-subsection-2 {
-  gap: 0.5rem;
-}
 
 .article-heading {
   gap: 0.1rem;
   justify-content: center;
   align-content: center;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+/* base spacing used between all elements */
+.article-section,
+.article-subsection,
+.article-subsection-2
+{
+  gap: 0.5rem;
 }
 
 /* Header lines */
@@ -472,6 +475,7 @@ article ul {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
+  line-height: 1.35;
 }
 article ol {
   font-size: var(--fs-200);
@@ -483,13 +487,10 @@ article ul li {
   font-size: var(--fs-200);
   padding-left: calc((var(--fs-200) * 0.9) + 0.25em);
   text-indent: calc(calc((var(--fs-200) * 0.9) + 0.25em) * -1);
+  vertical-align: baseline;
 }
-
-/*article ul > li ~ li,*/
 article ul ul > li:first-of-type,
-/*article ul ul > li ~ li,*/
 article ul ul ul > li:first-of-type
-/*article ul ul ul > li ~ li*/
  {
   padding-top: 0.25rem;
 } 

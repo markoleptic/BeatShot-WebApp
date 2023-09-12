@@ -2,32 +2,30 @@
 import React, { ReactNode, useEffect } from "react";
 
 interface SidebarProps {
-  activeLinks?: string[];
   children: ReactNode;
 }
-const Sidebar: React.FC<SidebarProps> = ({ activeLinks = [], children }) => {
-  const handleHashLinkScroll = () => {
-    const sidebarContainer = document.querySelector<HTMLElement>(".sidebar-main");
-    if (sidebarContainer) {
-      // Loop through the activeLinks and scroll them into view
-      const hashLinks = document.querySelectorAll(".sidebar-hash-link.link.active");
-      let lastLink = hashLinks[length - 1];
-      if (lastLink instanceof HTMLElement) {
-        lastLink.scrollIntoView({ behavior: "instant" });
-      }
+
+const scrollHash = () => {
+  const sidebarContainer = document.querySelector<HTMLElement>(".sidebar-main");
+  if (sidebarContainer) {
+    const hashLinks = document.querySelectorAll(".sidebar-hash-link.link.active");
+    let lastLink = hashLinks[hashLinks.length - 1];
+    if (lastLink instanceof HTMLElement) {
+      lastLink.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
     }
-  };
+  }
+};
+
+const Sidebar: React.FC<SidebarProps> = ({ children }) => {
   useEffect(() => {
     const handleScroll = () => {
       const sidebarContainer = document.querySelector<HTMLElement>(".sidebar-main");
       const footer = document.querySelector<HTMLElement>(".footer-container");
 
       if (sidebarContainer && footer) {
-
         const rect = footer.getBoundingClientRect();
         const visibleRectHeight = window.innerHeight - rect.top;
         const maxSidebarHeight = window.innerHeight - rect.height * 2;
-        console.log(sidebarContainer.offsetHeight, maxSidebarHeight);
 
         if (visibleRectHeight < 0) {
           if (sidebarContainer.style.marginTop != "0px") {
@@ -37,12 +35,11 @@ const Sidebar: React.FC<SidebarProps> = ({ activeLinks = [], children }) => {
         }
 
         if (sidebarContainer.offsetHeight <= maxSidebarHeight && sidebarContainer.style.marginTop === "0px") {
-
-            if (sidebarContainer.style.marginTop != "0px") {
-              sidebarContainer.style.marginTop = "0px";
-            }
-            return;
+          if (sidebarContainer.style.marginTop != "0px") {
+            sidebarContainer.style.marginTop = "0px";
           }
+          return;
+        }
 
         if (rect.top < window.innerHeight) {
           sidebarContainer.style.marginTop = visibleRectHeight + "px";
@@ -52,12 +49,21 @@ const Sidebar: React.FC<SidebarProps> = ({ activeLinks = [], children }) => {
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
+    const handleHashLinkScroll = () => {
+      if (timer !== undefined) {
+        clearTimeout(timer);
+      }
+      timer = setTimeout(scrollHash, 111);
+    };
 
+    let timer: ReturnType<typeof setTimeout>;
+    window.addEventListener("scroll", handleScroll);
+    window.addEventListener("scroll", handleHashLinkScroll);
     return () => {
       window.removeEventListener("scroll", handleScroll);
+      window.removeEventListener("scroll", handleHashLinkScroll);
     };
-  }, [activeLinks]);
+  }, []);
 
   return (
     <div className="sidebar-container left">
