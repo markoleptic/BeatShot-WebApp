@@ -18,15 +18,16 @@ const getBaseClassText = (baseClass: string, headingLevel: number) => {
   );
 };
 
-const getComponentOfText = (compOf: string, compOfText: string) => {
+const getComponentOfText = (compOf: string, compOfText: string, headingLevel: number) => {
   if (compOf.length === 0) {
     return <></>;
   }
+  let fontSize = headingLevel == 1 ? "fs-400" : headingLevel == 2 ? "fs-300" : headingLevel == 3 ? "fs-200" : headingLevel == 4 ? "fs-100" : "fs-200";
   return (
     <>
       <h4 className="align-self-center fs-400"> | </h4>
       <h4 className="align-self-center fs-100">{compOfText}</h4>
-      <h4 className="inline-code-header">
+      <h4 className={"inline-code-header "+ fontSize}>
         <BSInlineCodeBlock code={compOf} padding={"0 0.1em"} language={"c"} showLineNumbers={false} />
       </h4>
     </>
@@ -101,7 +102,7 @@ const BlogHeadingClass = ({
       <div className="article-heading-content ">
         {getChildClassText(headingLevel, childClass, childClassLink, childClassColor)}
         {getBaseClassText(baseClass, headingLevel - 1)}
-        {getComponentOfText(compOf, compOfText)}
+        {getComponentOfText(compOf, compOfText, headingLevel - 1)}
       </div>
       <div className="line-bottom"></div>
     </div>

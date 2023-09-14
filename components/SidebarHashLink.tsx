@@ -25,18 +25,18 @@ export const SidebarHashLink = ({ children, hash, text, onScreen, topLevelLink, 
   };
 
   return (
-    <Link
-      {...props}
-      href={pathname + hash}
-      replace={true}
-      passHref
-      scroll={true}
-      /*onClick={(e) => onBtnClick(e, pathname + hash, hash)}*/
-      className={"sidebar-hash-link " + getSidebarClassName()}
-    >
-      {text}
-      {children}
-    </Link>
+      <Link
+        {...props}
+        href={pathname + hash}
+        replace={true}
+        passHref
+        scroll={true}
+        /*onClick={(e) => onBtnClick(e, pathname + hash, hash)}*/
+        className={"sidebar-hash-link " + getSidebarClassName()}
+      >
+        {text}
+        {children}
+      </Link>
   );
 };
 

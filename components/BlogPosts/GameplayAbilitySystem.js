@@ -18,21 +18,21 @@ import Sidebar from "../Sidebar";
 const GameplayAbilitySystem = () => {
   const articlePath = "/devblog/gameplay-ability-system-overview";
 
-  const Ref_gasSc = useRef(null);
-  const Ref_gasSc_asc = useRef(null);
-  const Ref_gasSc_ga = useRef(null);
-  const Ref_gasSc_ga_fireGun = useRef(null);
-  const Ref_gasSc_ga_trackGun = useRef(null);
-  const Ref_gasSc_asb = useRef(null);
-  const Ref_ge = useRef(null);
-  const Ref_ge_tarImm = useRef(null);
-  const Ref_ge_fireCD = useRef(null);
-  const Ref_ac = useRef(null);
-  const Ref_ac_as = useRef(null);
-  const Ref_ac_eic = useRef(null);
-  const Ref_ac_eic_ic = useRef(null);
-  const Ref_ac_dec = useRef(null);
-  const Ref_ac_hc = useRef(null);
+  const Ref_gasC = useRef(null);
+  const Ref_gasC_asc = useRef(null);
+  const Ref_gasC_ga = useRef(null);
+  const Ref_gasC_at = useRef(null);
+  const Ref_gasC_ga_fireGun = useRef(null);
+  const Ref_gasC_ga_trackGun = useRef(null);
+  const Ref_gasC_asb = useRef(null);
+  const Ref_gasC_ge = useRef(null);
+  const Ref_gasC_ge_tarImm = useRef(null);
+  const Ref_gasC_ge_fireCD = useRef(null);
+  const Ref_gasC_as = useRef(null);
+  const Ref_gasC_eic = useRef(null);
+  const Ref_gasC_eic_ic = useRef(null);
+  const Ref_gasC_dec = useRef(null);
+  const Ref_gasC_hc = useRef(null);
   const Ref_tl = useRef(null);
   const Ref_tl_input = useRef(null);
   const Ref_tl_aa = useRef(null);
@@ -46,19 +46,19 @@ const GameplayAbilitySystem = () => {
   const Ref_tl_geExec = useRef(null);
   const Ref_tl_geApp_ege = useRef(null);
 
-  const onScreen_gasSc = useOnScreen(Ref_gasSc);
-  const onScreen_gasSc_asc = useOnScreen(Ref_gasSc_asc);
-  const onScreen_gasSc_ga = useOnScreen(Ref_gasSc_ga);
-  const onScreen_gasSc_ga_fireGun = useOnScreen(Ref_gasSc_ga_fireGun);
-  const onScreen_gasSc_ga_trackGun = useOnScreen(Ref_gasSc_ga_trackGun);
-  const onScreen_gasSc_asb = useOnScreen(Ref_gasSc_asb);
-  const onScreen_ge = useOnScreen(Ref_ge);
-  const onScreen_ac = useOnScreen(Ref_ac);
-  const onScreen_ac_as = useOnScreen(Ref_ac_as);
-  const onScreen_ac_eic = useOnScreen(Ref_ac_eic);
-  const onScreen_ac_eic_ic = useOnScreen(Ref_ac_eic_ic);
-  const onScreen_ac_dec = useOnScreen(Ref_ac_dec);
-  const onScreen_ac_hc = useOnScreen(Ref_ac_hc);
+  const onScreen_gasC = useOnScreen(Ref_gasC);
+  const onScreen_gasC_asc = useOnScreen(Ref_gasC_asc);
+  const onScreen_gasC_at = useOnScreen(Ref_gasC_at);
+  const onScreen_gasC_ga = useOnScreen(Ref_gasC_ga);
+  const onScreen_gasC_ga_fireGun = useOnScreen(Ref_gasC_ga_fireGun);
+  const onScreen_gasC_ga_trackGun = useOnScreen(Ref_gasC_ga_trackGun);
+  const onScreen_gasC_asb = useOnScreen(Ref_gasC_asb);
+  const onScreen_gasC_ge = useOnScreen(Ref_gasC_ge);
+  const onScreen_gasC_as = useOnScreen(Ref_gasC_as);
+  const onScreen_gasC_eic = useOnScreen(Ref_gasC_eic);
+  const onScreen_gasC_eic_ic = useOnScreen(Ref_gasC_eic_ic);
+  const onScreen_gasC_dec = useOnScreen(Ref_gasC_dec);
+  const onScreen_gasC_hc = useOnScreen(Ref_gasC_hc);
   const onScreen_tl = useOnScreen(Ref_tl);
   const onScreen_tl_input = useOnScreen(Ref_tl_input);
   const onScreen_tl_aa = useOnScreen(Ref_tl_aa);
@@ -67,8 +67,8 @@ const GameplayAbilitySystem = () => {
   const onScreen_tl_aa_otdr = useOnScreen(Ref_tl_aa_otdr);
   const onScreen_tl_gc = useOnScreen(Ref_tl_gc);
   const onScreen_tl_gc_wf = useOnScreen(Ref_tl_gc_wf);
-  const onScreen_ge_tarImm = useOnScreen(Ref_ge_tarImm);
-  const onScreen_ge_fireCD = useOnScreen(Ref_ge_fireCD);
+  const onScreen_ge_tarImm = useOnScreen(Ref_gasC_ge_tarImm);
+  const onScreen_ge_fireCD = useOnScreen(Ref_gasC_ge_fireCD);
   const onScreen_tl_geApp = useOnScreen(Ref_tl_geApp);
   const onScreen_tl_geApp_agets = useOnScreen(Ref_tl_geApp_agets);
   const onScreen_tl_geApp_ege = useOnScreen(Ref_tl_geApp_ege);
@@ -91,75 +91,67 @@ const GameplayAbilitySystem = () => {
           <Sidebar>
             <ul>
               <li>
-                <SidebarHashLink hash={`#gas-subclasses`} text="GAS Subclasses" onScreen={onScreen_gasSc} topLevelLink={true} />
+                <SidebarHashLink hash={`#gas-classes`} text="Classes" onScreen={onScreen_gasC} topLevelLink={true} />
                 <ul>
                   <li>
                     <SidebarHashLink
                       hash={`#classes-UAbilitySystemComponent`}
                       text="Ability System Component"
-                      onScreen={onScreen_gasSc && onScreen_gasSc_asc}
+                      onScreen={onScreen_gasC && onScreen_gasC_asc}
+                    />
+                  </li>
+                  <li>
+                    <SidebarHashLink
+                      hash={`#classes-UAbilityTask`}
+                      text="Ability Task"
+                      onScreen={onScreen_gasC && onScreen_gasC_at && !onScreen_gasC_asc}
                     />
                   </li>
                   <li>
                     <SidebarHashLink
                       hash={`#classes-UGameplayAbility`}
                       text="Gameplay Abilities"
-                      onScreen={onScreen_gasSc && !onScreen_gasSc_asc && onScreen_gasSc_ga}
-                    />
-                    <li>
-                      <SidebarHashLink
-                        hash={`#classes-UBSAttributeSetBase`}
-                        text="Attribute Set"
-                        onScreen={!onScreen_gasSc_ga && onScreen_gasSc_asb}
-                      />
-                    </li>
-                  </li>
-                </ul>
-              </li>
-              <li>
-                <SidebarHashLink
-                  hash={`#gameplay-effects`}
-                  text="Gameplay Effects"
-                  onScreen={!onScreen_gasSc && onScreen_ge}
-                  topLevelLink={true}
-                />
-                <ul>
-                  <li>
-                    <SidebarHashLink
-                      hash={`#ge-infinite`}
-                      text="Target Immunity"
-                      onScreen={!onScreen_gasSc && onScreen_ge && onScreen_ge_tarImm}
+                      onScreen={onScreen_gasC && !onScreen_gasC_at && onScreen_gasC_ga}
                     />
                   </li>
                   <li>
                     <SidebarHashLink
-                      hash={`#fire-cooldown`}
-                      text="Fire Gun Cooldown"
-                      onScreen={!onScreen_gasSc && onScreen_ge && !onScreen_ge_tarImm && onScreen_ge_fireCD}
+                      hash={`#classes-UBSAttributeSetBase`}
+                      text="Attribute Set"
+                      onScreen={!onScreen_gasC_at && !onScreen_gasC_ga && onScreen_gasC_asb}
                     />
                   </li>
-                </ul>
-              </li>
-              <li>
-                <SidebarHashLink
-                  hash={`#additional-classes`}
-                  text="Additional Classes"
-                  onScreen={!onScreen_ge && onScreen_ac}
-                  topLevelLink={true}
-                />
-                <ul>
+                  <li>
+                    <SidebarHashLink hash={`#gameplay-effects`} text="Gameplay Effects" onScreen={!onScreen_gasC_asb && onScreen_gasC_ge} />
+                    <ul>
+                      <li>
+                        <SidebarHashLink
+                          hash={`#ge-infinite`}
+                          text="Target Immunity"
+                          onScreen={!onScreen_gasC_asb && onScreen_gasC_ge && onScreen_ge_tarImm}
+                        />
+                      </li>
+                      <li>
+                        <SidebarHashLink
+                          hash={`#fire-cooldown`}
+                          text="Fire Gun Cooldown"
+                          onScreen={!onScreen_gasC_asb && onScreen_gasC_ge && !onScreen_ge_tarImm && onScreen_ge_fireCD}
+                        />
+                      </li>
+                    </ul>
+                  </li>
                   <li>
                     <SidebarHashLink
                       hash={`#classes-UBSInputComponent`}
                       text="Enhanced Input Component"
-                      onScreen={!onScreen_ge && onScreen_ac && onScreen_ac_eic}
+                      onScreen={!onScreen_gasC_ge && onScreen_gasC_eic}
                     />
                     <ul>
                       <li>
                         <SidebarHashLink
                           hash={`#classes-UBSInputConfig`}
                           text="Input Config"
-                          onScreen={!onScreen_ge && onScreen_ac && onScreen_ac_eic && onScreen_ac_eic_ic}
+                          onScreen={!onScreen_gasC_ge && onScreen_gasC_eic && onScreen_gasC_eic_ic}
                         />
                       </li>
                     </ul>
@@ -168,30 +160,30 @@ const GameplayAbilitySystem = () => {
                     <SidebarHashLink
                       hash={`#classes-UBSAbilitySet`}
                       text="Ability Set"
-                      onScreen={!onScreen_ge && onScreen_ac && !onScreen_ac_eic && onScreen_ac_as}
+                      onScreen={!onScreen_gasC_ge && !onScreen_gasC_eic && onScreen_gasC_as}
                     />
                   </li>
                   <li>
                     <SidebarHashLink
                       hash={`#classes-UBSDamageExecCalc`}
                       text="Damage Exec Calc"
-                      onScreen={onScreen_ac && !onScreen_ac_eic && !onScreen_ac_as && onScreen_ac_dec}
+                      onScreen={!onScreen_gasC_eic && !onScreen_gasC_as && onScreen_gasC_dec}
                     />
                   </li>
                   <li>
                     <SidebarHashLink
                       hash={`#classes-UBSHealthComponent`}
                       text="Health Component"
-                      onScreen={onScreen_ac && !onScreen_ac_dec && onScreen_ac_hc}
+                      onScreen={!onScreen_gasC_dec && onScreen_gasC_hc}
                     />
                   </li>
                 </ul>
               </li>
               <li>
-                <SidebarHashLink hash={`#timeline`} text="Timeline" onScreen={!onScreen_ac && onScreen_tl} topLevelLink={true} />
+                <SidebarHashLink hash={`#timeline`} text="Timeline" onScreen={!onScreen_gasC && onScreen_tl} topLevelLink={true} />
                 <ul>
                   <li>
-                    <SidebarHashLink hash={`#timeline-Input`} text="Input" onScreen={!onScreen_ac && onScreen_tl && onScreen_tl_input} />
+                    <SidebarHashLink hash={`#timeline-Input`} text="Input" onScreen={!onScreen_gasC && onScreen_tl && onScreen_tl_input} />
                   </li>
                   <li>
                     <SidebarHashLink
@@ -280,25 +272,60 @@ const GameplayAbilitySystem = () => {
               targets.
             </blockquote>
             <p>
-              It might not sound like the Gameplay Ability System (<span className="inline text-light">GAS</span>) has a reason to be in
-              BeatShot. However, the two damage types in BeatShot (hit and tracking) are separate abilities created in the framework.
-              Shooting a weapon could have easily been accomplished with <span className="text-light">GAS</span>, and it was that way at
-              first. I simply wanted to learn how abilities worked in Unreal, and this article describes how I&#39;ve implemented it along
-              with showing what actually happens during the game when you shoot the weapon. I learned much of what I know about{" "}
-              <span className="text-light">GAS</span> from this incredible{" "}
+              It might not sound like the <span className="inline text-light">Gameplay Ability System (GAS)</span> has a reason to be in
+              BeatShot. Shooting a weapon could have easily been accomplished without a framework, and it was that way at first. However, I
+              wanted to learn how an ability system worked in a game engine. <span className="inline text-light">GAS</span> is a massive
+              framework that was overwhelming at first. To make it less so, I narrowed my focus to a single goal: create an ability for
+              firing a weapon. After I completed this I began to form a decent understanding on how things worked together, which led to
+              other abilities.
+            </p>
+            <p>
+              This article lays out exactly how I&#39;ve implemented <span className="inline text-light">GAS</span> in BeatShot. I&#39;ve
+              tried to be thorough so that recreating it would be as easy as possible. The{" "}
+              <Link className="link text-lightgrey hover-blue" href={"#gas-classes"}>
+                first section
+              </Link>{" "}
+              gives an overview of any classes I created and their purpose. The titles of each section are links that take you to the code
+              on Github. The{" "}
+              <Link className="link text-lightgrey hover-blue" href={"#timeline"}>
+                second section
+              </Link>{" "}
+              provides a detailed timeline showing what actually happens during the game when a player shoots a weapon using the Fire Gun
+              Ability.
+            </p>
+            <p>
+              I learned much of what I know about it from the{" "}
+              <Link
+                className="link text-light hover-white"
+                href={"https://docs.unrealengine.com/5.3/en-US/lyra-sample-game-in-unreal-engine/"}
+              >
+                Lyra Sample Project
+              </Link>{" "}
+              and the incredible{" "}
               <Link className="link text-light hover-white" href={"https://github.com/tranek/GASDocumentation"}>
                 GASDocumentation
               </Link>{" "}
-              from the community (its massive). I&#39;m not looking to do the same thing here, but instead show an example implementation
-              and execution.
+              from the community. I&#39;m not looking to do the same thing here but instead show an example implementation and execution.
             </p>
-            <div className="article-section" ref={Ref_gasSc} id="gas-subclasses">
-              <BlogHeading headingText="GAS Subclasses" headingLevel={1} />
+            <div className="article-section" ref={Ref_gasC} id="gas-classes">
+              <BlogHeading headingText="GAS Classes" headingLevel={1} />
               <p>
                 Many of the classes that are part of <span className="text-light">GAS</span> are meant to be subclassed in C++. In this
-                section, I&#39;ll introduce the most necessary classes that BeatShot overrides.
+                section, I&#39;ll introduce each class that BeatShot either overrides or uses.
               </p>
-              <div className="article-subsection" ref={Ref_gasSc_asc} id="classes-UAbilitySystemComponent">
+              <p>
+                Note: The last five classes (
+                <Link className="link text-lightgrey hover-blue" href={"#classes-UBSInputComponent"}>
+                  UBSInputComponent
+                </Link>{" "}
+                through{" "}
+                <Link className="link text-lightgrey hover-blue" href={"#classes-UBSHealthComponent"}>
+                  UBSHealthComponent
+                </Link>
+                ) are <b>NOT</b> required for base <span className="text-light">GAS</span> functionality, but provide enough benefit to
+                warrant using them.
+              </p>
+              <div className="article-subsection" ref={Ref_gasC_asc} id="classes-UAbilitySystemComponent">
                 <BlogHeadingClass
                   baseClass="UAbilitySystemComponent"
                   childClass="UBSAbilitySystemComponent"
@@ -328,7 +355,59 @@ const GameplayAbilitySystem = () => {
                   </li>
                 </ul>
               </div>
-              <div className="article-subsection" ref={Ref_gasSc_ga} id="classes-UGameplayAbility">
+              <div className="article-subsection" ref={Ref_gasC_at} id="classes-UAbilityTask">
+                <BlogHeadingClass baseClass="UGameplayTask" childClass="UAbilityTask" headingLevel={2} />
+                <p>
+                  It pains me to introduce this class before <span className="text-light">Gameplay Ability</span>, but several of them use
+                  it so it should be introduced first.
+                </p>{" "}
+                <p>
+                  A <span className="text-light">Latent Action</span> in Unreal is a blueprint node that has atleast one additional output
+                  execution pin that is called after some period of time. In other words, it lets you do stuff only after certain stuff
+                  happens. In the editor, they will always have a timer symbol on the top right of the node, but{" "}
+                  <Link className="link text-lightgrey hover-blue" scroll={true} href={"#bpgraph-1"}>
+                    Blueprint Graph 1
+                  </Link>{" "}
+                  does not show it.
+                </p>
+                <p>
+                  An <span className="text-light">Ability Task</span> can be used to perform a{" "}
+                  <span className="text-light">Latent Action</span> from within a <span className="text-light">Gameplay Ability</span>.
+                </p>{" "}
+                <p>
+                  Unreal includes a couple default ones like <BSInlineFunction functionName={"UAbilityTask_PlayMontageAndWait"} />, which is
+                  the first <span className="text-light">Ability Task</span> shown in{" "}
+                  <Link className="link text-lightgrey hover-blue" scroll={true} href={"#bpgraph-1"}>
+                    Blueprint Graph 1
+                  </Link>{" "}
+                  and is used pretty much any time an animation needs to be played within a{" "}
+                  <span className="text-light">Gameplay Ability</span>. It has four additional outputs corresponding to different events
+                  that can be executed depending on how the animation montage was ended. The second shows{" "}
+                  <Link className="link text-lightgrey hover-blue" scroll={true} href={"#classes-UBSAT_AimToTarget"}>
+                    AimToTarget
+                  </Link>
+                  , which the{" "}
+                  <Link className="link text-lightgrey hover-blue" scroll={true} href={"#classes-UBSGA_AimBot"}>
+                    Aim Bot Ability
+                  </Link>{" "}
+                  uses and is discussed there.
+                </p>
+                <p>
+                  <span className="text-light">Ability Tasks</span> can be used in C++ and in blueprint. The additional output execution
+                  pins that appear on the blueprint node are executed using delegates in C++. In C++, a task is created by using a static
+                  factory function that instantiates the task. After this, the task delegates can be bound to. In C++,{" "}
+                  <BSInlineFunction functionName={"ReadyForActivation"} /> must be called, but does not have to be called in blueprints.
+                </p>
+                <BlueprintGraph
+                  id="bpgraph-1"
+                  bpLink="https://blueprintue.com/render/ojtm4x9n/"
+                  label="Blueprint Graph 1"
+                  description={
+                    "Two Ability Tasks inside the Fire Gun Ability's ActivateAbility event. The second is only shown for reference and is not executed."
+                  }
+                />
+              </div>
+              <div className="article-subsection" ref={Ref_gasC_ga} id="classes-UGameplayAbility">
                 <BlogHeadingClass
                   baseClass="UGameplayAbility"
                   childClass="UBSGameplayAbility"
@@ -342,7 +421,7 @@ const GameplayAbilitySystem = () => {
                   There isn&#39;t much to the base override besides setting up how the ability is supposed to be activated
                   (ActivationPolicy) and interact with other abilities (ActivationGroup).
                 </p>
-                <div className="article-subsection-2" ref={Ref_gasSc_ga_fireGun} id="classes-UBSGA_FireGun">
+                <div className="article-subsection-2" ref={Ref_gasC_ga_fireGun} id="classes-UBSGA_FireGun">
                   <BlogHeadingClass
                     baseClass="UBSGameplayAbility"
                     childClass="UBSGA_FireGun"
@@ -350,15 +429,14 @@ const GameplayAbilitySystem = () => {
                     childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/Abilities/BSGA_FireGun.cpp"
                   />
                   <p>
-                    This is the ability for shooting the gun in a game mode that uses Hit-Based Damage. I implemented some of this class in
-                    C++ and some in Blueprint. This is the ability used in the{" "}
-                    <Link className="link text-light hover-white" href={"#timeline"}>
+                    This is the ability for shooting the gun in a game mode that uses Hit-Based Damage. This is the ability used in the{" "}
+                    <Link className="link text-lightgrey hover-blue" href={"#timeline"}>
                       Timeline Section
                     </Link>
-                    .
+                    , so I won&#39;t go in depth here.
                   </p>
                 </div>
-                <div className="article-subsection-2" ref={Ref_gasSc_ga_trackGun} id="classes-UBSGA_TrackGun">
+                <div className="article-subsection-2" ref={Ref_gasC_ga_trackGun} id="classes-UBSGA_TrackGun">
                   <BlogHeadingClass
                     baseClass="UBSGameplayAbility"
                     childClass="UBSGA_TrackGun"
@@ -366,10 +444,91 @@ const GameplayAbilitySystem = () => {
                     childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/Abilities/BSGA_TrackGun.cpp"
                   />
                   <p>
-                    This is the ability for dealing damage to targets for a game mode that uses Tracking Damage. I implemented some of this
-                    class in C++ and some in Blueprint. Upon activation, it creates an <span className="text-light">Ability Task</span> that
-                    does a single line trace on tick using <BSInlineFunction className={"TickTask"} />.
+                    This is the ability for dealing damage to targets for a game mode that uses Tracking Damage. Most of this class is
+                    implemented in C++. <BSInlineFunction functionName={"OnTargetDataReady"} /> is the only event/function used in the
+                    blueprint version of this ability.
                   </p>
+                  <p>
+                    Since all of the elements in{" "}
+                    <Link className="link text-lightgrey hover-blue" href={"#bpgraph-2"}>
+                      Blueprint Graph 2
+                    </Link>{" "}
+                    are likely unfamiliar at this point, I&#39;ll provide a basic overview of what happens in this ability and leave the
+                    in-depth explanation to the{" "}
+                    <Link className="link text-lightgrey hover-blue" href={"#timeline-OnTargetDataReady"}>
+                      OnTargetDataReady Section
+                    </Link>
+                    :
+                  </p>
+                  <ul>
+                    <li>
+                      <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                      The Ability is given to the character and is immediately activated since the{" "}
+                      <span className="text-light">ActivationType</span> is OnSpawn.
+                    </li>
+                    <li>
+                      <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                      The <BSInlineFunction className={"UBSAT_TickTrace"} /> <span className="text-light">Ability Task</span> is created.
+                      Its <span className="text-light">OnTickTraceHit</span> delegate is bound to the{" "}
+                      <BSInlineFunction functionName={"OnTickTraceHitResultHit"} /> function.
+                    </li>
+                    <li>
+                      <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                      When <BSInlineFunction functionName={"OnTickTraceHitResultHit"} /> is called, the HitResult is packaged into Target
+                      Data and eventually the <BSInlineFunction functionName={"OnTargetDataReady"} /> event, shown in{" "}
+                      <Link className="link text-lightgrey hover-blue" href={"#bpgraph-2"}>
+                        Blueprint Graph 2
+                      </Link>
+                      , is called.
+                    </li>
+                    <li>
+                      <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                      After passing some checks, the Hit Actor is cast to a <BSInlineFunction className={"BP_Sphere_Target"} />, which is
+                      the blueprint class for an <BSInlineFunction className={"ATarget"} />.
+                      <ul>
+                        <li>
+                          <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                          If the cast succeeds, the player who owns this ability has their crosshair on the target. Tracking damage is
+                          applied to the target and the target color is changed to green.
+                        </li>
+                        <li>
+                          <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                          If the cast fails, the player who owns this ability does not have their crosshair on the target. No damage is
+                          applied and the <span className="text-light">OnPlayerStopTrackingTarget</span> delegate is broadcast to{" "}
+                          <BSInlineFunction className={"ATargetManager"} /> so that it can change all target colors to red.
+                        </li>
+                      </ul>
+                    </li>
+                  </ul>
+
+                  <BlueprintGraph
+                    bpLink="https://blueprintue.com/render/9vxf3yw1/"
+                    label="Bluprint Graph 2"
+                    description={"The blueprint portion of the Track Gun Ability"}
+                    id="#bpgraph-2"
+                  />
+                  <div className="article-subsection-2" id="classes-UBSAT_TickTrace">
+                    <BlogHeadingClass
+                      baseClass="UGameplayTask"
+                      childClass="UBSAT_TickTrace"
+                      headingLevel={4}
+                      compOfText="used by"
+                      compOf="UBSGA_TrackGun"
+                      childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/Tasks/BSAT_TickTrace.cpp"
+                    />
+                    <p>
+                      This purpose of this task is to broadcast a <span className="text-light">HitResult</span> from a{" "}
+                      <BSInlineFunction functionName={"LineTraceSingleByChannel"} /> every frame. I chose to use an{" "}
+                      <span className="text-light">Ability Task</span> here because it can tick using{" "}
+                      <BSInlineFunction functionName={"TickTask"} />, while a <span className="text-light">GA</span> cannot.
+                    </p>
+                    <p>
+                      Usually <span className="text-light">Ability Tasks</span> are ended when they fulfill their purpose, but this task is
+                      active as long as the Track Gun Ability is active since it doesn&#39;t make much sense to create and destroy a task
+                      every frame. I&#39;m not sure if this is an intended use for an <span className="text-light">Ability Task</span>, but
+                      it does the job.
+                    </p>
+                  </div>
                 </div>
                 <div className="article-subsection-2" id="classes-UBSGA_AimBot">
                   <BlogHeadingClass
@@ -379,11 +538,93 @@ const GameplayAbilitySystem = () => {
                     childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/Abilities/BSGA_AimBot.cpp"
                   />
                   <p>
-                    Before BeatShot&#39;s trailer was edited, I knew I needed footage of the game in action but didn&#39;t want to worry
-                    about performing well during every footage take since there was a lot to record. This ability was created in response to
-                    this. It provides automated aiming to targets and looks decently realistic. It can handle all Hit-Based Damage game
-                    modes.
+                    Before BeatShot&#39;s trailer was edited, I needed footage of the game in action but didn&#39;t want to worry about
+                    performing well during every footage take since there was a lot to record. This ability was created in response to this.
+                    It provides automated aiming to targets and looks decently realistic. It can handle all Hit-Based Damage game modes and
+                    is implemented in C++ only.
                   </p>
+                  <p>
+                    This ability is given to the character using a console command. It&#39;s common for Cheat Manager classes to manage
+                    console commands, and that&#39;s exactly what{" "}
+                    <Link
+                      className="link text-light hover-white"
+                      href="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/Abilities/BSGA_AimBot.cpp"
+                    >
+                      <BSInlineFunction className={"UBSCheatManager"} />
+                    </Link>{" "}
+                    does.
+                  </p>
+                  <ul>
+                    <li>
+                      <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                      When the Aim Bot console command is executed, the <BSInlineFunction
+                        functionName={"CVarOnChanged_EnableAimBot"}
+                      />{" "}
+                      function is called.
+                      <ul>
+                        <li>
+                          <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                          This function binds the <span className="text-light">OnTargetActivated_AimBot</span> delegate located in{" "}
+                          <BSInlineFunction className={"ATargetManager"} /> to the{" "}
+                          <BSInlineFunction functionName={"OnTargetSpawned_AimBot"} /> function located in{" "}
+                          <BSInlineFunction className={"ABSCharacter"} />.
+                        </li>
+                        <li>
+                          <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                          It also gives the ability to the Character using the <BSInlineFunction functionName={"GiveAbility"} /> function on{" "}
+                          Character&#39;s <span className="text-light">ASC</span>.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                      The ability is immediately activated since the <span className="text-light">ActivationType</span> is OnSpawn.
+                      <ul>
+                        <li>
+                          <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                          Inside <BSInlineFunction functionName={"ActivateAbility"} />, the{" "}
+                          <BSInlineFunction functionName={"OnTargetAddedToQueue"} /> function is bound to the owning Character&#39;s{" "}
+                          <span className="text-light">OnTargetAddedToQueue</span> delegate.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                      Each time a target is activated by the Target Manager, the Character adds a pointer to the target to the head of a
+                      queue and broadcasts its <span className="text-light">OnTargetAddedToQueue</span> delegate, which calls the{" "}
+                      <BSInlineFunction functionName={"OnTargetAddedToQueue"} /> function in the ability.
+                      <ul>
+                        <li>
+                          <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                          This function calls <BSInlineFunction functionName={"PeekActiveTargets"} /> on the Character. This returns a
+                          pointer to the queue&#39;s tail item without removing it from the queue.
+                        </li>
+                        <li>
+                          <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                          If the queue is empty, a null pointer is returned and nothing happens inside the ability. If the queue has invalid
+                          pointers, it is emptied.
+                        </li>
+                        <li>
+                          <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                          If a valid pointer to a target is returned, the ablitity creates a new{" "}
+                          <BSInlineFunction functionName={"UBSAT_AimToTarget"} /> task and binds to its{" "}
+                          <span className="text-light">OnCancelled</span> and <span className="text-light">OnCompleted</span> delegates.{" "}
+                          <BSInlineFunction functionName={"ReadyForActivation"} /> is called to activate the task.
+                        </li>
+                      </ul>
+                    </li>
+                    <li>
+                      <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                      When either the <span className="text-light">OnCancelled</span> and <span className="text-light">OnCompleted</span>{" "}
+                      delegates are broadcast from the task, <BSInlineFunction functionName={"PopActiveTargets"} /> is called on the
+                      Character which removes the target from the tail of the queue.
+                    </li>
+                    <li>
+                      <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                      The queue could have been stored anywhere but it ended up on the character since it&#39;s easy to access from the
+                      ability.
+                    </li>
+                  </ul>
                   <div className="article-subsection-2" id="classes-UBSAT_AimToTarget">
                     <BlogHeadingClass
                       baseClass="UAbilityTask"
@@ -392,21 +633,86 @@ const GameplayAbilitySystem = () => {
                       childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/Tasks/UBSAT_AimToTarget.cpp"
                     />
                     <p>
-                      An <span className="text-light">Ability Task</span> can be used to perform a latent action from within a{" "}
-                      <span className="text-light">Gameplay Ability</span>. Unreal includes a couple default ones like{" "}
-                      <BSInlineFunction functionName={"UAbilityTask_PlayMontageAndWait"} />, which is used pretty much any time an animation
-                      needs to be played within a <span className="text-light">GA</span>.
+                      The main reason I chose to use an <span className="text-light">Ability Task</span> for the Aim Bot ability is because
+                      it can tick using <BSInlineFunction functionName={"TickTask"} />, while a <span className="text-light">GA</span>{" "}
+                      cannot. Tick is needed here because the control rotation of the character needs to be lerped smoothly across frames.
+                    </p>
+                    <p>This task takes a few parameters from the ability that creates it:</p>
+                    <ul>
+                      <li>
+                        <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                        A <BSInlineFunction className={"UCurveFloat"} /> is used to read the the value from a curve on tick. This is done
+                        using a <span className="text-light">FOnTimelineFloat</span> delegate and the curve. The{" "}
+                        <BSInlineFunction functionName={"OnTimelineTick"} /> function is bound to the{" "}
+                        <span className="text-light">FOnTimelineFloat</span> delegate, so every time the timeline ticks, the value from the
+                        curve is passed as a parameter to this function.
+                      </li>
+                      <li>
+                        <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                        The target (<BSInlineFunction className={"ATarget"} />) to aim toward
+                      </li>
+                      <li>
+                        <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                        The timeline playback rate
+                      </li>
+                    </ul>
+                    <p>
+                      An <span className="text-light">FOnTimelineEvent</span> is used to bind the timeline completion to the{" "}
+                      <BSInlineFunction functionName={"OnTimelineCompleted"} /> function. When the task is activated, the timeline is played
+                      from the start. <BSInlineFunction functionName={"TickTimeline"} /> is called from{" "}
+                      <BSInlineFunction functionName={"TickTask"} /> as long as the task state is active.
                     </p>
                     <p>
-                      The main reason I chose to use an{" "}
-                      <span className="text-light">Ability Task</span> for the Aim Bot ability is because it can tick using{" "}
-                      <BSInlineFunction functionName={"TickTask"} />, while a <span className="text-light">GA</span> cannot. Tick is needed
-                      here because the control rotation of the character needs to be lerped smoothly across frames.
+                      Inside <BSInlineFunction functionName={"OnTimelineTick"} />, <BSInlineFunction functionName={"SetControlRotation"} />{" "}
+                      is called to update the controller rotation every frame.
+                    </p>
+                    <ul>
+                      <li>
+                        <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                        <BSInlineFunction functionName={"GetActorEyesViewPoint"} /> is called to get the current location and rotation of
+                        the player controller.
+                      </li>
+                      <li>
+                        <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                        The new controller rotation is found using{" "}
+                        <BSInlineFunction className="UKismetMathLibrary" functionName={"RLerp"} /> with the following parameters:
+                        <ul>
+                          <li>
+                            <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                            Start rotation: rotation obtained from <BSInlineFunction functionName={"GetActorEyesViewPoint"} />
+                          </li>
+                          <li>
+                            <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                            End rotation: found using{" "}
+                            <BSInlineFunction className="UKismetMathLibrary" functionName={"FindLookAtRotation"} /> with the following
+                            parameters:
+                            <ul>
+                              <li>
+                                <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                                Start location: location obtained from <BSInlineFunction functionName={"GetActorEyesViewPoint"} />
+                              </li>
+                              <li>
+                                <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                                End location: current location of the target
+                              </li>
+                            </ul>
+                          </li>
+
+                          <li>
+                            <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                            Alpha: the function parameter which is value from the curve
+                          </li>
+                        </ul>
+                      </li>
+                    </ul>
+                    <p>
+                      When the timeline finishes playing, the <span className="text-light">OnCompleted</span> delegate is broadcast and the
+                      task is ended.
                     </p>
                   </div>
                 </div>
               </div>
-              <div className="article-subsection" ref={Ref_gasSc_asb} id="classes-UBSAttributeSetBase">
+              <div className="article-subsection" ref={Ref_gasC_asb} id="classes-UBSAttributeSetBase">
                 <BlogHeadingClass
                   baseClass="UAttributeSet"
                   childClass="UBSAttributeSetBase"
@@ -415,12 +721,14 @@ const GameplayAbilitySystem = () => {
                 />
                 <p className="">
                   An Attribute Set is a group of stats that an actor with an <span className="text-light">ASC</span> has. BeatShot has
-                  several attributes, including MaxHealth, Health, HitDamage, TrackingDamage, and TotalDamage.
+                  several attributes, including <span className="text-light">Max Health</span>, <span className="text-light">Health</span>,{" "}
+                  <span className="text-light">Hit Damage</span>, <span className="text-light">Tracking Damage</span>, and{" "}
+                  <span className="text-light">Total Damage</span>.
                 </p>
                 <p className="">
-                  MaxHealth and Health are regular attributes that are replicated, while all damage attributes are considered{" "}
-                  <span className="text-light">Meta</span> attributes. Meta attributes only exist on the server and are used in BeatShot to
-                  calculate the damage that should be applied to a target.
+                  The first four are regular attributes that are replicated, while <span className="text-light">Total Damage</span> is
+                  considered <span className="text-light">Meta</span> attribute. <span className="text-light">Meta</span> attributes only
+                  exist on the server and are used in BeatShot to calculate the damage that should be applied to a target.
                 </p>
                 <ul>
                   In my implementation, attribute sets live in different places depending on the actor:
@@ -435,103 +743,89 @@ const GameplayAbilitySystem = () => {
                   </li>
                 </ul>
                 <p className="">
-                  <BSInlineFunction className={"FBSAttributeEvent"} /> is a delegate that I created that broadcasts any time an attribute is
-                  changed. Health and MaxHealth both have one of these delegates (<BSInlineFunction className={"OnHealthChanged"} />,{" "}
-                  <BSInlineFunction className={"OnMaxHealthChanged"} />
-                  ), but the damage attributes do not.
+                  <span className="text-light">FBSAttributeEvent</span> is a delegate that I created that broadcasts any time an attribute
+                  is changed. Health and MaxHealth both have one of these delegates <span className="text-light">OnHealthChanged</span>,{" "}
+                  <span className="text-light">OnMaxHealthChanged</span>, but the damage attributes do not.
                 </p>
               </div>
-            </div>
-            <div className="article-section" ref={Ref_ge} id="gameplay-effects">
-              <BlogHeading headingText="Gameplay Effects" headingLevel={1} />
-              <p>
-                Gameplay Effects <span className="text-light">GEs</span> are a critical part of GAS, but they are not subclassed. I’ll share
-                the description from the{" "}
-                <Link className="link text-light hover-white" href={"https://github.com/tranek/GASDocumentation"}>
-                  GAS Documentation
-                </Link>
-                :
-              </p>
-              <blockquote className="otro-blockquote">
-                GameplayEffects (GE) are the vessels through which abilities change Attributes and Gameplay Tags on themselves and others.
-                They can cause immediate Attribute changes like damage or healing or apply long term status buff/debuffs like a movespeed
-                boost or stunning. The UGameplayEffect class is a meant to be a data-only class that defines a single gameplay effect. No
-                additional logic should be added to GameplayEffects. Typically designers will create many Blueprint child classes of
-                UGameplayEffect.
-              </blockquote>
-              <p>
-                Any damage that is dealt in BeatShot is applied using an instant duration <span className="text-light">GE</span>. This is
-                discussed further in the{" "}
-                <Link className="link text-light hover-white" href={"#classes-UBSDamageExecCalc"}>
-                  UBSDamageExecCalc section
-                </Link>
-                .
-              </p>
-              <p>
-                Duration and Infinite <span className="text-light">GEs</span> have the option of applying periodic effects, which are
-                treated like Instant <span className="text-light">GEs</span> that occur at fixed intervals. These are set up using timers.
-              </p>
-              <div className="article-subsection" id="ge-infinite" ref={Ref_ge_tarImm}>
-                <BlogHeading headingText="Target Immunity" headingLevel={2} />
+              <div className="article-subsection" ref={Ref_gasC_ge} id="gameplay-effects">
+                <BlogHeading headingText="Gameplay Effects" headingLevel={1} />
                 <p>
-                  <span className="text-light">GEs</span> have a property called{" "}
-                  <span className="text-light">Granted Application Immunity Tags</span> which grant the owner immunity to all matching{" "}
-                  <span className="text-light">GAs</span> that have the same <span className="text-light">Ability Tag</span>.
+                  Gameplay Effects <span className="text-light">GEs</span> are a critical part of GAS, but they are not subclassed. I’ll
+                  share the description from the{" "}
+                  <Link className="link text-light hover-white" href={"https://github.com/tranek/GASDocumentation"}>
+                    GAS Documentation
+                  </Link>
+                  :
+                </p>
+                <blockquote className="otro-blockquote">
+                  GameplayEffects (GE) are the vessels through which abilities change attributes and Gameplay Tags on themselves and others.
+                  They can cause immediate attribute changes like damage or healing or apply long term status buff/debuffs like a movespeed
+                  boost or stunning. The UGameplayEffect class is a meant to be a data-only class that defines a single gameplay effect. No
+                  additional logic should be added to GameplayEffects. Typically designers will create many Blueprint child classes of
+                  UGameplayEffect.
+                </blockquote>
+                <p>
+                  Any damage that is dealt in BeatShot is applied using an instant duration <span className="text-light">GE</span>. This is
+                  discussed further in the{" "}
+                  <Link className="link text-lightgrey hover-blue" href={"#classes-UBSDamageExecCalc"}>
+                    UBSDamageExecCalc section
+                  </Link>
+                  .
                 </p>
                 <p>
-                  Game modes that use Hit-Based damage spawn targets with immunity to the Tracking Ability (and consequently Tracking
-                  Damage). These targets will have the corresponding <span className="text-light">Ability Tag</span> of{" "}
-                  <span className="text-light">Ability.Track</span> in their{" "}
-                  <span className="text-light">Granted Application Immunity Tags</span>.
+                  Duration and Infinite <span className="text-light">GEs</span> have the option of applying periodic effects, which are
+                  treated like Instant <span className="text-light">GEs</span> that occur at fixed intervals. These are set up using timers.
                 </p>
-                <p>
-                  Targets can also be immune to all damage, such as before a game mode starts or if a Target Activation/Deactivation
-                  Response involves removing or applying immunity. These various types of immunity are applied using infinite duration{" "}
-                  <span className="text-light">GEs</span>, and are typically called directly on the target itself using{" "}
-                  <BSInlineFunction functionName="ApplyGameplayEffectToSelf" />.
-                </p>
+                <div className="article-subsection-2" id="ge-infinite" ref={Ref_gasC_ge_tarImm}>
+                  <BlogHeading headingText="Target Immunity" headingLevel={3} />
+                  <p>
+                    <span className="text-light">GEs</span> have a property called{" "}
+                    <span className="text-light">Granted Application Immunity Tags</span> which grant the owner immunity to all matching{" "}
+                    <span className="text-light">GAs</span> that have the same <span className="text-light">Ability Tag</span>.
+                  </p>
+                  <p>
+                    Game modes that use Hit-Based damage spawn targets with immunity to the Tracking Ability (and consequently Tracking
+                    Damage). These targets will have the corresponding <span className="text-light">Ability Tag</span> of{" "}
+                    <span className="text-light">Ability.Track</span> in their{" "}
+                    <span className="text-light">Granted Application Immunity Tags</span>.
+                  </p>
+                  <p>
+                    Targets can also be immune to all damage, such as before a game mode starts or if a Target Activation/Deactivation
+                    Response involves removing or applying immunity. These various types of immunity are applied using infinite duration{" "}
+                    <span className="text-light">GEs</span>, and are typically called directly on the target itself using{" "}
+                    <BSInlineFunction functionName="ApplyGameplayEffectToSelf" />.
+                  </p>
+                </div>
+                <div className="article-subsection-2" id="fire-cooldown" ref={Ref_gasC_ge_fireCD}>
+                  <BlogHeading headingText="Fire Cooldown" headingLevel={3} />
+                  <p>
+                    To apply a cooldown to the Fire Gun Ability, or basically fire rate, a duration-based{" "}
+                    <span className="text-light">GE</span> is supplied to the <span className="text-light">GA</span> blueprint property{" "}
+                    <span className="text-light">Cooldown Gameplay Effect Class</span>. This <span className="text-light">GE</span> has the
+                    following blueprint properties:
+                  </p>
+                  <ul>
+                    <li>
+                      <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                      <span className="text-light">Duration Policy</span>: Has Duration
+                    </li>
+                    <li>
+                      <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                      <span className="text-light">Scalable Float Magnitude</span>: fire rate of the weapon
+                    </li>
+                    <li>
+                      <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                      <span className="text-light">Granted Tags</span>: <span className="text-light">Data.Cooldown</span> is added
+                    </li>
+                  </ul>
+                  <p>
+                    I use a generic universal cooldown <span className="text-light">Gameplay Tag</span> called{" "}
+                    <span className="text-light">Data.Cooldown</span> but that might change in the future.
+                  </p>
+                </div>
               </div>
-              <div className="article-subsection" id="fire-cooldown" ref={Ref_ge_fireCD}>
-                <BlogHeading headingText="Fire Cooldown" headingLevel={2} />
-                <p>
-                  To apply a cooldown to the Fire Gun Ability, or basically fire rate, a duration-based{" "}
-                  <span className="text-light">GE</span> is supplied to the <span className="text-light">GA</span> blueprint property{" "}
-                  <span className="text-light">Cooldown Gameplay Effect Class</span>. This <span className="text-light">GE</span> has the
-                  following blueprint properties:
-                </p>
-                <ul>
-                  <li>
-                    <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-                    <span className="text-light">Duration Policy</span>: Has Duration
-                  </li>
-                  <li>
-                    <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-                    <span className="text-light">Scalable Float Magnitude</span>: fire rate of the weapon
-                  </li>
-                  <li>
-                    <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-                    <span className="text-light">Granted Tags</span>: <span className="text-light">Data.Cooldown</span> is added
-                  </li>
-                </ul>
-                <p>
-                  I use a generic universal cooldown <span className="text-light">Gameplay Tag</span> called{" "}
-                  <span className="text-light">Data.Cooldown</span> but that might change in the future.
-                </p>
-              </div>
-            </div>
-            <div className="article-section" ref={Ref_ac} id="additional-classes">
-              <BlogHeading headingText="Additional Classes" headingLevel={1} />
-              <p>
-                I used the{" "}
-                <Link
-                  className="link text-light hover-white"
-                  href={"https://docs.unrealengine.com/5.3/en-US/lyra-sample-game-in-unreal-engine/"}
-                >
-                  Lyra Sample Project
-                </Link>{" "}
-                as a guide for implementing GAS, so I chose to include some additional classes that made things work better.
-              </p>
-              <div className="article-subsection" ref={Ref_ac_eic} id="classes-UBSInputComponent">
+              <div className="article-subsection" ref={Ref_gasC_eic} id="classes-UBSInputComponent">
                 <BlogHeadingClass
                   baseClass="UEnhancedInputComponent"
                   childClass="UBSInputComponent"
@@ -544,7 +838,7 @@ const GameplayAbilitySystem = () => {
                   <span className="text-light">Input Action</span> using an <span className="text-light">Input Tag</span>. These mappings
                   are done through the data asset <BSInlineFunction className={"UBSInputConfig"} />.
                 </p>
-                <div className="article-subsection" ref={Ref_ac_eic_ic} id="classes-UBSInputConfig">
+                <div className="article-subsection" ref={Ref_gasC_eic_ic} id="classes-UBSInputConfig">
                   <BlogHeadingClass
                     baseClass="UDataAsset"
                     childClass="UBSInputConfig"
@@ -592,7 +886,7 @@ const GameplayAbilitySystem = () => {
                   </figure>
                 </div>
               </div>
-              <div className="article-subsection" ref={Ref_ac_as} id="classes-UBSAbilitySet">
+              <div className="article-subsection" ref={Ref_gasC_as} id="classes-UBSAbilitySet">
                 <BlogHeadingClass
                   baseClass="UDataAsset"
                   childClass="UBSAbilitySet"
@@ -600,7 +894,7 @@ const GameplayAbilitySystem = () => {
                   childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/Globals/BSAbilitySet.cpp"
                 />
                 <p>
-                  An ability set is a group of <span className="text-light">Gameplay Abilities</span>,{" "}
+                  An Ability Set is a group of <span className="text-light">Gameplay Abilities</span>,{" "}
                   <span className="text-light">Gameplay Effects</span>, and <span className="text-light">Attribute Sets</span>. This
                   isn&#39;t strictly necessary to implement, but it makes it easier to grant and remove a large number of{" "}
                   <span className="text-light">GAs</span> and <span className="text-light">GEs</span> that use various{" "}
@@ -646,7 +940,7 @@ const GameplayAbilitySystem = () => {
                   </div>
                 </figure>
               </div>
-              <div className="article-subsection" ref={Ref_ac_dec} id="classes-UBSDamageExecCalc">
+              <div className="article-subsection" ref={Ref_gasC_dec} id="classes-UBSDamageExecCalc">
                 <BlogHeadingClass
                   baseClass="UGameplayEffectExecutionCalculation"
                   childClass="UBSDamageExecCalc"
@@ -660,7 +954,7 @@ const GameplayAbilitySystem = () => {
                   access to both the source and target <span className="text-light">Gameplay Tags</span>.
                 </p>
               </div>
-              <div className="article-subsection" ref={Ref_ac_hc} id="classes-UBSHealthComponent">
+              <div className="article-subsection" ref={Ref_gasC_hc} id="classes-UBSHealthComponent">
                 <BlogHeadingClass
                   baseClass="UActorComponent"
                   childClass="UBSHealthComponent"
@@ -674,16 +968,16 @@ const GameplayAbilitySystem = () => {
                 <p>
                   To be honest, the Health Component is kind of unnecessary since the target could just bind to the{" "}
                   <BSInlineFunction className={"UBSAttributeSetBase"} />
-                  &#39;s <BSInlineFunction className={"OnHealthChanged"} /> delegate directly, but if I wanted to add additional actors that
-                  use Health Components in the future, it would be less coding in the long run.
+                  &#39;s <span className="text-light">OnHealthChanged</span> delegate directly, but if I wanted to add additional actors
+                  that use Health Components in the future, it would be less coding in the long run.
                 </p>
               </div>
             </div>
             <div className="article-section" ref={Ref_tl} id="timeline">
               <BlogHeading headingText="Timeline" headingLevel={1} />
               <p>
-                For this section, I detail what happens when the player in BeatShot shoots a target in a Hit-Based game mode. This means
-                that the <span className="text-light">GA</span> used throughout this section will always be{" "}
+                For this section, I detail what happens when the player in BeatShot shoots a target in a Hit-Based damage game mode. This
+                means that the <span className="text-light">GA</span> used throughout this section will always be{" "}
                 <BSInlineFunction className={"UBSGA_FireGun"} />.
               </p>
               <div className="article-subsection" ref={Ref_tl_input} id="timeline-Input">
@@ -736,8 +1030,8 @@ const GameplayAbilitySystem = () => {
                     </li>
                     <li>
                       <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-                      <BSInlineFunction className={"FGameplayAbilityTargetData"} /> allows passing data across the network. GAS comes with
-                      several subclassed versions, but the one used here is{" "}
+                      <BSInlineFunction className={"FGameplayAbilityTargetData"} /> allows passing data across the network.{" "}
+                      <span className="text-light">GAS</span> comes with several subclassed versions, but the one used here is{" "}
                       <BSInlineFunction className={"FGameplayAbilityTargetData_SingleTargetHit"} /> since it allows passing a HitResult.
                     </li>
                     <li>
@@ -745,7 +1039,7 @@ const GameplayAbilitySystem = () => {
                       The HitResult is obtained by calling <BSInlineFunction functionName={"SingleWeaponTrace"} />, which traces a single
                       line using a collision channel I created that ignores any pawn or weapon meshes. The start of the trace begins at the
                       player’s Camera Component, some maths are done to find end location, and{" "}
-                      <BSInlineFunction className="UWorld" functionName="SingleWeaponTrace" /> is called to get the HitResult.
+                      <BSInlineFunction className="UWorld" functionName="LineTraceSingleByChannel" /> is called to get the HitResult.
                     </li>
                     <li>
                       <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -809,7 +1103,7 @@ const GameplayAbilitySystem = () => {
                       The <BSInlineFunction functionName={"ExecuteGameplayCueWithParamsOnOwner"} /> blueprint function is called using the
                       HitResult as a parameter and the <span className="text-light">Gameplay Cue Tag</span> of{" "}
                       <span className="text-light">GameplayCue.FireGun</span>. The{" "}
-                      <Link className="link text-light hover-white" href={"#timeline-GameplayCues"}>
+                      <Link className="link text-lightgrey hover-blue" href={"#timeline-GameplayCues"}>
                         Gameplay Cues section
                       </Link>{" "}
                       goes over what happens when this is called.
@@ -822,8 +1116,9 @@ const GameplayAbilitySystem = () => {
                   </ul>
                   <BlueprintGraph
                     bpLink="https://blueprintue.com/render/hoqr4itn/"
-                    label="Blueprint Graph 1"
+                    label="Blueprint Graph 3"
                     description={<BSInlineFunction className="UBSGA_FireGun" functionName={"OnTargetDataReady"} />}
+                    id="bpgraph-3"
                   />
                 </div>
               </div>
@@ -899,22 +1194,22 @@ const GameplayAbilitySystem = () => {
                             <li>
                               <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
                               As previously mentioned, BeatShot uses two types of damage: Hit and Tracking. These attributes are snapshotted
-                              from the source (damage causer) during initialization of the of <span className="text-light">GESpec</span>.
+                              from the source (damage causer) during initialization of the of a <span className="text-light">GESpec</span>.
                             </li>
                             <li>
                               <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
                               The <span className="text-light">GE</span> created earlier uses the{" "}
-                              <span className="text-light">Execution Calculation Class</span>{" "}
-                              <BSInlineFunction className={"UBSDamageExecCalc"} />.{" "}
+                              <span className="text-light">Execution</span> <BSInlineFunction className={"UBSDamageExecCalc"} />.{" "}
                               <BSInlineFunction functionName={"Execute_Implementation"} /> is where the calculation takes place.
                             </li>
                             <li>
                               <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-                              It first accesses the source and target <span className="text-light">Gameplay Tags</span>. This tells the it
-                              which kinds of immunity, if any, the target has. If the target is immune to Hit Damage, the{" "}
-                              <span className="text-light">Hit Damage</span> attribute that was captured from the source is not used in the
-                              damage calculation. Similarly, if the target is immune to Tracking Damage, the{" "}
-                              <span className="text-light">Tracking Damage</span> attribute is not used.
+                              It first accesses the source and target <span className="text-light">Gameplay Tags</span>. This tells it which
+                              kinds of immunity, if any, the target has. If the target is immune to{" "}
+                              <span className="text-light">Hit Damage</span>, the <span className="text-light">Hit Damage</span> attribute
+                              that was captured from the source is not used in the damage calculation. Similarly, if the target is immune to{" "}
+                              <span className="text-light">Tracking Damage</span>, the <span className="text-light">Tracking Damage</span>{" "}
+                              attribute is not used.
                             </li>
                             <li>
                               <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -929,10 +1224,9 @@ const GameplayAbilitySystem = () => {
                               Inside <BSInlineFunction functionName={"PostGameplayEffectExecute"} />, the input parameter{" "}
                               <BSInlineFunction className={"FGameplayEffectModCallbackData"} /> describes which, if any, attributes were
                               changed by the <span className="text-light">GE</span>. In this example, the{" "}
-                              <span className="text-light">TotalDamage</span> attribute will appear as modified. Then, the{" "}
+                              <span className="text-light">Total Damage</span> attribute will appear as modified. Then, the{" "}
                               <span className="text-light">Health</span> attribute is set to its current value subtracted by the value of{" "}
-                              <span className="text-light">TotalDamage</span>. The <span className="text-light">OnHealthChanged</span>{" "}
-                              delegate is then broadcast.
+                              <span className="text-light">Total Damage</span>.
                             </li>
                             <li>
                               <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -940,7 +1234,7 @@ const GameplayAbilitySystem = () => {
                             </li>
                             <li>
                               <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-                              If an <span className="text-light">Execution</span> wants conditional effects to trigger, those are applied.
+                              If an <span className="text-light">Execution</span> wants conditional effects to trigger, those are applied
                               (None for this example).
                             </li>
                           </ul>
@@ -950,16 +1244,16 @@ const GameplayAbilitySystem = () => {
                           <span className="text-light">GE Modifier</span>. You can also use both.
                         </p>
                         <p>
-                          Instead of using the <span className="text-light">TotalDamage Meta</span> attribute, I could have directly set the
-                          value of the <span className="text-light">Health Attribute</span> inside the Execution Calculation. However, the
-                          attribute could get changed twiced if the Execution Calculation did not clamp the value while{" "}
+                          Instead of using the <span className="text-light">Total Damage Meta</span> attribute, I could have directly set
+                          the value of the <span className="text-light">Health Attribute</span> inside the Execution Calculation. However,
+                          the attribute could get changed twiced if the Execution Calculation did not clamp the value while{" "}
                           <BSInlineFunction functionName={"PreAttributeChange"} /> did.{" "}
                         </p>
                         <p>
                           <BSInlineFunction functionName={"PreAttributeChange"} /> still gets called before{" "}
-                          <BSInlineFunction functionName={"PostGameplayEffectExecute"} />, so it would not have an impact on any
+                          <BSInlineFunction functionName={"PostGameplayEffectExecute"} />, so it would not have an impact on any{" "}
                           <span className="text-light">OnHealthChanged</span> delegate receivers. However, the{" "}
-                          <span className="text-light">ASC</span> provides a delegate called the
+                          <span className="text-light">ASC</span> provides a delegate called the{" "}
                           <span className="text-light">GameplayAttributeValueChangeDelegate</span>, which would get called twice.
                         </p>
                       </ul>
@@ -971,8 +1265,11 @@ const GameplayAbilitySystem = () => {
                 <BlogHeading headingText="Gameplay Cues" headingLevel={2} />
                 <p>
                   <span className="text-light">Gameplay Cues</span> allow non-gameplay related tasks to execute like effects, decals, etc.
-                  You can trigger them through <span className="text-light">GEs</span> or directly like I did in Blueprint Graph 1. I chose
-                  not to use a <span className="text-light">GE</span> because I always want{" "}
+                  You can trigger them through <span className="text-light">GEs</span> or directly like I did in{" "}
+                  <Link className="link text-lightgrey hover-blue" scroll={true} href={"#bpgraph-3"}>
+                    Blueprint Graph 3
+                  </Link>.{" "}
+                  I chose not to use a <span className="text-light">GE</span> because I always want{" "}
                   <span className="text-light">GameplayCue.FireGun</span> to trigger any time the ability is activated regardless of the{" "}
                   <span className="text-light">GE</span> application success.
                 </p>
@@ -1005,7 +1302,7 @@ const GameplayAbilitySystem = () => {
                     </li>
                     <BlueprintGraph
                       bpLink="https://blueprintue.com/render/pqprz-_7/"
-                      label="Blueprint Graph 2"
+                      label="Blueprint Graph 4"
                       description={<BSInlineFunction className="GameplayCueNotify_Burst" functionName={"OnBurst"} />}
                     />
                     <li>
