@@ -97,6 +97,40 @@ const BSInlineCodeBlock = ({
   );
 };
 
+
+const BSInlineCodeBlockHeader = ({
+  code,
+  language,
+  showLineNumbers,
+  fontSize = "inherit",
+  lineHeight = "inherit",
+  padding = "0 0.1em",
+  color = "inherit",
+}) => {
+  inlineCodeBlockStyle.lineHeight = lineHeight;
+  inlineCodeBlockStyle.lineHeight = lineHeight;
+  return (
+    <CodeBlock
+      text={code}
+      language={language || "c"}
+      showLineNumbers={showLineNumbers || false}
+      theme={regularTheme}
+      codeBlockStyle={inlineCodeBlockStyle}
+      codeContainerStyle={inlineCodeBlockStyle}
+      customStyle={{
+        display: "flex",
+        overflowY: "clip",
+        overflowWrap: "anywhere",
+        fontSize: fontSize,
+        lineHeight: lineHeight,
+        padding: padding,
+        color: color,
+      }}
+      wrapLines={true}
+    />
+  );
+};
+
 let inlineTheme = Object.assign({}, dracula);
 inlineTheme.backgroundColor = "transparent";
 const BSInlineFunction = ({
@@ -258,4 +292,6 @@ const BSInlineEnum = ({ className, valueName, language = "c", showLineNumbers = 
   );
 };
 
-export { BSCodeBlock, BSInlineCodeBlock, BSInlineEnum, BSInlineFunction };
+
+
+export { BSCodeBlock, BSInlineCodeBlock, BSInlineCodeBlockHeader, BSInlineEnum, BSInlineFunction };

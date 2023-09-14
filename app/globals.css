@@ -437,6 +437,15 @@ article div {
   align-content: center;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
+  vertical-align: middle;
+}
+
+.article-heading-content {
+  display: inline-flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-content: center;
+  gap: 0.2em;
 }
 
 /* base spacing used between all elements */
@@ -448,25 +457,29 @@ article div {
 }
 
 /* Header lines */
-.span.line-top,
-.span.line-bottom
+.line-top,
+.line-bottom
 {
-  display: block;
-  width: 100%;
+  display: flex;
+  flex-direction: row;
+  background-color: hsl(var(--clr-beatshot-darkgrey));
 }
-.article-section span.line-top,
-.article-section span.line-bottom {
-  border-top: 4px solid hsl(var(--clr-beatshot-darkgrey));
-}
-.article-subsection span.line-top,
-.article-subsection span.line-bottom
+.article-section .line-top,
+.article-section .line-bottom
 {
-  border-top: 3px solid hsl(var(--clr-beatshot-darkgrey));
+  height: 6px;
 }
-.article-subsection-2 span.line-top,
-.article-subsection-2 span.line-bottom
+.article-subsection .line-top,
+.article-subsection .line-bottom
 {
-  border-top: 2px solid hsl(var(--clr-beatshot-darkgrey));
+  height: 4px;
+  background-color: hsl(var(--clr-beatshot-darkgrey), 0.75);
+}
+.article-subsection-2 .line-top,
+.article-subsection-2 .line-bottom
+{
+  height: 2px;
+  background-color: hsl(var(--clr-beatshot-darkgrey), 0.75);
 }
 
 /* Lists */
@@ -636,12 +649,12 @@ article .updated-date {
   display: flex;
   flex-direction: column;
   font-style: italic;
-  color: #555555;
+  color: #d4d4d4;
   padding: 0.5em 1em ;
   border-left: 0.65em solid hsl(var(--clr-beatshot-lightblue));
   line-height: 1.5;
   position: relative;
-  background: #EDEDED;
+  background: #1E1E1E;
   font-size: var(--fs-200);
 }
 
@@ -1684,10 +1697,10 @@ td.combined > p {
 .inline-code-header {
   font-family: var(--ff-code);
   color: rgba(62, 198, 235, 1);
-  display: inline;
   vertical-align: middle;
   overflow-wrap: break-word;
   white-space: normal !important;
+  align-self: center;
 }
 
 .inline-code-header span {

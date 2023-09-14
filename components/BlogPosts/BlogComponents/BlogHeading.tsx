@@ -1,16 +1,17 @@
 "use client";
 import React from "react";
-import { BSInlineCodeBlock } from "@/components/CodeBlock";
+import { BSInlineCodeBlock, BSInlineCodeBlockHeader } from "@/components/CodeBlock";
 import Link from "next/link";
 
-const getBaseClassText = (baseClass: string) => {
+const getBaseClassText = (baseClass: string, headingLevel: number) => {
   if (baseClass.length === 0) {
     return <></>;
   }
+  let fontSize = headingLevel == 1 ? "fs-400" : headingLevel == 2 ? "fs-300" : headingLevel == 3 ? "fs-200" : headingLevel == 4 ? "fs-100" : "fs-200";
   return (
     <>
-      <h4 className="inline vert-align-middle"> inherits from </h4>
-      <h4 className="inline-code-header">
+      <h4 className="align-self-center fs-100"> inherits from </h4>
+      <h4 className={"inline-code-header "+ fontSize}>
         <BSInlineCodeBlock code={baseClass} padding={"0 0.1em"} language={"c"} showLineNumbers={false} />
       </h4>
     </>
@@ -23,8 +24,8 @@ const getComponentOfText = (compOf: string, compOfText: string) => {
   }
   return (
     <>
-      <h4 className="inline fs-400"> | </h4>
-      <h4 className="inline">{compOfText}</h4>
+      <h4 className="align-self-center fs-400"> | </h4>
+      <h4 className="align-self-center fs-100">{compOfText}</h4>
       <h4 className="inline-code-header">
         <BSInlineCodeBlock code={compOf} padding={"0 0.1em"} language={"c"} showLineNumbers={false} />
       </h4>
@@ -66,11 +67,11 @@ const getChildClassText = (headingLevel: number, childClass: string, childClassL
 
 const getCodeBlock = (childClass: string, childClassLink: string, childClassColor: string) => {
   if (childClassLink.length === 0) {
-    return <BSInlineCodeBlock color={childClassColor} code={childClass} padding={"0 0.1em"} language={"c"} showLineNumbers={false} />;
+    return <BSInlineCodeBlockHeader color={childClassColor} code={childClass} padding={"0 0.1em"} language={"c"} showLineNumbers={false} />;
   }
   return (
     <Link className="link inherit-color hover-white" href={childClassLink}>
-      <BSInlineCodeBlock color={childClassColor} code={childClass} padding={"0 0.1em"} language={"c"} showLineNumbers={false} />
+      <BSInlineCodeBlockHeader color={childClassColor} code={childClass} padding={"0 0.1em"} language={"c"} showLineNumbers={false} />
     </Link>
   );
 };
@@ -92,17 +93,17 @@ const BlogHeadingClass = ({
   compOf = "",
   compOfText = "component of ",
   childClassLink = "",
-  childClassColor = "inherit"
+  childClassColor = "inherit",
 }: BlogHeadingClassProps) => {
   return (
     <div className="article-heading">
-      <span className="line-top" />
-      <div className="inline">
+      <div className="line-top"></div>
+      <div className="article-heading-content ">
         {getChildClassText(headingLevel, childClass, childClassLink, childClassColor)}
-        {getBaseClassText(baseClass)}
+        {getBaseClassText(baseClass, headingLevel - 1)}
         {getComponentOfText(compOf, compOfText)}
       </div>
-      <span className="line-bottom" />
+      <div className="line-bottom"></div>
     </div>
   );
 };
