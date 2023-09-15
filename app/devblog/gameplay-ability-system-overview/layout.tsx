@@ -16,12 +16,13 @@ export const metadata: Metadata = SEO({
     "ability",
     "system",
     "gas",
-    "c++",
-    "delegate",
+    "gameplay task",
     "ability system component",
     "gameplay ability system",
     "attribute",
-    "gameplay effect"
+    "gameplay effect",
+    "delegate",
+    "c++"
   ],
 });
 
