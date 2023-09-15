@@ -141,9 +141,9 @@ const BSInlineFunction = ({ className = "", functionName = "", fontSize = "inher
   } else {
     return (
       <>
-        <span className={`inline-code`}>{className}</span>
-        <span className="inline-code text-white">{"::"}</span>
-        <span className="inline-code function-color">{functionName}</span>
+        <span className={`inline-code class`}>{className}</span>
+        <span className="inline-code separator text-white">{"::"}</span>
+        <span className="inline-code function function-color">{functionName}</span>
       </>
     );
   }

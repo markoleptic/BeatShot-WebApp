@@ -7,7 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SidebarHashLink } from "../SidebarHashLink";
 import DA_InputConfig from "../../public/DA_InputConfig.png";
 import DA_KnifeAbilitySet from "../../public/DA_KnifeAbilitySet.png";
-import { BSCodeBlock, BSInlineCodeBlock, BSInlineEnum, BSInlineFunction } from "../CodeBlock";
+import { BSInlineFunction } from "../CodeBlock";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -267,7 +267,7 @@ const GameplayAbilitySystem = () => {
             </ul>
           </Sidebar>
           <article className="flex-container-column" id="article">
-            <p>From the Unreal Engine Docs:</p>
+            <p>From the <Link className="link text-lightgrey hover-blue" href={"https://docs.unrealengine.com/5.2/en-US/gameplay-ability-system-for-unreal-engine/"}>Unreal Engine Docs</Link>:</p>
             <blockquote className="otro-blockquote">
               The Gameplay Ability System is a framework for building attributes, abilities, and interactions that an Actor can own and
               trigger. The system is designed to be adapted to a wide variety of Gameplay-Driven projects such as Role-Playing Games(RPGs),
@@ -279,8 +279,8 @@ const GameplayAbilitySystem = () => {
               It might not sound like the <span className="inline text-light">Gameplay Ability System (GAS)</span> has a reason to be in
               BeatShot. Shooting a weapon could have easily been accomplished without a framework, and it was that way at first. However, I
               wanted to learn how an ability system worked in a game engine. <span className="inline text-light">GAS</span> is a massive
-              framework that was overwhelming at first. To make it less so, I narrowed my focus to a single goal: create an ability for
-              firing a weapon. After I completed this, I began to form a decent understanding on how the different classes worked together,
+              framework that was overwhelming at first. To make it less so, I narrowed my focus to a single goal: to create an ability for
+              firing a weapon. After I completed this, I began to form a decent understanding of how the different classes worked together,
               which led to other abilities.
             </p>
             <p>
@@ -290,7 +290,7 @@ const GameplayAbilitySystem = () => {
                 first section
               </Link>{" "}
               gives an overview of any classes I created and their purpose. The titles of each section are links that take you to the code
-              on Github. The{" "}
+              on GitHub. The{" "}
               <Link className="link text-lightgrey hover-blue" href={"#timeline"}>
                 second section
               </Link>{" "}
@@ -366,7 +366,7 @@ const GameplayAbilitySystem = () => {
                   it so it should be introduced first.
                 </p>{" "}
                 <p>
-                  A <span className="text-light">Latent Action</span> in Unreal is a blueprint node that has atleast one additional output
+                  A <span className="text-light">Latent Action</span> in Unreal is a blueprint node that has at least one additional output
                   execution pin that is called after some period of time. In other words, it lets you do certain stuff only after certain
                   stuff happens. In the editor, they have a timer symbol on the top right of the node, but{" "}
                   <Link className="link text-lightgrey hover-blue" scroll={true} href={"#bpgraph-1"}>
@@ -386,7 +386,7 @@ const GameplayAbilitySystem = () => {
                   </Link>{" "}
                   and is used pretty much any time an animation needs to be played within a{" "}
                   <span className="text-light">Gameplay Ability</span>. It has four additional outputs corresponding to different events
-                  that can be executed depending on how the animation montage was ended. The second shows{" "}
+                  that can be executed depending on how the animation montage ended. The second shows{" "}
                   <Link className="link text-lightgrey hover-blue" scroll={true} href={"#classes-UBSAT_AimToTarget"}>
                     AimToTarget
                   </Link>
@@ -522,13 +522,13 @@ const GameplayAbilitySystem = () => {
                       childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/Tasks/BSAT_TickTrace.cpp"
                     />
                     <p>
-                      This purpose of this task is to broadcast a <span className="text-light">HitResult</span> from a{" "}
+                      The purpose of this task is to broadcast a <span className="text-light">HitResult</span> from a{" "}
                       <BSInlineFunction functionName={"LineTraceSingleByChannel"} /> every frame. I chose to use an{" "}
                       <span className="text-light">Ability Task</span> here because it can tick using{" "}
                       <BSInlineFunction functionName={"TickTask"} />, while a <span className="text-light">GA</span> cannot.
                     </p>
                     <p>
-                      Usually <span className="text-light">Ability Tasks</span> are ended pretty quickly, but this task is active as long as
+                      Usually, <span className="text-light">Ability Tasks</span> are ended pretty quickly, but this task is active as long as
                       the Track Gun Ability is active since it doesn&#39;t make much sense to create and destroy a task every frame. I&#39;m
                       not sure if this is an intended use for an <span className="text-light">Ability Task</span>, but it does the job.
                     </p>
@@ -605,7 +605,7 @@ const GameplayAbilitySystem = () => {
                         </li>
                         <li>
                           <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-                          If the queue is empty, a null pointer is returned and nothing happens inside the ability. If the queue has invalid
+                          If the queue is empty, a null pointer is returned, and nothing happens inside the ability. If the queue has invalid
                           pointers, it is emptied.
                         </li>
                         <li>
@@ -619,7 +619,7 @@ const GameplayAbilitySystem = () => {
                     </li>
                     <li>
                       <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-                      When either the <span className="text-light">OnCancelled</span> and <span className="text-light">OnCompleted</span>{" "}
+                      When either the <span className="text-light">OnCancelled</span> or <span className="text-light">OnCompleted</span>{" "}
                       delegates are broadcast from the task, <BSInlineFunction functionName={"PopActiveTargets"} /> is called on the
                       Character which removes the target from the tail of the queue.
                     </li>
@@ -645,7 +645,7 @@ const GameplayAbilitySystem = () => {
                     <ul>
                       <li>
                         <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-                        A <BSInlineFunction className={"UCurveFloat"} /> is used to read the the value from a curve on tick. This is done
+                        A <BSInlineFunction className={"UCurveFloat"} /> is used to read the value from a curve on tick. This is done
                         using a <span className="text-light">FOnTimelineFloat</span> delegate and the curve. The{" "}
                         <BSInlineFunction functionName={"OnTimelineTick"} /> function is bound to the{" "}
                         <span className="text-light">FOnTimelineFloat</span> delegate, so every time the timeline ticks, the value from the
@@ -710,7 +710,7 @@ const GameplayAbilitySystem = () => {
                       </li>
                     </ul>
                     <p>
-                      When the timeline finishes playing, the <span className="text-light">OnCompleted</span> delegate is broadcast and the
+                      When the timeline finishes playing, the <span className="text-light">OnCompleted</span> delegate is broadcast, and the
                       task is ended.
                     </p>
                   </div>
@@ -786,7 +786,7 @@ const GameplayAbilitySystem = () => {
                   <BlogHeading headingText="Target Immunity" headingLevel={3} />
                   <p>
                     <span className="text-light">GEs</span> have a property called{" "}
-                    <span className="text-light">Granted Application Immunity Tags</span> which grant the owner immunity to all matching{" "}
+                    <span className="text-light">Granted Application Immunity Tags</span> which grants the owner immunity to all matching{" "}
                     <span className="text-light">GAs</span> that have the same <span className="text-light">Ability Tag</span>.
                   </p>
                   <p>
@@ -798,7 +798,7 @@ const GameplayAbilitySystem = () => {
                   <p>
                     Targets can also be immune to all damage, such as before a game mode starts or if a Target Activation/Deactivation
                     Response involves removing or applying immunity. These various types of immunity are applied using infinite duration{" "}
-                    <span className="text-light">GEs</span>, and are typically called directly on the target itself using{" "}
+                    <span className="text-light">GEs</span> and are typically called directly on the target itself using{" "}
                     <BSInlineFunction functionName="ApplyGameplayEffectToSelf" />.
                   </p>
                 </div>
@@ -855,7 +855,7 @@ const GameplayAbilitySystem = () => {
                     an <span className="text-light">Input Tag</span>, which is just a <span className="text-light">Gameplay Tag</span>.{" "}
                     <span className="text-light">Input Tags</span> are used so that <span className="text-light">IAs</span> can be bound to
                     abilities that might not yet be granted. All <span className="text-light">IAs</span> are bound to functions inside the{" "}
-                    <BSInlineFunction className={"ABSCharacter"} /> class, and are bound during{" "}
+                    <BSInlineFunction className={"ABSCharacter"} /> class and are bound during{" "}
                     <BSInlineFunction functionName={"InitializePlayerInput"} />. This data asset splits{" "}
                     <span className="text-light">IAs</span> into two categories:
                   </p>
@@ -867,7 +867,7 @@ const GameplayAbilitySystem = () => {
                     </li>
                     <li>
                       <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-                      <span className="text-light">Ability Input Actions</span> are bound to specific abilities. All of these are all bound
+                      <span className="text-light">Ability Input Actions</span> are bound to specific abilities. All of these are bound
                       to the same functions: <BSInlineFunction functionName={"Input_AbilityInputTagPressed"} /> and{" "}
                       <BSInlineFunction functionName={"Input_AbilityInputTagReleased"} />.
                     </li>
@@ -1246,7 +1246,7 @@ const GameplayAbilitySystem = () => {
                               <span className="text-light">Attribute Set</span>. The input parameter{" "}
                               <BSInlineFunction className={"FGameplayEffectModCallbackData"} /> describes which, if any, attributes were
                               changed by the <span className="text-light">GE</span>. In this example, the{" "}
-                              <span className="text-light">Total Damage</span> attribute will appear as modified. Then, the{" "}
+                              <span className="text-light">Total Damage</span> attribute will appear modified. Then, the{" "}
                               <span className="text-light">Health</span> attribute is set to its current value subtracted by the value of
                               the <span className="text-light">Total Damage</span> attribute. The{" "}
                               <span className="text-light">OnHealthChanged</span> delegate is then broadcast.
@@ -1265,7 +1265,7 @@ const GameplayAbilitySystem = () => {
                         <p>
                           Instead of using the <span className="text-light">Total Damage Meta</span> attribute, I could have directly set
                           the value of the <span className="text-light">Health Attribute</span> inside the Execution Calculation. However,
-                          the attribute could get changed twiced if the Execution Calculation did not clamp the value while{" "}
+                          the attribute could get changed twice if the Execution Calculation did not clamp the value while{" "}
                           <BSInlineFunction functionName={"PreAttributeChange"} /> did.{" "}
                         </p>
                         <p>
@@ -1293,7 +1293,7 @@ const GameplayAbilitySystem = () => {
                   <span className="text-light">GE</span> application success.
                 </p>
                 <p>
-                  I chose to use a <BSInlineFunction className="UGameplayCueNotify_Burst" /> since its meant to be used for one-off events.{" "}
+                  I chose to use an <BSInlineFunction className="UGameplayCueNotify_Burst" /> since its meant to be used for one-off events.{" "}
                   <BSInlineFunction className="AGameplayCueNotify_Actor" /> is another version that is actually spawned in the world, but
                   that is not used in this example.
                 </p>
@@ -1319,11 +1319,13 @@ const GameplayAbilitySystem = () => {
                       <BSInlineFunction className="WeaponFire" /> blueprint class, as well as updating a few variables inside that instruct
                       whether or not and where to spawn the various effects.
                     </li>
-                    <BlueprintGraph
+                  </ul>
+                  <BlueprintGraph
                       bpLink="https://blueprintue.com/render/pqprz-_7/"
                       label="Blueprint Graph 4"
                       description={<BSInlineFunction className="GameplayCueNotify_Burst" functionName={"OnBurst"} />}
                     />
+                  <ul>
                     <li>
                       <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
                       <BSInlineFunction className="WeaponFire" /> manages the bullet tracers, muzzle flash, and decals. A separate actor is
@@ -1337,6 +1339,59 @@ const GameplayAbilitySystem = () => {
             </div>
             <div className="article-section" ref={Ref_conclusion} id="conclusion">
               <BlogHeading headingText="Conclusion" headingLevel={1} />
+              <p>
+                BeatShot&#39;s abilities are pretty simple, so it does not take full advantage of everything{" "}
+                <span className="inline text-light">GAS</span> has to offer. However, I do not believe it was a waste of time to implement.
+                Adding new abilities is a breeze once everything is set up. If BeatShot were to ever offer multiplayer in the future, the
+                abilities would still work thanks to built-in replication from <span className="inline text-light">GAS</span>.
+              </p>
+              <p>
+                A few thoughts after diving into <span className="inline text-light">GAS</span>:{" "}
+              </p>
+              <ul>
+                <li>
+                  <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                  There are many ways to accomplish goals within the framework, and I don&#39;t think there&#39;s a wrong or right way as
+                  long as it works.
+                </li>
+                <li>
+                  <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                  It&#39;s okay to not know what&#39;s going on. Focus on the task at hand and look for any examples that relate to the
+                  goal.
+                </li>
+                <li>
+                  <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                  Unreal Engine is open source. Take advantage of that and look at what is happening behind the scenes when you have
+                  questions.
+                </li>
+                <li>
+                  <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+                  Set breakpoints in your IDE and run the program using the debug configuration to see which functions are called when and
+                  what the stack looks like.
+                </li>
+              </ul>
+              <p>
+                Writing public-facing articles helps reinforce what I learn. While writing this one, I modified quite a few things (see{" "}
+                <Link
+                  href="https://github.com/markoleptic/BeatShot/commit/33a788d180c8666ca45f27d3b6b102ec2e324901"
+                  className="link text-lightgrey hover-blue"
+                >
+                  here
+                </Link>{" "}
+                through{" "}
+                <Link
+                  href="https://github.com/markoleptic/BeatShot/commit/9c7feb6769ed34e0a6379d20f04a599a4adcc5c3"
+                  className="link text-lightgrey hover-blue"
+                >
+                  here
+                </Link>
+                ). It forces me to understand my implementation at a deeper level since I don&#39;t want to provide misinformation or
+                include anything seemingly unnecessary. If you believe something I&#39;ve said is incorrect, feel free to{" "}
+                <Link className="link text-lightgrey hover-blue" href="mailto: mark@beatshot.gg">
+                  send me an email
+                </Link>{" "}
+                so I can correct it. I hope you learned something and thanks for reading!
+              </p>
             </div>
             <div>
               <p className="inline posted-date">

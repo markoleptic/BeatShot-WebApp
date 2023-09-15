@@ -1715,6 +1715,21 @@ td.combined > p {
   padding-right: 0.1em;
   color: rgba(62, 198, 235, 1);
 }
+.inline-code.separator {
+  border-radius: 0px;
+  padding-left: 0em;
+  padding-right: 0em;
+
+}
+.inline-code.class {
+  border-radius: 3px 0px 0px 3px;
+  padding-right: 0em;
+}
+.inline-code.function {
+  border-radius: 0px 3px 3px 0px;
+  padding-left: 0em;
+}
+
 .function-color {
   color: rgb(80, 250, 123);
 }

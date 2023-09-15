@@ -550,7 +550,7 @@ const TargetSpawningSystem = () => {
                   include removing immunity and changing the direction of a moving target. This actor relies on several important components
                   that distribe its functionality.
                 </p>
-                <div ref={Ref_UBoxComponent} id="classes-UBoxComponent">
+                <div className="article-subsection-2" ref={Ref_UBoxComponent} id="classes-UBoxComponent">
                   <BlogHeadingClass
                     baseClass="UShapeComponent"
                     childClass="UBoxComponent"
@@ -581,7 +581,7 @@ const TargetSpawningSystem = () => {
                     </div>
                   </figure>
                 </div>
-                <div ref={Ref_UReinforcementLearningComponent} id="classes-UReinforcementLearningComponent">
+                <div className="article-subsection-2" ref={Ref_UReinforcementLearningComponent} id="classes-UReinforcementLearningComponent">
                   <BlogHeadingClass
                     baseClass="UActorComponent"
                     childClass="UReinforcementLearningComponent"
@@ -602,7 +602,7 @@ const TargetSpawningSystem = () => {
                     always have 625 elements (the simpler approach would only have 25 elements).
                   </p>
                 </div>
-                <div ref={Ref_USpawnAreaManagerComponent} id="classes-USpawnAreaManagerComponent">
+                <div className="article-subsection-2" ref={Ref_USpawnAreaManagerComponent} id="classes-USpawnAreaManagerComponent">
                   <BlogHeadingClass
                     baseClass="UActorComponent"
                     childClass="USpawnAreaManagerComponent"
@@ -643,7 +643,7 @@ const TargetSpawningSystem = () => {
                   The target relays information to the Target Manager any time it takes damage or times out due to its <em>Max Lifespan</em>{" "}
                   expiring. The class has several important components that help game modes run smoothly.
                 </p>
-                <div ref={Ref_UProjectileMovementComponent} id="classes-UProjectileMovementComponent">
+                <div className="article-subsection-2" ref={Ref_UProjectileMovementComponent} id="classes-UProjectileMovementComponent">
                   <BlogHeadingClass
                     baseClass="UMovementComponent"
                     childClass="UProjectileMovementComponent"
@@ -662,7 +662,7 @@ const TargetSpawningSystem = () => {
                     <BSInlineFunction className={"UProjectileMovementComponent"} functionName={"OnProjectileBounce"} /> is overriden.
                   </p>
                 </div>
-                <div ref={Ref_UBSAbilitySystemComponent} id="classes-UBSAbilitySystemComponent">
+                <div className="article-subsection-2" ref={Ref_UBSAbilitySystemComponent} id="classes-UBSAbilitySystemComponent">
                   <BlogHeadingClass
                     baseClass="UAbilitySystemComponent"
                     childClass="UBSAbilitySystemComponent"
@@ -683,7 +683,7 @@ const TargetSpawningSystem = () => {
                     more about GAS, but for now I&#39;ll only discuss the relvant parts.
                   </p>
                 </div>
-                <div ref={Ref_UBSHealthComponent} id="classes-UBSHealthComponent">
+                <div className="article-subsection-2" ref={Ref_UBSHealthComponent} id="classes-UBSHealthComponent">
                   <BlogHeadingClass
                     baseClass="UActorComponent"
                     childClass="UBSHealthComponent"
@@ -697,8 +697,10 @@ const TargetSpawningSystem = () => {
                     <BSInlineFunction className={"ATarget"} functionName={"OnHealthChanged"} /> function. If you aren&#39;t familiar with
                     delegates, this just means that when the target health changes, the function will be called.
                   </p>
+                  <p>
+                  In this case, the OnHealthChanged delegate has three parameters that will be passed to the function:
+                  </p>
                   <ul>
-                    In this case, the OnHealthChanged delegate has three parameters that will be passed to the function:
                     <li>
                       <FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
                       The actor who insigated the damage
