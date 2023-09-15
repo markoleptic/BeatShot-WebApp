@@ -50,7 +50,7 @@ const BlogPostsMain = () => {
             <div className="card">
               <p className="sub-heading">
                 Article
-                <time dateTime="2023-09-10">September 10, 2023 </time>
+                <time dateTime="2023-09-10">September 15, 2023 </time>
               </p>
               <Image src={image_Hero} alt="TargetSpawningSystem-teaser" />
               <div className="card-label">
@@ -59,8 +59,7 @@ const BlogPostsMain = () => {
                 </Link>
               </div>
               <p className="card-sub-label">
-              Why is the Gameplay Ability System used in BeatShot? This article explains the role of GAS and provides a walkthrough of a
-              common ability.
+              How is the Gameplay Ability System used in BeatShot? This article shows the implementation and walks through the execution of a common ability.
               </p>
             </div>
           </div>

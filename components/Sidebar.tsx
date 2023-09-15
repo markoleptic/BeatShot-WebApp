@@ -1,64 +1,64 @@
 "use client";
-import React, { ReactNode, useEffect } from "react";
+import React, { ReactNode, useEffect, useState } from "react";
 
 interface SidebarProps {
   children: ReactNode;
 }
 
-const scrollHash = () => {
-  const sidebarContainer = document.querySelector<HTMLElement>(".sidebar-main");
-  if (sidebarContainer) {
-    const hashLinks = document.querySelectorAll(".sidebar-hash-link.link.active");
-    let lastLink = hashLinks[hashLinks.length - 1];
-    if (lastLink instanceof HTMLElement) {
-      lastLink.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
-    }
-  }
-};
-
 const Sidebar: React.FC<SidebarProps> = ({ children }) => {
-  useEffect(() => {
-    const handleScroll = () => {
-      const sidebarContainer = document.querySelector<HTMLElement>(".sidebar-main");
-      const footer = document.querySelector<HTMLElement>(".footer-container");
+  const [noScroll, SetNoScroll] = useState<boolean>(false);
 
-      if (sidebarContainer && footer) {
-        const rect = footer.getBoundingClientRect();
-        const visibleRectHeight = window.innerHeight - rect.top;
-        const maxSidebarHeight = window.innerHeight - rect.height * 2;
+  const handleMatchMedia = (e: MediaQueryListEvent) => {
+    SetNoScroll(e.matches);
+  };
 
-        if (visibleRectHeight < 0) {
-          if (sidebarContainer.style.marginTop != "0px") {
-            sidebarContainer.style.marginTop = "0px";
-          }
-          return;
+  const handleScroll = () => {
+    const sidebarContainer = document.querySelector<HTMLElement>(".sidebar-container");
+    const footer = document.querySelector<HTMLElement>(".footer-container");
+
+    if (sidebarContainer && footer) {
+      const rect = footer.getBoundingClientRect();
+      const visibleRectHeight = window.innerHeight - rect.top;
+
+      if (visibleRectHeight < 0) {
+        if (sidebarContainer.style.maxHeight !== "92.5vh") {
+          sidebarContainer.style.maxHeight = "92.5vh";
         }
-
-        if (sidebarContainer.offsetHeight <= maxSidebarHeight && sidebarContainer.style.marginTop === "0px") {
-          if (sidebarContainer.style.marginTop != "0px") {
-            sidebarContainer.style.marginTop = "0px";
-          }
-          return;
-        }
-
-        if (rect.top < window.innerHeight) {
-          sidebarContainer.style.marginTop = visibleRectHeight + "px";
-        } else if (sidebarContainer.style.marginTop != "0px") {
-          sidebarContainer.style.marginTop = "0px";
-        }
+        return;
       }
-    };
+      if (rect.top < window.innerHeight) {
+        sidebarContainer.style.maxHeight = "85vh";
+      } else if (sidebarContainer.style.maxHeight != "92.5vh") {
+        sidebarContainer.style.maxHeight = "92.5vh";
+      }
+    }
+  };
 
+  const scrollHash = () => {
+    const sidebarContainer = document.querySelector<HTMLElement>(".sidebar-main");
+    if (sidebarContainer) {
+      const hashLinks = document.querySelectorAll(".sidebar-hash-link.link.active");
+      let lastLink = hashLinks[hashLinks.length - 1];
+      if (lastLink instanceof HTMLElement) {
+        lastLink.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "nearest" });
+      }
+    }
+  };
+  useEffect(() => {
     const handleHashLinkScroll = () => {
       if (timer !== undefined) {
         clearTimeout(timer);
       }
-      timer = setTimeout(scrollHash, 111);
+      timer = setTimeout(scrollHash, 250);
     };
 
     let timer: ReturnType<typeof setTimeout>;
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("scroll", handleHashLinkScroll);
+
+    if (window.innerWidth > 640) {
+      window.addEventListener("scroll", handleScroll);
+      window.addEventListener("scroll", handleHashLinkScroll);
+    }
+
     return () => {
       window.removeEventListener("scroll", handleScroll);
       window.removeEventListener("scroll", handleHashLinkScroll);
