@@ -13,6 +13,131 @@ const PatchNotes = () => {
             <div className="pn-version-date">
               <Link
                 className="link hover-blue fw-semibold pn-version-number"
+                href="https://store.steampowered.com/news/app/2126580/view/6135647336837560306?utm_source=beatshotwebsite&utm_medium=web"
+              >
+                0.5.4
+              </Link>
+              <p className="pn-date">September 17, 2023</p>
+            </div>
+            <ul>
+              <p className="fs-300"></p>
+              <li>
+                <FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+                <p className="fs-300">Animation</p>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Smoothed out the recoil animation.</p>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+                <p className="fs-300">Custom Game Modes</p>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Target Scale</p>
+                    <ul>
+                      <p></p>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                        Now shows a warning tooltip indicating the maximum allowed scale when the TargetDistributionPolicy is Grid and there it not enough room for targets in the Spawn Area.
+                        </p>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Forward Distance</p>
+                    <ul>
+                      <p></p>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                        Now shows a warning tooltip if the Moving Target Dirction Mode is Forward Only and one or more settings want to move the target.
+                        </p>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Added caution and warning counters above each custom game mode category.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Game modes with targets that are never destroyed (Target Destruction Condition is Persistant):</p>
+                    <ul>
+                      <p></p>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                        When target health falls to zero, health is reset to Max Health.
+                        </p>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+                <p className="fs-300">Default Game Modes</p>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Charged Beat Track and Cluster Beat</p>
+                    <ul>
+                      <p></p>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                        Changed Recent Target Memory Policy from Use TargetSpawnCD to Num Targets Based.
+                        </p>
+                      </li>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                        Changed Max Num Recent Targets from -1 to 3, 4, or 5 (based on difficulty).
+                        </p>
+                      </li>
+                    </ul>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+                <p className="fs-300">Effects</p>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Fixed an issue where the tracer and muzzle flash systems were not attached to the gun&#39;s muzzle, causing desync during animation or recoil.</p>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+                <p className="fs-300">Settings</p>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Added HDR settings.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Added Brightness slider (only affects in-game brightness and not UI brightness).</p>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="centered-bordered-container-1000">
+          <div className="pn-container">
+            <div className="pn-version-date">
+              <Link
+                className="link hover-blue fw-semibold pn-version-number"
                 href="https://store.steampowered.com/news/app/2126580/view/3678932376665208608?utm_source=beatshotwebsite&utm_medium=web"
               >
                 0.5.3
