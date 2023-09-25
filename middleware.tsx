@@ -21,6 +21,11 @@ export async function middleware(req: NextRequest) {
     return NextResponse.rewrite(url);
   }
 
+  if (url.pathname.startsWith("/sendfeedback")) {
+    url.pathname = url.pathname.replace("/sendfeedback", "/api/sendfeedback");
+    return NextResponse.rewrite(url);
+  }
+
   // skip any non-protected routes
   if (!url.pathname.startsWith(profilePath)) {
     return NextResponse.next();
