@@ -18,7 +18,7 @@ const PatchNotes = () => {
               >
                 0.5.5
               </Link>
-              <p className="pn-date">September 25, 2023</p>
+              <p className="pn-date">September 26, 2023</p>
             </div>
             <ul>
               <p className="fs-300"></p>
@@ -125,7 +125,7 @@ const PatchNotes = () => {
               </li>
               <li>
                 <FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
-                <p className="fs-300">Misc</p>
+                <p className="fs-300">Miscellaneous</p>
                 <ul>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
