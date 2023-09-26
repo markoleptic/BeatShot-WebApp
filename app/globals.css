@@ -330,6 +330,7 @@ div.sidebar-container {
   background: hsl(var(--clr-beatshot-darkblue));
   top: var(--header-height);
   position: sticky;
+  height: 100%;
 }
 div.sidebar-container.centered {
   min-width: 250px;
@@ -342,7 +343,6 @@ div.sidebar-container.left {
   max-width: 200px;
   font-size: var(--fs-75);
   text-align: left;
-  max-height: 92.5vh;
 }
 div.sidebar-main {
   display: flex;

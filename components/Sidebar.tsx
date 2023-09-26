@@ -19,17 +19,14 @@ const Sidebar: React.FC<SidebarProps> = ({ children }) => {
     if (sidebarContainer && footer) {
       const rect = footer.getBoundingClientRect();
       const visibleRectHeight = window.innerHeight - rect.top;
-
       if (visibleRectHeight < 0) {
-        if (sidebarContainer.style.maxHeight !== "92.5vh") {
-          sidebarContainer.style.maxHeight = "92.5vh";
-        }
+        sidebarContainer.style.height = `${window.innerHeight - 60}px`;
         return;
       }
       if (rect.top < window.innerHeight) {
-        sidebarContainer.style.maxHeight = "85vh";
-      } else if (sidebarContainer.style.maxHeight != "92.5vh") {
-        sidebarContainer.style.maxHeight = "92.5vh";
+        sidebarContainer.style.height = `${window.innerHeight - 120}px`;
+      } else if (sidebarContainer.style.height != `${window.innerHeight - 60}px`) {
+        sidebarContainer.style.height = `${window.innerHeight - 60}px`;
       }
     }
   };
