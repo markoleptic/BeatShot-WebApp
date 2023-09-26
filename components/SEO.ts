@@ -30,7 +30,7 @@ export default function SEO(params: SEOInterface): Metadata {
   type = type || "website";
   description = description || "the rhythm-based aim trainer";
   twitterCard = twitterCard || "summary";
-  let keywords = ["beatshot", "game", "aim trainer", "aim-trainer", "rhythm", "music"];
+  let keywords = ["beatshot", "beat shot", "game", "aim training", "aim trainer", "aim-trainer", "rhythm", "music"];
   if (clearDefaultKeywords) {
     keywords = [];
   }

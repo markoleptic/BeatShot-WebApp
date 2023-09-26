@@ -20,7 +20,7 @@ const NavBar = () => {
 
   return (
     <div className="header-container">
-      <header className="primary-header flex">
+      <header>
         <Link className="link" href="/">
           <Image className="logo" src={logo} alt="logo" />
         </Link>

@@ -102,7 +102,7 @@ select {
   --ff-readable: var(--font-roboto);
   --ff-code: var(--font-roboto-mono);
 
-  --header-height: 7.5vh;
+  --header-height:60px;
   --min-header-height: 3rem;
 }
 
@@ -770,13 +770,16 @@ article .updated-date {
   justify-content: center;
   align-items: center;
 }
+
+header a {
+  height: 100%;
+  width: auto;
+}
+
 .logo,
 .header-logo {
-  height: calc(var(--header-height) - 1vh);
-  padding-top: 0.75vh;
-  padding-bottom: 0.75vh;
+  height: 100%;
   width: auto;
-  max-width: none;
 }
 .footer-brand-container {
   display: flex;
