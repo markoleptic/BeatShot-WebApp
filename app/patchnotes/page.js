@@ -66,7 +66,7 @@ const PatchNotes = () => {
                       <li>
                         <FontAwesomeIcon icon={faPlay} />
                         <p>
-                        <b>Start Threshold</b>: The number of consecutively destroyed targets required to begin increasing the max target scale
+                        <b>Start Threshold</b>: The number of consecutively destroyed targets required to begin decreasing the max target scale
                           to the min target scale.
                         </p>
                       </li>
