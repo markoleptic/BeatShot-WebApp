@@ -330,7 +330,7 @@ div.sidebar-container {
   background: hsl(var(--clr-beatshot-darkblue));
   top: var(--header-height);
   position: sticky;
-  height: 100%;
+  height: auto;
 }
 div.sidebar-container.centered {
   min-width: 250px;
@@ -351,7 +351,7 @@ div.sidebar-main {
   width: 100%;
   gap: 0.5rem;
   color: hsl(var(--clr-white));
-  overflow-y: scroll;
+  overflow-y: auto;
   padding-right: 0.6rem;
 }
 

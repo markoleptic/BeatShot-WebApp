@@ -14,6 +14,47 @@ const PatchNotes = () => {
             <div className="pn-version-date">
               <Link
                 className="link hover-blue fw-semibold pn-version-number"
+                href="https://store.steampowered.com/news/app/2126580/view/3738607609083595810?utm_source=beatshotwebsite&utm_medium=web"
+              >
+                0.5.6
+              </Link>
+              <p className="pn-date">September 27, 2023</p>
+            </div>
+            <ul>
+              <p className="fs-300"></p>
+              <li>
+                <FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+                <p className="fs-300">CrossHair</p>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Added the option to show a dot in the middle, along with the color and size. It inherits the outline settings.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Outline Width is now called Outline Size and it now scales independently of Line Width.</p>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+                <p className="fs-300">Video and Sound</p>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Fixed a bug where video quality settings were not correctly applying.</p>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="centered-bordered-container-1000">
+          <div className="pn-container">
+            <div className="pn-version-date">
+              <Link
+                className="link hover-blue fw-semibold pn-version-number"
                 href="https://store.steampowered.com/news/app/2126580/view/3737481075257137588?utm_source=beatshotwebsite&utm_medium=web"
               >
                 0.5.5
