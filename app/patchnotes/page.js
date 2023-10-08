@@ -14,7 +14,7 @@ const PatchNotes = () => {
             <div className="pn-version-date">
               <Link
                 className="link hover-blue fw-semibold pn-version-number"
-                href="https://store.steampowered.com/news/app/2126580/view/3738607609083595810?utm_source=beatshotwebsite&utm_medium=web"
+                href="https://store.steampowered.com/news/app/2126580/view/3738607609083623504?utm_source=beatshotwebsite&utm_medium=web"
               >
                 0.5.6
               </Link>
