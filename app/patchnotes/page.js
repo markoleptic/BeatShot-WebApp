@@ -14,6 +14,276 @@ const PatchNotes = () => {
             <div className="pn-version-date">
               <Link
                 className="link hover-blue fw-semibold pn-version-number"
+                href="https://store.steampowered.com/news/app/2126580/view/3747617344191398606?utm_source=beatshotwebsite&utm_medium=web"
+              >
+                0.6.0
+              </Link>
+              <p className="pn-date">October 25, 2023</p>
+            </div>
+            <ul>
+              <p className="fs-300">
+                It&#39;s been a while since the last update, but there&#39;s quite a few changes in this one. All Default Game Modes have
+                received a tuning pass, two &#34;new&#34; modes have been introduced, new custom mode options have been added, and various
+                bug fixes and UI improvements have been made.
+              </p>
+              <p className="fs-300">
+                Tuning game modes is challenging without much feedback, so we&#39;d really appreciate your thoughts. Your input is
+                invaluable, and we hope you enjoy exploring the improvements!
+              </p>
+              <li>
+                <FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+                <p className="fs-300">Game Modes</p>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      BeatTrack has been reworked. Instead of a single persistent target, multiple targets are spawned with infinite
+                      lifespans. Targets deactivate after taking 50 damage, causing them to shrink in size and then reactivate. After a
+                      target takes 150 total damage, it is destroyed and a new one is spawned.
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>ClusterBeat has been updated to use the new Spawn Selection setting.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      Added a new Default Game Mode, MultiBeat Precision: Focuses on precision with a smaller, static spawn area, smaller
+                      targets, and a wider range of target sizes.
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      Added a new Default Game Mode, MultiBeat Speed: Emphasizes speed with a smaller, static spawn area, larger targets,
+                      more frequent spawning, and a narrower range of target sizes.
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Tuned various parameters for all Default Game Modes and difficulties (mostly nerfs tbh).</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      Location Accuracy now works for all game modes. Previously, game modes with Grid-based target distributions or
+                      Tracking-based damage did not record location accuracy data, so nothing showed up on the Location Accuracy Heatmap.
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Massively improved the reinforcement learning algorithm and updated the tooltips for the parameters.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>The max allowed Target Lifespan has been increased to 10 seconds.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>The min allowed Target Health has been lowered to 10 and the snap size reduced to 10.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Grid-based target distribution</p>
+                    <ul>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                          The number of horizontal and vertical targets no longer have to be in increments of five for reinforcement
+                          learning to be enabled.
+                        </p>
+                      </li>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                          The horizontal and vertical spread options are now disabled and automatically adjusted based on the number of
+                          targets, spacing, and target size.
+                        </p>
+                      </li>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                          Added a new menu option: Spawn Selection, which specifies the shape and location of targets including options like
+                          RandomGridBlock and BorderingGridBlock.
+                        </p>
+                      </li>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>
+                          Targets spawned using RandomGridBlock or BorderingGridBlock will always be compactly arranged (e.g. 12 targets
+                          will be a 3x4 or 4x3 block).
+                        </p>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Added a checkbox to the Target Lifespan menu option to allow for infinite lifespan.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Added a new Deactivation Condition: OnSpecificHealthLost</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Added a new Deactivation Response: Reactivate</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Added a new menu option: Health Loss Required For Deactivation</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Added a new menu option: Allow Activation While Activated</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Added a new menu option: Spawn Responses</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Improved consistency of moving target velocity and direction after bouncing.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Improved the way multiple targets are spawned at once.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      When the Maximum Number of Activated Targets is set to -1, the game mode will now fall back to other constraints
+                      instead of defaulting to one.
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Fixed a bug where the Recent Target Memory Policy None would never remove targets from being recent.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Fixed a bug where the reinforcement learning parameters were mixed up with what they actually represented.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Fixed a bug where the custom game modes using tracking damage were not receiving the correct score.</p>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+                <p className="fs-300">User Interface</p>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Dismissive actions (like cancel) are now always the leftmost button of any dialog box.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      Clicking the Restart button from Post Game Mode Menu now shows the Audio Select dialog box instead of automatically
+                      using the same song.
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>The Game Mode Preview window now applies padding based on the target size, ensuring that targets no longer extend beyond the window boundaries.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Added the ability to delete scores associated with a Custom Game Mode when clicking the Delete Selected button. </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Added a button to reset any reinforcement learning data for a Custom Game Mode.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Added a start button to the Custom Game Mode Creator View.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Added a new Settings Menu option: Tracking Target Color</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Added a new Settings Menu option: Tracking Target Color While Taking Damage</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Added and updated various tooltip descriptions.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      Removed the Start Without Saving button. The game now prompts users based on the context when clicking the Start
+                      button.
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Combined menu options that previously had a separate constant, min, and max option into one menu option.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Combined menu options with an infinite option into one menu option.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Moved all condition and response settings into one category: Responses</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Moved all direction or velocity related settings into one category: Movement</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Moved all target sizing related settings into one category: Target Sizing</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Shortened the names of various Custom Game Modes settings.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      Fixed a bug where changes to dynamic custom game mode settings were not detected, causing the game to suggest the
+                      custom game mode was already up to date.
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Fixed a bug where Custom Game Modes would still show up after clicking the Remove All button.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Fixed a bug where changes to the Floor Distance were not properly updating the Game Mode Preview.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Fixed a bug where very high Floor Distance values were pushing targets off the Game Mode Preview area.</p>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+                <p className="fs-300">Miscellaneous</p>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Fixed a bug where separate outline colors were not applying to targets.</p>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div className="centered-bordered-container-1000">
+          <div className="pn-container">
+            <div className="pn-version-date">
+              <Link
+                className="link hover-blue fw-semibold pn-version-number"
                 href="https://store.steampowered.com/news/app/2126580/view/3738607609083623504?utm_source=beatshotwebsite&utm_medium=web"
               >
                 0.5.6
@@ -75,26 +345,28 @@ const PatchNotes = () => {
                       <li>
                         <FontAwesomeIcon icon={faPlay} />
                         <p>
-                        <b>Start Threshold</b>: The number of consecutively destroyed targets required to begin increasing the min spread to the
-                          max spread.
+                          <b>Start Threshold</b>: The number of consecutively destroyed targets required to begin increasing the min spread
+                          to the max spread.
                         </p>
                       </li>
                       <li>
                         <FontAwesomeIcon icon={faPlay} />
-                        <p><b>End Threshold</b>: The number of consecutively destroyed targets required to reach the max spread.</p>
+                        <p>
+                          <b>End Threshold</b>: The number of consecutively destroyed targets required to reach the max spread.
+                        </p>
                       </li>
                       <li>
                         <FontAwesomeIcon icon={faPlay} />
                         <p>
-                        <b>Min Horizontal Spread, Min Vertical Spread, and Min Forward Spread</b>: the size of the spawn area before the
+                          <b>Min Horizontal Spread, Min Vertical Spread, and Min Forward Spread</b>: the size of the spawn area before the
                           Start Threshold is reached.
                         </p>
                       </li>
                       <li>
                         <FontAwesomeIcon icon={faPlay} />
                         <p>
-                        <b>Decrement Amount</b>: Instead of resetting consecutively destroyed targets to zero each time a target is missed, this
-                          value is subtracted from it.
+                          <b>Decrement Amount</b>: Instead of resetting consecutively destroyed targets to zero each time a target is
+                          missed, this value is subtracted from it.
                         </p>
                       </li>
                     </ul>
@@ -107,19 +379,21 @@ const PatchNotes = () => {
                       <li>
                         <FontAwesomeIcon icon={faPlay} />
                         <p>
-                        <b>Start Threshold</b>: The number of consecutively destroyed targets required to begin decreasing the max target scale
-                          to the min target scale.
+                          <b>Start Threshold</b>: The number of consecutively destroyed targets required to begin decreasing the max target
+                          scale to the min target scale.
                         </p>
                       </li>
                       <li>
                         <FontAwesomeIcon icon={faPlay} />
-                        <p><b>End Threshold</b>: The number of consecutively destroyed targets required to reach the min target scale.</p>
+                        <p>
+                          <b>End Threshold</b>: The number of consecutively destroyed targets required to reach the min target scale.
+                        </p>
                       </li>
                       <li>
                         <FontAwesomeIcon icon={faPlay} />
                         <p>
-                        <b>Decrement Amount</b>: Instead of resetting consecutively destroyed targets to zero each time a target is missed, this
-                          value is subtracted from it.
+                          <b>Decrement Amount</b>: Instead of resetting consecutively destroyed targets to zero each time a target is
+                          missed, this value is subtracted from it.
                         </p>
                       </li>
                     </ul>
