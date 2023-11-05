@@ -1,56 +1,35 @@
 import { NextResponse, NextRequest } from "next/server";
 import * as bcrypt from "bcrypt";
-import { sign } from "jsonwebtoken";
 import { cookies } from "next/headers";
-import { users } from "@/models";
-import { accessTokenLength, refreshTokenLength } from "../interfaces";
+import { createAccessToken, createRefreshToken } from "../authfunctions";
+import { loginUser } from "../databasefunctions";
 
 export async function POST(req: NextRequest) {
   const { username, email, password } = await req.json();
-  if ((username === "" && email === "") || (!username && !email) || !password) {
-    return NextResponse.json({ message: "Username/Email and password are required." }, { status: 400 });
+
+  const [errorMsg, user] = await loginUser(username, email, password);
+  if (!user) {
+    return NextResponse.json({ message: errorMsg }, { status: 401 });
   }
-
-  const foundUser =
-    username === ""
-      ? await users.findOne({ where: { email: email } })
-      : await users.findOne({ where: { username: username } });
-
-  if (!foundUser) {
-    return NextResponse.json({ message: "User not found." }, { status: 401 });
-  }
-
-  if (!foundUser.confirmed) {
-    return NextResponse.json({ message: "Please confirm your email or request for a resend." }, { status: 400 });
-  }
-
-  if (foundUser.displayName === null) {
-    await foundUser.update({ displayName: foundUser.username });
+  else if (errorMsg.length !== 0) {
+    return NextResponse.json({ message: errorMsg }, { status: 400 });
   }
 
   try {
     // evaluate password
-    const match = await bcrypt.compare(password, foundUser.password as string);
+    const match = await bcrypt.compare(password, user.password as string);
     if (!match) {
       return NextResponse.json({ message: "Incorrect password." }, { status: 401 });
     }
 
     // create short-lived access token
-    const accessToken = sign(
-      { userID: foundUser.userID, displayName: foundUser.displayName },
-      process.env.ACCESS_TOKEN_SECRET as string,
-      { expiresIn: accessTokenLength }
-    );
+    const accessToken = createAccessToken(user.userID, user.displayName || "");
 
     // create long-lived refresh token
-    const refreshToken = sign(
-      { userID: foundUser.userID, displayName: foundUser.displayName },
-      process.env.REFRESH_TOKEN_SECRET as string,
-      { expiresIn: refreshTokenLength }
-    );
+    const refreshToken = createRefreshToken(user.userID, user.displayName || "");
 
     // save long-lived refresh token in database
-    await users.update({ refreshToken: refreshToken }, { where: { userID: foundUser.userID } });
+    await user.update({ refreshToken: refreshToken });
 
     // Send long-lived refresh token as cookie
     cookies().set("jwt", refreshToken as string, {
@@ -62,7 +41,7 @@ export async function POST(req: NextRequest) {
 
     // Send short-lived access token as JSON
     return NextResponse.json(
-      { userID: foundUser.userID, displayName: foundUser.displayName, accessToken: accessToken },
+      { userID: String(user.userID), displayName: user.displayName, accessToken: accessToken },
       { status: 200 }
     );
   } catch (error) {

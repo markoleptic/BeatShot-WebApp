@@ -1,6 +1,6 @@
 "use client";
 import { NavLink } from "../Navlink";
-import { useAuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "../Auth/AuthContext";
 import React from "react";
 
 const ProfileSidebar = ({ children }: { children: React.ReactNode }) => {

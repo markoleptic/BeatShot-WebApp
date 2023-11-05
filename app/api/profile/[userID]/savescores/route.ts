@@ -6,6 +6,7 @@ import { UserIDParams } from "@/app/api/interfaces";
 export async function POST(req: NextRequest, { params }: UserIDParams) {
   const userID = params.userID;
   const newScores = await req.json();
+  let numCreated = 0;
   const foundUser = await users.findOne({
     where: { userID: userID },
   });
@@ -15,18 +16,11 @@ export async function POST(req: NextRequest, { params }: UserIDParams) {
   }
 
   try {
-    const existingScores = await scores.findAll({ raw: true, nest: true, where: { userID: foundUser.userID } });
-    let times = [];
-
-    for (let entry in existingScores) {
-      times.push(existingScores[entry].time?.toJSON());
-    }
-
     for (let scoreArray in newScores) {
       for (let scoreObject in newScores[scoreArray]) {
-        if (!times.includes(newScores[scoreArray][scoreObject].time)) {
+        try {
           scores.create({
-            userID: foundUser.userID as string,
+            userID: foundUser.userID,
             baseGameMode: newScores[scoreArray][scoreObject].definingConfig.baseGameMode as string,
             gameModeType: newScores[scoreArray][scoreObject].definingConfig.gameModeType as string,
             difficulty: newScores[scoreArray][scoreObject].definingConfig.difficulty as string,
@@ -47,10 +41,13 @@ export async function POST(req: NextRequest, { params }: UserIDParams) {
             streak: newScores[scoreArray][scoreObject].streak as number,
             locationAccuracy: newScores[scoreArray][scoreObject].locationAccuracy as object,
           });
+          numCreated++;
+        } catch (error) {
+          console.error(error);
         }
       }
     }
-    return NextResponse.json({ message: "Scores successfully added to database." }, { status: 200 });
+    return NextResponse.json({ message: `Successfully added ${numCreated} scores to database.` }, { status: 200 });
   } catch (error) {
     return NextResponse.json({ message: "Something went wrong." }, { status: 400 });
   }

@@ -13,6 +13,10 @@ const sequelize = new Sequelize({
   database: sequelizeConfig.database,
   dialect: sequelizeConfig.dialect,
   dialectModule: mysql2,
+  dialectOptions: {
+    supportBigNumbers: true,
+    bigNumberStrings: true, 
+  },
   username: sequelizeConfig.username,
   password: sequelizeConfig.password,
   host: sequelizeConfig.host,

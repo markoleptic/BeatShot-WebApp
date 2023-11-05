@@ -46,7 +46,7 @@ export const getGameModes = async (data, bCustom = false) => {
   return gameModeArray;
 };
 
-// retruns an object containing {dates, scores}
+// returns an object containing {dates, scores}
 export const getScores = async (data, bCustom = false, selectedGameMode, selectedSong, selectedDifficulty) => {
   let scoreMap = new Map();
   for (let scoreObject in data) {

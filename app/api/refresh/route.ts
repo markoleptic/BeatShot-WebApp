@@ -1,6 +1,6 @@
-import { sign } from "jsonwebtoken";
 import { NextResponse, NextRequest } from "next/server";
-import { verifyJWT, TokenInterface, accessTokenLength } from "../interfaces";
+import { verifyJWT, TokenInterface } from "../interfaces";
+import { createAccessToken } from "../authfunctions";
 
 // returns a short lived access token from a jwt cookie
 export async function GET(req: NextRequest) {
@@ -20,7 +20,7 @@ export async function GET(req: NextRequest) {
   }
 
   // create short-lived access token
-  const accessToken = sign({ userID: verifyResult.userID, displayName: verifyResult.displayName }, process.env.ACCESS_TOKEN_SECRET as string, { expiresIn: accessTokenLength });
+  const accessToken = createAccessToken(verifyResult.userID, verifyResult.displayName || "");
 
   // send short-lived access token
   return NextResponse.json({ accessToken: accessToken }, { status: 200 });

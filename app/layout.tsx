@@ -1,6 +1,6 @@
 import Navbar from "../components/Core/NavBar";
 import Footer from "../components/Core/Footer";
-import { AuthProvider } from "../context/AuthContext";
+import { AuthProvider } from "../components/Auth/AuthContext";
 import { Metadata } from "next";
 import SEO from "@/components/SEO";
 import AuthUpdate from "@/components/Auth/AuthUpdate";

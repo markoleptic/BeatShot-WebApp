@@ -1,9 +1,8 @@
 import { NextResponse, NextRequest } from "next/server";
-import { instanceOfSteamUser, refreshTokenLength } from "@/app/api/interfaces";
+import { instanceOfSteamUser } from "@/app/api/interfaces";
 import { cookies } from "next/headers";
-import { sign } from "jsonwebtoken";
-import { users } from "@/models";
-import { authenticateSteamUser, fetchSteamUser, createRelyingParty } from "@/app/api/authfunctions";
+import { authenticateSteamUser, fetchSteamUser, createRelyingParty, createRefreshToken } from "@/app/api/authfunctions";
+import { findOrCreateUser } from "@/app/api/databasefunctions";
 
 // return URI from Steam
 export async function GET(req: NextRequest) {
@@ -23,32 +22,21 @@ export async function GET(req: NextRequest) {
   }
   const steamID = authResult.result.claimedIdentifier as string;
   steamID.replace(process.env.STEAM_OPENID_URL as string, "");
-  const user = await fetchSteamUser(steamID);
-  if (!instanceOfSteamUser(user)) {
+  const [errorMsg, steamUser] = await fetchSteamUser(steamID);
+  if (!instanceOfSteamUser(steamUser)) {
     return NextResponse.redirect(`${hostUrl as string}/redirect/?context=fetchsteamuser&success=false`, {
       status: 302,
     });
   }
-  let foundUser = await users.findOne({ where: { userID: user.steamid } });
 
-  if (!foundUser) {
-    foundUser = await users.create({ userID: user.steamid, displayName: user.personaname, confirmed: 1 });
-  }
+  const [_, user] = await findOrCreateUser(steamUser.steamid, steamUser.personaname);
+  if (!user)  
+    return NextResponse.redirect(`${hostUrl as string}/redirect/?context=fetchsteamuser&success=false`, {
+    status: 302,
+  });
 
-  // update display name
-  if (foundUser.displayName !== user.personaname) {
-    await foundUser.update({ displayName: user.personaname });
-  }
-
-  // create long-lived refresh token
-  const refreshToken = sign(
-    { userID: foundUser.userID, displayName: foundUser.displayName },
-    process.env.REFRESH_TOKEN_SECRET as string,
-    { expiresIn: refreshTokenLength }
-  );
-
-  // save long-lived refresh token in database
-  await foundUser.update({ refreshToken: refreshToken });
+  const refreshToken = createRefreshToken(user.userID, steamUser.personaname);
+  await user.update({ displayName: steamUser.personaname, refreshToken: refreshToken });
 
   // Send long-lived refresh token as cookie
   cookies().set("jwt", refreshToken as string, {
@@ -57,5 +45,5 @@ export async function GET(req: NextRequest) {
     secure: true,
     maxAge: 24 * 60 * 60 * 365 * 5,
   });
-  return NextResponse.redirect(`${hostUrl as string}/profile/${foundUser.userID}`, { status: 302 });
+  return NextResponse.redirect(`${hostUrl as string}/profile/${user.userID}`, { status: 302 });
 }

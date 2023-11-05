@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import useRefreshToken from "../../hooks/useRefreshToken";
-import { useAuthContext } from "../../context/AuthContext";
+import { useAuthContext } from "./AuthContext";
 import React from "react";
 
 // refreshes access token stored in memory used to access protected resources

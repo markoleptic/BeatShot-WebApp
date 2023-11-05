@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { users } from "@/models";
+import { sequelize, users } from "@/models";
 import bcrypt from "bcrypt";
 import { createConfToken, sendConfEmail } from "../authfunctions";
 import { saltRounds } from "../interfaces";
@@ -25,9 +25,12 @@ export async function POST(req: NextRequest) {
 
   try {
     const hashedPassword = await bcrypt.hash(password, saltRounds);
+    const results = await sequelize.query('CALL GetNewUserID ()') as any;
     const newUser = await users.create({
+      userID: results[0].nextUserID,
       username: username,
       displayName: username,
+      confirmed: 0,
       email: email,
       password: hashedPassword,
     });

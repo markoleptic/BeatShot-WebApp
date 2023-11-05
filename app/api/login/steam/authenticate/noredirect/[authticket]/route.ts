@@ -1,15 +1,12 @@
 import { NextResponse, NextRequest } from "next/server";
-import { authenticateUserTicket, fetchSteamUser } from "@/app/api/authfunctions";
+import { authenticateUserTicket, createRefreshToken } from "@/app/api/authfunctions";
 import {
   SteamAuthTicketParams,
   SteamAuthTicketResponse,
   SteamAuthTicketResponseError,
-  SteamUser,
-  refreshTokenLength,
 } from "@/app/api/interfaces";
-import { sign } from "jsonwebtoken";
 import { cookies } from "next/headers";
-import { users } from "@/models";
+import { findOrCreateUserFromSteamUser } from "@/app/api/databasefunctions";
 
 // client in game sends session ticket to this endpoint for verification
 export async function GET(req: NextRequest, { params }: SteamAuthTicketParams) {
@@ -25,24 +22,13 @@ export async function GET(req: NextRequest, { params }: SteamAuthTicketParams) {
       return NextResponse.json({ errorcode: 99, errordesc: "Unable to authenticate." }, { status: 401 });
     }
 
-    let foundUser = await users.findOne({ where: { userID: authResponse.steamid } });
-    if (!foundUser) {
-      const steamUser = (await fetchSteamUser(authResponse.steamid)) as SteamUser;
-      if (!steamUser) {
-        return NextResponse.json({ errorcode: 99, errordesc: "Failed to fetch steam user." }, { status: 400 });
-      }
-      foundUser = await users.create({ userID: steamUser.steamid, displayName: steamUser.personaname, confirmed: 1 });
-    }
+    const [errorMsg, user] = await findOrCreateUserFromSteamUser(authResponse.steamid);
+    if (!user) return NextResponse.json({ errorcode: 99, errordesc: errorMsg }, { status: 400 });
 
-    // create long-lived refresh token
-    const refreshToken = sign(
-      { userID: foundUser.userID, displayName: foundUser.displayName },
-      process.env.REFRESH_TOKEN_SECRET as string,
-      { expiresIn: refreshTokenLength }
-    );
-
+    const refreshToken = createRefreshToken(user.userID, user.displayName || "");
+    
     // save long-lived refresh token in database
-    await foundUser.update({ refreshToken: refreshToken });
+    await user.update({ refreshToken: refreshToken });
 
     // Send long-lived refresh token as cookie
     cookies().set("jwt", refreshToken as string, {
@@ -51,7 +37,7 @@ export async function GET(req: NextRequest, { params }: SteamAuthTicketParams) {
       secure: true,
       maxAge: 24 * 60 * 60 * 365 * 5,
     });
-    authResponse.displayname = foundUser.displayName;
+    authResponse.displayname = user.displayName;
     return NextResponse.json(authResponse, { status: 200 });
   } catch (error) {
     const steamError = error as SteamAuthTicketResponseError;

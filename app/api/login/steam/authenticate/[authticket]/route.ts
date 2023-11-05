@@ -1,9 +1,8 @@
 import { NextResponse, NextRequest } from "next/server";
-import { authenticateUserTicket, fetchSteamUser } from "@/app/api/authfunctions";
-import { SteamAuthTicketParams, SteamAuthTicketResponse, SteamUser, refreshTokenLength } from "@/app/api/interfaces";
-import { sign } from "jsonwebtoken";
+import { authenticateUserTicket, createRefreshToken } from "@/app/api/authfunctions";
+import { SteamAuthTicketParams, SteamAuthTicketResponse } from "@/app/api/interfaces";
 import { cookies } from "next/headers";
-import { users } from "@/models";
+import { findOrCreateUserFromSteamUser } from "@/app/api/databasefunctions";
 
 // client in game sends session ticket to this endpoint for verification
 export async function GET(req: NextRequest, { params }: SteamAuthTicketParams) {
@@ -24,36 +23,25 @@ export async function GET(req: NextRequest, { params }: SteamAuthTicketParams) {
       });
     }
 
-    let foundUser = await users.findOne({ where: { userID: authResponse.steamid } });
-    if (!foundUser) {
-      const steamUser = (await fetchSteamUser(authResponse.steamid)) as SteamUser;
-      if (!steamUser) {
-        return NextResponse.redirect(`${hostUrl as string}/redirect/?context=fetchsteamuser&success=false`, {
-          status: 302,
-        });
-      }
-      foundUser = await users.create({ userID: steamUser.steamid, displayName: steamUser.personaname, confirmed: 1 });
-    }
+    const [errorMsg, user] = await findOrCreateUserFromSteamUser(authResponse.steamid);
+    if (!user) return NextResponse.redirect(`${hostUrl as string}/redirect/?context=fetchsteamuser&success=false`, {
+      status: 302,
+    });
 
-    // create long-lived refresh token
-    const refreshToken = sign(
-      { userID: foundUser.userID, displayName: foundUser.displayName },
-      process.env.REFRESH_TOKEN_SECRET as string,
-      { expiresIn: refreshTokenLength }
-    );
+    const refreshToken = createRefreshToken(user.userID, user.displayName || "");
 
     // save long-lived refresh token in database
-    await foundUser.update({ refreshToken: refreshToken });
+    await user.update({ refreshToken: refreshToken });
 
     // Send long-lived refresh token as cookie
-    cookies().set("jwt", refreshToken as string, {
+    cookies().set("jwt", refreshToken, {
       httpOnly: true,
       sameSite: "none",
       secure: true,
       maxAge: 24 * 60 * 60 * 365 * 5,
     });
 
-    return NextResponse.redirect(`${hostUrl as string}/profile/${foundUser.userID}`, { status: 302 });
+    return NextResponse.redirect(`${hostUrl as string}/profile/${user.userID}`, { status: 302 });
   } catch (error) {
     console.log(error);
     return NextResponse.redirect(`${hostUrl as string}/redirect/?context=unknown&success=false`, { status: 302 });

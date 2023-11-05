@@ -45,6 +45,9 @@ function getPageTitle (searchParams: ReadonlyURLSearchParams) {
   else if (context === "steamlinknouser") {
     return "User Not Found"
   }
+  else if (context === "steamlinkedtodiffaccount") {
+    return "Steam Account Already Linked"
+  }
   else {
     return "How did you end up here?";
   }
@@ -81,6 +84,9 @@ function getDescription (searchParams: ReadonlyURLSearchParams) {
   }
   else if (context === "steamlinknouser") {
     return "The requested user was not found in the database."
+  }
+  else if (context === "steamlinkedtodiffaccount") {
+    return "This steam account is already linked to an existing BeatShot account."
   }
   else {
     return "";

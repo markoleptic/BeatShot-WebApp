@@ -11,7 +11,7 @@ export async function GET(req: NextRequest, { params }: UserIDParams) {
     return NextResponse.redirect(`${hostUrl as string}/redirect/?context=nouserid&success=false`, { status: 302 });
   }
 
-  const verifyUrl = createSteamVerifyLinkAccountUrl(userID);
+  const verifyUrl = createSteamVerifyLinkAccountUrl(String(userID));
   const relyingParty = createRelyingParty(verifyUrl as string);
 
   const authUrl = await getRedirectUrl(relyingParty);

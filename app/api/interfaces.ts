@@ -23,6 +23,10 @@ export interface UserIDParams {
   };
 }
 
+export interface NewUserIDParams {
+    nextUserID: string;
+}
+
 export interface AuthData {
   userID: string;
   displayName: string;

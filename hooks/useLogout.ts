@@ -1,4 +1,4 @@
-import { useAuthContext } from "../context/AuthContext";
+import { useAuthContext } from "../components/Auth/AuthContext";
 import { useRouter } from "next/navigation";
 
 // clears auth and refresh token in database

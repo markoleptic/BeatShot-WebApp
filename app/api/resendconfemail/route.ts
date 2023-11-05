@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
-import { users } from "@/models";
 import { sendConfEmail, createConfToken } from "../authfunctions";
+import { findUserByEmail } from "../databasefunctions";
 
 export async function POST(req: NextRequest) {
   const { email } = await req.json();
@@ -9,15 +9,11 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ message: "Email is required." }, { status: 400 });
   }
 
-  const foundUser = await users.findOne({
-    where: { email: email },
-  });
-
+  const [errMsg, foundUser] = await findUserByEmail(email);
   if (!foundUser) {
     return NextResponse.json({ message: "No user exists with that email." }, { status: 400 });
   }
-
-  if (foundUser.confirmed) {
+  if (foundUser.confirmed === 1) {
     return NextResponse.json({ message: "This email has already been confirmed." }, { status: 400 });
   }
 

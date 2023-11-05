@@ -6,6 +6,8 @@ import {
   SteamAuthTicketResponseError,
   recoveryTokenLength,
   confirmationTokenLength,
+  refreshTokenLength,
+  accessTokenLength,
 } from "./interfaces";
 import * as aws from "@aws-sdk/client-ses";
 import nodemailer, { Transporter } from "nodemailer";
@@ -47,36 +49,28 @@ export async function getRedirectUrl(relyingParty: RelyingParty): Promise<string
 }
 
 // Fetch the SteamUser json object
-export async function fetchSteamUser(steamID: string): Promise<SteamUser | string> {
+export async function fetchSteamUser(steamID: string): Promise<[string, SteamUser | null]> {
   const getPlayerSummariesKey = "/?key=";
   const getPlayerSummariesSteamIds = "&steamids=";
   const getPlayerSummariesURL =
     process.env.NODE_ENV === "production"
       ? process.env.STEAM_GET_PLAYER_SUMMARIES_URL_production
       : process.env.STEAM_GET_PLAYER_SUMMARIES_URL_development;
-  return new Promise<SteamUser | string>(async (resolve, reject) => {
+  return new Promise<[string, SteamUser | null]>(async (resolve) => {
     try {
       const response = await fetch(
-        `${
-          getPlayerSummariesURL +
-          getPlayerSummariesKey +
-          process.env.STEAM_API_KEY +
-          getPlayerSummariesSteamIds +
-          steamID
-        }`
+        `${getPlayerSummariesURL + getPlayerSummariesKey + process.env.STEAM_API_KEY + getPlayerSummariesSteamIds + steamID}`
       );
-      if (!response) reject("Error fetching from Steam servers.");
+      if (!response) resolve(["Error fetching from Steam servers.", null]);
       const data = await response.json();
-      if (!data) reject("Error fetching from Steam servers.");
+      if (!data) resolve(["Error fetching from Steam servers.", null]);
       const players = data.response.players;
-      if (players && players.length > 0) {
-        resolve(players[0]);
-      } else {
-        reject("No players found for the given SteamID.");
-      }
+      if (!players || players.length === 0) resolve(["No players found for the given SteamID.", null]);
+
+      resolve(["", players[0]]);
     } catch (error) {
       console.log(error);
-      reject(error);
+      resolve([error as string, null]);
     }
   });
 }
@@ -125,33 +119,48 @@ export async function authenticateUserTicket(authTicket: string) {
 }
 
 export async function createRecoveryToken(user: users): Promise<string> {
-  const recoveryToken = sign({ userID: user.userID }, process.env.RECOV_TOKEN_SECRET as string, {
+  const recoveryToken = sign({ userID: String(user.userID) }, process.env.RECOV_TOKEN_SECRET as string, {
     expiresIn: recoveryTokenLength,
   });
   return recoveryToken;
 }
 
 export async function createConfToken(user: users): Promise<string> {
-  const confToken = sign({ userID: user.userID }, process.env.CONF_TOKEN_SECRET as string, {
+  const confToken = sign({ userID: String(user.userID) }, process.env.CONF_TOKEN_SECRET as string, {
     expiresIn: confirmationTokenLength,
   });
   return confToken;
 }
 
+// create long-lived refresh token
+export function createRefreshToken(userID: string, displayName: string): string {
+  const refreshToken = sign({ userID: String(userID), displayName: displayName }, process.env.REFRESH_TOKEN_SECRET as string, {
+    expiresIn: refreshTokenLength,
+  });
+  return refreshToken;
+}
+
+// create short-lived access token, also use displayName so it doesn't need to be queried for separately
+export function createAccessToken(userID: string | bigint, displayName: string): string {
+  const accessToken = sign({ userID: String(userID), displayName: displayName }, process.env.ACCESS_TOKEN_SECRET as string, {
+    expiresIn: accessTokenLength,
+  });
+  return accessToken;
+}
+
 export async function sendRecoveryEmail(user: users, emailToken: string) {
   const hostUrl = process.env.NODE_ENV === "production" ? process.env.host_production : process.env.host_development;
-  const sesClient = new SESClient({
+  const config: aws.SESClientConfig = {
     credentials: {
       accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
       secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
     },
     region: process.env.AWS_REGION as string,
-  });
-
+  };
+  const ses = new aws.SES(config);
   const transporter: Transporter = nodemailer.createTransport({
-    SES: { ses: sesClient },
+    SES: { ses, aws },
   });
-
   const sendMessageInfo = await transporter.sendMail({
     from: "BeatShot Support <support@beatshot.gg>",
     to: `${user.email}`,
