@@ -1,6 +1,9 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faCrosshairs } from "@fortawesome/free-solid-svg-icons";
+import Timing from "../public/BeatShotTiming_large.png";
+import StatsPreview from "../public/Stats_Preview.gif";
+import Image from "next/image";
 import Video from "@/components/Video";
 import Link from "next/link";
 import { Suspense } from "react";
@@ -23,38 +26,72 @@ export default function Home() {
         </div>
         <div className="home-centered-bordered-container">
           <p className="fs-400 text-center ff-readable">
-            BeatShot is rhythm-based aim-trainer that syncs targets to your music. Create custom game modes, view your
-            stats, and make aim-training less of a chore.
+            BeatShot is rhythm-based aim-trainer that syncs targets to your music. Create custom game modes, view your stats, and make
+            aim-training less of a chore.
           </p>
           <div className="pn-container">
             <ul>
+              <li>
+                <FontAwesomeIcon icon={faCrosshairs} />
+                <p>Advanced Audio Analysis</p>
+				<ul>
+				<p>
+                The audio analyzer keeps a rolling average of the frequency values across multiple channels. When it detects a change in
+                frequency that is very different from the current rolling average, targets are spawned. The frequency channels (e.g. 0-87 Hz
+                for a bass channel) and the sensitivity for each channel can be fine-tuned in the settings menu.
+              </p>
+              <p>
+                When you provide the game with a song file, it analyzes a separate audio track from the one you actually hear. This offset
+                allows the game to account for reaction time. Here&#39;s a short breakdown, using 0.25 seconds for reaction time:
+              </p>
+				</ul>
+              </li>
+			  <div className="front-page-img-container">
+			  <Image className="front-page-img" priority src={Timing} quality={100} alt="timing-example" />
+			  </div>
               <li>
                 <FontAwesomeIcon icon={faCrosshairs} />
                 <p>Default Game Modes</p>
                 <ul>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>MultiBeat: continuously spawn targets</p>
+                    <p>
+                      <b>MultiBeat:</b> continuously spawn targets
+                    </p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>SingleBeat: only one at a time</p>
+                    <p>
+                      <b>SingleBeat:</b> only one at a time
+                    </p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>BeatTrack: tracking one target</p>
+                    <p>
+                      <b>BeatTrack:</b> tracking one target
+                    </p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>BeatGrid: static grid of activating targets</p>
+                    <p>
+                      <b>BeatGrid:</b> static grid of activating targets
+                    </p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>Cluster Beat: multiple targets spawn at once, each activated separately</p>
+                    <p>
+                      <b>Cluster Beat:</b> multiple targets spawn at once, each activated separately
+                    </p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>Charged Beat Track: Multiple moving targets that require 2+ shots to destroy</p>
+                    <p>
+                      <b>Charged Beat Track:</b> Multiple moving targets that require 2+ shots to destroy
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>And more!</p>
                   </li>
                 </ul>
               </li>
@@ -63,60 +100,120 @@ export default function Home() {
                 <p>Custom Game Modes</p>
                 <ul>
                   <p>
-                    Customize your own game mode by starting from a default mode template, or create one based on a
-                    previously created custom mode. Customizable options include:
+                    Customize your own game mode from scratch, a default mode template, or a previously created custom mode. Preview the
+                    game mode while editing it in the menu so you know exactly what it will look like before you play it. Import a custom
+                    mode from a friend, or export yours to them.
                   </p>
+				  <p>There are currently 50+ customizable settings, including:</p>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>spawn area height/width, including dynamic spawn area height/width</p>
+                    <p>Damage required for deactivation</p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>minimum and maximum size of targets, including dynamic target sizing</p>
+                    <p>Minimum and maximum target size, including dynamic target sizing</p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>spawn beat delay</p>
+                    <p>Spawn area height/width, including dynamic spawn area height/width</p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>max target lifespan</p>
+                    <p>Spawn beat delay</p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>minimum distance between targets</p>
+                    <p>Target activation, deactivation, destruction conditions</p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>target spawn cooldown</p>
+                    <p>Target lifespan</p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>move targets forward over their lifetime</p>
+                    <p>Target movement</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Target spawn cooldown</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>And a lot more!</p>
                   </li>
                 </ul>
               </li>
               <li>
                 <FontAwesomeIcon icon={faCrosshairs} />
-                <p>Ahead-of-Time or Real-Time Audio Analysis</p>
+                <p>Detailed Scoring Analysis</p>
                 <ul>
-                  <p>
-                    When provided a song file, the game accounts for reaction time by analyzing a seperate audio track
-                    from the one a player hears. The game can also listen to an audio device to provide real-time
-                    analysis. The audio analyzer is customizable to account for different genres and personal
-                    preference, including:
-                  </p>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>Up to 24 user defined frequency band channels (e.g. 0-87 Hz for a bass channel)</p>
+                    <p>
+                      <b>Overview:</b> shows time played statistics across all modes and play frequency
+                    </p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>threshold (sensitivity) for each band channel</p>
+                    <p>
+                      <b>Default Modes:</b> select a game mode, song, and difficulty (see gif below)
+                    </p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>time window of the frequency sample</p>
+                    <p>
+                      <b>Custom:</b> select a custom game mode and song
+                    </p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>
+                      <b>History:</b> shows every score entry you&#39;ve ever saved
+                    </p>
+                  </li>
+                </ul>
+              </li>
+			  <div className="front-page-img-container">
+			  <Image className="front-page-img" priority src={StatsPreview} quality={100} alt="stats-preview" />
+			  </div>
+			  
+              <li>
+                <FontAwesomeIcon icon={faCrosshairs} />
+                <p>Predictive Aim Training</p>
+				<ul>
+				<p>
+                BeatShot leverages the power of reinforcement learning to dynamically predict target spawn locations tailored to your unique
+                playstyle.
+              </p>
+              <p>
+                Rather than basing the prediction model on accuracy across all spawn locations, our algorithm goes the extra mile. It tracks
+                how accurate you are at hitting targets from every spawn location to every other spawn location, creating a detailed map of
+                your precision across the entire training area. The model adapts quickly to changes in performance, and can be customized
+                further by tuning the parameters in the Custom Game Modes menu.
+              </p>
+              <p>This is an opt-in feature for Custom Game Modes only to retain a consistent experience for Default Game Modes.</p>
+				</ul>
+              </li>
+
+              <li>
+                <FontAwesomeIcon icon={faCrosshairs} />
+                <p>Other Settings</p>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Custom crosshair creator</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Change all colors that a target cycles through</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Standard video/audio settings, including DLSS 3.5</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Sensitivity based on two common competitive FPS games</p>
                   </li>
                 </ul>
               </li>

@@ -334,7 +334,7 @@ const GameplayAbilitySystem = () => {
                   baseClass="UAbilitySystemComponent"
                   childClass="UBSAbilitySystemComponent"
                   headingLevel={2}
-                  childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/BSAbilitySystemComponent.cpp"
+                  childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/AbilitySystem/BSAbilitySystemComponent.cpp"
                 />
                 <p>
                   The Ability System Component (<span className="text-light">ASC</span>) is added to any actor that wants to interact with{" "}
@@ -416,7 +416,7 @@ const GameplayAbilitySystem = () => {
                   baseClass="UGameplayAbility"
                   childClass="UBSGameplayAbility"
                   headingLevel={2}
-                  childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/Abilities/BSGameplayAbility.cpp"
+                  childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/AbilitySystem/Abilities/BSGameplayAbility.cpp"
                 />
                 <p>
                   A Gameplay Ability (<span className="text-light">GA</span>) is an action or skill that an actor can perform in game.
@@ -430,7 +430,7 @@ const GameplayAbilitySystem = () => {
                     baseClass="UBSGameplayAbility"
                     childClass="UBSGA_FireGun"
                     headingLevel={3}
-                    childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/Abilities/BSGA_FireGun.cpp"
+                    childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/AbilitySystem/Abilities/BSGA_FireGun.cpp"
                   />
                   <p>
                     This is the ability for shooting the gun in a game mode that uses Hit-Based Damage. This is the ability used in the{" "}
@@ -445,7 +445,7 @@ const GameplayAbilitySystem = () => {
                     baseClass="UBSGameplayAbility"
                     childClass="UBSGA_TrackGun"
                     headingLevel={3}
-                    childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/Abilities/BSGA_TrackGun.cpp"
+                    childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/AbilitySystem/Abilities/BSGA_TrackGun.cpp"
                   />
                   <p>
                     This is the ability for dealing damage to targets for a game mode that uses Tracking Damage. Most of this class is
@@ -519,7 +519,7 @@ const GameplayAbilitySystem = () => {
                       headingLevel={4}
                       compOfText="used by"
                       compOf="UBSGA_TrackGun"
-                      childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/Tasks/BSAT_TickTrace.cpp"
+                      childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/AbilitySystem/Tasks/BSAT_TickTrace.cpp"
                     />
                     <p>
                       The purpose of this task is to broadcast a <span className="text-light">HitResult</span> from a{" "}
@@ -539,7 +539,7 @@ const GameplayAbilitySystem = () => {
                     baseClass="UBSGameplayAbility"
                     childClass="UBSGA_AimBot"
                     headingLevel={3}
-                    childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/Abilities/BSGA_AimBot.cpp"
+                    childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/AbilitySystem/Abilities/BSGA_AimBot.cpp"
                   />
                   <p>
                     Before BeatShot&#39;s trailer was edited, I needed footage of the game in action but didn&#39;t want to worry about
@@ -552,7 +552,7 @@ const GameplayAbilitySystem = () => {
                     console commands, and that&#39;s exactly what{" "}
                     <Link
                       className="link text-light hover-white"
-                      href="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/Player/BSCheatManager.cpp"
+                      href="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/Player/BSCheatManager.cpp"
                     >
                       <BSInlineFunction className={"UBSCheatManager"} />
                     </Link>{" "}
@@ -634,7 +634,7 @@ const GameplayAbilitySystem = () => {
                       baseClass="UAbilityTask"
                       childClass="UBSAT_AimToTarget"
                       headingLevel={4}
-                      childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/Tasks/UBSAT_AimToTarget.cpp"
+                      childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/AbilitySystem/Tasks/BSAT_AimToTarget.cpp"
                     />
                     <p>
                       The main reason I chose to use an <span className="text-light">Ability Task</span> for the Aim Bot ability is because
@@ -721,7 +721,7 @@ const GameplayAbilitySystem = () => {
                   baseClass="UAttributeSet"
                   childClass="UBSAttributeSetBase"
                   headingLevel={2}
-                  childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/Globals/BSAttributeSetBase.cpp"
+                  childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/AbilitySystem/Globals/BSAttributeSetBase.cpp"
                 />
                 <p className="">
                   An Attribute Set is a group of stats that an actor with an <span className="text-light">ASC</span> has. BeatShot has
@@ -835,7 +835,7 @@ const GameplayAbilitySystem = () => {
                   baseClass="UEnhancedInputComponent"
                   childClass="UBSInputComponent"
                   headingLevel={2}
-                  childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/Input/BSInputComponent.cpp"
+                  childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/Input/BSInputComponent.cpp"
                 />
                 <p>
                   I chose to implement this class simply because I found the <BSInlineFunction functionName={"BindAbilityActions"} />{" "}
@@ -848,7 +848,7 @@ const GameplayAbilitySystem = () => {
                     baseClass="UDataAsset"
                     childClass="UBSInputConfig"
                     headingLevel={3}
-                    childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/Input/BSInputConfig.cpp"
+                    childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/Input/BSInputConfig.cpp"
                   />
                   <p>
                     This data asset maps each <span className="text-light">Input Action</span> (<span className="text-light">IA</span>) to
@@ -899,7 +899,7 @@ const GameplayAbilitySystem = () => {
                   baseClass="UDataAsset"
                   childClass="UBSAbilitySet"
                   headingLevel={2}
-                  childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/Globals/BSAbilitySet.cpp"
+                  childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/AbilitySystem/Globals/BSAbilitySet.cpp"
                 />
                 <p>
                   An Ability Set is a group of <span className="text-light">Gameplay Abilities</span>,{" "}
@@ -956,7 +956,7 @@ const GameplayAbilitySystem = () => {
                   baseClass="UGameplayEffectExecutionCalculation"
                   childClass="UBSDamageExecCalc"
                   headingLevel={2}
-                  childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/ExecutionCalculations/BSDamageExecCalc.cpp"
+                  childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/AbilitySystem/ExecutionCalculations/BSDamageExecCalc.cpp"
                 />
                 <p>
                   Instead of just &#34;Apply 100 damage by removing 100 health points&#34;, a{" "}
@@ -971,7 +971,7 @@ const GameplayAbilitySystem = () => {
                   baseClass="UActorComponent"
                   childClass="UBSHealthComponent"
                   headingLevel={2}
-                  childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/Character/BSHealthComponent.cpp"
+                  childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/Character/BSHealthComponent.cpp"
                 />
                 <p>
                   This component is added to any actors where keeping track of their health is important. In this case, it is only added to
@@ -1397,8 +1397,8 @@ const GameplayAbilitySystem = () => {
               <p className="inline posted-date">
                 <span className="inline text-light">Posted:</span> September 15, 2023
                 <br></br>
-                <time dateTime="2023-09-15">
-                  <span className="inline text-light">Updated:</span> September 15, 2023
+                <time dateTime="2023-12-23">
+                  <span className="inline text-light">Updated:</span> December 23, 2023
                 </time>
               </p>
             </div>

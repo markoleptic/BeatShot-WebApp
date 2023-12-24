@@ -14,6 +14,64 @@ const PatchNotes = () => {
             <div className="pn-version-date">
               <Link
                 className="link hover-blue fw-semibold pn-version-number"
+                href="https://store.steampowered.com/news/app/2126580/view/3906374309609856637?utm_source=beatshotwebsite&utm_medium=web"
+              >
+                0.6.1
+              </Link>
+              <p className="pn-date">December 23, 2023</p>
+            </div>
+            <ul>
+              <p className="fs-300"></p>
+              <li>
+                <FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+                <p className="fs-300">General</p>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Updated engine to Unreal Engine 5.3.</p>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Updated various modules and plugins such as the audio analyzer, Enhanced User Input, etc.</p>
+                    <ul>
+                      <li>
+                        <FontAwesomeIcon icon={faPlay} />
+                        <p>Custom keybindings are stored in a new way, but legacy saved keybindings should properly transfer over.</p>
+                      </li>
+                    </ul>
+                  </li>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+					<p>Added an option to change the anti-aliasing method.</p>
+                  </li>
+				  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+					<p>Changed the default anti-aliasing method to Temporal Super Resolution.</p>
+                  </li>
+                </ul>
+              </li>
+              <li>
+                <FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+                <p className="fs-300">Bug Fixes</p>
+                <ul>
+                  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Fixed a bug causing the reinforcement learning algorithm to access incorrect values of the QTable.</p>
+                  </li>
+				  <li>
+                    <FontAwesomeIcon icon={faPlay} />
+                    <p>Fixed a bug causing invalid spawn areas to sometimes be chosen for activation.</p>
+                  </li>
+                </ul>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div className="centered-bordered-container-1000">
+          <div className="pn-container">
+            <div className="pn-version-date">
+              <Link
+                className="link hover-blue fw-semibold pn-version-number"
                 href="https://store.steampowered.com/news/app/2126580/view/3747617344191398606?utm_source=beatshotwebsite&utm_medium=web"
               >
                 0.6.0
@@ -187,7 +245,10 @@ const PatchNotes = () => {
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />
-                    <p>The Game Mode Preview window now applies padding based on the target size, ensuring that targets no longer extend beyond the window boundaries.</p>
+                    <p>
+                      The Game Mode Preview window now applies padding based on the target size, ensuring that targets no longer extend
+                      beyond the window boundaries.
+                    </p>
                   </li>
                   <li>
                     <FontAwesomeIcon icon={faPlay} />

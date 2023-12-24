@@ -507,7 +507,7 @@ const TargetSpawningSystem = () => {
                   baseClass="UObject"
                   childClass="USpawnArea"
                   headingLevel={2}
-                  childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Public/Target/SpawnAreaManagerComponent.h"
+                  childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Public/Target/SpawnAreaManagerComponent.h"
                 />
                 <p>
                   Target spawn locations are chosen from a 2-D rectangle that I&#39;ll be referring to as the <em>total spawn area</em>. The
@@ -542,7 +542,7 @@ const TargetSpawningSystem = () => {
                   baseClass="AActor"
                   childClass="ATargetManager"
                   headingLevel={2}
-                  childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/Target/TargetManager.cpp"
+                  childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/Target/TargetManager.cpp"
                 />
                 <p>
                   The Target Manager spawns and holds references to targets. It is responsible for target activation and handles all{" "}
@@ -587,7 +587,7 @@ const TargetSpawningSystem = () => {
                     childClass="UReinforcementLearningComponent"
                     compOf="ATargetManager"
                     headingLevel={3}
-                    childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/Target/ReinforcementLearningComponent.cpp"
+                    childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/Target/ReinforcementLearningComponent.cpp"
                   />
                   <p>The Reinforcement Learning Component (RL Component) is an opt-in option available to custom game modes (Enable AI).</p>
                   <p>
@@ -608,7 +608,7 @@ const TargetSpawningSystem = () => {
                     childClass="USpawnAreaManagerComponent"
                     compOf="ATargetManager"
                     headingLevel={3}
-                    childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/Target/SpawnAreaManagerComponent.cpp"
+                    childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/Target/SpawnAreaManagerComponent.cpp"
                   />
                   <p>The SpawnArea Manager Component creates and manages all the SpawnArea objects.</p>
                   <p>
@@ -629,7 +629,7 @@ const TargetSpawningSystem = () => {
                   compOf="ATargetManager"
                   compOfText="spawned by"
                   headingLevel={2}
-                  childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/Target/Target.cpp"
+                  childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/Target/Target.cpp"
                 />
                 <p>
                   While the Target Manager is responsible for target activation, the target itself is responsible for deactivation and
@@ -668,7 +668,7 @@ const TargetSpawningSystem = () => {
                     childClass="UBSAbilitySystemComponent"
                     compOf="ATarget"
                     headingLevel={3}
-                    childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/AbilitySystem/BSAbilitySystemComponent.cpp"
+                    childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/AbilitySystem/BSAbilitySystemComponent.cpp"
                   />
                   <p>
                     It might&#39;ve been overkill to use this for each target, but it works well since characters also use the Ability
@@ -689,7 +689,7 @@ const TargetSpawningSystem = () => {
                     childClass="UBSHealthComponent"
                     compOf="ATarget"
                     headingLevel={3}
-                    childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/Character/BSHealthComponent.cpp"
+                    childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/Character/BSHealthComponent.cpp"
                   />
                   <p>
                     The health component is initialized with ability system component so that it can listen for changes to the health
@@ -725,7 +725,7 @@ const TargetSpawningSystem = () => {
                   baseClass="AGameMode"
                   childClass="ABSGameMode"
                   headingLevel={2}
-                  childClassLink="https://github.com/markoleptic/BeatShot/blob/develop/Source/BeatShot/Private/BSGameMode.cpp"
+                  childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/BSGameMode.cpp"
                 />
                 <p>
                   The game mode spawns and intializes new Target Manager each time a game mode is started. It also configures the audio
@@ -1034,8 +1034,8 @@ const TargetSpawningSystem = () => {
                 <p className="inline posted-date">
                   <span className="inline text-light">Posted:</span> July 2, 2023
                   <br></br>
-                  <time dateTime="2023-09-08">
-                    <span className="inline text-light">Updated:</span> September 8, 2023
+                  <time dateTime="2023-12-23">
+                    <span className="inline text-light">Updated:</span> December 23, 2023
                   </time>
                 </p>
               </div>

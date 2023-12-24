@@ -259,6 +259,21 @@ div.hero-container {
   width: 400px;
   height: auto;
 }
+.front-page-img-container {
+	display: flex;
+	align-self: center;
+	justify-content: center;
+	max-width: 100%;
+	height: auto;
+	padding-top:0.5rem;
+	padding-bottom:0.5rem;
+}
+.front-page-img {
+	display: flex;
+	justify-content: center;
+	max-width: 90%;
+	height: auto;
+}
 div .card-label {
   display: flex;
   margin-top: 0.5rem;
