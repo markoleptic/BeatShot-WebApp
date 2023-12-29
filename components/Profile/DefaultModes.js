@@ -13,7 +13,7 @@ import {
 	findMostRecentSongOption,
 	findMostRecentDifficultyOption,
 	checkInvalidNum,
-} from "./statFunctions";
+} from "./StatFunctions";
 import { DateFilter } from "./DateFilter";
 import { DateTime } from "luxon";
 
@@ -26,6 +26,8 @@ const DefaultModes = () => {
 	// Data passed to Line Chart
 	const [scores, setScores] = useState();
 	const [dates, setDates] = useState();
+	const [minDate, setMinDate] = useState();
+	const [maxDate, setMaxDate] = useState();
 
 	// Best/Average Text Box values
 	const [bestScore, setBestScore] = useState();
@@ -107,19 +109,16 @@ const DefaultModes = () => {
 		const mode = await findMostRecentGameModeOption(data, modes);
 		setSelectedGameMode(mode);
 
-		if (data && data.length > 0) {
-			setStatsSubtitle(
-				"Select a game mode to update song and difficult options, or select a song to update only difficulty options."
-			);
-		} else if (data && data.length === 0) {
+		if (data && data.length === 0) {
 			setStatsSubtitle("No scores yet. Play the game!");
+		} else {
+			setStatsSubtitle("");
 		}
 	};
 
-	const onDateRangeChange = async (startDate, endDate) =>
-	{
-		updateSelection(data, selectedGameMode, selectedSong, selectedDifficulty, [startDate, endDate])
-	}
+	const onDateRangeChange = async (startDate, endDate) => {
+		updateSelection(data, selectedGameMode, selectedSong, selectedDifficulty, [startDate, endDate]);
+	};
 
 	// updates the charts and info boxes
 	const updateSelection = async (data, selectedGameMode, selectedSong, selectedDifficulty, dateRange = null) => {
@@ -128,6 +127,10 @@ const DefaultModes = () => {
 		setScores(values);
 		setDates(keys);
 
+		if (!dateRange && keys.length > 0) {
+			setMaxDate(DateTime.max(...keys.map((date) => DateTime.fromISO(date))).endOf("day"));
+			setMinDate(DateTime.min(...keys.map((date) => DateTime.fromISO(date))).startOf("day"));
+		}
 		await updateBests(values);
 		await updateAvgs(values);
 	};
@@ -212,10 +215,10 @@ const DefaultModes = () => {
               {errMsg}
             </p>
           </div> */}
-					<div className="responsive-centered-container">
+					<div className="content-main">
 						<div className="select-container">
 							<div className="select-wrapper">
-								<p className="select-caption fs-200">GameMode:</p>
+								<p className="select-caption fs-200">Game Mode:</p>
 								<div className="select-wrapper">
 									<SelectBox
 										id="game-mode-select"
@@ -253,73 +256,72 @@ const DefaultModes = () => {
 							<div className="select-wrapper">
 								<p className="select-caption fs-200">Time Range:</p>
 								<div className="select-wrapper">
-									<DateFilter
-									startDate={DateTime.min(...dates.map((date) => DateTime.fromISO(date)))}
-									endDate={DateTime.max(...dates.map((date) => DateTime.fromISO(date)))}
-									onDateRangeChange={onDateRangeChange}
-								></DateFilter>
+									{!minDate || !maxDate ? (
+										<></>
+									) : (
+										<DateFilter
+											minDate={minDate}
+											range={Math.floor(maxDate.diff(minDate, "days").days)}
+											onDateRangeChange={onDateRangeChange}
+										></DateFilter>
+									)}
 								</div>
 							</div>
-
 						</div>
 						<div id="best-avg" className="chart-scroll best-avg-container">
-							<div className="best-container">
-								<ul className="best-list">
-									<li className="table-header">
-										<h2 className="fs-300 text-light">Best</h2>
-									</li>
-									<li className="table-row">
-										<div className="col col-1">Score:</div>
-										<div className="col col-2">{bestScore}</div>
-									</li>
-									<li className="table-row">
-										<div className="col col-1">Accuracy:</div>
-										<div className="col col-2">{bestAccuracy}</div>
-									</li>
-									<li className="table-row">
-										<div className="col col-1">Streak:</div>
-										<div className="col col-2">{bestStreak}</div>
-									</li>
-									<li className="table-row">
-										<div className="col col-1">Reaction Time:</div>
-										<div className="col col-2">{bestTimeOffset}</div>
-									</li>
-									<li className="table-row">
-										<div className="col col-1">Targets Destroyed:</div>
-										<div className="col col-2">{bestCompletion}</div>
-									</li>
-								</ul>
-							</div>
-							<div className="best-container">
-								<ul className="best-list">
-									<li className="table-header">
-										<h2 className="fs-300 text-light">Average</h2>
-									</li>
-									<li className="table-row">
-										<div className="col col-1">Score:</div>
-										<div className="col col-2">{avgScore}</div>
-									</li>
-									<li className="table-row">
-										<div className="col col-1">Accuracy:</div>
-										<div className="col col-2">{avgAccuracy}</div>
-									</li>
-									<li className="table-row">
-										<div className="col col-1">Streak:</div>
-										<div className="col col-2">{avgStreak}</div>
-									</li>
-									<li className="table-row">
-										<div className="col col-1">Reaction Time:</div>
-										<div className="col col-2">{avgTimeOffset}</div>
-									</li>
-									<li className="table-row">
-										<div className="col col-1">Targets Destroyed:</div>
-										<div className="col col-2">{avgCompletion}</div>
-									</li>
-								</ul>
-							</div>
+							<ul className="best-list">
+								<li className="table-header">
+									<h2 className="fs-300 text-light">Best</h2>
+								</li>
+								<li className="table-row">
+									<div className="col col-1">Score:</div>
+									<div className="col col-2">{bestScore}</div>
+								</li>
+								<li className="table-row">
+									<div className="col col-1">Accuracy:</div>
+									<div className="col col-2">{bestAccuracy}</div>
+								</li>
+								<li className="table-row">
+									<div className="col col-1">Streak:</div>
+									<div className="col col-2">{bestStreak}</div>
+								</li>
+								<li className="table-row">
+									<div className="col col-1">Reaction Time:</div>
+									<div className="col col-2">{bestTimeOffset}</div>
+								</li>
+								<li className="table-row">
+									<div className="col col-1">Targets Destroyed:</div>
+									<div className="col col-2">{bestCompletion}</div>
+								</li>
+							</ul>
+							<ul className="best-list">
+								<li className="table-header">
+									<h2 className="fs-300 text-light">Average</h2>
+								</li>
+								<li className="table-row">
+									<div className="col col-1">Score:</div>
+									<div className="col col-2">{avgScore}</div>
+								</li>
+								<li className="table-row">
+									<div className="col col-1">Accuracy:</div>
+									<div className="col col-2">{avgAccuracy}</div>
+								</li>
+								<li className="table-row">
+									<div className="col col-1">Streak:</div>
+									<div className="col col-2">{avgStreak}</div>
+								</li>
+								<li className="table-row">
+									<div className="col col-1">Reaction Time:</div>
+									<div className="col col-2">{avgTimeOffset}</div>
+								</li>
+								<li className="table-row">
+									<div className="col col-1">Targets Destroyed:</div>
+									<div className="col col-2">{avgCompletion}</div>
+								</li>
+							</ul>
 						</div>
 					</div>
-					<div className={"content-main"}>
+					<div className="content-main">
 						<div id="scores-chart" className="chart-scroll">
 							<LineChart labels={dates} data={scores ? scores.map((value) => value.score) : ""} myOptions={scoreOptions} />
 						</div>

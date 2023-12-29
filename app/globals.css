@@ -1220,6 +1220,12 @@ form {
 	padding-left: 0em !important;
 	line-height: 1.25em !important;
 }
+.date-range {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	font-size: var(--fs-200);
+}
 
 /* .pn-container ul {
   font-size: var(--fs-200);
@@ -1264,62 +1270,25 @@ form {
 /*-------------*/
 /*   Charts    */
 /*-------------*/
-
-.chart {
-	display: flex;
-	margin: auto;
-	flex-grow: 1;
-	max-width: 600px;
-	max-height: 300px;
-	justify-content: center;
-	background-color: hsl(var(--clr-beatshot-darkblue));
-	box-shadow: 0rem 0rem 0.25rem 0rem hsl(var(--clr-beatshot-lightblue));
-	border-radius: 0.25rem;
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
-	padding-right: 1rem;
-	padding-left: 1rem;
+.chart,
+.empty-chart
+{
+  margin: auto;
+  display: flex;
+  max-width: 750px;
+  justify-content: center;
+  background-color: hsl(var(--clr-beatshot-darkblue));
+  box-shadow: 0rem 0rem 0.25rem 0rem hsl(var(--clr-beatshot-lightblue));
+  border-radius: 0.25rem;
+  padding: 0.5rem;
 }
-.empty-chart {
-	display: flex;
-	max-width: 600px;
-	position: relative;
-	margin: auto;
-	background-color: hsl(var(--clr-beatshot-darkblue));
-	box-shadow: 0rem 0rem 0.25rem 0rem hsl(var(--clr-beatshot-lightblue));
-	border-radius: 0.25rem;
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
-	padding-right: 1rem;
-	padding-left: 1rem;
+.empty-chart
+{
+  position: relative;
 }
-.heatmap-chart {
-	margin: auto;
-	display: flex;
-	max-height: 200px;
-	max-width: 600px;
-	justify-content: center;
-	background-color: hsl(var(--clr-beatshot-darkblue));
-	box-shadow: 0rem 0rem 0.25rem 0rem hsl(var(--clr-beatshot-lightblue));
-	border-radius: 0.25rem;
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
-	padding-right: 0.5rem;
-	padding-left: 0.5rem;
-}
-.locAcc-chart {
-	margin: auto;
-	display: flex;
-	max-width: 600px;
-	max-height: 300px;
-	justify-content: center;
-	background-color: hsl(var(--clr-beatshot-darkblue));
-	box-shadow: 0rem 0rem 0.25rem 0rem hsl(var(--clr-beatshot-lightblue));
-	border-radius: 0.25rem;
-	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
-	padding-right: 0.5rem;
-	padding-left: 0.5rem;
+.heatmap
+{
+	max-height: 250px;
 }
 
 /*-------------*/
@@ -1348,7 +1317,7 @@ form {
 	color: rgba(62, 198, 235, 1);
 }
 .stats-subtitle {
-	max-width: 80%;
+	max-width: 800px;
 	line-height: 1.1;
 }
 .stats-header {
@@ -1372,12 +1341,17 @@ form {
 }
 .best-avg-container {
 	display: flex;
+	justify-content: center;
 	gap: 1rem;
 	font-size: 0.8rem;
+	width: 100%;
+	max-width: 750px;
+	margin:auto;
 }
 .best-list {
 	display: flex;
 	flex-direction: column;
+	width: 100%;
 	padding: 0.5rem;
 	background-color: hsl(var(--clr-beatshot-darkblue));
 	box-shadow: 0rem 0rem 0.25rem 0rem hsl(var(--clr-beatshot-lightblue));
@@ -1673,15 +1647,7 @@ td.combined > p {
 		flex-direction: column;
 	}
 	.chart {
-		padding: 0;
-		min-height: 200px;
-	}
-	.heatmap-chart {
-		padding: 0;
-		min-height: 150px;
-	}
-	.locAcc-chart {
-		padding: 0.5;
+		padding: 0.25rem;
 		min-height: 200px;
 	}
 	.table-header {

@@ -52,8 +52,13 @@ export const getScores = async (data, bCustom = false, selectedGameMode, selecte
 	for (let scoreObject in data) {
 		let bContinue = true;
 		if (bCustom && isCustomGameMode(data[scoreObject])) {
-			if (data[scoreObject].customGameModeName === selectedGameMode && data[scoreObject].songTitle === selectedSong) {
-				bContinue = false;
+			if (data[scoreObject].customGameModeName === selectedGameMode && 
+				data[scoreObject].songTitle === selectedSong) {
+				if (!selectedDateRange)
+					bContinue = false;
+				else {
+					bContinue = DateTime.fromISO(data[scoreObject].time) < selectedDateRange[0] || DateTime.fromISO(data[scoreObject].time) > selectedDateRange[1] 
+				}
 			}
 		} else if (!bCustom && isDefaultGameMode(data[scoreObject])) {
 			if (
