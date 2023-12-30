@@ -18,7 +18,18 @@ import {
 	Filler,
 } from "chart.js";
 
-ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, TimeScale, TimeSeriesScale, Title, Tooltip, Legend, Filler);
+ChartJS.register(
+	CategoryScale,
+	LinearScale,
+	PointElement,
+	LineElement,
+	TimeScale,
+	TimeSeriesScale,
+	Title,
+	Tooltip,
+	Legend,
+	Filler
+);
 
 export default function LineChart(props, canvas) {
 	var chartRef = useRef();
@@ -32,7 +43,10 @@ export default function LineChart(props, canvas) {
 	const labels = props?.labels?.map((element) => DateTime.fromISO(element, { zone: "local" }));
 	let chartData = [];
 	for (let datapoint in props.data) {
-		chartData.push({ label: labels[datapoint], data: props.data[datapoint] });
+		chartData.push({
+			label: labels[datapoint],
+			data: props.data[datapoint],
+		});
 	}
 
 	const data = {

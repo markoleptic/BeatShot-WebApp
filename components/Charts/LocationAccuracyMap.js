@@ -137,7 +137,8 @@ export default function LocationAccuracyHeatmap(props, canvas) {
 					}
 					return (
 						(chart.chartArea || {}).height / height -
-						(((chart.chartArea || {}).height / height) * 0.05 * chart.chartArea.width) / chart.chartArea.height
+						(((chart.chartArea || {}).height / height) * 0.05 * chart.chartArea.width) /
+							chart.chartArea.height
 					);
 				},
 				backgroundColor: function (context) {

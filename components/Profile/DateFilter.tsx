@@ -56,7 +56,10 @@ export const DateFilter: React.FC<DateRangeSliderProps> = ({ minDate, range, onD
 		if (typeof value == "object") {
 			// "controlled component"
 			setValue([value[0], value[1]]);
-			onDateRangeChange(minDate.plus({ days: value[0] }).startOf("day"), minDate.plus({ days: value[1] }).endOf("day"));
+			onDateRangeChange(
+				minDate.plus({ days: value[0] }).startOf("day"),
+				minDate.plus({ days: value[1] }).endOf("day")
+			);
 		}
 	};
 

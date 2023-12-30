@@ -44,13 +44,8 @@ const CustomModes = () => {
 
 	// Hooks
 	// const errRef = useRef();
-	const { data, errMsg, setErrMsg } = usePlayerDataContext();
+	const { data } = usePlayerDataContext();
 	const [statsSubtitle, setStatsSubtitle] = useState("");
-
-	// clear error message when Select box option changed
-	useEffect(() => {
-		setErrMsg("");
-	}, [gameModeOptions, songOptions]);
 
 	// initialize data for page
 	useEffect(() => {
@@ -63,7 +58,6 @@ const CustomModes = () => {
 			}
 		} catch (err) {
 			console.log(err.message);
-			setErrMsg(err.message);
 		}
 	}, [data]);
 
@@ -127,24 +121,41 @@ const CustomModes = () => {
 
 	const updateBests = async (scores) => {
 		setBestScore(checkInvalidNum(Math.round((Math.max(...scores.map((value) => value.highScore)) * 10) / 10)));
-		setBestAccuracy(checkInvalidNum(Math.round(Math.max(...scores.map((value) => value.accuracy)) * 1000) / 10) + "%");
-		setBestCompletion(checkInvalidNum(Math.round(Math.max(...scores.map((value) => value.completion)) * 1000) / 10) + "%");
-		setBestTimeOffset(checkInvalidNum(Math.round(Math.min(...scores.map((value) => value.timeOffset)) * 1000)) + " ms");
+		setBestAccuracy(
+			checkInvalidNum(Math.round(Math.max(...scores.map((value) => value.accuracy)) * 1000) / 10) + "%"
+		);
+		setBestCompletion(
+			checkInvalidNum(Math.round(Math.max(...scores.map((value) => value.completion)) * 1000) / 10) + "%"
+		);
+		setBestTimeOffset(
+			checkInvalidNum(Math.round(Math.min(...scores.map((value) => value.timeOffset)) * 1000)) + " ms"
+		);
 		setBestStreak(checkInvalidNum(Math.max(...scores.map((value) => value.streak))));
 	};
 
 	const updateAvgs = async (scores) => {
-		setAvgScore(checkInvalidNum(Math.round(scores.map((value) => value.score).reduce((p, c, i, a) => p + c / a.length, 0))));
-		setAvgAccuracy(
-			checkInvalidNum(Math.round(scores.map((value) => value.accuracy).reduce((p, c, i, a) => p + c / a.length, 0) * 1000) / 10) + "%"
+		setAvgScore(
+			checkInvalidNum(Math.round(scores.map((value) => value.score).reduce((p, c, i, a) => p + c / a.length, 0)))
 		);
-		setAvgStreak(checkInvalidNum(Math.round(scores.map((value) => value.streak).reduce((p, c, i, a) => p + c / a.length, 0))));
+		setAvgAccuracy(
+			checkInvalidNum(
+				Math.round(scores.map((value) => value.accuracy).reduce((p, c, i, a) => p + c / a.length, 0) * 1000) /
+					10
+			) + "%"
+		);
+		setAvgStreak(
+			checkInvalidNum(Math.round(scores.map((value) => value.streak).reduce((p, c, i, a) => p + c / a.length, 0)))
+		);
 		setAvgCompletion(
-			checkInvalidNum(Math.round(scores.map((value) => value.completion).reduce((p, c, i, a) => p + c / a.length, 0) * 1000) / 10) +
-				"%"
+			checkInvalidNum(
+				Math.round(scores.map((value) => value.completion).reduce((p, c, i, a) => p + c / a.length, 0) * 1000) /
+					10
+			) + "%"
 		);
 		setAvgTimeOffset(
-			checkInvalidNum(Math.round(scores.map((value) => value.timeOffset).reduce((p, c, i, a) => p + c / a.length, 0) * 1000)) + " ms"
+			checkInvalidNum(
+				Math.round(scores.map((value) => value.timeOffset).reduce((p, c, i, a) => p + c / a.length, 0) * 1000)
+			) + " ms"
 		);
 	};
 
@@ -215,7 +226,10 @@ const CustomModes = () => {
 										onChange={(value) => setSelectedGameMode(value.value)}
 										placeholder={"Filter by game mode"}
 										options={gameModeOptions}
-										value={{ label: selectedGameMode, value: selectedGameMode }}
+										value={{
+											label: selectedGameMode,
+											value: selectedGameMode,
+										}}
 									/>
 								</div>
 							</div>
@@ -227,7 +241,10 @@ const CustomModes = () => {
 										onChange={(value) => setSelectedSong(value.value)}
 										placeholder={"Filter by song"}
 										options={songOptions}
-										value={{ label: selectedSong, value: selectedSong }}
+										value={{
+											label: selectedSong,
+											value: selectedSong,
+										}}
 									/>
 								</div>
 							</div>
@@ -301,7 +318,11 @@ const CustomModes = () => {
 					</div>
 					<div className={"content-main"}>
 						<div>
-							<LineChart labels={dates} data={scores ? scores.map((value) => value.score) : ""} myOptions={scoreOptions} />
+							<LineChart
+								labels={dates}
+								data={scores ? scores.map((value) => value.score) : ""}
+								myOptions={scoreOptions}
+							/>
 						</div>
 						<div>
 							<LineChart
@@ -318,7 +339,11 @@ const CustomModes = () => {
 							/>
 						</div>
 						<div>
-							<LineChart labels={dates} data={scores ? scores.map((value) => value.streak) : ""} myOptions={streakOptions} />
+							<LineChart
+								labels={dates}
+								data={scores ? scores.map((value) => value.streak) : ""}
+								myOptions={streakOptions}
+							/>
 						</div>
 						<div>
 							<LineChart

@@ -4,47 +4,46 @@ import { useAuthContext } from "../Auth/AuthContext";
 import React from "react";
 
 const ProfileSidebar = ({ children }: { children: React.ReactNode }) => {
-
-  const { auth } = useAuthContext();
-  return (
-    <>
-      <div className="sidebar-container centered">
-        <div className="sidebar-main">
-          <NavLink href={`/profile/${auth?.userID}`} className="profile-name-text">
-            {auth?.displayName}
-          </NavLink>
-          <ul>
-            <li>
-              <NavLink href={`/profile/${auth?.userID}/stats/overview`} className="hover-blue link">
-                Overview
-              </NavLink>
-            </li>
-            <li>
-              <NavLink href={`/profile/${auth?.userID}/stats/defaultmodes`} className="hover-blue link">
-                Default Modes
-              </NavLink>
-            </li>
-            <li>
-              <NavLink href={`/profile/${auth?.userID}/stats/custommodes`} className="hover-blue link">
-                Custom Modes
-              </NavLink>
-            </li>
-            <li>
-              <NavLink href={`/profile/${auth?.userID}/stats/history`} className="hover-blue link">
-                History
-              </NavLink>
-            </li>
-            <li>
-              <NavLink href={`/steamlink/${auth?.userID}`} className="hover-blue link">
-                Link to Steam
-              </NavLink>
-            </li>
-          </ul>
-        </div>
-      </div>
-      {children}
-    </>
-  );
+	const { auth } = useAuthContext();
+	return (
+		<>
+			<div className="sidebar-container centered">
+				<div className="sidebar-main">
+					<NavLink href={`/profile/${auth?.userID}`} className="profile-name-text">
+						{auth?.displayName}
+					</NavLink>
+					<ul>
+						<li>
+							<NavLink href={`/profile/${auth?.userID}/stats/overview`} className="hover-blue link">
+								Overview
+							</NavLink>
+						</li>
+						<li>
+							<NavLink href={`/profile/${auth?.userID}/stats/defaultmodes`} className="hover-blue link">
+								Default Modes
+							</NavLink>
+						</li>
+						<li>
+							<NavLink href={`/profile/${auth?.userID}/stats/custommodes`} className="hover-blue link">
+								Custom Modes
+							</NavLink>
+						</li>
+						<li>
+							<NavLink href={`/profile/${auth?.userID}/stats/history`} className="hover-blue link">
+								History
+							</NavLink>
+						</li>
+						<li>
+							<NavLink href={`/steamlink/${auth?.userID}`} className="hover-blue link">
+								Link to Steam
+							</NavLink>
+						</li>
+					</ul>
+				</div>
+			</div>
+			{children}
+		</>
+	);
 };
 export default ProfileSidebar;
 

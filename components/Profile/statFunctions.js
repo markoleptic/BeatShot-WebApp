@@ -47,17 +47,27 @@ export const getGameModes = async (data, bCustom = false) => {
 };
 
 // returns an object containing {dates, scores}
-export const getScores = async (data, bCustom = false, selectedGameMode, selectedSong, selectedDifficulty, selectedDateRange = null) => {
+export const getScores = async (
+	data,
+	bCustom = false,
+	selectedGameMode,
+	selectedSong,
+	selectedDifficulty,
+	selectedDateRange = null
+) => {
 	let scoreMap = new Map();
 	for (let scoreObject in data) {
 		let bContinue = true;
 		if (bCustom && isCustomGameMode(data[scoreObject])) {
-			if (data[scoreObject].customGameModeName === selectedGameMode && 
-				data[scoreObject].songTitle === selectedSong) {
-				if (!selectedDateRange)
-					bContinue = false;
+			if (
+				data[scoreObject].customGameModeName === selectedGameMode &&
+				data[scoreObject].songTitle === selectedSong
+			) {
+				if (!selectedDateRange) bContinue = false;
 				else {
-					bContinue = DateTime.fromISO(data[scoreObject].time) < selectedDateRange[0] || DateTime.fromISO(data[scoreObject].time) > selectedDateRange[1] 
+					bContinue =
+						DateTime.fromISO(data[scoreObject].time) < selectedDateRange[0] ||
+						DateTime.fromISO(data[scoreObject].time) > selectedDateRange[1];
 				}
 			}
 		} else if (!bCustom && isDefaultGameMode(data[scoreObject])) {
@@ -66,10 +76,11 @@ export const getScores = async (data, bCustom = false, selectedGameMode, selecte
 				data[scoreObject].songTitle === selectedSong &&
 				data[scoreObject].difficulty === selectedDifficulty
 			) {
-				if (!selectedDateRange)
-					bContinue = false;
+				if (!selectedDateRange) bContinue = false;
 				else {
-					bContinue = DateTime.fromISO(data[scoreObject].time) < selectedDateRange[0] || DateTime.fromISO(data[scoreObject].time) > selectedDateRange[1] 
+					bContinue =
+						DateTime.fromISO(data[scoreObject].time) < selectedDateRange[0] ||
+						DateTime.fromISO(data[scoreObject].time) > selectedDateRange[1];
 				}
 			}
 		}
@@ -101,7 +112,10 @@ export const getScores = async (data, bCustom = false, selectedGameMode, selecte
 		});
 	}
 	const sortedScoreMap = new Map([...scoreMap].sort());
-	return { keys: [...sortedScoreMap.keys()], values: [...sortedScoreMap.values()] };
+	return {
+		keys: [...sortedScoreMap.keys()],
+		values: [...sortedScoreMap.values()],
+	};
 };
 
 export const getMatchingSongOptions = async (data, newSelectedGameMode, bCustom = false) => {
@@ -151,8 +165,12 @@ export const findMostRecentGameModeOption = async (data, gameModeOptions, bCusto
 	let mostRecent = null;
 	for (let object in data) {
 		if (
-			(!bCustom && isDefaultGameMode(data[object]) && gameModeOptions.some((e) => e.value === data[object].baseGameMode)) ||
-			(bCustom && isCustomGameMode(data[object]) && gameModeOptions.some((e) => e.value === data[object].customGameModeName))
+			(!bCustom &&
+				isDefaultGameMode(data[object]) &&
+				gameModeOptions.some((e) => e.value === data[object].baseGameMode)) ||
+			(bCustom &&
+				isCustomGameMode(data[object]) &&
+				gameModeOptions.some((e) => e.value === data[object].customGameModeName))
 		) {
 			if (mostRecent === null) {
 				mostRecent = data[object];
@@ -169,7 +187,9 @@ export const findMostRecentSongOption = async (data, songOptions, bCustom = fals
 	let mostRecent = null;
 	for (let object in data) {
 		if (
-			(!bCustom && isDefaultGameMode(data[object]) && songOptions.some((e) => e.value === data[object].songTitle)) ||
+			(!bCustom &&
+				isDefaultGameMode(data[object]) &&
+				songOptions.some((e) => e.value === data[object].songTitle)) ||
 			(bCustom && isCustomGameMode(data[object]) && songOptions.some((e) => e.value === data[object].songTitle))
 		) {
 			if (mostRecent === null) {

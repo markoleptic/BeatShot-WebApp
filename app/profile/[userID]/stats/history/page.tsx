@@ -1,6 +1,6 @@
 import History from "@/components/Profile/History";
 
 const Page = () => {
-  return <History />;
+	return <History />;
 };
 export default Page;

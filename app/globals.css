@@ -1271,23 +1271,20 @@ form {
 /*   Charts    */
 /*-------------*/
 .chart,
-.empty-chart
-{
-  margin: auto;
-  display: flex;
-  max-width: 750px;
-  justify-content: center;
-  background-color: hsl(var(--clr-beatshot-darkblue));
-  box-shadow: 0rem 0rem 0.25rem 0rem hsl(var(--clr-beatshot-lightblue));
-  border-radius: 0.25rem;
-  padding: 0.5rem;
+.empty-chart {
+	margin: auto;
+	display: flex;
+	max-width: 750px;
+	justify-content: center;
+	background-color: hsl(var(--clr-beatshot-darkblue));
+	box-shadow: 0rem 0rem 0.25rem 0rem hsl(var(--clr-beatshot-lightblue));
+	border-radius: 0.25rem;
+	padding: 0.5rem;
 }
-.empty-chart
-{
-  position: relative;
+.empty-chart {
+	position: relative;
 }
-.heatmap
-{
+.heatmap {
 	max-height: 250px;
 }
 
@@ -1346,7 +1343,7 @@ form {
 	font-size: 0.8rem;
 	width: 100%;
 	max-width: 750px;
-	margin:auto;
+	margin: auto;
 }
 .best-list {
 	display: flex;
@@ -1362,56 +1359,81 @@ form {
 	display: flex;
 }
 
+/*---------------*/
+/*    History    */
+/*---------------*/
+div.table-wrapper {
+	display: flex;
+	flex-direction: column;
+	gap: 1rem;
+	max-width: 100%;
+	margin-left: auto;
+	margin-right: auto;
+}
 div.table-container {
+	align-self: center;
 	max-height: 80vh;
-	overflow-x: auto;
-	overflow-y: auto;
+	max-width: 100%;
+	overflow: auto;
 }
 table.history-table {
-	width: 100%;
 	border-collapse: separate;
 	border-spacing: 0;
 	font-size: var(--fs-100);
 	text-align: center;
 }
-.tr-header {
+table.history-table tr {
+	padding: 0.1rem;
+}
+table.history-table tr.tr-header {
 	position: sticky;
 	top: 0;
 	left: 0;
 	z-index: 999;
 	background-color: hsl(var(--clr-sidebar));
 }
-.tr-header th {
-	min-width: min-content;
-	padding: 0.1rem;
-	max-width: 4rem;
+table.history-table tr.tr-header th {
+	padding: 4px;
 	border-top: 2px solid;
 	border-bottom: 2px solid;
 	border-right: 2px solid;
 	overflow: hidden;
 	text-overflow: ellipsis;
+	overflow-wrap: break-word;
 	white-space: normal;
-	overflow-wrap: normal;
-}
-table th:first-child,
-table td:first-child {
-	/* Apply a left border on the first <td> or <th> in a row */
-	border-left: 2px solid;
-}
-table.history-table tr {
-	padding: 0.1rem;
+	hyphens: manual;
+	height: 2rem;
 }
 table.history-table td {
-	padding: 0.1rem;
+	padding: 2px;
 	border-bottom: 2px solid;
 	border-right: 2px solid;
+	
 }
-table.history-table tr > td:first-of-type,
-th:first-of-type {
+table.history-table tr td:nth-child(1),
+table.history-table tr th:nth-child(1),
+table.history-table tr td:nth-child(2),
+table.history-table tr th:nth-child(2) {
 	position: sticky;
-	left: 0;
 	z-index: 998;
 	background-color: hsl(var(--clr-sidebar));
+}
+table.history-table tr th:nth-child(1),
+table.history-table tr td:nth-child(1) {
+	left: 0;
+	width: 20px;
+	border-left: 2px solid;
+}
+table.history-table tr th:nth-child(2),
+table.history-table tr td:nth-child(2) {
+	left: 26px;
+}
+table.history-table tr td:nth-child(3) div {
+	white-space: normal;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	max-width: 8rem;
+	max-height: 2rem;
 }
 td.combined {
 	max-width: 10rem;
@@ -1422,6 +1444,30 @@ td.combined > p {
 	text-overflow: ellipsis;
 	white-space: nowrap;
 }
+.delete-score-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	margin: 0 auto auto auto;
+	gap: 0.75rem;
+	width: 100%;
+	background-color: hsl(var(--clr-beatshot-darkblue));
+	box-shadow: 0rem 0rem 0.25rem 0rem hsl(var(--clr-beatshot-lightblue));
+	border-radius: 0.25rem;
+	padding: 1rem;
+}
+.delete-score-button:hover {
+	background-color: red;
+}
+.delete-score-button:disabled:hover {
+	background-color: hsl(var(--clr-beatshot-darkgrey));
+}
+.delete-score-button:disabled {
+	border-radius: 0.25rem;
+	background-color: hsl(var(--clr-beatshot-lightgrey));
+}
+
 
 /* mobile navigation toggle */
 .mobile-nav-toggle {

@@ -2,32 +2,32 @@
 import { useState, useEffect, useRef, RefObject } from "react";
 
 let options = {
-  root: null,
-  rootMargin: "-71px 0px 0px 0px",
-  trackVisibility: true,
-  threshold: 0,
-  delay: 100,
+	root: null,
+	rootMargin: "-71px 0px 0px 0px",
+	trackVisibility: true,
+	threshold: 0,
+	delay: 100,
 };
 
 export default function useOnScreen(ref: RefObject<Element>) {
-  const observerRef = useRef<IntersectionObserver | null>(null);
-  const [isOnScreen, setIsOnScreen] = useState(false);
+	const observerRef = useRef<IntersectionObserver | null>(null);
+	const [isOnScreen, setIsOnScreen] = useState(false);
 
-  useEffect(() => {
-    observerRef.current = new IntersectionObserver(([entry]) => setIsOnScreen(entry.isIntersecting), options);
-  }, []);
+	useEffect(() => {
+		observerRef.current = new IntersectionObserver(([entry]) => setIsOnScreen(entry.isIntersecting), options);
+	}, []);
 
-  useEffect(() => {
-    const node = ref?.current;
+	useEffect(() => {
+		const node = ref?.current;
 
-    if (!node) return;
+		if (!node) return;
 
-    observerRef?.current?.observe(node);
+		observerRef?.current?.observe(node);
 
-    return () => {
-      observerRef?.current?.disconnect();
-    };
-  }, [ref]);
+		return () => {
+			observerRef?.current?.disconnect();
+		};
+	}, [ref]);
 
-  return isOnScreen;
+	return isOnScreen;
 }

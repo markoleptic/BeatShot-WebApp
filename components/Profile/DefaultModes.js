@@ -49,12 +49,7 @@ const DefaultModes = () => {
 
 	// Hooks
 	// const errRef = useRef();
-	const { data, errMsg, setErrMsg } = usePlayerDataContext();
-
-	// clear error message when Select box option changed
-	useEffect(() => {
-		setErrMsg("");
-	}, [gameModeOptions, songOptions, difficultyOptions]);
+	const { data } = usePlayerDataContext();
 
 	// initialize data for page
 	useEffect(() => {
@@ -66,7 +61,6 @@ const DefaultModes = () => {
 				AsyncInitPageWrapper(data);
 			}
 		} catch (err) {
-			setErrMsg(err.message);
 			console.log(err);
 		}
 	}, [data]);
@@ -93,7 +87,9 @@ const DefaultModes = () => {
 
 	// update difficulties on song change
 	useEffect(() => {
-		getMatchingDifficultyOptions(data, selectedGameMode, selectedSong).then((options) => setDifficultyOptions(options));
+		getMatchingDifficultyOptions(data, selectedGameMode, selectedSong).then((options) =>
+			setDifficultyOptions(options)
+		);
 	}, [selectedGameMode, selectedSong]);
 
 	// executed when selected gamemode, song, or difficulty changes
@@ -122,7 +118,14 @@ const DefaultModes = () => {
 
 	// updates the charts and info boxes
 	const updateSelection = async (data, selectedGameMode, selectedSong, selectedDifficulty, dateRange = null) => {
-		const { values, keys } = await getScores(data, false, selectedGameMode, selectedSong, selectedDifficulty, dateRange);
+		const { values, keys } = await getScores(
+			data,
+			false,
+			selectedGameMode,
+			selectedSong,
+			selectedDifficulty,
+			dateRange
+		);
 
 		setScores(values);
 		setDates(keys);
@@ -137,24 +140,41 @@ const DefaultModes = () => {
 
 	const updateBests = async (scores) => {
 		setBestScore(checkInvalidNum(Math.round((Math.max(...scores.map((value) => value.highScore)) * 10) / 10)));
-		setBestAccuracy(checkInvalidNum(Math.round(Math.max(...scores.map((value) => value.accuracy)) * 1000) / 10) + "%");
-		setBestCompletion(checkInvalidNum(Math.round(Math.max(...scores.map((value) => value.completion)) * 1000) / 10) + "%");
-		setBestTimeOffset(checkInvalidNum(Math.round(Math.min(...scores.map((value) => value.timeOffset)) * 1000)) + " ms");
+		setBestAccuracy(
+			checkInvalidNum(Math.round(Math.max(...scores.map((value) => value.accuracy)) * 1000) / 10) + "%"
+		);
+		setBestCompletion(
+			checkInvalidNum(Math.round(Math.max(...scores.map((value) => value.completion)) * 1000) / 10) + "%"
+		);
+		setBestTimeOffset(
+			checkInvalidNum(Math.round(Math.min(...scores.map((value) => value.timeOffset)) * 1000)) + " ms"
+		);
 		setBestStreak(checkInvalidNum(Math.max(...scores.map((value) => value.streak))));
 	};
 
 	const updateAvgs = async (scores) => {
-		setAvgScore(checkInvalidNum(Math.round(scores.map((value) => value.score).reduce((p, c, i, a) => p + c / a.length, 0))));
-		setAvgAccuracy(
-			checkInvalidNum(Math.round(scores.map((value) => value.accuracy).reduce((p, c, i, a) => p + c / a.length, 0) * 1000) / 10) + "%"
+		setAvgScore(
+			checkInvalidNum(Math.round(scores.map((value) => value.score).reduce((p, c, i, a) => p + c / a.length, 0)))
 		);
-		setAvgStreak(checkInvalidNum(Math.round(scores.map((value) => value.streak).reduce((p, c, i, a) => p + c / a.length, 0))));
+		setAvgAccuracy(
+			checkInvalidNum(
+				Math.round(scores.map((value) => value.accuracy).reduce((p, c, i, a) => p + c / a.length, 0) * 1000) /
+					10
+			) + "%"
+		);
+		setAvgStreak(
+			checkInvalidNum(Math.round(scores.map((value) => value.streak).reduce((p, c, i, a) => p + c / a.length, 0)))
+		);
 		setAvgCompletion(
-			checkInvalidNum(Math.round(scores.map((value) => value.completion).reduce((p, c, i, a) => p + c / a.length, 0) * 1000) / 10) +
-				"%"
+			checkInvalidNum(
+				Math.round(scores.map((value) => value.completion).reduce((p, c, i, a) => p + c / a.length, 0) * 1000) /
+					10
+			) + "%"
 		);
 		setAvgTimeOffset(
-			checkInvalidNum(Math.round(scores.map((value) => value.timeOffset).reduce((p, c, i, a) => p + c / a.length, 0) * 1000)) + " ms"
+			checkInvalidNum(
+				Math.round(scores.map((value) => value.timeOffset).reduce((p, c, i, a) => p + c / a.length, 0) * 1000)
+			) + " ms"
 		);
 	};
 
@@ -210,11 +230,6 @@ const DefaultModes = () => {
 				<></>
 			) : (
 				<>
-					{/* <div className={errMsg && errMsg !== "" ? "responsive-centered-container" : "offscreen"}>
-            <p ref={errRef} className={errMsg && errMsg !== "" ? "errmsg" : "offscreen"} aria-live="assertive">
-              {errMsg}
-            </p>
-          </div> */}
 					<div className="content-main">
 						<div className="select-container">
 							<div className="select-wrapper">
@@ -225,7 +240,10 @@ const DefaultModes = () => {
 										onChange={(value) => setSelectedGameMode(value.value)}
 										placeholder={"Filter by game mode"}
 										options={gameModeOptions}
-										value={{ label: selectedGameMode, value: selectedGameMode }}
+										value={{
+											label: selectedGameMode,
+											value: selectedGameMode,
+										}}
 									/>
 								</div>
 							</div>
@@ -237,7 +255,10 @@ const DefaultModes = () => {
 										onChange={(value) => setSelectedSong(value.value)}
 										placeholder={"Filter by song"}
 										options={songOptions}
-										value={{ label: selectedSong, value: selectedSong }}
+										value={{
+											label: selectedSong,
+											value: selectedSong,
+										}}
 									/>
 								</div>
 							</div>
@@ -249,7 +270,10 @@ const DefaultModes = () => {
 										onChange={(value) => setSelectedDifficulty(value.value)}
 										placeholder={"Filter by Difficulty"}
 										options={difficultyOptions}
-										value={{ label: selectedDifficulty, value: selectedDifficulty }}
+										value={{
+											label: selectedDifficulty,
+											value: selectedDifficulty,
+										}}
 									/>
 								</div>
 							</div>
@@ -323,7 +347,11 @@ const DefaultModes = () => {
 					</div>
 					<div className="content-main">
 						<div id="scores-chart" className="chart-scroll">
-							<LineChart labels={dates} data={scores ? scores.map((value) => value.score) : ""} myOptions={scoreOptions} />
+							<LineChart
+								labels={dates}
+								data={scores ? scores.map((value) => value.score) : ""}
+								myOptions={scoreOptions}
+							/>
 						</div>
 						<div id="accuracy-chart" className="chart-scroll">
 							<LineChart
@@ -340,7 +368,11 @@ const DefaultModes = () => {
 							/>
 						</div>
 						<div id="streak-chart" className="chart-scroll">
-							<LineChart labels={dates} data={scores ? scores.map((value) => value.streak) : ""} myOptions={streakOptions} />
+							<LineChart
+								labels={dates}
+								data={scores ? scores.map((value) => value.streak) : ""}
+								myOptions={streakOptions}
+							/>
 						</div>
 						<div id="avg-time-offset-chart" className="chart-scroll">
 							<LineChart

@@ -1,6 +1,6 @@
 import DefaultModes from "@/components/Profile/DefaultModes";
 
 const Page = () => {
-  return <DefaultModes />;
+	return <DefaultModes />;
 };
 export default Page;
