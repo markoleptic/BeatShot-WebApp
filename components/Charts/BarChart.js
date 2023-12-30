@@ -13,6 +13,7 @@ export default function BarChart(props, canvas) {
 	var title = props?.myOptions?.title || "";
 	var yAxisTitle = props?.myOptions?.yAxisTitle || "";
 	var category = props?.myOptions?.category || "";
+	const maxEntries = props?.myOptions?.maxEntries || "";
 
 	function splitByUpperCase(str = "") {
 		return str.split(/(?<=[a-z])(?=[A-Z])/);
@@ -133,6 +134,7 @@ export default function BarChart(props, canvas) {
 				offset: true,
 				clip: true,
 				beginAtZero: true,
+				max: maxEntries,
 				grid: {
 					display: true,
 					drawBorder: false,

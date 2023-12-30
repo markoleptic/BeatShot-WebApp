@@ -1,6 +1,6 @@
 import Navbar from "../components/Core/NavBar";
 import Footer from "../components/Core/Footer";
-import { AuthProvider } from "../components/Auth/AuthContext";
+import { AuthProvider } from "../context/AuthContext";
 import { Metadata } from "next";
 import SEO from "@/components/SEO";
 import { Roboto, Roboto_Mono, Montserrat } from "next/font/google";

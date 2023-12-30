@@ -10,7 +10,7 @@ export async function GET(req: NextRequest, { params }: UserIDParams) {
 		return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 	}
 	try {
-		const totalTime = await sequelize.query("CALL GetTotalTimeForDefaultGameModes (:p_userID)", {
+		const totalTime = await sequelize.query("CALL GetTotalTimeForGameModes (:p_userID)", {
 			replacements: { p_userID: userID },
 		});
 

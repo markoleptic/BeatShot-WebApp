@@ -1,8 +1,17 @@
 import React from "react";
-import Select from "react-select";
+import Select, { ActionMeta, GroupBase, StylesConfig } from "react-select";
+import { LabelValue } from "./Profile/StatFunctions";
 
-const SelectBox = ({ options, onChange, placeholder, value, id }) => {
-	const coloredSelectStyles = () => ({
+export interface SelectBoxProps {
+	options: LabelValue[],
+	onChange: (newValue: any, actionMeta: ActionMeta<any>) => void,
+	placeholder: React.ReactNode,
+	value?: any,
+	id: string | undefined
+}
+
+const SelectBox: React.FC<SelectBoxProps> = ({ options, onChange, placeholder, value, id }) => {
+	const coloredSelectStyles = (): StylesConfig<any, false, GroupBase<any>> => ({
 		menu: (provided) => {
 			return {
 				...provided,

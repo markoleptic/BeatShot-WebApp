@@ -1,96 +1,80 @@
 "use client";
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import LineChart from "@/components/Charts/LineChart";
 import SelectBox from "@/components/SelectBox";
-import { usePlayerDataContext } from "@/context/PlayerDataContext";
+import { Score, usePlayerDataContext } from "@/context/PlayerDataContext";
 import LocationAccuracyHeatmap from "@/components/Charts/LocationAccuracyMap";
-import { DateFilter } from "./DateFilter";
-import { DateTime } from "luxon";
 import {
 	getGameModes,
 	getScores,
 	getMatchingSongOptions,
+	getMatchingDifficultyOptions,
 	findMostRecentGameModeOption,
 	findMostRecentSongOption,
-	checkInvalidNum,
+	findMostRecentDifficultyOption,
+	LabelValue,
+	FilteredScore,
+	updateBests,
+	updateAvgs,
 } from "./StatFunctions";
+import { DateFilter } from "./DateFilter";
+import { DateTime } from "luxon";
 
-const CustomModes = () => {
+const DefaultModes = () => {
 	// Select box options
-	const [gameModeOptions, setGameModeOptions] = useState([]);
-	const [songOptions, setSongOptions] = useState([]);
+	const [gameModeOptions, setGameModeOptions] = useState<LabelValue[]>([]);
+	const [songOptions, setSongOptions] = useState<LabelValue[]>([]);
+	const [difficultyOptions, setDifficultyOptions] = useState<LabelValue[]>([]);
 
 	// Data passed to Line Chart
-	const [scores, setScores] = useState();
-	const [dates, setDates] = useState();
-	const [minDate, setMinDate] = useState();
-	const [maxDate, setMaxDate] = useState();
+	const [scores, setScores] = useState<FilteredScore[]>([]);
+	const [dates, setDates] = useState<string[]>([]);
+	const [minDate, setMinDate] = useState<DateTime | null>(null);
+	const [maxDate, setMaxDate] = useState<DateTime | null>(null);
 
 	// Best/Average Text Box values
-	const [bestScore, setBestScore] = useState();
-	const [bestAccuracy, setBestAccuracy] = useState();
-	const [bestStreak, setBestStreak] = useState();
-	const [bestCompletion, setBestCompletion] = useState();
-	const [bestTimeOffset, setBestTimeOffset] = useState();
-	const [avgScore, setAvgScore] = useState();
-	const [avgAccuracy, setAvgAccuracy] = useState();
-	const [avgStreak, setAvgStreak] = useState();
-	const [avgCompletion, setAvgCompletion] = useState();
-	const [avgTimeOffset, setAvgTimeOffset] = useState();
+	const [bestScore, setBestScore] = useState<string>("");
+	const [bestAccuracy, setBestAccuracy] = useState<string>("");
+	const [bestStreak, setBestStreak] = useState<string>("");
+	const [bestCompletion, setBestCompletion] = useState<string>("");
+	const [bestTimeOffset, setBestTimeOffset] = useState<string>("");
+	const [avgScore, setAvgScore] = useState<string>("");
+	const [avgAccuracy, setAvgAccuracy] = useState<string>("");
+	const [avgStreak, setAvgStreak] = useState<string>("");
+	const [avgCompletion, setAvgCompletion] = useState<string>("");
+	const [avgTimeOffset, setAvgTimeOffset] = useState<string>("");
 
 	// Tracks currently selected options from Select boxes
-	const [selectedGameMode, setSelectedGameMode] = useState("");
-	const [selectedSong, setSelectedSong] = useState("");
+	const [selectedGameMode, setSelectedGameMode] = useState<string>("");
+	const [selectedSong, setSelectedSong] = useState<string>("");
+	const [selectedDifficulty, setSelectedDifficulty] = useState<string>("");
+	const [statsSubtitle, setStatsSubtitle] = useState<string>("");
 
 	// Hooks
-	// const errRef = useRef();
 	const { data } = usePlayerDataContext();
-	const [statsSubtitle, setStatsSubtitle] = useState("");
 
 	// initialize data for page
 	useEffect(() => {
 		try {
-			async function AsyncInitPageWrapper(data) {
+			async function AsyncInitPageWrapper(data: Score[] | null) {
 				await initPage(data);
 			}
 			if (data) {
 				AsyncInitPageWrapper(data);
 			}
 		} catch (err) {
-			console.log(err.message);
+			console.log(err);
 		}
 	}, [data]);
 
-	// auto select most recently played game mode when game mode options refresh
-	useEffect(() => {
-		findMostRecentGameModeOption(data, gameModeOptions, true).then((option) => setSelectedGameMode(option));
-	}, [gameModeOptions]);
-
-	// auto select most recently played song when song options refresh
-	useEffect(() => {
-		findMostRecentSongOption(data, songOptions, true).then((option) => setSelectedSong(option));
-	}, [songOptions]);
-
-	// update songs on game mode change
-	useEffect(() => {
-		getMatchingSongOptions(data, selectedGameMode, true).then((options) => setSongOptions(options));
-	}, [selectedGameMode]);
-
-	// executed when selected gamemode or song changes
-	useEffect(() => {
-		async function AsyncWrapper(data, selectedGameMode, selectedSong) {
-			await updateSelection(data, selectedGameMode, selectedSong);
-		}
-		AsyncWrapper(data, selectedGameMode, selectedSong);
-	}, [selectedGameMode, selectedSong]);
-
 	// initial render
-	const initPage = async (data) => {
+	const initPage = async (data: Score[] | null) => {
 		// game modes are the only thing that will always be the same
-		const modes = await getGameModes(data, true);
+		if (!data) return;
+		const modes = await getGameModes(data, false);
 		setGameModeOptions(modes);
-		const recent = await findMostRecentGameModeOption(data, modes, true);
-		setSelectedGameMode(recent);
+		const recent = await findMostRecentGameModeOption(data, modes, false);
+		setSelectedGameMode(recent || "");
 
 		if (data && data.length === 0) {
 			setStatsSubtitle("No scores yet. Play the game!");
@@ -99,13 +83,64 @@ const CustomModes = () => {
 		}
 	};
 
-	const onDateRangeChange = async (startDate, endDate) => {
+	// auto select most recently played game mode when game mode options refresh
+	useEffect(() => {
+		if (!data) return;
+		findMostRecentGameModeOption(data, gameModeOptions, false).then((option) => setSelectedGameMode(option || ""));
+	}, [gameModeOptions]);
+
+	// auto select most recently played song when song options refresh
+	useEffect(() => {
+		if (!data) return;
+		findMostRecentSongOption(data, songOptions, false).then((option) => setSelectedSong(option || ""));
+	}, [songOptions]);
+
+	// auto select most recently played difficulty when difficulty options refresh
+	useEffect(() => {
+		if (!data) return;
+		findMostRecentDifficultyOption(data, difficultyOptions).then((option) => setSelectedDifficulty(option || ""));
+	}, [difficultyOptions]);
+
+	// update songs on game mode change
+	useEffect(() => {
+		if (!data) return;
+		getMatchingSongOptions(data, selectedGameMode, false).then((options) => setSongOptions(options));
+	}, [selectedGameMode]);
+
+	// update difficulties on song change
+	useEffect(() => {
+		if (!data) return;
+		getMatchingDifficultyOptions(data, selectedGameMode, selectedSong).then((options) =>
+			setDifficultyOptions(options)
+		);
+	}, [selectedGameMode, selectedSong]);
+
+	// executed when selected gamemode, song, or difficulty changes
+	useEffect(() => {
+		updateSelection(data, selectedGameMode, selectedSong, selectedDifficulty);
+	}, [selectedGameMode, selectedSong, selectedDifficulty]);
+
+	const onDateRangeChange = async (startDate: DateTime, endDate: DateTime) => {
 		updateSelection(data, selectedGameMode, selectedSong, selectedDifficulty, [startDate, endDate]);
 	};
 
 	// updates the charts and info boxes
-	const updateSelection = async (data, selectedGameMode, selectedSong, dateRange = null) => {
-		const { values, keys } = await getScores(data, true, selectedGameMode, selectedSong, dateRange);
+	const updateSelection = async (
+		scores: Score[] | null,
+		selectedGameMode: string,
+		selectedSong: string,
+		selectedDifficulty: string,
+		dateRange: [DateTime, DateTime] | null = null
+	) => {
+		if (!scores) return;
+		const { values, keys } = await getScores(
+			scores,
+			false,
+			selectedGameMode,
+			selectedSong,
+			selectedDifficulty,
+			dateRange
+		);
 
 		setScores(values);
 		setDates(keys);
@@ -114,49 +149,8 @@ const CustomModes = () => {
 			setMaxDate(DateTime.max(...keys.map((date) => DateTime.fromISO(date))).endOf("day"));
 			setMinDate(DateTime.min(...keys.map((date) => DateTime.fromISO(date))).startOf("day"));
 		}
-
-		await updateBests(values);
-		await updateAvgs(values);
-	};
-
-	const updateBests = async (scores) => {
-		setBestScore(checkInvalidNum(Math.round((Math.max(...scores.map((value) => value.highScore)) * 10) / 10)));
-		setBestAccuracy(
-			checkInvalidNum(Math.round(Math.max(...scores.map((value) => value.accuracy)) * 1000) / 10) + "%"
-		);
-		setBestCompletion(
-			checkInvalidNum(Math.round(Math.max(...scores.map((value) => value.completion)) * 1000) / 10) + "%"
-		);
-		setBestTimeOffset(
-			checkInvalidNum(Math.round(Math.min(...scores.map((value) => value.timeOffset)) * 1000)) + " ms"
-		);
-		setBestStreak(checkInvalidNum(Math.max(...scores.map((value) => value.streak))));
-	};
-
-	const updateAvgs = async (scores) => {
-		setAvgScore(
-			checkInvalidNum(Math.round(scores.map((value) => value.score).reduce((p, c, i, a) => p + c / a.length, 0)))
-		);
-		setAvgAccuracy(
-			checkInvalidNum(
-				Math.round(scores.map((value) => value.accuracy).reduce((p, c, i, a) => p + c / a.length, 0) * 1000) /
-					10
-			) + "%"
-		);
-		setAvgStreak(
-			checkInvalidNum(Math.round(scores.map((value) => value.streak).reduce((p, c, i, a) => p + c / a.length, 0)))
-		);
-		setAvgCompletion(
-			checkInvalidNum(
-				Math.round(scores.map((value) => value.completion).reduce((p, c, i, a) => p + c / a.length, 0) * 1000) /
-					10
-			) + "%"
-		);
-		setAvgTimeOffset(
-			checkInvalidNum(
-				Math.round(scores.map((value) => value.timeOffset).reduce((p, c, i, a) => p + c / a.length, 0) * 1000)
-			) + " ms"
-		);
+		await updateBests(values, setBestScore, setBestAccuracy, setBestCompletion, setBestTimeOffset, setBestStreak);
+		await updateAvgs(values, setAvgScore, setAvgAccuracy, setAvgCompletion, setAvgTimeOffset, setAvgStreak);
 	};
 
 	const scoreOptions = {
@@ -204,14 +198,9 @@ const CustomModes = () => {
 	return (
 		<>
 			<div className="stats-header">
-				<h2 className="stats-title">Custom Game Modes</h2>
-				{statsSubtitle !== "" ? <h5 className="stats-subtitle">{statsSubtitle}</h5> : <></>}
+				<h2 className="stats-title">Default Game Modes</h2>
+				<h5 className="stats-subtitle">{statsSubtitle}</h5>
 			</div>
-			{/* <div className={errMsg && errMsg !== "" ? "responsive-centered-container" : "offscreen"}>
-        <p ref={errRef} className={errMsg && errMsg !== "" ? "errmsg" : "offscreen"} aria-live="assertive">
-          {errMsg}
-        </p>
-      </div> */}
 			{!data || data.length === 0 ? (
 				<></>
 			) : (
@@ -219,7 +208,7 @@ const CustomModes = () => {
 					<div className="content-main">
 						<div className="select-container">
 							<div className="select-wrapper">
-								<p className="select-caption fs-200">GameMode:</p>
+								<p className="select-caption fs-200">Game Mode:</p>
 								<div className="select-wrapper">
 									<SelectBox
 										id="game-mode-select"
@@ -249,6 +238,21 @@ const CustomModes = () => {
 								</div>
 							</div>
 							<div className="select-wrapper">
+								<p className="select-caption fs-200">Difficulty:</p>
+								<div className="select-wrapper">
+									<SelectBox
+										id="difficulty-select"
+										onChange={(value) => setSelectedDifficulty(value.value)}
+										placeholder={"Filter by Difficulty"}
+										options={difficultyOptions}
+										value={{
+											label: selectedDifficulty,
+											value: selectedDifficulty,
+										}}
+									/>
+								</div>
+							</div>
+							<div className="select-wrapper">
 								<p className="select-caption fs-200">Time Range:</p>
 								<div className="select-wrapper">
 									{!minDate || !maxDate ? (
@@ -263,7 +267,7 @@ const CustomModes = () => {
 								</div>
 							</div>
 						</div>
-						<div className="best-avg-container">
+						<div id="best-avg" className="chart-scroll best-avg-container">
 							<ul className="best-list">
 								<li className="table-header">
 									<h2 className="fs-300 text-light">Best</h2>
@@ -274,19 +278,19 @@ const CustomModes = () => {
 								</li>
 								<li className="table-row">
 									<div className="col col-1">Accuracy:</div>
-									<div className="col col-2">{bestAccuracy || ""}</div>
+									<div className="col col-2">{bestAccuracy}</div>
 								</li>
 								<li className="table-row">
 									<div className="col col-1">Streak:</div>
-									<div className="col col-2">{bestStreak || ""}</div>
+									<div className="col col-2">{bestStreak}</div>
 								</li>
 								<li className="table-row">
 									<div className="col col-1">Reaction Time:</div>
-									<div className="col col-2">{bestTimeOffset || ""}</div>
+									<div className="col col-2">{bestTimeOffset}</div>
 								</li>
 								<li className="table-row">
 									<div className="col col-1">Targets Destroyed:</div>
-									<div className="col col-2">{bestCompletion || ""}</div>
+									<div className="col col-2">{bestCompletion}</div>
 								</li>
 							</ul>
 							<ul className="best-list">
@@ -295,64 +299,64 @@ const CustomModes = () => {
 								</li>
 								<li className="table-row">
 									<div className="col col-1">Score:</div>
-									<div className="col col-2">{avgScore || ""}</div>
+									<div className="col col-2">{avgScore}</div>
 								</li>
 								<li className="table-row">
 									<div className="col col-1">Accuracy:</div>
-									<div className="col col-2">{avgAccuracy || ""}</div>
+									<div className="col col-2">{avgAccuracy}</div>
 								</li>
 								<li className="table-row">
 									<div className="col col-1">Streak:</div>
-									<div className="col col-2">{avgStreak || ""}</div>
+									<div className="col col-2">{avgStreak}</div>
 								</li>
 								<li className="table-row">
 									<div className="col col-1">Reaction Time:</div>
-									<div className="col col-2">{avgTimeOffset || ""}</div>
+									<div className="col col-2">{avgTimeOffset}</div>
 								</li>
 								<li className="table-row">
 									<div className="col col-1">Targets Destroyed:</div>
-									<div className="col col-2">{avgCompletion || ""}</div>
+									<div className="col col-2">{avgCompletion}</div>
 								</li>
 							</ul>
 						</div>
 					</div>
-					<div className={"content-main"}>
-						<div>
+					<div className="content-main">
+						<div id="scores-chart" className="chart-scroll">
 							<LineChart
 								labels={dates}
 								data={scores ? scores.map((value) => value.score) : ""}
 								myOptions={scoreOptions}
 							/>
 						</div>
-						<div>
+						<div id="accuracy-chart" className="chart-scroll">
 							<LineChart
 								labels={dates}
 								data={scores ? scores.map((value) => value.accuracy) : ""}
 								myOptions={accuracyOptions}
 							/>
 						</div>
-						<div>
+						<div id="completion-chart" className="chart-scroll">
 							<LineChart
 								labels={dates}
 								data={scores ? scores.map((value) => value.completion) : ""}
 								myOptions={completionOptions}
 							/>
 						</div>
-						<div>
+						<div id="streak-chart" className="chart-scroll">
 							<LineChart
 								labels={dates}
 								data={scores ? scores.map((value) => value.streak) : ""}
 								myOptions={streakOptions}
 							/>
 						</div>
-						<div>
+						<div id="avg-time-offset-chart" className="chart-scroll">
 							<LineChart
 								labels={dates}
 								data={scores ? scores.map((value) => value.timeOffset) : ""}
 								myOptions={avgTimeOffsetOptions}
 							/>
 						</div>
-						<div>
+						<div id="location-accuracy-chart" className="chart-scroll">
 							<LocationAccuracyHeatmap
 								labels={null}
 								data={scores ? scores.map((value) => value.locationAccuracy) : ""}
@@ -365,4 +369,5 @@ const CustomModes = () => {
 		</>
 	);
 };
-export default CustomModes;
+
+export default DefaultModes;

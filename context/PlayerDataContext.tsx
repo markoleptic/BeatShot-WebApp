@@ -1,14 +1,11 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { useAuthContext } from "../components/Auth/AuthContext";
+import { useAuthContext } from "@/context/AuthContext";
 
 export interface Accuracy {
 	accuracy: number[];
 }
 
-export interface LocationAccuracy {
-	locationAccuracy: Accuracy[];
-}
 export interface Score {
 	accuracy: number;
 	avgTimeOffset: number;
@@ -18,7 +15,7 @@ export interface Score {
 	difficulty: string;
 	gameModeType: string;
 	highScore: number;
-	locationAccuracy: LocationAccuracy | null;
+	locationAccuracy: Accuracy[] | null;
 	score: number;
 	scoreID: number;
 	shotsFired: number;
@@ -33,6 +30,12 @@ export interface Score {
 	userID: string;
 }
 
+export interface GameModeTime {
+	gameModeName: string;
+	gameModeType: string;
+	totalTime: number;
+}
+
 export interface DeleteScoresResponse {
 	"Number Removed": number;
 }
@@ -43,8 +46,7 @@ export interface ErrorResponse {
 
 export interface PlayerDataContextType {
 	data: Score[] | null;
-	customGameModesTime: object[];
-	defaultGameModesTime: object[];
+	gameModeTimes: GameModeTime[] | null;
 	deleteScores: (scoreIDs: number[]) => Promise<DeleteScoresResponse | ErrorResponse>;
 }
 
@@ -61,8 +63,7 @@ export const usePlayerDataContext = () => {
 // provides the Authorization Bearer header to access protected player data
 export const PlayerDataProvider = ({ children }: { children: React.ReactNode }) => {
 	const [data, setData] = useState<Score[] | null>(null);
-	const [customGameModesTime, SetCustomGameModesTime] = useState<object[]>([]);
-	const [defaultGameModesTime, SetDefaultGameModesTime] = useState<object[]>([]);
+	const [gameModeTimes, SetGameModeTimes] = useState<GameModeTime[] | null>(null);
 	const { auth, isAccessTokenValid, refreshAccessToken } = useAuthContext();
 
 	const initializePlayerData = async () => {
@@ -81,13 +82,11 @@ export const PlayerDataProvider = ({ children }: { children: React.ReactNode }) 
 				},
 				method: "GET",
 			});
-
 			const responseData = await response.json();
 			if (response.status === 200) {
 				setData(responseData);
 			}
-
-			const customResponse = await fetch(`/api/profile/${localAuth?.userID}/gettotaltimecustomgamemodes`, {
+			const gameModeTimesResponse = await fetch(`/api/profile/${localAuth?.userID}/gettotaltimegamemodes`, {
 				headers: {
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Credentials": "true",
@@ -95,22 +94,9 @@ export const PlayerDataProvider = ({ children }: { children: React.ReactNode }) 
 				},
 				method: "GET",
 			});
-			const customResponseData = await customResponse.json();
-			if (customResponse.status === 200) {
-				SetCustomGameModesTime(customResponseData);
-			}
-
-			const defaultResponse = await fetch(`/api/profile/${localAuth?.userID}/gettotaltimedefaultgamemodes`, {
-				headers: {
-					"Content-Type": "application/json",
-					"Access-Control-Allow-Credentials": "true",
-					Authorization: `Bearer ${localAuth?.accessToken}`,
-				},
-				method: "GET",
-			});
-			const defaultResponseData = await defaultResponse.json();
-			if (defaultResponse.status === 200) {
-				SetDefaultGameModesTime(defaultResponseData);
+			const gameModeTimesResponseData = await gameModeTimesResponse.json();
+			if (gameModeTimesResponse.status === 200) {
+				SetGameModeTimes(gameModeTimesResponseData);
 			}
 		} catch (err) {
 			console.log(err);
@@ -152,8 +138,7 @@ export const PlayerDataProvider = ({ children }: { children: React.ReactNode }) 
 		<PlayerDataContext.Provider
 			value={{
 				data,
-				customGameModesTime,
-				defaultGameModesTime,
+				gameModeTimes,
 				deleteScores,
 			}}
 		>

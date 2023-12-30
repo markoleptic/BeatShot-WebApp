@@ -1,12 +1,12 @@
 "use client";
 import { NavLink } from "../Navlink";
 import Link from "next/link";
-import logo from "../../public/logo.ico";
+import logo from "@/public/logo.ico";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
 import React, { useState } from "react";
-import { useAuthContext } from "../Auth/AuthContext";
-import useLogout from "../../hooks/useLogout";
+import { useAuthContext } from "@/context/AuthContext";
+import useLogout from "@/hooks/useLogout";
 import Image from "next/image";
 
 const NavBar = () => {
