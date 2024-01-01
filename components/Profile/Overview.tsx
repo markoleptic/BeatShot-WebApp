@@ -3,7 +3,7 @@ import { GameModeTime, Score, usePlayerDataContext } from "@/context/PlayerDataC
 import React, { useState, useEffect, useCallback } from "react";
 import { DateTime, WeekdayNumbers } from "luxon";
 import BarChart from "@/components/Charts/BarChart";
-import Heatmap from "@/components/Charts/HeatMap";
+import Heatmap, { HeatMapCalendar } from "@/components/Charts/HeatMap";
 
 const maxDefaultModesToShow = 8;
 const maxCustomModesToShow = 8;
@@ -13,23 +13,10 @@ interface GameModeTimeShort {
 	totalTime: number;
 }
 
-interface HeatMapCalendar {
-	x: string;
-	y: WeekdayNumbers;
-	d: DateTime<true>;
-	v: number;
-}
-
-interface HeatMapLabels {
-	label: string[];
-	value: HeatMapCalendar[];
-}
-
 const ProfileOverview = () => {
 	const { data, gameModeTimes } = usePlayerDataContext();
 	const [totalTimePlayed, setTotalTimePlayed] = useState<number>(0);
 	const [timePlayedHeatmap, setTimePlayedHeatmap] = useState<HeatMapCalendar[]>([]);
-	const [heatmapLabels, setHeatmapLabels] = useState<HeatMapLabels | null>(null);
 	const [defaultGameModeTimes, setDefaultGameModeTimes] = useState<GameModeTimeShort[]>([]);
 	const [customGameModeTimes, setCustomGameModeTimes] = useState<GameModeTimeShort[]>([]);
 	const [mostPlayedGameMode, setMostPlayedGameMode] = useState<string>("");
@@ -92,11 +79,6 @@ const ProfileOverview = () => {
 	// sets the data for the heatmapLabels & timePlayedHeatmap
 	const generateHeatMap = async (scores: Score[]) => {
 		const calendar = await generateCalendar(scores);
-		const labels: HeatMapLabels = {
-			label: [...calendar.map((value) => value.x)],
-			value: [...calendar.map((value) => value)],
-		};
-		setHeatmapLabels(labels);
 		setTimePlayedHeatmap(calendar);
 	};
 
@@ -132,7 +114,7 @@ const ProfileOverview = () => {
 	};
 
 	const gameModeTimePlayedOptions = {
-		title: "Most Played Game Modes",
+		title: "Most Played Default Game Modes",
 		xAxisTitle: "Game Mode",
 		yAxisTitle: "Time Played (hrs)",
 		category: "timePlayed",
@@ -147,6 +129,10 @@ const ProfileOverview = () => {
 		category: "timePlayed",
 		bDisplayPercentage: true,
 		maxEntries: maxCustomModesToShow,
+	};
+
+	const heatMapOptions = {
+		title: "Play Frequency",
 	};
 
 	return (
@@ -170,22 +156,25 @@ const ProfileOverview = () => {
 									<div className="col col-2">{totalTimePlayed || "0"}&nbsp;hrs</div>
 								</li>
 								<li className="table-row">
-									<div className="col col-1">Most Played Mode:</div>
+									<div className="col col-1">Most Played</div>
+								</li>
+								<li className="table-row">
+									<div className="col col-1 padding-left-1rem">Default Mode:</div>
 									<div className="col col-2">{mostPlayedGameMode}</div>
 								</li>
 								<li className="table-row">
-									<div className="col col-1">Time for Most Played:</div>
+									<div className="col col-1 padding-left-1rem">Total:</div>
 									<div className="col col-2">
 										{mostPlayedGameModeHours || "0"}
 										&nbsp;hrs
 									</div>
 								</li>
 								<li className="table-row">
-									<div className="col col-1">Most Played Custom Mode:</div>
+									<div className="col col-1 padding-left-1rem">Custom Mode:</div>
 									<div className="col col-2">{mostPlayedCustomGameMode}</div>
 								</li>
 								<li className="table-row">
-									<div className="col col-1">Time Played for Custom:</div>
+									<div className="col col-1 padding-left-1rem">Total:</div>
 									<div className="col col-2">
 										{mostPlayedCustomGameModeHours || "0"}
 										&nbsp;hrs
@@ -198,18 +187,18 @@ const ProfileOverview = () => {
 						<BarChart
 							labels={defaultGameModeTimes.map((item) => item.gameModeName)}
 							data={defaultGameModeTimes.map((item) => item.totalTime)}
-							myOptions={gameModeTimePlayedOptions}
+							options={gameModeTimePlayedOptions}
 						/>
 					</div>
 					<div>
 						<BarChart
 							labels={customGameModeTimes.map((item) => item.gameModeName)}
 							data={customGameModeTimes.map((item) => item.totalTime)}
-							myOptions={customGameModeTimePlayedOptions}
+							options={customGameModeTimePlayedOptions}
 						/>
 					</div>
 					<div>
-						<Heatmap labels={heatmapLabels} data={timePlayedHeatmap} />
+						<Heatmap data={timePlayedHeatmap} options={heatMapOptions} />
 					</div>
 				</>
 			)}

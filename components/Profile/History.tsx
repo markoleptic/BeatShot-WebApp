@@ -107,9 +107,7 @@ const ProfileHistory = () => {
 	const onDeleteButtonClicked = async (e: React.MouseEvent<HTMLButtonElement>) => {
 		if (selectedScoreIDs.length === 0) return;
 		const confText = selectedScoreIDs.length === 1 ? "1 score entry" : `${selectedScoreIDs.length} score entries`;
-		const isConfirmed = window.confirm(
-			`Are you sure you want to delete ${confText}? This action is irreversible.`
-		);
+		const isConfirmed = window.confirm(`Are you sure you want to delete ${confText}? This action is irreversible.`);
 		if (isConfirmed) {
 			const responseMsg = await deleteScores(selectedScoreIDs);
 			console.log(responseMsg);

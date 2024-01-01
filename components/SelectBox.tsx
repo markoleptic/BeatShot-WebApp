@@ -3,11 +3,11 @@ import Select, { ActionMeta, GroupBase, StylesConfig } from "react-select";
 import { LabelValue } from "./Profile/StatFunctions";
 
 export interface SelectBoxProps {
-	options: LabelValue[],
-	onChange: (newValue: any, actionMeta: ActionMeta<any>) => void,
-	placeholder: React.ReactNode,
-	value?: any,
-	id: string | undefined
+	options: LabelValue[];
+	onChange: (newValue: any, actionMeta: ActionMeta<any>) => void;
+	placeholder: React.ReactNode;
+	value?: any;
+	id: string | undefined;
 }
 
 const SelectBox: React.FC<SelectBoxProps> = ({ options, onChange, placeholder, value, id }) => {

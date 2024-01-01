@@ -6,7 +6,7 @@ const atleastOneUpper = /.*[A-Z]/;
 const atleastOneLower = /.*[a-z]/;
 const length = /.{8,32}/;
 
-export function passwordValidates(pass) {
+export function passwordValidates(pass: string): boolean {
 	let count = 0;
 	if (atleastOneSpecial.test(pass)) count++;
 	if (atleastOneDigit.test(pass)) count++;
@@ -15,10 +15,10 @@ export function passwordValidates(pass) {
 	return count >= 3 && length.test(pass);
 }
 
-export function usernameValidates(username) {
+export function usernameValidates(username: string): boolean {
 	return usernameRegex.test(username);
 }
 
-export function emailValidates(email) {
+export function emailValidates(email: string): boolean {
 	return emailRegex.test(email);
 }

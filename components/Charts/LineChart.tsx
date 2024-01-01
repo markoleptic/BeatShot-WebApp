@@ -2,8 +2,8 @@
 import { Line } from "react-chartjs-2";
 import { DateTime } from "luxon";
 import "chartjs-adapter-luxon";
-import React, { useRef, useEffect, useState } from "react";
-import { responsiveFonts, onChartResize } from "./ChartFunctions.js";
+import React from "react";
+import { responsiveFonts, onChartResize } from "./ChartFunctions";
 import {
 	Chart as ChartJS,
 	CategoryScale,
@@ -16,7 +16,15 @@ import {
 	TimeSeriesScale,
 	Legend,
 	Filler,
+	ChartData,
+	ChartOptions,
+	TooltipItem,
+	TooltipModel,
+	CoreScaleOptions,
+	Scale,
+	ScriptableContext,
 } from "chart.js";
+import { AnyObject } from "chartjs-chart-matrix";
 
 ChartJS.register(
 	CategoryScale,
@@ -31,33 +39,39 @@ ChartJS.register(
 	Filler
 );
 
-export default function LineChart(props, canvas) {
-	var chartRef = useRef();
-	var [gradient, setGradient] = useState();
+interface LineChartOptions {
+	title: string;
+	xAxisTitle?: string;
+	yAxisTitle?: string;
+	category: string;
+	bDisplayPercentage: boolean;
+}
 
-	var title = props?.myOptions?.title || "";
-	var xAxisTitle = props?.myOptions?.xAxisTitle || "";
-	var yAxisTitle = props?.myOptions?.yAxisTitle || "";
-	var category = props?.myOptions?.category || "";
+interface LineChartProps {
+	labels: string[];
+	data: any;
+	options: LineChartOptions;
+}
 
-	const labels = props?.labels?.map((element) => DateTime.fromISO(element, { zone: "local" }));
-	let chartData = [];
-	for (let datapoint in props.data) {
-		chartData.push({
-			label: labels[datapoint],
-			data: props.data[datapoint],
-		});
-	}
-
-	const data = {
-		labels: labels,
+const LineChart: React.FC<LineChartProps> = ({ labels, data, options }) => {
+	const { title, yAxisTitle, category } = options;
+	const linedata: ChartData<"line"> = {
+		labels: labels.map((element) => DateTime.fromISO(element, { zone: "local" })),
 		datasets: [
 			{
-				labels: labels,
-				data: props.data,
+				data: data,
 				borderColor: "white",
-				backgroundColor: gradient,
-				//generate(["#3dc5ebB3"]),
+				backgroundColor: function (ctx: ScriptableContext<"line">, options: AnyObject) {
+					const gradient: CanvasGradient = ctx.chart.ctx.createLinearGradient(
+						0,
+						0,
+						0,
+						ctx.chart.canvas.height
+					);
+					gradient.addColorStop(1, "rgba(0, 0, 0, 0.0)");
+					gradient.addColorStop(0, "hsl(193, 81%, 58%, 0.8)");
+					return gradient;
+				},
 				fill: "origin",
 				pointStyle: "circle",
 				pointRadius: 3,
@@ -67,21 +81,7 @@ export default function LineChart(props, canvas) {
 		],
 	};
 
-	useEffect(() => {
-		const chart = chartRef.current;
-		if (chart) {
-			// eslint-disable-next-line react-hooks/exhaustive-deps
-			gradient = chart.ctx.createLinearGradient(0, 0, 0, chart.canvas.height);
-			gradient.addColorStop(1, "rgba(0, 0, 0, 0.0)");
-			gradient.addColorStop(0, "hsl(193, 81%, 58%, 0.8)");
-			chart.ctxfillStyle = gradient;
-			chart.ctx.fill();
-			setGradient(gradient);
-		}
-	}, [chartRef]);
-
-	const options = {
-		tension: 0.3,
+	const lineOptions: ChartOptions<"line"> = {
 		responsive: true,
 		maintainAspectRatio: false,
 		onResize: onChartResize,
@@ -98,7 +98,6 @@ export default function LineChart(props, canvas) {
 			size: 12,
 			family: "Montserrat",
 			weight: "bold",
-			color: "white",
 		},
 		plugins: {
 			legend: {
@@ -107,9 +106,7 @@ export default function LineChart(props, canvas) {
 			title: {
 				display: true,
 				padding: {
-					right: 0,
 					bottom: 6,
-					left: 0,
 					top: 0,
 				},
 				align: "center",
@@ -119,7 +116,6 @@ export default function LineChart(props, canvas) {
 					size: responsiveFonts("title"),
 					family: "Montserrat",
 					weight: "bold",
-					color: "hsl(193, 81%, 58%)",
 				},
 			},
 			tooltip: {
@@ -136,15 +132,15 @@ export default function LineChart(props, canvas) {
 					size: responsiveFonts("tooltipBody"),
 				},
 				callbacks: {
-					label: function (tooltipItem) {
+					label: function (this: TooltipModel<"line">, tooltipItem: TooltipItem<"line">) {
 						if (category === "score") {
-							return tooltipItem.raw.toFixed(1);
+							return (tooltipItem.raw as number).toFixed(1);
 						} else if (category === "avgTimeOffset") {
-							return tooltipItem.raw * 1000 + "ms";
+							return (tooltipItem.raw as number) * 1000 + "ms";
 						} else if (category === "accuracy" || category === "completion") {
-							return (tooltipItem.raw * 100).toFixed(2) + "%";
+							return ((tooltipItem.raw as number) * 100).toFixed(2) + "%";
 						} else {
-							return tooltipItem.raw.toFixed(0);
+							return (tooltipItem.raw as number).toFixed(0);
 						}
 					},
 					labelTextColor: function () {
@@ -157,19 +153,13 @@ export default function LineChart(props, canvas) {
 			x: {
 				type: "timeseries",
 				offset: false,
-				grace: 0,
 				time: {
 					unit: "day",
-					// displayFormats: {
-					//   day: "LLL c",
-					// },
 				},
 				grid: {
 					display: true,
-					drawBorder: false,
 					drawOnChartArea: true,
 					drawTicks: false,
-					beginAtZero: false,
 					color: "hsl(227, 15%, 70%,0.4)",
 				},
 				ticks: {
@@ -185,46 +175,30 @@ export default function LineChart(props, canvas) {
 						family: "Montserrat",
 					},
 				},
-				title: {
-					color: "white",
-					font: {
-						size: responsiveFonts("xTitle"),
-						family: "Montserrat",
-						weight: "normal",
-						color: "white",
-					},
-					display: false,
-					position: "bottom",
-					align: "center",
-					text: xAxisTitle,
-					padding: 0,
-				},
 			},
 			y: {
 				offset: false,
 				beginAtZero: true,
 				grid: {
 					display: true,
-					drawBorder: false,
 					drawOnChartArea: true,
 					drawTicks: false,
-					beginAtZero: true,
 					color: "hsl(227, 15%, 70%,0.4)",
 				},
 				ticks: {
 					padding: 4,
-					callback: function (value) {
+					callback: function (this: Scale<CoreScaleOptions>, value: string | number) {
 						if (value === 0) {
 							return "0";
 						}
 						if (category === "accuracy" || category === "completion") {
-							return this.getLabelForValue(value * 100);
+							return this.getLabelForValue((value as number) * 100);
 						} else if (category === "score") {
-							return this.getLabelForValue(value / 1000);
+							return this.getLabelForValue((value as number) / 1000);
 						} else if (category === "avgTimeOffset") {
-							return this.getLabelForValue(value * 1000);
+							return this.getLabelForValue((value as number) * 1000);
 						} else {
-							return this.getLabelForValue(value);
+							return this.getLabelForValue(value as number);
 						}
 					},
 					color: "white",
@@ -232,7 +206,6 @@ export default function LineChart(props, canvas) {
 						family: "Montserrat",
 						size: responsiveFonts("yTick"),
 						weight: "normal",
-						color: "white",
 					},
 				},
 				title: {
@@ -241,7 +214,6 @@ export default function LineChart(props, canvas) {
 						size: responsiveFonts("yTitle"),
 						family: "Montserrat",
 						weight: "normal",
-						color: "white",
 					},
 					align: "center",
 					display: true,
@@ -254,7 +226,9 @@ export default function LineChart(props, canvas) {
 
 	return (
 		<div className="chart">
-			<Line ref={chartRef} data={data} options={options} />
+			<Line data={linedata} options={lineOptions} />
 		</div>
 	);
-}
+};
+
+export default LineChart;

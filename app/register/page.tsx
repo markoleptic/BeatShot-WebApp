@@ -11,25 +11,25 @@ import SteamSignIn from "@/components/SteamSignIn";
 
 const Register = () => {
 	// all variables for the form, and the functions that change them
-	const [username, setUsername] = useState("");
-	const [validUsername, setValidUsername] = useState(false);
-	const [usernameFocus, setUsernameFocus] = useState(false);
+	const [username, setUsername] = useState<string>("");
+	const [validUsername, setValidUsername] = useState<boolean>(false);
+	const [usernameFocus, setUsernameFocus] = useState<boolean>(false);
 
-	const [password, setPassword] = useState("");
-	const [validPassword, setValidPassword] = useState(false);
-	const [passwordFocus, setPasswordFocus] = useState(false);
+	const [password, setPassword] = useState<string>("");
+	const [validPassword, setValidPassword] = useState<boolean>(false);
+	const [passwordFocus, setPasswordFocus] = useState<boolean>(false);
 
 	const [email, setEmail] = useState("");
-	const [validEmail, setValidEmail] = useState(false);
-	const [emailFocus, setEmailFocus] = useState(false);
+	const [validEmail, setValidEmail] = useState<boolean>(false);
+	const [emailFocus, setEmailFocus] = useState<boolean>(false);
 
-	const [passwordMatch, setPasswordMatch] = useState("");
-	const [validPasswordMatch, setValidPasswordMatch] = useState(false);
-	const [passwordMatchFocus, setPasswordMatchFocus] = useState(false);
+	const [passwordMatch, setPasswordMatch] = useState<string>("");
+	const [validPasswordMatch, setValidPasswordMatch] = useState<boolean>(false);
+	const [passwordMatchFocus, setPasswordMatchFocus] = useState<boolean>(false);
 
-	const [checkEmailMsg, setCheckEmailMsg] = useState(false);
-	const [regMsg, setRegMsg] = useState("");
-	const [regMsgClassName, setRegMsgClassName] = useState("");
+	const [checkEmailMsg, setCheckEmailMsg] = useState<boolean>(false);
+	const [regMsg, setRegMsg] = useState<string>("");
+	const [regMsgClassName, setRegMsgClassName] = useState<string>("");
 
 	// clear error message on username, password, email, or passwordMatch change
 	useEffect(() => {
@@ -56,7 +56,7 @@ const Register = () => {
 	}, [email]);
 
 	// called when the Sign Up button is clicked
-	const handleRegister = async (e) => {
+	const handleRegister = async (e: React.FormEvent<HTMLFormElement>) => {
 		// prevents default behavior of reloading the page
 		e.preventDefault();
 		// use try/catch for async/await
@@ -68,7 +68,7 @@ const Register = () => {
 					password: password,
 				}),
 				headers: { "Content-Type": "application/json" },
-				withCredentials: true,
+				credentials: "same-origin",
 				method: "POST",
 			});
 			const data = await response.json();

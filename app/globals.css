@@ -1275,6 +1275,8 @@ form {
 	margin: auto;
 	display: flex;
 	max-width: 750px;
+	max-height: 400px;
+	min-height: 200px;
 	justify-content: center;
 	background-color: hsl(var(--clr-beatshot-darkblue));
 	box-shadow: 0rem 0rem 0.25rem 0rem hsl(var(--clr-beatshot-lightblue));
@@ -1285,7 +1287,9 @@ form {
 	position: relative;
 }
 .heatmap {
+	max-width: 1000px;
 	max-height: 250px;
+	min-height: 125px;
 }
 
 /*-------------*/
@@ -1694,7 +1698,6 @@ td.combined > p {
 	}
 	.chart {
 		padding: 0.25rem;
-		min-height: 200px;
 	}
 	.table-header {
 		font-size: var(--fs-300);

@@ -8,8 +8,9 @@ import { faSquareXmark } from "@fortawesome/free-solid-svg-icons";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { passwordValidates, emailValidates } from "../../authfunctions";
 import Link from "next/link";
+import { TokenParams } from "@/app/api/interfaces";
 
-const ChangePassword = ({ params }) => {
+const ChangePassword = ({ params }: TokenParams) => {
 	const token = params.token;
 
 	// all variables for the form, and the functions that change them
@@ -47,15 +48,13 @@ const ChangePassword = ({ params }) => {
 	}, [email]);
 
 	// called when the Save button is clicked
-	const onNewPasswordSubmitted = async (e) => {
-		// prevents default behavior of reloading the page
+	const onNewPasswordSubmitted = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		// use try/catch for async/await
 		try {
 			const response = await fetch(`/api/changepassword/${token}`, {
 				body: JSON.stringify({ email: email, password: password }),
 				headers: { "Content-Type": "application/json" },
-				withCredentials: true,
+				credentials: "same-origin",
 				method: "POST",
 			});
 			const data = await response.json();

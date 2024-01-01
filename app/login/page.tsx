@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSquareCheck, faSquare } from "@fortawesome/free-solid-svg-icons";
 import SteamSignIn from "@/components/SteamSignIn";
 import { passwordValidates, usernameValidates, emailValidates } from "../authfunctions";
+import { decodeJwt } from "jose";
+import { AuthData } from "../api/interfaces";
 
 const Login = () => {
 	const { setAuth, setPersist } = useAuthContext();
@@ -42,10 +44,8 @@ const Login = () => {
 	}, [email]);
 
 	// called when the Login button is clicked
-	const handleLogin = async (e) => {
-		// prevents default behavior of reloading the page
+	const handleLogin = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
-		// use try/catch for async/await
 		try {
 			const response = await fetch("/api/login", {
 				body: JSON.stringify({
@@ -54,18 +54,22 @@ const Login = () => {
 					password: password,
 				}),
 				headers: { "Content-Type": "application/json" },
-				withCredentials: true,
+				credentials: "same-origin",
 				method: "POST",
 			});
 			const data = await response.json();
 
 			//clear the form if no errors have been caught
 			if (response.status === 200) {
-				setAuth({
-					userID: data.userID,
-					displayName: data?.displayName,
+				const payload = decodeJwt(data?.accessToken);
+				const authData = {
+					userID: payload.userID,
+					displayName: payload.displayName,
 					accessToken: data.accessToken,
-				});
+					iat: payload.iat,
+					exp: payload.exp,
+				} as AuthData;
+				setAuth(authData);
 				setUsername("");
 				setEmail("");
 				setPassword("");
@@ -81,13 +85,14 @@ const Login = () => {
 		}
 	};
 
-	const onPersistClicked = (e) => {
+	const onPersistClicked = (e: React.MouseEvent<HTMLElement>) => {
+		e.preventDefault();
 		setChecked(!checked);
 	};
 
 	useEffect(() => {
 		setPersist(checked);
-		localStorage.setItem("persist", checked);
+		localStorage.setItem("persist", checked ? "true" : "false");
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [checked]);
 

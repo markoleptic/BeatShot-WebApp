@@ -1,4 +1,4 @@
-import BlogPostsMain from "../../components/BlogPosts/BlogPostsMain";
+import BlogPostsMain from "@/components/BlogPosts/BlogPostsMain";
 import React from "react";
 
 const DevBlog = () => {

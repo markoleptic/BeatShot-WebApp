@@ -1,4 +1,4 @@
-import GameplayAbilitySystem from "../../../components/BlogPosts/GameplayAbilitySystem";
+import GameplayAbilitySystem from "@/components/BlogPosts/GameplayAbilitySystem";
 import React from "react";
 
 const GAS = () => {

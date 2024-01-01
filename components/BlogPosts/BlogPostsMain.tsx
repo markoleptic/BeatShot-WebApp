@@ -9,7 +9,7 @@ import React from "react";
 const BlogPostsMain = () => {
 	let router = useRouter();
 
-	const handleClick = async (event, path) => {
+	const handleClick = async (_event: React.MouseEvent<HTMLDivElement, MouseEvent>, path: string) => {
 		router.push(path);
 	};
 

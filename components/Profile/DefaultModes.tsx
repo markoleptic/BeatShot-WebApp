@@ -325,42 +325,41 @@ const DefaultModes = () => {
 							<LineChart
 								labels={dates}
 								data={scores ? scores.map((value) => value.score) : ""}
-								myOptions={scoreOptions}
+								options={scoreOptions}
 							/>
 						</div>
 						<div id="accuracy-chart" className="chart-scroll">
 							<LineChart
 								labels={dates}
 								data={scores ? scores.map((value) => value.accuracy) : ""}
-								myOptions={accuracyOptions}
+								options={accuracyOptions}
 							/>
 						</div>
 						<div id="completion-chart" className="chart-scroll">
 							<LineChart
 								labels={dates}
 								data={scores ? scores.map((value) => value.completion) : ""}
-								myOptions={completionOptions}
+								options={completionOptions}
 							/>
 						</div>
 						<div id="streak-chart" className="chart-scroll">
 							<LineChart
 								labels={dates}
 								data={scores ? scores.map((value) => value.streak) : ""}
-								myOptions={streakOptions}
+								options={streakOptions}
 							/>
 						</div>
 						<div id="avg-time-offset-chart" className="chart-scroll">
 							<LineChart
 								labels={dates}
 								data={scores ? scores.map((value) => value.timeOffset) : ""}
-								myOptions={avgTimeOffsetOptions}
+								options={avgTimeOffsetOptions}
 							/>
 						</div>
 						<div id="location-accuracy-chart" className="chart-scroll">
 							<LocationAccuracyHeatmap
-								labels={null}
-								data={scores ? scores.map((value) => value.locationAccuracy) : ""}
-								myOptions={locationAccuracyOptions}
+								data={scores.map((value) => value.locationAccuracy)}
+								options={locationAccuracyOptions}
 							/>
 						</div>
 					</div>

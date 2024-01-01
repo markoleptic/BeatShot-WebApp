@@ -317,6 +317,7 @@ const TargetSpawningSystem = () => {
 									text="Classes"
 									onScreen={onScreen_Classes}
 									topLevelLink={true}
+									href={""}
 								/>
 								<ul>
 									<li>
@@ -324,6 +325,7 @@ const TargetSpawningSystem = () => {
 											hash={`#classes-USpawnArea`}
 											text="Spawn Area"
 											onScreen={onScreen_Classes && onScreen_USpawnArea}
+											href={""}
 										/>
 									</li>
 									<li>
@@ -333,6 +335,7 @@ const TargetSpawningSystem = () => {
 											onScreen={
 												onScreen_Classes && !onScreen_USpawnArea && onScreen_ATargetManager
 											}
+											href={""}
 										/>
 										<ul>
 											<li>
@@ -345,6 +348,7 @@ const TargetSpawningSystem = () => {
 														onScreen_ATargetManager &&
 														onScreen_UBoxComponent
 													}
+													href={""}
 												/>
 											</li>
 											<li>
@@ -358,6 +362,7 @@ const TargetSpawningSystem = () => {
 														!onScreen_UBoxComponent &&
 														onScreen_UReinforcementLearningComponent
 													}
+													href={""}
 												/>
 											</li>
 											<li>
@@ -371,6 +376,7 @@ const TargetSpawningSystem = () => {
 														!onScreen_UReinforcementLearningComponent &&
 														onScreen_USpawnAreaManagerComponent
 													}
+													href={""}
 												/>
 											</li>
 										</ul>
@@ -380,6 +386,7 @@ const TargetSpawningSystem = () => {
 											hash={`#classes-ATarget`}
 											text="Target"
 											onScreen={onScreen_Classes && !onScreen_ATargetManager && onScreen_ATarget}
+											href={""}
 										/>
 										<ul>
 											<li>
@@ -392,6 +399,7 @@ const TargetSpawningSystem = () => {
 														onScreen_ATarget &&
 														onScreen_UProjectileMovementComponent
 													}
+													href={""}
 												/>
 											</li>
 											<li>
@@ -405,6 +413,7 @@ const TargetSpawningSystem = () => {
 														!onScreen_UProjectileMovementComponent &&
 														onScreen_UBSAbilitySystemComponent
 													}
+													href={""}
 												/>
 											</li>
 											<li>
@@ -418,6 +427,7 @@ const TargetSpawningSystem = () => {
 														!onScreen_UBSAbilitySystemComponent &&
 														onScreen_UBSHealthComponent
 													}
+													href={""}
 												/>
 											</li>
 										</ul>
@@ -427,6 +437,7 @@ const TargetSpawningSystem = () => {
 											hash={`#classes-ABSGameMode`}
 											text="BSGameMode"
 											onScreen={onScreen_Classes && !onScreen_ATarget && onScreen_ABSGameMode}
+											href={""}
 										/>
 									</li>
 								</ul>
@@ -437,6 +448,7 @@ const TargetSpawningSystem = () => {
 									text="Target Lifecycle"
 									onScreen={!onScreen_Classes && onScreen_TargetLifeCycle}
 									topLevelLink={true}
+									href={""}
 								/>
 								<ul>
 									<li>
@@ -446,6 +458,7 @@ const TargetSpawningSystem = () => {
 											onScreen={
 												!onScreen_Classes && onScreen_TargetLifeCycle && onScreen_Initialization
 											}
+											href={""}
 										/>
 									</li>
 									<li>
@@ -458,6 +471,7 @@ const TargetSpawningSystem = () => {
 												!onScreen_Initialization &&
 												onScreen_Spawning
 											}
+											href={""}
 										/>
 									</li>
 									<li>
@@ -471,6 +485,7 @@ const TargetSpawningSystem = () => {
 												!onScreen_Spawning &&
 												onScreen_Activation
 											}
+											href={""}
 										/>
 									</li>
 									<li>
@@ -485,6 +500,7 @@ const TargetSpawningSystem = () => {
 												!onScreen_Activation &&
 												onScreen_Deactivation
 											}
+											href={""}
 										/>
 									</li>
 									<li>
@@ -500,6 +516,7 @@ const TargetSpawningSystem = () => {
 												!onScreen_Deactivation &&
 												onScreen_Destruction
 											}
+											href={""}
 										/>
 									</li>
 								</ul>
@@ -875,12 +892,7 @@ const TargetSpawningSystem = () => {
 									which type of section inside the total spawn area it belongs to, represented by
 									EGridIndexType:
 								</p>
-								<BSCodeBlock
-									code={EGridIndexType}
-									language={"c"}
-									showLineNumbers={false}
-									fontSize="0.65rem"
-								/>
+								<BSCodeBlock code={EGridIndexType} fontSize="0.65rem" />
 								<p>
 									The SpawnArea then finds all adjacent SpawnAreas based on the Grid Index Type and
 									the number of horizontal SpawnAreas that make up the total spawn area. The Grid
@@ -1025,12 +1037,7 @@ const TargetSpawningSystem = () => {
 									/>
 									{")"}.
 								</p>
-								<BSCodeBlock
-									code={ActivateTarget}
-									language={"c"}
-									showLineNumbers={false}
-									fontSize="0.65rem"
-								/>
+								<BSCodeBlock code={ActivateTarget} fontSize="0.65rem" />
 								<p>
 									The only two SpawnArea objects that the Target Manager keeps track of are the
 									PreviousSpawnArea and the CurrentSpawnArea. The only place these two variables are

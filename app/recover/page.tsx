@@ -24,15 +24,13 @@ const RecoverAccount = () => {
 		setRegMsg("");
 	}, [email]);
 
-	const onResendEmailConfirmationClicked = async (e) => {
-		// prevents default behavior of reloading the page
+	const onResendEmailConfirmationClicked = async (e: React.MouseEvent<HTMLElement>) => {
 		e.preventDefault();
-		// use try/catch for async/await
 		try {
 			const response = await fetch("/api/resendconfemail", {
 				body: JSON.stringify({ email: email }),
 				headers: { "Content-Type": "application/json" },
-				withCredentials: true,
+				credentials: "same-origin",
 				method: "POST",
 			});
 			const data = await response.json();
@@ -47,15 +45,13 @@ const RecoverAccount = () => {
 		}
 	};
 
-	const onSendPasswordRecoveryLinkClicked = async (e) => {
-		// prevents default behavior of reloading the page
+	const onSendPasswordRecoveryLinkClicked = async (e: React.MouseEvent<HTMLElement>) => {
 		e.preventDefault();
-		// use try/catch for async/await
 		try {
 			const response = await fetch("/api/recoveraccount", {
 				body: JSON.stringify({ email: email }),
 				headers: { "Content-Type": "application/json" },
-				withCredentials: true,
+				credentials: "same-origin",
 				method: "POST",
 			});
 			const data = await response.json();

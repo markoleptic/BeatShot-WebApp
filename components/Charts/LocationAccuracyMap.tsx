@@ -1,21 +1,30 @@
-import { Chart as ChartJS, registerables } from "chart.js";
-import { Chart } from "react-chartjs-2";
-import "chartjs-adapter-luxon";
-import { MatrixController, MatrixElement } from "chartjs-chart-matrix";
-import { responsiveFonts, onChartResize } from "./ChartFunctions.js";
-ChartJS.register(MatrixController, MatrixElement, ...registerables);
 import React from "react";
+import {
+	ChartData,
+	Chart as ChartJS,
+	ChartOptions,
+	ScriptableContext,
+	TooltipItem,
+	TooltipModel,
+	registerables,
+} from "chart.js";
+import "chartjs-adapter-luxon";
+import { Chart } from "react-chartjs-2";
+import { AnyObject, MatrixController, MatrixElement } from "chartjs-chart-matrix";
+import { responsiveFonts, onChartResize, lerp } from "./ChartFunctions";
+import { LocationAccuracyHeatMapData } from "../Profile/StatFunctions";
+ChartJS.register(MatrixController, MatrixElement, ...registerables);
 
-function titleCallback(context) {
-	if (context[0].raw.v === -1) {
+function titleCallback(this: TooltipModel<"matrix">, tooltipItems: TooltipItem<"matrix">[]): string {
+	if (!tooltipItems[0].raw) return "";
+	if ((tooltipItems[0].raw as LocationAccuracyHeatMapData).v === -1) {
 		return "No target has spawned here";
 	}
-	let title = (context[0].raw.v * 100).toFixed(0) + "%";
-	return title;
+	return ((tooltipItems[0].raw as LocationAccuracyHeatMapData).v * 100).toFixed(0) + "%";
 }
 
-function getAvgValue(data, currentIndex) {
-	if (!data  || data.length === 0) return null;
+function getAvgValue(data: number[][], currentIndex: number) {
+	if (!data || data.length === 0) return -1;
 	let sum = 0;
 	for (let i = 0; i < data.length; i++) {
 		if (data[i][currentIndex] === -1.0) {
@@ -29,54 +38,50 @@ function getAvgValue(data, currentIndex) {
 	return sum / data.length;
 }
 
-function getAveragedLocAcc(data) {
-	if (!data || data.length === 0 || data === "") {
-		return null;
-	}
+function getAveragedLocAcc(data: LocationAccuracyHeatMapData[][]) {
+	if (!data || data.length === 0) return [];
 	if (data.length === 1) {
 		return data[0];
 	}
-	let accuracyValues = data.map((x) => x.map((y) => y.v));
-	let averagedValues = [];
-	for (let point in data[0]) {
+	const percentagesOnly = data.map((x) => x.map((y) => y.v));
+	let averagedValues: LocationAccuracyHeatMapData[] = [];
+	for (let i = 0; i < data[0].length; i++) {
 		averagedValues.push({
-			x: data[0][point].x,
-			y: data[0][point].y,
-			v: getAvgValue(accuracyValues, point),
+			x: data[0][i].x,
+			y: data[0][i].y,
+			v: getAvgValue(percentagesOnly, i),
 		});
 	}
 	return averagedValues;
 }
 
-function getWidth(data) {
-	if (!data || data === "") {
-		return null;
+function getWidth(data: LocationAccuracyHeatMapData[][]) {
+	if (!data || data.length === 0) {
+		return 0;
 	}
 	if (data.map((x) => x.map((y) => Number(y.x)))[0] === undefined) {
-		return null;
+		return 0;
 	}
 	const width = Math.max(...data.map((x) => x.map((y) => Number(y.x)))[0]) + 1;
 	return width;
 }
 
-function getHeight(data) {
-	if (!data || data === "") {
-		return null;
+function getHeight(data: LocationAccuracyHeatMapData[][]) {
+	if (!data || data.length === 0) {
+		return 0;
 	}
 	if (data.map((x) => x.map((y) => Number(y.y)))[0] === undefined) {
-		return null;
+		return 0;
 	}
 	const height = Math.max(...data.map((x) => x.map((y) => Number(y.y)))[0]) + 1;
 	return height;
 }
 
-const lerp = (x, y, a) => x * (1 - a) + y * a;
-
 const green = [0, 255, 0, 1];
 const yellow = [255, 255, 0, 1];
 const red = [255, 0, 0, 1];
 
-function getColor(alpha) {
+function getColor(alpha: number) {
 	const redYellowThreshold = 0.5;
 	const yellowGreenThreshold = 0.5;
 	if (alpha < 0) {
@@ -94,7 +99,7 @@ function getColor(alpha) {
 	}
 }
 
-function getHoverColor(alpha) {
+function getHoverColor(alpha: number) {
 	if (alpha < 0) {
 		return `rgba(255, 255, 255, 0.5)`;
 	} else if (alpha === 0.5) {
@@ -112,52 +117,63 @@ function getHoverColor(alpha) {
 	}
 }
 
-export default function LocationAccuracyHeatmap(props, canvas) {
-	const height = getHeight(props.data);
-	const width = getWidth(props.data);
-	const { title } = props.myOptions;
-	const avgData = getAveragedLocAcc(props.data);
-	const data = {
+function widthCallback(ctx: ScriptableContext<"matrix">, options: AnyObject, width: number) {
+	const a = ctx.chart.chartArea || {};
+	return a.width / width - (a.width / width) * 0.05;
+}
+
+function heightCallback(ctx: ScriptableContext<"matrix">, options: AnyObject, height: number) {
+	const a = ctx.chart.chartArea || {};
+	return a.height / height - ((a.height / height) * 0.05 * a.width) / a.height;
+}
+
+interface LocationAccuracyHeatMapOptions {
+	title: string;
+}
+
+interface LocationAccuracyHeatMapProps {
+	data: LocationAccuracyHeatMapData[][];
+	options: LocationAccuracyHeatMapOptions;
+}
+
+interface colorMapValue {
+	borderColor: string;
+	hoverBorderColor: string;
+	backgroundColor: string;
+	hoverBackgroundColor: string;
+}
+
+const LocationAccuracyHeatmap: React.FC<LocationAccuracyHeatMapProps> = ({ data, options }) => {
+	const { title } = options;
+	const height = getHeight(data);
+	const width = getWidth(data);
+	const mapData: ChartData<"matrix"> = {
 		datasets: [
 			{
 				type: "matrix",
-				data: avgData,
+				data: getAveragedLocAcc(data),
 				borderColor: "white",
 				borderWidth: 0,
 				hoverBorderColor: "grey",
-				width: ({ chart }) => {
-					if (chart.chartArea === undefined || chart.chartArea === null) {
-						return {};
+				width: (ctx, options) => widthCallback(ctx, options, width),
+				height: (ctx, options) => heightCallback(ctx, options, height),
+				backgroundColor: function (ctx: ScriptableContext<"matrix">, options: AnyObject) {
+					if (!ctx.raw) {
+						return "transparent";
 					}
-					return (chart.chartArea || {}).width / width - ((chart.chartArea || {}).width / width) * 0.05;
+					return getColor((ctx.raw as LocationAccuracyHeatMapData).v);
 				},
-				height: ({ chart }) => {
-					if (chart.chartArea === undefined || chart.chartArea === null) {
-						return {};
+				hoverBackgroundColor: function (ctx: ScriptableContext<"matrix">, options: AnyObject) {
+					if (!ctx.raw) {
+						return "transparent";
 					}
-					return (
-						(chart.chartArea || {}).height / height -
-						(((chart.chartArea || {}).height / height) * 0.05 * chart.chartArea.width) /
-							chart.chartArea.height
-					);
-				},
-				backgroundColor: function (context) {
-					if (!context.raw) {
-						return null;
-					}
-					return getColor(context.raw.v);
-				},
-				hoverBackgroundColor: function (context) {
-					if (!context.raw) {
-						return null;
-					}
-					return getHoverColor(context.raw.v);
+					return getHoverColor((ctx.raw as LocationAccuracyHeatMapData).v);
 				},
 			},
 		],
 	};
 
-	const options = {
+	const mapOptions: ChartOptions<"matrix"> = {
 		responsive: true,
 		maintainAspectRatio: false,
 		onResize: onChartResize,
@@ -183,12 +199,9 @@ export default function LocationAccuracyHeatmap(props, canvas) {
 					size: responsiveFonts("title"),
 					family: "Montserrat",
 					weight: "bold",
-					color: "hsl(193, 81%, 58%)",
 				},
 				padding: {
-					right: 0,
 					bottom: 6,
-					left: 0,
 					top: 0,
 				},
 			},
@@ -199,24 +212,20 @@ export default function LocationAccuracyHeatmap(props, canvas) {
 					size: responsiveFonts("tooltipTitle"),
 					family: "Montserrat",
 					weight: "bold",
-					color: "hsl(193, 81%, 58%)",
 				},
-				color: "hsl(193, 81%, 58%)",
 				bodyFont: {
 					weight: "bold",
 					family: "Montserrat",
 					size: responsiveFonts("tooltipBody"),
 				},
 				callbacks: {
-					title: function (context) {
-						return titleCallback(context);
+					title: titleCallback,
+					labelTextColor: function () {
+						return "hsl(193, 81%, 58%)";
 					},
-					label: function (tooltipItem) {
-						return null;
+					label(tooltipItem) {
+						return "";
 					},
-					//   labelTextColor: function () {
-					//     return "hsl(193, 81%, 58%)";
-					//   },
 				},
 			},
 		},
@@ -231,7 +240,6 @@ export default function LocationAccuracyHeatmap(props, canvas) {
 				},
 				grid: {
 					display: false,
-					drawBorder: false,
 				},
 			},
 			x: {
@@ -243,14 +251,15 @@ export default function LocationAccuracyHeatmap(props, canvas) {
 				},
 				grid: {
 					display: false,
-					drawBorder: false,
 				},
 			},
 		},
 	};
 	return (
 		<div className="chart">
-			<Chart type="matrix" data={data} options={options} />
+			<Chart type="matrix" data={mapData} options={mapOptions} />
 		</div>
 	);
-}
+};
+
+export default LocationAccuracyHeatmap;
