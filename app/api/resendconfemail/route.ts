@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
-import { sendConfEmail, createConfToken } from "../authfunctions";
-import { findUserByEmail } from "../databasefunctions";
+import { sendConfEmail, createConfToken } from "@/util/ServerFunctions";
+import { findUserByEmail } from "@/util/DatabaseFunctions";
 
 export async function POST(req: NextRequest) {
 	const { email } = await req.json();

@@ -747,15 +747,13 @@ article .updated-date {
 	box-shadow: 0rem 0rem 0.25rem 0rem hsl(var(--clr-beatshot-lightblue));
 	border-radius: 0.25rem;
 }
-/* Used as default container for full profile overview and game modes */
-.responsive-centered-container {
+.time-statistics-container {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 	gap: 1rem;
 	width: auto;
-	min-width: 400px;
-	max-width: 800px;
+	max-width: 750px;
 	margin-left: auto;
 	margin-right: auto;
 }
@@ -1959,6 +1957,9 @@ td.combined > p {
 }
 .padding-left-1rem {
 	padding-left: 1rem;
+}
+.padding-left-2rem {
+	padding-left: 2rem;
 }
 .fw-regular {
 	font-weight: var(--fw-400);

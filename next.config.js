@@ -23,7 +23,22 @@ const nextConfig = {
 		return [
 			{
 				source: "/profile/:userID",
-				destination: "/profile/:userID/stats/overview", // Matched parameters can be used in the destination
+				destination: "/profile/:userID/stats/overview",
+				permanent: true,
+			},
+			{
+				source: "/login/steam",
+				destination: "/api/login/steam",
+				permanent: true,
+			},
+			{
+				source: "/steamlink",
+				destination: "/api/steamlink",
+				permanent: true,
+			},
+			{
+				source: "/sendfeedback",
+				destination: "/api/sendfeedback",
 				permanent: true,
 			},
 		];

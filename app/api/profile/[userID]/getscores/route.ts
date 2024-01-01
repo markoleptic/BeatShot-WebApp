@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
-import { UserIDParams } from "@/app/api/interfaces";
-import { findUser, getScores } from "@/app/api/databasefunctions";
+import { UserIDParams } from "@/types/Interfaces";
+import { findUser, getScores } from "@/util/DatabaseFunctions";
 
 // secured by access token middleware
 export async function GET(req: NextRequest, { params }: UserIDParams) {

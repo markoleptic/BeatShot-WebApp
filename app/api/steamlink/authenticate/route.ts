@@ -1,13 +1,13 @@
 import { NextResponse, NextRequest } from "next/server";
-import { instanceOfSteamUser } from "@/app/api/interfaces";
-import { users } from "@/models";
 import {
+	instanceOfSteamUser,
 	authenticateSteamUser,
 	createRelyingParty,
 	fetchSteamUser,
 	createSteamVerifyLinkAccountUrl,
-} from "@/app/api/authfunctions";
-import { findUser } from "../../databasefunctions";
+} from "@/util/ServerFunctions";
+import { users } from "@/models";
+import { findUser } from "@/util/DatabaseFunctions";
 
 // return URI from Steam
 export async function GET(req: NextRequest) {

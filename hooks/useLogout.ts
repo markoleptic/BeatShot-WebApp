@@ -17,7 +17,6 @@ const useLogout = () => {
 			console.log(error);
 		}
 	};
-	// returns the function, not a value
 	return Logout;
 };
 

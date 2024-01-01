@@ -16,7 +16,7 @@ import {
 	LabelValue,
 	updateAvgs,
 	updateBests,
-} from "./StatFunctions";
+} from "@/util/StatFunctions";
 
 const CustomModes = () => {
 	// Select box options

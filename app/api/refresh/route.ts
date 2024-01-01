@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
-import { verifyJWT, TokenInterface } from "../interfaces";
-import { createAccessToken } from "../authfunctions";
+import { TokenInterface } from "@/types/Interfaces";
+import { createAccessToken, verifyJWT } from "@/util/ServerFunctions";
 
 // returns a short lived access token from a jwt cookie
 export async function GET(req: NextRequest) {

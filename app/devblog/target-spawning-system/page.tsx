@@ -1,8 +1,8 @@
 import TargetSpawningSystem from "@/components/BlogPosts/TargetSpawningSystem";
 import React from "react";
 
-const SpawningSystem = () => {
+const Page = () => {
 	return <TargetSpawningSystem />;
 };
 
-export default SpawningSystem;
+export default Page;

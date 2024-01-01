@@ -11,8 +11,8 @@ import {
 import "chartjs-adapter-luxon";
 import { Chart } from "react-chartjs-2";
 import { AnyObject, MatrixController, MatrixElement } from "chartjs-chart-matrix";
-import { responsiveFonts, onChartResize, lerp } from "./ChartFunctions";
-import { LocationAccuracyHeatMapData } from "../Profile/StatFunctions";
+import { responsiveFonts, onChartResize, lerp } from "../../util/ChartFunctions";
+import { LocationAccuracyHeatMapData } from "../../util/StatFunctions";
 ChartJS.register(MatrixController, MatrixElement, ...registerables);
 
 function titleCallback(this: TooltipModel<"matrix">, tooltipItems: TooltipItem<"matrix">[]): string {
@@ -80,41 +80,51 @@ function getHeight(data: LocationAccuracyHeatMapData[][]) {
 const green = [0, 255, 0, 1];
 const yellow = [255, 255, 0, 1];
 const red = [255, 0, 0, 1];
+const redYellowThreshold = 0.5;
+const yellowGreenThreshold = 0.5;
+const hoverMultiplier = 1.25;
+const borderMultipler = 1.25;
 
-function getColor(alpha: number) {
-	const redYellowThreshold = 0.5;
-	const yellowGreenThreshold = 0.5;
-	if (alpha < 0) {
-		return `rgba(255, 255, 255, 0.2)`;
-	} else if (alpha < redYellowThreshold) {
-		const r = lerp(red[0], yellow[0], alpha / redYellowThreshold);
-		const g = lerp(red[1], yellow[1], alpha / redYellowThreshold);
-		const b = lerp(red[2], yellow[2], alpha / redYellowThreshold);
-		return `rgba(${r}, ${g}, ${b}, 0.8)`;
-	} else {
-		const r = lerp(yellow[0], green[0], (alpha - yellowGreenThreshold) / (1 - yellowGreenThreshold));
-		const g = lerp(yellow[1], green[1], (alpha - yellowGreenThreshold) / (1 - yellowGreenThreshold));
-		const b = lerp(yellow[2], green[2], (alpha - yellowGreenThreshold) / (1 - yellowGreenThreshold));
-		return `rgba(${r}, ${g}, ${b}, 0.8)`;
+function createColorMap(data: LocationAccuracyHeatMapData[]): Map<LocationAccuracyHeatMapData, colorMapValue> {
+	let map = new Map<LocationAccuracyHeatMapData, colorMapValue>();
+	if (!data || data.length === 0) return map;
+	const maxValue = data.reduce((max, currentItem) => {
+		return currentItem.v > max.v ? currentItem : max;
+	});
+	for (let i = 0; i < data.length; i++) {
+		const alpha = data[i].v;
+		if (alpha < 0) {
+			map.set(data[i], {
+				borderColor: `rgba(255, 255, 255, 0.5)`,
+				hoverBorderColor: `rgba(255, 255, 255, 0.6)`,
+				backgroundColor: `rgba(255, 255, 255, 0.2)`,
+				hoverBackgroundColor: `rgba(255, 255, 255, 0.3)`,
+			});
+		} else if (alpha < redYellowThreshold) {
+			const r = lerp(red[0], yellow[0], alpha / redYellowThreshold);
+			const g = lerp(red[1], yellow[1], alpha / redYellowThreshold);
+			const b = lerp(red[2], yellow[2], alpha / redYellowThreshold);
+			const a = lerp(0.5, 0.8, alpha);
+			map.set(data[i], {
+				borderColor:  `rgba(${r}, ${g}, ${b}, ${0.7})`,
+				hoverBorderColor:  `rgba(${r}, ${g}, ${b}, ${1})`,
+				backgroundColor:  `rgba(${r}, ${g}, ${b}, ${0.8})`,
+				hoverBackgroundColor:  `rgba(${r}, ${g}, ${b}, ${0.9})`,
+			});
+		} else {
+			const r = lerp(yellow[0], green[0], (alpha - yellowGreenThreshold) / (1 - yellowGreenThreshold));
+			const g = lerp(yellow[1], green[1], (alpha - yellowGreenThreshold) / (1 - yellowGreenThreshold));
+			const b = lerp(yellow[2], green[2], (alpha - yellowGreenThreshold) / (1 - yellowGreenThreshold));
+			const a = lerp(0.5, 0.8, alpha);
+			map.set(data[i], {
+				borderColor:  `rgba(${r}, ${g}, ${b}, ${0.7})`,
+				hoverBorderColor:  `rgba(${r}, ${g}, ${b}, ${1})`,
+				backgroundColor:  `rgba(${r}, ${g}, ${b}, ${0.8})`,
+				hoverBackgroundColor:  `rgba(${r}, ${g}, ${b}, ${0.9})`,
+			});
+		}
 	}
-}
-
-function getHoverColor(alpha: number) {
-	if (alpha < 0) {
-		return `rgba(255, 255, 255, 0.5)`;
-	} else if (alpha === 0.5) {
-		return `rgba(255, 255, 0, 1)`;
-	} else if (alpha < 0.5) {
-		const r = lerp(red[0], yellow[0], (alpha * 2) / 1);
-		const g = lerp(red[1], yellow[1], (alpha * 2) / 1);
-		const b = lerp(red[2], yellow[2], (alpha * 2) / 1);
-		return `rgba(${r}, ${g}, ${b}, 1)`;
-	} else if (alpha > 0.5) {
-		const r = lerp(yellow[0], green[0], (alpha - 0.5) / 0.5);
-		const g = lerp(yellow[1], green[1], (alpha - 0.5) / 0.5);
-		const b = lerp(yellow[2], green[2], (alpha - 0.5) / 0.5);
-		return `rgba(${r}, ${g}, ${b}, 1)`;
-	}
+	return map;
 }
 
 function widthCallback(ctx: ScriptableContext<"matrix">, options: AnyObject, width: number) {
@@ -147,27 +157,47 @@ const LocationAccuracyHeatmap: React.FC<LocationAccuracyHeatMapProps> = ({ data,
 	const { title } = options;
 	const height = getHeight(data);
 	const width = getWidth(data);
+	const averagedData = getAveragedLocAcc(data);
+	const colorMap = createColorMap(averagedData);
 	const mapData: ChartData<"matrix"> = {
 		datasets: [
 			{
 				type: "matrix",
-				data: getAveragedLocAcc(data),
-				borderColor: "white",
-				borderWidth: 0,
-				hoverBorderColor: "grey",
+				data: averagedData,
+				borderWidth: 2,
+				borderRadius: 1,
 				width: (ctx, options) => widthCallback(ctx, options, width),
 				height: (ctx, options) => heightCallback(ctx, options, height),
-				backgroundColor: function (ctx: ScriptableContext<"matrix">, options: AnyObject) {
-					if (!ctx.raw) {
+				borderColor: function (ctx: ScriptableContext<"matrix">, options: AnyObject) {
+					if (!ctx.raw || !colorMap) {
 						return "transparent";
 					}
-					return getColor((ctx.raw as LocationAccuracyHeatMapData).v);
+					const dataValue = (ctx.raw as LocationAccuracyHeatMapData);
+					return colorMap.get(dataValue)?.borderColor;
+					
+				},
+				hoverBorderColor: function (ctx: ScriptableContext<"matrix">, options: AnyObject) {
+					if (!ctx.raw || !colorMap) {
+						return "transparent";
+					}
+					const dataValue = (ctx.raw as LocationAccuracyHeatMapData);
+					return colorMap.get(dataValue)?.hoverBorderColor;
+					
+				},
+				backgroundColor: function (ctx: ScriptableContext<"matrix">, options: AnyObject) {
+					if (!ctx.raw || !colorMap) {
+						return "transparent";
+					}
+					const dataValue = (ctx.raw as LocationAccuracyHeatMapData);
+					return colorMap.get(dataValue)?.backgroundColor;
+					
 				},
 				hoverBackgroundColor: function (ctx: ScriptableContext<"matrix">, options: AnyObject) {
-					if (!ctx.raw) {
+					if (!ctx.raw || !colorMap) {
 						return "transparent";
 					}
-					return getHoverColor((ctx.raw as LocationAccuracyHeatMapData).v);
+					const dataValue = (ctx.raw as LocationAccuracyHeatMapData);
+					return colorMap.get(dataValue)?.hoverBackgroundColor;
 				},
 			},
 		],
@@ -213,19 +243,10 @@ const LocationAccuracyHeatmap: React.FC<LocationAccuracyHeatMapProps> = ({ data,
 					family: "Montserrat",
 					weight: "bold",
 				},
-				bodyFont: {
-					weight: "bold",
-					family: "Montserrat",
-					size: responsiveFonts("tooltipBody"),
-				},
+				titleColor: "hsl(193, 81%, 58%)",
 				callbacks: {
 					title: titleCallback,
-					labelTextColor: function () {
-						return "hsl(193, 81%, 58%)";
-					},
-					label(tooltipItem) {
-						return "";
-					},
+					label: (tooltipItem) => { return ""},
 				},
 			},
 		},

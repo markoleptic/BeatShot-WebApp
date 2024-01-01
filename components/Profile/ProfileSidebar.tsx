@@ -46,20 +46,3 @@ const ProfileSidebar = ({ children }: { children: React.ReactNode }) => {
 	);
 };
 export default ProfileSidebar;
-
-/*   const handleSteamLogin = async (e: React.MouseEvent<HTMLAnchorElement>) => {
-    try {
-      const response = await fetch(`/api/steamlink/${auth?.userID}`, {
-        headers: { "Content-Type": "application/json" },
-        redirect: "follow",
-        method: "GET",
-      });
-      if (!response) return;
-      const data = await response.json();
-      if (!data.redirectUrl) return;
-      navigate.push(data.redirectUrl);
-    } catch (err) {
-      console.log(err);
-      return;
-    }
-  }; */

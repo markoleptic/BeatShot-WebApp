@@ -1,8 +1,8 @@
 import GameplayAbilitySystem from "@/components/BlogPosts/GameplayAbilitySystem";
 import React from "react";
 
-const GAS = () => {
+const Page = () => {
 	return <GameplayAbilitySystem />;
 };
 
-export default GAS;
+export default Page;

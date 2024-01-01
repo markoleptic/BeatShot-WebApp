@@ -1,4 +1,4 @@
-import { AuthData } from "@/app/api/interfaces";
+import { AuthData } from "@/types/Interfaces";
 import { decodeJwt } from "jose";
 
 // requests a fresh access token from api, and returns AuthData object

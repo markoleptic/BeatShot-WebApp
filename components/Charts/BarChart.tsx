@@ -11,7 +11,7 @@ import {
 	TooltipModel,
 	registerables,
 } from "chart.js";
-import { responsiveFonts, onChartResize, splitByUpperCase } from "./ChartFunctions";
+import { responsiveFonts, onChartResize, splitByUpperCase } from "../../util/ChartFunctions";
 import React from "react";
 Chart.register(...registerables);
 

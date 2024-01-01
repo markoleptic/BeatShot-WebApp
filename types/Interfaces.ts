@@ -1,5 +1,3 @@
-import { verify } from "jsonwebtoken";
-
 export const accessTokenLength = "30s";
 export const refreshTokenLength = "1825d";
 export const recoveryTokenLength = "5m";
@@ -94,34 +92,4 @@ export interface AuthResult {
 				claimedIdentifier?: string | undefined;
 		  }
 		| undefined;
-}
-
-export function instanceOfSteamUser(object: any): object is SteamUser {
-	return "steamid" in object;
-}
-
-export function instanceOfAuthResult(object: any): object is AuthResult {
-	return "status" in object && "message" in object;
-}
-
-export function instanceOfTokenInterface(object: any): object is TokenInterface {
-	return "userID" in object;
-}
-
-export async function verifyJWT(token: string, secret: string): Promise<string | TokenInterface> {
-	return new Promise<string | TokenInterface>((resolve, reject) => {
-		verify(token, secret, async (err, decoded) => {
-			if (err) {
-				return reject(err.message);
-			}
-			if (!decoded) {
-				return reject("Unable to authenticate.");
-			}
-			if (instanceOfTokenInterface(decoded)) {
-				return resolve(decoded as TokenInterface);
-			} else {
-				return resolve(decoded as any);
-			}
-		});
-	});
 }

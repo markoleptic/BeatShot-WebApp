@@ -4,19 +4,21 @@ import Link from "next/link";
 import logo from "@/public/logo.ico";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useAuthContext } from "@/context/AuthContext";
-import useLogout from "@/hooks/useLogout";
 import Image from "next/image";
 
 const NavBar = () => {
-	const [visible, setVisibilty] = useState(false);
+	const [visible, setVisibility] = useState(false);
 	const { auth } = useAuthContext();
-	const Logout = useLogout();
+	const [profileStateText, setProfileStateText] = useState<string>("Login");
+	const [profileStatePath, setProfileStatePath] = useState<string>("/login");
 
-	const signOut = async () => {
-		await Logout();
-	};
+	useEffect(() => {
+		const signedIn = auth?.userID && auth?.accessToken;
+		setProfileStatePath(signedIn ? "/logout" : "/login");
+		setProfileStateText(signedIn ? "Logout" : "Login");
+	}, [auth]);
 
 	return (
 		<div className="header-container">
@@ -27,7 +29,7 @@ const NavBar = () => {
 				<div className="mobile-nav-toggle-background">
 					<FontAwesomeIcon
 						icon={faBars}
-						onClick={() => setVisibilty(!visible)}
+						onClick={() => setVisibility(!visible)}
 						className="mobile-nav-toggle link blue-hover"
 						aria-controls="primary-navigation"
 						aria-expanded="false"
@@ -37,12 +39,16 @@ const NavBar = () => {
 				<nav>
 					<ul id="primary-navigation" className="primary-navigation flex fs-300" data-visible={visible}>
 						<li className="uppercase">
-							<NavLink href="/devblog" className="hover-blue link" onClick={() => setVisibilty(false)}>
+							<NavLink href="/devblog" className="hover-blue link" onClick={() => setVisibility(false)}>
 								Dev Blog
 							</NavLink>
 						</li>
 						<li className="uppercase">
-							<NavLink href="/patchnotes" className="hover-blue link" onClick={() => setVisibilty(false)}>
+							<NavLink
+								href="/patchnotes"
+								className="hover-blue link"
+								onClick={() => setVisibility(false)}
+							>
 								Patch Notes
 							</NavLink>
 						</li>
@@ -51,7 +57,7 @@ const NavBar = () => {
 								<NavLink
 									href={`/profile/${auth.userID}`}
 									className="hover-blue link"
-									onClick={() => setVisibilty(false)}
+									onClick={() => setVisibility(false)}
 								>
 									Profile
 								</NavLink>
@@ -60,25 +66,13 @@ const NavBar = () => {
 							""
 						)}
 						<li className="uppercase">
-							{auth?.userID && auth?.accessToken ? (
-								<button
-									className="fake-button link text-white hover-blue"
-									onClick={() => {
-										setVisibilty(false);
-										signOut();
-									}}
-								>
-									Logout
-								</button>
-							) : (
-								<NavLink
-									href="/login"
-									className="fake-button link text-white hover-blue"
-									onClick={() => setVisibilty(false)}
-								>
-									Login
-								</NavLink>
-							)}
+							<NavLink
+								href={profileStatePath}
+								className="hover-blue link"
+								onClick={() => setVisibility(false)}
+							>
+								{profileStateText}
+							</NavLink>
 						</li>
 					</ul>
 				</nav>

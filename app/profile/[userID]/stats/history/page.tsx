@@ -1,6 +1,6 @@
-import History from "@/components/Profile/History";
+import ProfileHistory from "@/components/Profile/History";
 
 const Page = () => {
-	return <History />;
+	return <ProfileHistory />;
 };
 export default Page;

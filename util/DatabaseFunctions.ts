@@ -1,6 +1,6 @@
 import { users, scores } from "@/models";
 import { Op } from "sequelize";
-import { fetchSteamUser } from "./authfunctions";
+import { fetchSteamUser } from "@/util/ServerFunctions";
 
 export async function findUser(userID: string): Promise<[string, users | null]>;
 export async function findUser(userID: string, email: string): Promise<[string, users | null]>;

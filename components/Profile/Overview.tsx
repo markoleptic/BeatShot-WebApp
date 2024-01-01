@@ -1,7 +1,7 @@
 "use client";
 import { GameModeTime, Score, usePlayerDataContext } from "@/context/PlayerDataContext";
-import React, { useState, useEffect, useCallback } from "react";
-import { DateTime, WeekdayNumbers } from "luxon";
+import React, { useState, useEffect } from "react";
+import { DateTime } from "luxon";
 import BarChart from "@/components/Charts/BarChart";
 import Heatmap, { HeatMapCalendar } from "@/components/Charts/HeatMap";
 
@@ -19,8 +19,8 @@ const ProfileOverview = () => {
 	const [timePlayedHeatmap, setTimePlayedHeatmap] = useState<HeatMapCalendar[]>([]);
 	const [defaultGameModeTimes, setDefaultGameModeTimes] = useState<GameModeTimeShort[]>([]);
 	const [customGameModeTimes, setCustomGameModeTimes] = useState<GameModeTimeShort[]>([]);
-	const [mostPlayedGameMode, setMostPlayedGameMode] = useState<string>("");
-	const [mostPlayedCustomGameMode, setMostPlayedCustomGameMode] = useState<string>("");
+	const [mostPlayedGameMode, setMostPlayedGameMode] = useState<string>();
+	const [mostPlayedCustomGameMode, setMostPlayedCustomGameMode] = useState<string>();
 	const [mostPlayedGameModeHours, setMostPlayedGameModeHours] = useState<number>(0);
 	const [mostPlayedCustomGameModeHours, setMostPlayedCustomGameModeHours] = useState<number>(0);
 	const [statsSubtitle, setStatsSubtitle] = useState<string>("");
@@ -28,6 +28,7 @@ const ProfileOverview = () => {
 	// initialize times data for page
 	useEffect(() => {
 		function initTimes(times: GameModeTime[]) {
+			if (!times || times.length === 0) return;
 			const defaultTimes = times
 				.filter((item) => item.gameModeType === "Preset")
 				.map(({ gameModeName, totalTime }) => ({ gameModeName, totalTime }));
@@ -49,11 +50,13 @@ const ProfileOverview = () => {
 			setCustomGameModeTimes(customTimes);
 			if (defaultTimes.length > 0) {
 				setMostPlayedGameMode(defaultTimes[0].gameModeName || "");
-				setMostPlayedGameModeHours(Math.round((defaultTimes[0].totalTime / 60 / 60) * 100) / 100);
+				const num = Number((Math.round((defaultTimes[0].totalTime / 60 / 60) * 100) / 100).toFixed(2));
+				setMostPlayedGameModeHours(num);
 			}
 			if (customTimes.length > 0) {
 				setMostPlayedCustomGameMode(customTimes[0].gameModeName || "");
-				setMostPlayedCustomGameModeHours(Math.round((customTimes[0].totalTime / 60 / 60) * 100) / 100);
+				const num = Number((Math.round((customTimes[0].totalTime / 60 / 60) * 100) / 100).toFixed(2));
+				setMostPlayedCustomGameModeHours(num);
 			}
 		}
 		if (gameModeTimes) {
@@ -145,43 +148,32 @@ const ProfileOverview = () => {
 				<></>
 			) : (
 				<>
-					<div className="responsive-centered-container">
-						<div>
-							<ul className="best-list">
-								<li className="table-header">
-									<h2 className="fs-300 text-light">Time Statistics</h2>
-								</li>
-								<li className="table-row">
-									<div className="col col-1">Total Time In Game:</div>
-									<div className="col col-2">{totalTimePlayed || "0"}&nbsp;hrs</div>
-								</li>
-								<li className="table-row">
-									<div className="col col-1">Most Played</div>
-								</li>
-								<li className="table-row">
-									<div className="col col-1 padding-left-1rem">Default Mode:</div>
-									<div className="col col-2">{mostPlayedGameMode}</div>
-								</li>
-								<li className="table-row">
-									<div className="col col-1 padding-left-1rem">Total:</div>
-									<div className="col col-2">
-										{mostPlayedGameModeHours || "0"}
-										&nbsp;hrs
-									</div>
-								</li>
-								<li className="table-row">
-									<div className="col col-1 padding-left-1rem">Custom Mode:</div>
-									<div className="col col-2">{mostPlayedCustomGameMode}</div>
-								</li>
-								<li className="table-row">
-									<div className="col col-1 padding-left-1rem">Total:</div>
-									<div className="col col-2">
-										{mostPlayedCustomGameModeHours || "0"}
-										&nbsp;hrs
-									</div>
-								</li>
-							</ul>
-						</div>
+					<div className="time-statistics-container">
+						<ul className="best-list">
+							<li className="table-header">
+								<h2 className="fs-300 text-light">Time Statistics</h2>
+							</li>
+							<li className="table-row">
+								<div className="col col-1">Total Time in any Game Mode:</div>
+								<div className="col col-2  text-light fw-semibold">{totalTimePlayed || "0"}&nbsp;hrs</div>
+							</li>
+							<li className="table-row">
+								<div className="col col-1">Most Played Default Mode:</div>
+								<div className="col col-2"></div>
+							</li>
+							<li className="table-row">
+								<div className="col col-1 padding-left-1rem">{mostPlayedGameMode}</div>
+								<div className="col col-2 text-light fw-semibold">{mostPlayedGameModeHours || "0"}&nbsp;hrs</div>
+							</li>
+							<li className="table-row">
+								<div className="col col-1">Most Played Custom Mode:</div>
+								<div className="col col-2"></div>
+							</li>
+							<li className="table-row">
+								<div className="col col-1 padding-left-1rem">{mostPlayedCustomGameMode}</div>
+								<div className="col col-2 text-light fw-semibold">{mostPlayedCustomGameModeHours || "0"}&nbsp;hrs</div>
+							</li>
+						</ul>
 					</div>
 					<div>
 						<BarChart

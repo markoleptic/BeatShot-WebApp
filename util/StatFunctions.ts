@@ -1,5 +1,5 @@
 import { DateTime } from "luxon";
-import { Accuracy, Score } from "@/context/PlayerDataContext";
+import { Score } from "@/context/PlayerDataContext";
 
 export const checkInvalidNum = (number: number | string): string => {
 	const numberNumber = number as number;

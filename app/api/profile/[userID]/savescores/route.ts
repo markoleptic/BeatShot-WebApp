@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { users, scores } from "@/models";
-import { UserIDParams } from "@/app/api/interfaces";
+import { UserIDParams } from "@/types/Interfaces";
 
 // secured by access token middleware
 export async function POST(req: NextRequest, { params }: UserIDParams) {

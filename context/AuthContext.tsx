@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { AuthData, AuthContextType } from "@/app/api/interfaces";
+import { AuthData, AuthContextType } from "@/types/Interfaces";
 import { useRefreshToken } from "@/hooks/useRefreshToken";
 import { JWTVerifyResult, jwtVerify } from "jose";
 
@@ -24,13 +24,13 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const refresh = useRefreshToken();
 
-	const isAccessTokenValid = async () => {
+	const isAccessTokenValid = async (): Promise<boolean> => {
 		if (!auth || auth.accessToken || auth.exp < Date.now() / 1000) return false;
 		const payload = (await jwtVerify(auth?.accessToken as string, secret)) as JWTVerifyResult;
 		return payload ? true : false;
 	};
 
-	const refreshAccessToken = async () => {
+	const refreshAccessToken = async (): Promise<AuthData | null> => {
 		const authResponse = await refresh();
 		if (authResponse) {
 			setAuth(authResponse);
@@ -40,12 +40,12 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	};
 
 	useEffect(() => {
+		let mounted = true;
 		const initializeAuth = async () => {
-			let mounted = true;
 			try {
 				const value = Boolean(localStorage.getItem("persist")) || true;
 				setPersist(value);
-				if (mounted && persist) {
+				if (mounted && persist && (!auth || !auth.accessToken || auth.exp < Date.now() / 1000)) {
 					const isValid = await isAccessTokenValid();
 					if (!isValid) await refreshAccessToken();
 				} else {
@@ -54,7 +54,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			} catch (err) {
 				console.error(err);
 			} finally {
-				mounted && setIsLoading(false);
+				if (mounted) setIsLoading(false);
 			}
 		};
 
@@ -65,6 +65,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 		return () => {
 			// Cleanup
 			setIsLoading(false);
+			mounted = false;
 		};
 	}, [auth]);
 

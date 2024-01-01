@@ -1,8 +1,8 @@
 import { NextResponse, NextRequest } from "next/server";
 import { sequelize, users } from "@/models";
 import bcrypt from "bcrypt";
-import { createConfToken, sendConfEmail } from "../authfunctions";
-import { saltRounds } from "../interfaces";
+import { createConfToken, sendConfEmail } from "@/util/ServerFunctions";
+import { saltRounds } from "@/types/Interfaces";
 
 export async function POST(req: NextRequest) {
 	const { username, email, password } = await req.json();

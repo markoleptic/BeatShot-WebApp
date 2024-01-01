@@ -1,8 +1,8 @@
 import { NextResponse, NextRequest } from "next/server";
 import bcrypt from "bcrypt";
-import { TokenParams, verifyJWT, TokenInterface } from "@/app/api/interfaces";
-import { saltRounds } from "../../interfaces";
-import { findUser } from "../../databasefunctions";
+import { findUser } from "@/util/DatabaseFunctions";
+import { TokenParams, TokenInterface, saltRounds } from "@/types/Interfaces";
+import { verifyJWT } from "@/util/ServerFunctions";
 
 export async function POST(req: NextRequest, { params }: TokenParams) {
 	const { email, password } = await req.json();

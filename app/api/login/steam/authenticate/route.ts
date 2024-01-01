@@ -1,8 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
-import { instanceOfSteamUser } from "@/app/api/interfaces";
 import { cookies } from "next/headers";
-import { authenticateSteamUser, fetchSteamUser, createRelyingParty, createRefreshToken } from "@/app/api/authfunctions";
-import { findOrCreateUser } from "@/app/api/databasefunctions";
+import { instanceOfSteamUser, authenticateSteamUser, fetchSteamUser, createRelyingParty, createRefreshToken } from "@/util/ServerFunctions";
+import { findOrCreateUser } from "@/util/DatabaseFunctions";
 
 // return URI from Steam
 export async function GET(req: NextRequest) {

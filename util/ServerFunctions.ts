@@ -1,19 +1,9 @@
 import openid, { RelyingParty } from "openid";
-import {
-	SteamUser,
-	AuthResult,
-	SteamAuthTicketResponse,
-	SteamAuthTicketResponseError,
-	recoveryTokenLength,
-	confirmationTokenLength,
-	refreshTokenLength,
-	accessTokenLength,
-} from "./interfaces";
 import * as aws from "@aws-sdk/client-ses";
 import nodemailer, { Transporter } from "nodemailer";
-import { SESClient } from "@aws-sdk/client-ses";
 import { users } from "@/models";
-import { sign } from "jsonwebtoken";
+import { sign, verify } from "jsonwebtoken";
+import { SteamUser, AuthResult, SteamAuthTicketResponse, SteamAuthTicketResponseError, recoveryTokenLength, confirmationTokenLength, refreshTokenLength, accessTokenLength, TokenInterface } from "@/types/Interfaces";
 
 // creates a relying party for the specific verify Url
 export function createRelyingParty(verifyUrl: string): RelyingParty {
@@ -261,4 +251,34 @@ export async function sendFeedbackEmail(title: string, content: string) {
 		html: `${content}`,
 	});
 	return sendMessageInfo;
+}
+
+export function instanceOfSteamUser(object: any): object is SteamUser {
+	return "steamid" in object;
+}
+
+export function instanceOfAuthResult(object: any): object is AuthResult {
+	return "status" in object && "message" in object;
+}
+
+export function instanceOfTokenInterface(object: any): object is TokenInterface {
+	return "userID" in object;
+}
+
+export async function verifyJWT(token: string, secret: string): Promise<string | TokenInterface> {
+	return new Promise<string | TokenInterface>((resolve, reject) => {
+		verify(token, secret, async (err, decoded) => {
+			if (err) {
+				return reject(err.message);
+			}
+			if (!decoded) {
+				return reject("Unable to authenticate.");
+			}
+			if (instanceOfTokenInterface(decoded)) {
+				return resolve(decoded as TokenInterface);
+			} else {
+				return resolve(decoded as any);
+			}
+		});
+	});
 }

@@ -13,7 +13,6 @@ const ProfileHistory = () => {
 
 	useEffect(() => {
 		if (data) {
-			console.log(data);
 			let scoreMap = new Map<DateTime, Score>();
 			for (let scoreObject in data) {
 				scoreMap.set(DateTime.fromISO(data[scoreObject].time), data[scoreObject]);
@@ -110,7 +109,6 @@ const ProfileHistory = () => {
 		const isConfirmed = window.confirm(`Are you sure you want to delete ${confText}? This action is irreversible.`);
 		if (isConfirmed) {
 			const responseMsg = await deleteScores(selectedScoreIDs);
-			console.log(responseMsg);
 			if ("Number Removed" in responseMsg) {
 				console.log(responseMsg["Number Removed"]);
 				setLastSelectedScoreID(-1);
@@ -194,7 +192,7 @@ const ProfileHistory = () => {
 						</div>
 						<div className="delete-score-container">
 							<button
-								className="delete-score-button"
+								className="delete-score-button fs-100"
 								id="delete-button"
 								onClick={onDeleteButtonClicked}
 								disabled={selectedScoreIDs.length == 0}

@@ -16,7 +16,7 @@ import {
 	FilteredScore,
 	updateBests,
 	updateAvgs,
-} from "./StatFunctions";
+} from "@/util/StatFunctions";
 import { DateFilter } from "./DateFilter";
 import { DateTime } from "luxon";
 

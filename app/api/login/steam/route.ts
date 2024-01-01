@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { getRedirectUrl, createRelyingParty } from "@/app/api/authfunctions";
+import { getRedirectUrl, createRelyingParty } from "@/util/ServerFunctions";
 
 // steam login endpoint, returns redirectURL or error
 export async function GET(req: NextRequest) {

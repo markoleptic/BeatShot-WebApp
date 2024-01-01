@@ -14,7 +14,7 @@ import {
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
 import { AnyObject, MatrixController, MatrixElement } from "chartjs-chart-matrix";
-import { responsiveFonts, onChartResize, lerp, clamp } from "./ChartFunctions";
+import { responsiveFonts, onChartResize, lerp, clamp } from "../../util/ChartFunctions";
 import React from "react";
 ChartJS.register(MatrixController, MatrixElement, ...registerables);
 
@@ -96,9 +96,9 @@ function yTickCallback(this: Scale<CoreScaleOptions>, tickValue: string | number
 	return DateTime.fromObject({ weekday: tickValue as number }).weekdayShort;
 }
 
-function createColorMap(data: HeatMapCalendar[]) {
+function createColorMap(data: HeatMapCalendar[]): Map<string, colorMapValue> {
 	let map = new Map<string, colorMapValue>();
-	if (data.length === 0) return map;
+	if (!data || data.length === 0) return map;
 	const maxValue = data.reduce((max, currentItem) => {
 		return currentItem.v > max.v ? currentItem : max;
 	});
@@ -117,9 +117,9 @@ function createColorMap(data: HeatMapCalendar[]) {
 	return map;
 }
 
-function createLabelMap(data: HeatMapCalendar[]) {
+function createLabelMap(data: HeatMapCalendar[]): Map<string, string> {
 	let map = new Map<string, string>();
-	if (data.length === 0) return map;
+	if (!data || data.length === 0) return map;
 	let i = 0;
 	for (const day of data) {
 		let weeklyPlays = 0;
@@ -185,6 +185,15 @@ const HeatMap: React.FC<HeatMapProps> = ({ data, options }) => {
 		responsive: true,
 		maintainAspectRatio: false,
 		onResize: onChartResize,
+		layout: {
+			padding: {
+				right: 2,
+				bottom: 2,
+				left: 2,
+				top: 2,
+			},
+			autoPadding: true,
+		},
 		plugins: {
 			legend: {
 				display: false,

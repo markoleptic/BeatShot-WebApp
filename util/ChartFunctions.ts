@@ -1,5 +1,3 @@
-import { ChartOptions, FontSpec } from "chart.js";
-import { _DeepPartialObject } from "chart.js/dist/types/utils";
 import { ChartJSOrUndefined } from "react-chartjs-2/dist/types";
 
 const fontMap = new Map();
@@ -31,8 +29,6 @@ export function clamp(num: number, min: number, max: number) {
 export function lerp(x: number, y: number, a: number) {
 	return x * (1 - a) + y * a;
 }
-
-const xAndYTitleTypes = ["linear", "category", "logarithmic", "time", "timeseries"];
 
 export function onChartResize(chart: ChartJSOrUndefined, _: any) {
 	if (!chart || !chart.config.options) return;

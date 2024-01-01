@@ -1,5 +1,5 @@
 import CustomModes from "@/components/Profile/CustomModes";
-import React, { Suspense } from "react";
+import React from "react";
 
 const Page = () => {
 	return <CustomModes />;

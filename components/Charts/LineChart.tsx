@@ -3,7 +3,7 @@ import { Line } from "react-chartjs-2";
 import { DateTime } from "luxon";
 import "chartjs-adapter-luxon";
 import React from "react";
-import { responsiveFonts, onChartResize } from "./ChartFunctions";
+import { responsiveFonts, onChartResize } from "../../util/ChartFunctions";
 import {
 	Chart as ChartJS,
 	CategoryScale,

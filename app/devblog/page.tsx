@@ -1,8 +1,8 @@
 import BlogPostsMain from "@/components/BlogPosts/BlogPostsMain";
 import React from "react";
 
-const DevBlog = () => {
+const Page = () => {
 	return <BlogPostsMain />;
 };
 
-export default DevBlog;
+export default Page;
