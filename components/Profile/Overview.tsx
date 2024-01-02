@@ -161,18 +161,18 @@ const ProfileOverview = () => {
 							</li>
 							<li className="table-row">
 								<div className="col col-1">Most Played Default Mode:</div>
-								<div className="col col-2"></div>
+								<div className="col col-2 text-light fw-semibold">{mostPlayedGameMode}</div>
 							</li>
 							<li className="table-row">
-								<div className="col col-1 padding-left-1rem">{mostPlayedGameMode}</div>
+								<div className="col col-1">Time for <p className="inline text-light fw-semibold">{mostPlayedGameMode}</p>:</div>
 								<div className="col col-2 text-light fw-semibold">{mostPlayedGameModeHours || "0"}&nbsp;hrs</div>
 							</li>
 							<li className="table-row">
 								<div className="col col-1">Most Played Custom Mode:</div>
-								<div className="col col-2"></div>
+								<div className="col col-2 text-light fw-semibold">{mostPlayedCustomGameMode}</div>
 							</li>
 							<li className="table-row">
-								<div className="col col-1 padding-left-1rem">{mostPlayedCustomGameMode}</div>
+								<div className="col col-1">Time for <p className="inline text-light fw-semibold">{mostPlayedCustomGameMode}</p>:</div>
 								<div className="col col-2 text-light fw-semibold">{mostPlayedCustomGameModeHours || "0"}&nbsp;hrs</div>
 							</li>
 						</ul>

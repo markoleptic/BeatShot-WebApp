@@ -1,4 +1,4 @@
-import { DateTime, WeekdayNumbers } from "luxon";
+import { DateTime } from "luxon";
 import "chartjs-adapter-luxon";
 import {
 	ChartData,
@@ -14,7 +14,7 @@ import {
 } from "chart.js";
 import { Chart } from "react-chartjs-2";
 import { AnyObject, MatrixController, MatrixElement } from "chartjs-chart-matrix";
-import { responsiveFonts, onChartResize, lerp, clamp } from "../../util/ChartFunctions";
+import { responsiveFonts, onChartResize, lerp, clamp } from "@/util/ChartFunctions";
 import React from "react";
 import { HeatMapCalendar } from "@/types/Interfaces";
 ChartJS.register(MatrixController, MatrixElement, ...registerables);

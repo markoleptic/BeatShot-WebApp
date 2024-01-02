@@ -107,3 +107,25 @@ export interface HeatMapLabels {
 	label: string[];
 	value: HeatMapCalendar[];
 }
+
+export interface LabelValue {
+	value: string;
+	label: string;
+}
+
+export interface LocationAccuracyHeatMapData {
+	x: number;
+	y: number;
+	v: number;
+}
+
+export interface FilteredScore {
+	score: number;
+	highScore: number;
+	accuracy: number;
+	streak: number;
+	difficulty: string;
+	completion: number;
+	timeOffset: number;
+	locationAccuracy: LocationAccuracyHeatMapData[];
+}

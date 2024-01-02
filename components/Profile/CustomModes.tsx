@@ -12,11 +12,10 @@ import {
 	getMatchingSongOptions,
 	findMostRecentGameModeOption,
 	findMostRecentSongOption,
-	FilteredScore,
-	LabelValue,
 	updateAvgs,
 	updateBests,
 } from "@/util/StatFunctions";
+import { LabelValue, FilteredScore } from "@/types/Interfaces";
 
 const CustomModes = () => {
 	// Select box options
@@ -49,65 +48,35 @@ const CustomModes = () => {
 	// Hooks
 	const { data } = usePlayerDataContext();
 
-	// initialize data for page
+	// update game modes when data changes
 	useEffect(() => {
-		try {
-			async function AsyncInitPageWrapper(data: Score[] | null) {
-				await initPage(data);
-			}
-			if (data) {
-				AsyncInitPageWrapper(data);
-			}
-		} catch (err) {
-			console.log(err);
-		}
+		if (!data) return;
+		getGameModes(data, true).then((modes) => setGameModeOptions(modes));
+		setStatsSubtitle(data.length === 0 ? "No scores yet. Play the game!" : "");
 	}, [data]);
-
-	// initial render
-	const initPage = async (data: Score[] | null) => {
-		// game modes are the only thing that will always be the same
-		if (!data) return;
-		const modes = await getGameModes(data, true);
-		setGameModeOptions(modes);
-		const recent = await findMostRecentGameModeOption(data, modes, true);
-		setSelectedGameMode(recent || "");
-
-		if (data && data.length === 0) {
-			setStatsSubtitle("No scores yet. Play the game!");
-		} else {
-			setStatsSubtitle("");
-		}
-	};
-
-	// auto select most recently played game mode when game mode options refresh
-	useEffect(() => {
-		if (!data) return;
-		findMostRecentGameModeOption(data, gameModeOptions, true).then((option) => setSelectedGameMode(option || ""));
-	}, [gameModeOptions]);
-
-	// auto select most recently played song when song options refresh
-	useEffect(() => {
-		if (!data) return;
-		findMostRecentSongOption(data, songOptions, true).then((option) => setSelectedSong(option || ""));
-	}, [songOptions]);
 
 	// update songs on game mode change
 	useEffect(() => {
 		if (!data) return;
 		getMatchingSongOptions(data, selectedGameMode, true).then((options) => setSongOptions(options));
-	}, [selectedGameMode]);
+	}, [data, selectedGameMode]);
 
-	// executed when selected gamemode or song changes
+	// auto select most game mode
 	useEffect(() => {
-		async function AsyncWrapper(data: Score[] | null, selectedGameMode: string, selectedSong: string) {
-			await updateSelection(data, selectedGameMode, selectedSong);
-		}
-		AsyncWrapper(data, selectedGameMode, selectedSong);
-	}, [selectedGameMode, selectedSong]);
+		if (!data) return;
+		findMostRecentGameModeOption(data, gameModeOptions, true).then((option) => setSelectedGameMode(option || ""));
+	}, [data, gameModeOptions]);
 
-	const onDateRangeChange = async (startDate: DateTime, endDate: DateTime) => {
-		updateSelection(data, selectedGameMode, selectedSong, [startDate, endDate]);
-	};
+	// auto select most recent song
+	useEffect(() => {
+		if (!data) return;
+		findMostRecentSongOption(data, songOptions, true).then((option) => setSelectedSong(option || ""));
+	}, [data, songOptions]);
+
+	// executed when selected gamemode, song, or difficulty changes
+	useEffect(() => {
+		updateSelection(data, selectedGameMode, selectedSong);
+	}, [data, selectedGameMode, selectedSong]);
 
 	// updates the charts and info boxes
 	const updateSelection = async (
@@ -117,7 +86,7 @@ const CustomModes = () => {
 		dateRange: [DateTime, DateTime] | null = null
 	) => {
 		if (!scores) return;
-		const { values, keys } = await getScores(scores, true, selectedGameMode, selectedSong, "", dateRange);
+		const { keys, values } = await getScores(scores, true, selectedGameMode, selectedSong, "", dateRange);
 
 		setScores(values);
 		setDates(keys);
@@ -224,7 +193,12 @@ const CustomModes = () => {
 										<DateFilter
 											minDate={minDate}
 											range={Math.floor(maxDate.diff(minDate, "days").days)}
-											onDateRangeChange={onDateRangeChange}
+											onDateRangeChange={(startDate, endDate) =>
+												updateSelection(data, selectedGameMode, selectedSong, [
+													startDate,
+													endDate,
+												])
+											}
 										></DateFilter>
 									)}
 								</div>

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useMemo } from "react";
 import LineChart from "@/components/Charts/LineChart";
 import SelectBox from "@/components/SelectBox";
 import { Score, usePlayerDataContext } from "@/context/PlayerDataContext";
@@ -12,13 +12,12 @@ import {
 	findMostRecentGameModeOption,
 	findMostRecentSongOption,
 	findMostRecentDifficultyOption,
-	LabelValue,
-	FilteredScore,
 	updateBests,
 	updateAvgs,
 } from "@/util/StatFunctions";
 import { DateFilter } from "./DateFilter";
 import { DateTime } from "luxon";
+import { FilteredScore, LabelValue } from "@/types/Interfaces";
 
 const DefaultModes = () => {
 	// Select box options
@@ -53,59 +52,18 @@ const DefaultModes = () => {
 	// Hooks
 	const { data } = usePlayerDataContext();
 
-	// initialize data for page
+	// update game modes when data changes
 	useEffect(() => {
-		try {
-			async function AsyncInitPageWrapper(data: Score[] | null) {
-				await initPage(data);
-			}
-			if (data) {
-				AsyncInitPageWrapper(data);
-			}
-		} catch (err) {
-			console.log(err);
-		}
+		if (!data) return;
+		getGameModes(data, false).then((modes) => setGameModeOptions(modes));
+		setStatsSubtitle(data.length === 0 ? "No scores yet. Play the game!" : "");
 	}, [data]);
-
-	// initial render
-	const initPage = async (data: Score[] | null) => {
-		// game modes are the only thing that will always be the same
-		if (!data) return;
-		const modes = await getGameModes(data, false);
-		setGameModeOptions(modes);
-		const recent = await findMostRecentGameModeOption(data, modes, false);
-		setSelectedGameMode(recent || "");
-
-		if (data && data.length === 0) {
-			setStatsSubtitle("No scores yet. Play the game!");
-		} else {
-			setStatsSubtitle("");
-		}
-	};
-
-	// auto select most recently played game mode when game mode options refresh
-	useEffect(() => {
-		if (!data) return;
-		findMostRecentGameModeOption(data, gameModeOptions, false).then((option) => setSelectedGameMode(option || ""));
-	}, [gameModeOptions]);
-
-	// auto select most recently played song when song options refresh
-	useEffect(() => {
-		if (!data) return;
-		findMostRecentSongOption(data, songOptions, false).then((option) => setSelectedSong(option || ""));
-	}, [songOptions]);
-
-	// auto select most recently played difficulty when difficulty options refresh
-	useEffect(() => {
-		if (!data) return;
-		findMostRecentDifficultyOption(data, difficultyOptions).then((option) => setSelectedDifficulty(option || ""));
-	}, [difficultyOptions]);
 
 	// update songs on game mode change
 	useEffect(() => {
 		if (!data) return;
 		getMatchingSongOptions(data, selectedGameMode, false).then((options) => setSongOptions(options));
-	}, [selectedGameMode]);
+	}, [data, selectedGameMode]);
 
 	// update difficulties on song change
 	useEffect(() => {
@@ -113,16 +71,30 @@ const DefaultModes = () => {
 		getMatchingDifficultyOptions(data, selectedGameMode, selectedSong).then((options) =>
 			setDifficultyOptions(options)
 		);
-	}, [selectedGameMode, selectedSong]);
+	}, [data, selectedGameMode, selectedSong]);
+
+	// auto select most game mode
+	useEffect(() => {
+		if (!data) return;
+		findMostRecentGameModeOption(data, gameModeOptions, false).then((option) => setSelectedGameMode(option || ""));
+	}, [data, gameModeOptions]);
+
+	// auto select most recent song
+	useEffect(() => {
+		if (!data) return;
+		findMostRecentSongOption(data, songOptions, false).then((option) => setSelectedSong(option || ""));
+	}, [data, songOptions]);
+
+	// auto select most recent difficulty
+	useEffect(() => {
+		if (!data) return;
+		findMostRecentDifficultyOption(data, difficultyOptions).then((option) => setSelectedDifficulty(option || ""));
+	}, [data, difficultyOptions]);
 
 	// executed when selected gamemode, song, or difficulty changes
 	useEffect(() => {
 		updateSelection(data, selectedGameMode, selectedSong, selectedDifficulty);
-	}, [selectedGameMode, selectedSong, selectedDifficulty]);
-
-	const onDateRangeChange = async (startDate: DateTime, endDate: DateTime) => {
-		updateSelection(data, selectedGameMode, selectedSong, selectedDifficulty, [startDate, endDate]);
-	};
+	}, [data, selectedGameMode, selectedSong, selectedDifficulty]);
 
 	// updates the charts and info boxes
 	const updateSelection = async (
@@ -133,7 +105,7 @@ const DefaultModes = () => {
 		dateRange: [DateTime, DateTime] | null = null
 	) => {
 		if (!scores) return;
-		const { values, keys } = await getScores(
+		const { keys, values } = await getScores(
 			scores,
 			false,
 			selectedGameMode,
@@ -261,7 +233,15 @@ const DefaultModes = () => {
 										<DateFilter
 											minDate={minDate}
 											range={Math.floor(maxDate.diff(minDate, "days").days)}
-											onDateRangeChange={onDateRangeChange}
+											onDateRangeChange={(startDate, endDate) =>
+												updateSelection(
+													data,
+													selectedGameMode,
+													selectedSong,
+													selectedDifficulty,
+													[startDate, endDate]
+												)
+											}
 										></DateFilter>
 									)}
 								</div>

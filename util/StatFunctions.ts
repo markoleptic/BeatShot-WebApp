@@ -1,73 +1,42 @@
 import { DateTime } from "luxon";
 import { Score } from "@/context/PlayerDataContext";
+import { FilteredScore, LabelValue } from "@/types/Interfaces";
 
-export const checkInvalidNum = (number: number | string): string => {
+const checkInvalidNum = (number: number | string): string => {
 	const numberNumber = number as number;
 	if (isNaN(numberNumber) || !isFinite(numberNumber)) return "";
 	return number as string;
 };
 
-export const isDefaultGameMode = (scoreInst: Score): boolean => {
+const isDefaultGameMode = (scoreInst: Score): boolean => {
 	if (scoreInst.gameModeType === "Preset" && scoreInst.customGameModeName === "") {
 		return true;
 	}
 	return false;
 };
 
-export const isCustomGameMode = (scoreInst: Score): boolean => {
+const isCustomGameMode = (scoreInst: Score): boolean => {
 	if (scoreInst.gameModeType === "Custom" && scoreInst.customGameModeName !== "") {
 		return true;
 	}
 	return false;
 };
 
-export interface LabelValue {
-	value: string;
-	label: string;
-}
-
-export interface LocationAccuracyHeatMapData {
-	x: number;
-	y: number;
-	v: number;
-}
-
-export interface FilteredScore {
-	score: number;
-	highScore: number;
-	accuracy: number;
-	streak: number;
-	difficulty: string;
-	completion: number;
-	timeOffset: number;
-	locationAccuracy: LocationAccuracyHeatMapData[];
-}
-
 // returns an array containing all game modes
 export const getGameModes = async (scores: Score[], bCustom: boolean = false): Promise<LabelValue[]> => {
-	let gameModeArray: LabelValue[] = [];
+	const gameModesSet = new Set<string>();
+
 	for (const scoreInst of scores) {
-		if (bCustom) {
-			if (isCustomGameMode(scoreInst)) {
-				if (!gameModeArray.some((e) => e.label === scoreInst.customGameModeName)) {
-					gameModeArray.push({
-						value: scoreInst.customGameModeName,
-						label: scoreInst.customGameModeName,
-					});
-				}
-			}
-		} else {
-			if (isDefaultGameMode(scoreInst)) {
-				if (!gameModeArray.some((e) => e.label === scoreInst.baseGameMode)) {
-					gameModeArray.push({
-						value: scoreInst.baseGameMode,
-						label: scoreInst.baseGameMode,
-					});
-				}
-			}
+		const gameModeName = bCustom ? scoreInst.customGameModeName : scoreInst.baseGameMode;
+
+		if ((bCustom && isCustomGameMode(scoreInst)) || (!bCustom && isDefaultGameMode(scoreInst))) {
+			gameModesSet.add(gameModeName);
 		}
 	}
+
+	const gameModeArray = Array.from(gameModesSet).map((value) => ({ value, label: value }));
 	gameModeArray.sort((a, b) => a.value.localeCompare(b.value));
+
 	return gameModeArray;
 };
 
@@ -80,59 +49,53 @@ export const getScores = async (
 	selectedDifficulty: string,
 	selectedDateRange: [DateTime, DateTime] | null = null
 ) => {
-	let scoreMap = new Map<string, FilteredScore>();
+	const scoreMap = new Map<string, FilteredScore>();
+
 	for (const scoreInst of scores) {
-		let bContinue = true;
-		if (bCustom && isCustomGameMode(scoreInst)) {
-			if (scoreInst.customGameModeName === selectedGameMode && scoreInst.songTitle === selectedSong) {
-				if (!selectedDateRange) bContinue = false;
-				else {
-					bContinue =
-						DateTime.fromISO(scoreInst.time) < selectedDateRange[0] ||
-						DateTime.fromISO(scoreInst.time) > selectedDateRange[1];
+		const bValidCustom =
+			bCustom &&
+			isCustomGameMode(scoreInst) &&
+			scoreInst.customGameModeName === selectedGameMode &&
+			scoreInst.songTitle === selectedSong;
+
+		const bValidDefault =
+			!bCustom &&
+			isDefaultGameMode(scoreInst) &&
+			scoreInst.baseGameMode === selectedGameMode &&
+			scoreInst.songTitle === selectedSong &&
+			scoreInst.difficulty === selectedDifficulty;
+
+		if (bValidCustom || bValidDefault) {
+			if (selectedDateRange) {
+				const scoreTime = DateTime.fromISO(scoreInst.time);
+				if (!(scoreTime >= selectedDateRange[0] && scoreTime <= selectedDateRange[1])) {
+					continue; // Skip if outside the date range
 				}
 			}
-		} else if (!bCustom && isDefaultGameMode(scoreInst)) {
-			if (
-				scoreInst.baseGameMode === selectedGameMode &&
-				scoreInst.songTitle === selectedSong &&
-				scoreInst.difficulty === selectedDifficulty
-			) {
-				if (!selectedDateRange) bContinue = false;
-				else {
-					bContinue =
-						DateTime.fromISO(scoreInst.time) < selectedDateRange[0] ||
-						DateTime.fromISO(scoreInst.time) > selectedDateRange[1];
-				}
-			}
+
+			const locAccArr = scoreInst.locationAccuracy
+				? Object.values(scoreInst.locationAccuracy).flatMap((accuracyRow, rowIndex) =>
+						accuracyRow.accuracy.map((accuracyValue, colIndex) => ({
+							x: colIndex,
+							y: rowIndex,
+							v: accuracyValue,
+						}))
+					)
+				: [];
+
+			scoreMap.set(scoreInst.time, {
+				score: scoreInst.score,
+				highScore: scoreInst.highScore,
+				accuracy: scoreInst.accuracy,
+				streak: scoreInst.streak,
+				difficulty: scoreInst.difficulty,
+				completion: scoreInst.completion,
+				timeOffset: scoreInst.avgTimeOffset,
+				locationAccuracy: locAccArr,
+			});
 		}
-		if (bContinue) {
-			continue;
-		}
-		let locAccArr = [];
-		if (scoreInst.locationAccuracy !== null) {
-			const accuracyArr = Object.values(scoreInst.locationAccuracy);
-			for (const accuracyRow of accuracyArr) {
-				for (const [col, accuracyValue] of accuracyRow.accuracy.entries()) {
-					locAccArr.push({
-						x: col,
-						y: accuracyArr.indexOf(accuracyRow),
-						v: accuracyValue,
-					});
-				}
-			}
-		}
-		scoreMap.set(scoreInst.time, {
-			score: scoreInst.score,
-			highScore: scoreInst.highScore,
-			accuracy: scoreInst.accuracy,
-			streak: scoreInst.streak,
-			difficulty: scoreInst.difficulty,
-			completion: scoreInst.completion,
-			timeOffset: scoreInst.avgTimeOffset,
-			locationAccuracy: locAccArr,
-		});
 	}
+
 	const sortedScoreMap = new Map([...scoreMap].sort());
 	return {
 		keys: [...sortedScoreMap.keys()],
