@@ -265,12 +265,11 @@ div.hero-container {
 	max-width: 100%;
 	height: auto;
 	padding-top: 0.5rem;
-	padding-bottom: 0.5rem;
 }
 .front-page-img {
 	display: flex;
 	justify-content: center;
-	max-width: 90%;
+	max-width: 80%;
 	height: auto;
 }
 div .card-label {
@@ -423,7 +422,7 @@ div.sidebar-container.left li > ul ul ul a {
 /*--------------------*/
 
 /* Containers */
-article {
+.devblog-article {
 	padding: 1rem 0 1rem 0;
 	font-family: var(--ff-readable);
 	gap: 1rem;
@@ -710,16 +709,76 @@ article .updated-date {
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	align-items: center;
 	margin: auto;
-	gap: 0.75rem;
+	gap: 1rem;
 	width: 100%;
 	max-width: 800px;
 	background-color: hsl(var(--clr-beatshot-darkblue));
 	box-shadow: 0rem 0rem 0.25rem 0rem hsl(var(--clr-beatshot-lightblue));
 	border-radius: 0.25rem;
 	padding: 1rem;
+	font-family: var(--ff-readable);
+	font-size: var(--fs-200);
+	line-height: 1.5em;
 }
+.home-centered-bordered-container li > p,
+.home-centered-bordered-container li > svg {
+	vertical-align: middle !important;
+	display: inline;
+
+}
+.home-centered-bordered-container > ul > li {
+	font-size: var(--fs-200);
+}
+/* top indent/padding */
+.home-centered-bordered-container ul li {
+	text-indent: -1em;
+	padding-left: 1.25em;
+}
+/* 2nd level indent/padding */
+.home-centered-bordered-container ul ul li {
+	text-indent: -1em;
+	padding-left: 1.4em;
+}
+
+/* top level icons */
+.home-centered-bordered-container ul svg {
+	color: hsl(var(--clr-beatshot-lightblue));
+	height: auto;
+	width: 0.75em;
+	padding-right: 0.25em;
+}
+/* 2nd level icons */
+.home-centered-bordered-container ul ul svg {
+	color: hsl(var(--clr-beatshot-lightblue));
+	height: auto;
+	width: 0.6em;
+	padding-right: 0.25em;
+}
+/* Description p before 1st */
+.home-centered-bordered-container > ul > p {
+	padding: 0.25em 0em 0.25em 0em;
+	font-size: var(--fs-200);
+	line-height: 1.25em;
+	text-indent: 0em;
+}
+
+/* Description p before 2nd */
+.home-centered-bordered-container > ul > li > ul > p {
+	padding: 0.25em 0em 0.25em 0em;
+	font-size: var(--fs-200);
+	line-height: 1.25em;
+	text-indent: 0em;
+}
+
+.home-logo {
+	align-self: center;
+	max-width: 15%;
+	min-width: 100px;
+	height: auto;
+	padding: 0;
+}
+
 .centered-bordered-container {
 	display: flex;
 	flex-direction: column;
@@ -1195,7 +1254,6 @@ form {
 	font-weight: 600;
 	color: white;
 	font-size: var(--fs-h3);
-	/*color: rgba(62, 198, 235, 1);*/
 }
 .pn-date {
 	display: flex;
@@ -1224,46 +1282,6 @@ form {
 	justify-content: space-between;
 	font-size: var(--fs-200);
 }
-
-/* .pn-container ul {
-  font-size: var(--fs-200);
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding-top: 0.75rem;
-}
-.pn-container ol {
-  font-size: var(--fs-200);
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-  padding-top: 0.75rem;
-}
-.pn-container ul li {
-  font-size: var(--fs-200);
-  padding-left: calc((var(--fs-200) * 0.9) + 0.25em);
-  text-indent: calc(calc((var(--fs-200) * 0.9) + 0.25em) * -1);
-  padding-top: 0;
-}
-.pn-container ol li {
-  font-size: var(--fs-200);
-  list-style-type:decimal;
-  list-style-position: inside;
-  padding-left: calc((var(--fs-200) * 0.9) + 0.25em);
-  text-indent: calc(calc((var(--fs-200) * 0.9) + 0.25em) * -1);
-  padding-top: 0;
-}
-.pn-container .li-icon {
-  color: rgba(62, 198, 235, 1);
-  font-size: calc(var(--fs-200) * 0.9);
-  width: calc(var(--fs-200) * 0.9);
-  padding-right: 0.25em;
-}
-.pn-wrapper ul {
-  display: flex;
-  flex-direction: column;
-  gap: 0.1rem;
-} */
 
 /*-------------*/
 /*   Charts    */
@@ -1489,17 +1507,21 @@ td.combined > p {
 	flex-direction: column;
 	margin: 0 auto;
 	width: max-content;
+	font-family: var(--ff-serif);
+	line-height: normal;
 }
 .steam-login-container:hover {
 	cursor: pointer;
 	color: hsl(var(--clr-beatshot-lightblue));
+	box-shadow: 0rem 0rem 0.25rem 0rem hsl(var(--clr-beatshot-lightblue));
+	border-radius: 0.25rem;
 }
 .steam-login-container-top {
 	display: flex;
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	background-color: hsl(var(--clr-sidebar));
+	background-color: hsl(var(--clr-beatshot-bluegrey));
 	border-radius: 0.25rem 0.25rem 0 0;
 	padding: 0.25rem 0.75rem;
 	gap: 0.25rem;
@@ -1538,6 +1560,7 @@ td.combined > p {
 	text-align: center;
 	font-size: 0.6rem;
 }
+
 .loading-container {
 	padding-top: 1rem;
 	display: flex;
@@ -1556,7 +1579,6 @@ td.combined > p {
 	position: relative;
 	overflow: hidden;
 	width: 100%;
-	padding-top: 56.25%;
 	border-radius: 0.25rem;
 }
 .responsive-iframe {

@@ -16,19 +16,8 @@ import { Chart } from "react-chartjs-2";
 import { AnyObject, MatrixController, MatrixElement } from "chartjs-chart-matrix";
 import { responsiveFonts, onChartResize, lerp, clamp } from "../../util/ChartFunctions";
 import React from "react";
+import { HeatMapCalendar } from "@/types/Interfaces";
 ChartJS.register(MatrixController, MatrixElement, ...registerables);
-
-export interface HeatMapCalendar {
-	x: string;
-	y: WeekdayNumbers;
-	d: DateTime<true>;
-	v: number;
-}
-
-export interface HeatMapLabels {
-	label: string[];
-	value: HeatMapCalendar[];
-}
 
 const hoverMultiplier = 1.25;
 const borderMultipler = 1.25;
@@ -56,7 +45,7 @@ function afterTitleCallback(this: TooltipModel<"matrix">, tooltipItems: TooltipI
 
 function backgroundColorCallback(
 	ctx: ScriptableContext<"matrix">,
-	options: AnyObject,
+	_options: AnyObject,
 	colorMap: Map<string, colorMapValue>,
 	hover: boolean
 ) {
@@ -70,7 +59,7 @@ function backgroundColorCallback(
 
 function borderColorCallback(
 	ctx: ScriptableContext<"matrix">,
-	options: AnyObject,
+	_options: AnyObject,
 	colorMap: Map<string, colorMapValue>,
 	hover: boolean
 ) {
@@ -82,17 +71,17 @@ function borderColorCallback(
 	return hover ? mapValue.hoverBorderColor : mapValue.borderColor;
 }
 
-function widthCallback(ctx: ScriptableContext<"matrix">, options: AnyObject) {
+function widthCallback(ctx: ScriptableContext<"matrix">, _options: AnyObject) {
 	const a = ctx.chart.chartArea || {};
 	return Math.floor(a.width / 53.0);
 }
 
-function heightCallback(ctx: ScriptableContext<"matrix">, options: AnyObject) {
+function heightCallback(ctx: ScriptableContext<"matrix">, _options: AnyObject) {
 	const a = ctx.chart.chartArea || {};
 	return Math.floor(a.height / 7.0);
 }
 
-function yTickCallback(this: Scale<CoreScaleOptions>, tickValue: string | number, index: number, ticks: Tick[]) {
+function yTickCallback(this: Scale<CoreScaleOptions>, tickValue: string | number, _index: number, _ticks: Tick[]) {
 	return DateTime.fromObject({ weekday: tickValue as number }).weekdayShort;
 }
 

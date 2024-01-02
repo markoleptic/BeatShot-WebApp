@@ -348,7 +348,7 @@ const GameplayAbilitySystem = () => {
 							</li>
 						</ul>
 					</Sidebar>
-					<article className="flex-container-column" id="article">
+					<article className="devblog-article flex-container-column" id="article">
 						<p>
 							From the{" "}
 							<Link

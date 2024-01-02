@@ -3,7 +3,8 @@ import { GameModeTime, Score, usePlayerDataContext } from "@/context/PlayerDataC
 import React, { useState, useEffect } from "react";
 import { DateTime } from "luxon";
 import BarChart from "@/components/Charts/BarChart";
-import Heatmap, { HeatMapCalendar } from "@/components/Charts/HeatMap";
+import Heatmap from "@/components/Charts/HeatMap";
+import { HeatMapCalendar } from "@/types/Interfaces";
 
 const maxDefaultModesToShow = 8;
 const maxCustomModesToShow = 8;
@@ -77,6 +78,7 @@ const ProfileOverview = () => {
 		if (data) {
 			initHeatmap(data);
 		}
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [data]);
 
 	// sets the data for the heatmapLabels & timePlayedHeatmap

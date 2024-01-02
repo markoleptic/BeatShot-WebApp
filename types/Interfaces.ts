@@ -1,3 +1,5 @@
+import { DateTime, WeekdayNumbers } from "luxon";
+
 export const accessTokenLength = "30s";
 export const refreshTokenLength = "1825d";
 export const recoveryTokenLength = "5m";
@@ -92,4 +94,16 @@ export interface AuthResult {
 				claimedIdentifier?: string | undefined;
 		  }
 		| undefined;
+}
+
+export interface HeatMapCalendar {
+	x: string;
+	y: WeekdayNumbers;
+	d: DateTime<true>;
+	v: number;
+}
+
+export interface HeatMapLabels {
+	label: string[];
+	value: HeatMapCalendar[];
 }

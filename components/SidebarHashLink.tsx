@@ -31,7 +31,6 @@ export const SidebarHashLink = ({ children, hash, text, onScreen, topLevelLink, 
 			replace={true}
 			passHref
 			scroll={true}
-			/*onClick={(e) => onBtnClick(e, pathname + hash, hash)}*/
 			className={"sidebar-hash-link " + getSidebarClassName()}
 		>
 			{text}
@@ -39,13 +38,3 @@ export const SidebarHashLink = ({ children, hash, text, onScreen, topLevelLink, 
 		</Link>
 	);
 };
-
-/*  const onBtnClick = (e: React.MouseEvent<HTMLAnchorElement> , href: string, inHash?: string) => {
-    e.preventDefault();
-    if (!inHash) return;
-    const element = document.getElementById(inHash.replace('#',''));
-    if (element) {
-      element.scrollIntoView({ behavior: "smooth" });
-    }
-    navigate.push(href);
-  }; */

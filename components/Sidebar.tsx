@@ -1,17 +1,11 @@
 "use client";
-import React, { ReactNode, useEffect, useState } from "react";
+import React, { ReactNode, useEffect } from "react";
 
 interface SidebarProps {
 	children: ReactNode;
 }
 
 const Sidebar: React.FC<SidebarProps> = ({ children }) => {
-	const [noScroll, SetNoScroll] = useState<boolean>(false);
-
-	const handleMatchMedia = (e: MediaQueryListEvent) => {
-		SetNoScroll(e.matches);
-	};
-
 	const handleScroll = () => {
 		const sidebarContainer = document.querySelector<HTMLElement>(".sidebar-container");
 		const footer = document.querySelector<HTMLElement>(".footer-container");

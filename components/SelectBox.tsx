@@ -1,6 +1,6 @@
 import React from "react";
 import Select, { ActionMeta, GroupBase, StylesConfig } from "react-select";
-import { LabelValue } from "../util/StatFunctions";
+import { LabelValue } from "@/util/StatFunctions";
 
 export interface SelectBoxProps {
 	options: LabelValue[];

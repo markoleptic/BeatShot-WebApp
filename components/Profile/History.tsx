@@ -1,7 +1,7 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { DateTime } from "luxon";
-import { usePlayerDataContext, Score, DeleteScoresResponse, ErrorResponse } from "@/context/PlayerDataContext";
+import { usePlayerDataContext, Score  } from "@/context/PlayerDataContext";
 
 const ProfileHistory = () => {
 	const { data, deleteScores } = usePlayerDataContext();

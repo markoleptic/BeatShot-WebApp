@@ -1,5 +1,5 @@
 "use client";
-import React, { useState, HTMLProps, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 import { DateTime } from "luxon";
 import ReactSlider from "react-slider";
 import styled from "styled-components";
