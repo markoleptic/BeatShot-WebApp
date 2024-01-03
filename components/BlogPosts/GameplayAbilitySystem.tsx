@@ -1,19 +1,19 @@
 "use client";
-import { useRef } from "react";
-import image_Hero from "../../public/GAS_Diagram_Cropped.png";
-import useOnScreen from "../../hooks/useScreenObserver";
-import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SidebarHashLink } from "../SidebarHashLink";
-import DA_InputConfig from "../../public/DA_InputConfig.png";
-import DA_KnifeAbilitySet from "../../public/DA_KnifeAbilitySet.png";
-import { BSInlineFunction } from "../CodeBlock";
+
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import React, { useRef } from "react";
+import useOnScreen from "@/hooks/useScreenObserver";
+import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { SidebarHashLink } from "@/components/SidebarHashLink";
+import { BSInlineFunction } from "@/components/CodeBlock";
 import { BlogHeadingClass, BlogHeading } from "./BlogComponents/BlogHeading";
 import { BlueprintGraph } from "./BlogComponents/BlueprintGraph";
 import Sidebar from "../Sidebar";
+import image_Hero from "@/public/GAS_Diagram_Cropped.png";
+import DA_InputConfig from "@/public/DA_InputConfig.png";
+import DA_KnifeAbilitySet from "@/public/DA_KnifeAbilitySet.png";
 
 const GameplayAbilitySystem = () => {
 	const articlePath = "/devblog/gameplay-ability-system-overview";

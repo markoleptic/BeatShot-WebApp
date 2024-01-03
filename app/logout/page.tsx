@@ -1,4 +1,4 @@
-"use client"
+"use client";
 import { useAuthContext } from "@/context/AuthContext";
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
@@ -14,6 +14,7 @@ const Logout = () => {
 				if (response.ok) {
 					setAuth(null);
 					router.push("/login");
+					router.refresh();
 				}
 			} catch (error) {
 				console.log(error);

@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { useAuthContext } from "@/context/AuthContext";
+import { useRefreshToken } from "@/hooks/useRefreshToken";
 
 export interface Accuracy {
 	accuracy: number[];
@@ -64,21 +64,16 @@ export const usePlayerDataContext = () => {
 export const PlayerDataProvider = ({ children }: { children: React.ReactNode }) => {
 	const [data, setData] = useState<Score[] | null>(null);
 	const [gameModeTimes, SetGameModeTimes] = useState<GameModeTime[] | null>(null);
-	const { auth, isAccessTokenValid, refreshAccessToken } = useAuthContext();
+	const refresh = useRefreshToken();
 
 	const initializePlayerData = async () => {
-		let localAuth = auth ? Object.assign({}, auth) : null;
-		const isValid = await isAccessTokenValid();
-		if (!isValid) localAuth = await refreshAccessToken();
-		if (!localAuth) {
-			return;
-		}
 		try {
-			const response = await fetch(`/api/profile/${localAuth?.userID}/getscores`, {
+			const freshAuthData = await refresh();
+			const response = await fetch(`/api/profile/${freshAuthData?.userID}/getscores`, {
 				headers: {
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Credentials": "true",
-					Authorization: `Bearer ${localAuth?.accessToken}`,
+					Authorization: `Bearer ${freshAuthData?.accessToken}`,
 				},
 				method: "GET",
 			});
@@ -86,11 +81,11 @@ export const PlayerDataProvider = ({ children }: { children: React.ReactNode }) 
 			if (response.status === 200) {
 				setData(responseData);
 			}
-			const gameModeTimesResponse = await fetch(`/api/profile/${localAuth?.userID}/gettotaltimegamemodes`, {
+			const gameModeTimesResponse = await fetch(`/api/profile/${freshAuthData?.userID}/gettotaltimegamemodes`, {
 				headers: {
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Credentials": "true",
-					Authorization: `Bearer ${localAuth?.accessToken}`,
+					Authorization: `Bearer ${freshAuthData?.accessToken}`,
 				},
 				method: "GET",
 			});
@@ -105,24 +100,23 @@ export const PlayerDataProvider = ({ children }: { children: React.ReactNode }) 
 
 	useEffect(() => {
 		initializePlayerData();
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 
 	const deleteScores = async (scoreIDs: number[]): Promise<DeleteScoresResponse | ErrorResponse> => {
-		let localAuth = auth ? Object.assign({}, auth) : null;
-		const isValid = await isAccessTokenValid();
-		if (!isValid) localAuth = await refreshAccessToken();
 		try {
-			const deleteResponse = await fetch(`/api/profile/${localAuth?.userID}/deletescores`, {
+			const freshAuthData = await refresh();
+			if (!freshAuthData) return { message: "Unauthorized" };
+			const deleteResponse = await fetch(`/api/profile/${freshAuthData?.userID}/deletescores`, {
 				headers: {
 					"Content-Type": "application/json",
 					"Access-Control-Allow-Credentials": "true",
-					Authorization: `Bearer ${localAuth?.accessToken}`,
+					Authorization: `Bearer ${freshAuthData?.accessToken}`,
 				},
 				method: "DELETE",
 				body: JSON.stringify({ scoreIDs }),
 			});
 			const deleteResponseData = await deleteResponse.json();
-			console.log(deleteResponse, deleteResponseData);
 			if (deleteResponse.status === 200) {
 				initializePlayerData();
 				return deleteResponseData as DeleteScoresResponse;

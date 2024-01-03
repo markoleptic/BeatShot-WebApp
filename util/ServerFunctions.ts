@@ -3,7 +3,17 @@ import * as aws from "@aws-sdk/client-ses";
 import nodemailer, { Transporter } from "nodemailer";
 import { users } from "@/models";
 import { sign, verify } from "jsonwebtoken";
-import { SteamUser, AuthResult, SteamAuthTicketResponse, SteamAuthTicketResponseError, recoveryTokenLength, confirmationTokenLength, refreshTokenLength, accessTokenLength, TokenInterface } from "@/types/Interfaces";
+import {
+	SteamUser,
+	AuthResult,
+	SteamAuthTicketResponse,
+	SteamAuthTicketResponseError,
+	recoveryTokenLength,
+	confirmationTokenLength,
+	refreshTokenLength,
+	accessTokenLength,
+	TokenInterface,
+} from "@/types/Interfaces";
 
 // creates a relying party for the specific verify Url
 export function createRelyingParty(verifyUrl: string): RelyingParty {

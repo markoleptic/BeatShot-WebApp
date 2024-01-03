@@ -11,15 +11,19 @@ export const useRefreshToken = () => {
 				method: "GET",
 			});
 			const data = await response.json();
-			const payload = decodeJwt(data?.accessToken);
-			const authData = {
-				userID: payload.userID,
-				displayName: payload.displayName,
-				accessToken: data.accessToken,
-				iat: payload.iat,
-				exp: payload.exp,
-			} as AuthData;
-			return authData ? authData : null;
+			if (response.ok) {
+				const payload = decodeJwt(data?.accessToken);
+				const authData = {
+					userID: payload.userID,
+					displayName: payload.displayName,
+					accessToken: data.accessToken,
+					iat: payload.iat,
+					exp: payload.exp,
+				} as AuthData;
+				return authData ? authData : null;
+			} else {
+				return null;
+			}
 		} catch (err) {
 			console.error(err);
 			return null;

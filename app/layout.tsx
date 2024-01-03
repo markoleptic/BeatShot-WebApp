@@ -6,7 +6,6 @@ import SEO from "@/components/SEO";
 import { Roboto, Roboto_Mono, Montserrat } from "next/font/google";
 import React from "react";
 import "./globals.css";
-import { PlayerDataProvider } from "@/context/PlayerDataContext";
 
 export const metadata: Metadata = SEO({
 	title: "BeatShot",
@@ -48,10 +47,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 				></script>
 				<AuthProvider>
 					<Navbar />
-					<PlayerDataProvider>
-						{children}
-						<Footer />
-					</PlayerDataProvider>
+					{children}
+					<Footer />
 				</AuthProvider>
 			</body>
 		</html>

@@ -41,8 +41,8 @@ export type AuthContextType = {
 	setAuth: (newAuth: AuthData | null) => void;
 	persist: boolean;
 	setPersist: (newPersist: boolean) => void;
-	isAccessTokenValid: () => Promise<boolean>;
-	refreshAccessToken: () => Promise<AuthData | null>;
+	isAccessTokenValid: (auth: AuthData | null) => Promise<boolean>;
+	refreshAccessToken: () => Promise<boolean>;
 };
 
 export interface SteamUser {

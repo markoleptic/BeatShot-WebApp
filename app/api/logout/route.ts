@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { users } from "@/models";
 import { cookies } from "next/headers";
+import { revalidatePath } from "next/cache";
 
 export async function GET(req: NextRequest) {
 	// No content

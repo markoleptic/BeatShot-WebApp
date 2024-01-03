@@ -110,7 +110,6 @@ const ProfileHistory = () => {
 		if (isConfirmed) {
 			const responseMsg = await deleteScores(selectedScoreIDs);
 			if ("Number Removed" in responseMsg) {
-				console.log(responseMsg["Number Removed"]);
 				setLastSelectedScoreID(-1);
 				setSelectedScoreIDs([]);
 			} else if ("message" in responseMsg) {

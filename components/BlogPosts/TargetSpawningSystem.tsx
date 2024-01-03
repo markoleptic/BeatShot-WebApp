@@ -1,19 +1,19 @@
 "use client";
-import { useRef } from "react";
-import useOnScreen from "../../hooks/useScreenObserver";
+
+import React,{ useRef } from "react";
+import useOnScreen from "@/hooks/useScreenObserver";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { SidebarHashLink } from "../SidebarHashLink";
+import { SidebarHashLink } from "@/components/SidebarHashLink";
 import { BSCodeBlock, BSInlineCodeBlock, BSInlineEnum, BSInlineFunction } from "../CodeBlock";
-import Image from "next/image";
-import image_BoxBounds from "../../public/BoxBounds.png";
-import image_Hero from "../../public/SpawnMemory_Hero_Cropped.png";
-import image_OverlappingVerts from "../../public/OverlappingVerts.png";
-import image_SpawnMemory_Dynamic_FewRecent from "../../public/SpawnMemory_Dynamic_FewRecent.png";
-import image_SpawnMemory_Dynamic_ManyRecent from "../../public/SpawnMemory_Dynamic_ManyRecent.png";
-import React from "react";
 import { BlogHeading, BlogHeadingClass } from "./BlogComponents/BlogHeading";
-import Sidebar from "../Sidebar";
+import Sidebar from "@/components/Sidebar";
+import Image from "next/image";
+import image_BoxBounds from "@/public/BoxBounds.png";
+import image_Hero from "@/public/SpawnMemory_Hero_Cropped.png";
+import image_OverlappingVerts from "@/public/OverlappingVerts.png";
+import image_SpawnMemory_Dynamic_FewRecent from "@/public/SpawnMemory_Dynamic_FewRecent.png";
+import image_SpawnMemory_Dynamic_ManyRecent from "@/public/SpawnMemory_Dynamic_ManyRecent.png";
 
 const OnAudioAnalyzerBeat = `void ATargetManager::OnAudioAnalyzerBeat()
 {

@@ -24,19 +24,19 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const refresh = useRefreshToken();
 
-	const isAccessTokenValid = async (): Promise<boolean> => {
+	const isAccessTokenValid = async (auth: AuthData | null): Promise<boolean> => {
 		if (!auth || auth.accessToken || auth.exp < Date.now() / 1000) return false;
 		const payload = (await jwtVerify(auth?.accessToken as string, secret)) as JWTVerifyResult;
 		return payload ? true : false;
 	};
 
-	const refreshAccessToken = async (): Promise<AuthData | null> => {
+	const refreshAccessToken = async (): Promise<boolean> => {
 		const authResponse = await refresh();
 		if (authResponse) {
 			setAuth(authResponse);
-			return authResponse;
+			return true;
 		}
-		return null;
+		return false;
 	};
 
 	useEffect(() => {
@@ -45,8 +45,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			try {
 				const value = Boolean(localStorage.getItem("persist")) || true;
 				setPersist(value);
-				if (mounted && persist && (!auth || !auth.accessToken || auth.exp < Date.now() / 1000)) {
-					const isValid = await isAccessTokenValid();
+				if (mounted) {
+					const isValid = await isAccessTokenValid(auth);
 					if (!isValid) await refreshAccessToken();
 				} else {
 					setIsLoading(false);
@@ -67,6 +67,7 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			setIsLoading(false);
 			mounted = false;
 		};
+	// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [auth]);
 
 	return (

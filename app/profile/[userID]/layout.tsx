@@ -1,7 +1,9 @@
+import { AuthCheck } from "@/components/Auth/AuthCheck";
 import ProfileSidebar from "@/components/Profile/ProfileSidebar";
 import SEO from "@/components/SEO";
+import { PlayerDataProvider } from "@/context/PlayerDataContext";
 import { Metadata } from "next";
-import React from "react";
+
 export const metadata: Metadata = SEO({
 	title: "Profile | BeatShot",
 	type: "website",
@@ -12,9 +14,13 @@ export default function Profile({ children }: { children: React.ReactNode }) {
 	return (
 		<>
 			<div className="flex-container-row">
-				<ProfileSidebar>
-					<div className="flex-container-column gap-1rem padding-1rem-0rem">{children}</div>
-				</ProfileSidebar>
+				<AuthCheck>
+					<PlayerDataProvider>
+						<ProfileSidebar>
+							<div className="flex-container-column gap-1rem padding-1rem-0rem">{children}</div>
+						</ProfileSidebar>
+					</PlayerDataProvider>
+				</AuthCheck>
 			</div>
 		</>
 	);

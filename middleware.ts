@@ -4,22 +4,21 @@ import { JWTVerifyResult, jwtVerify } from "jose";
 const apiProfilePath = "/api/profile";
 const unauthorizedApiPath = "/api/unauthorized";
 
+// redirects located in next.config.js
+
 export async function middleware(req: NextRequest) {
 	const unauthorizedUrl = req.nextUrl.clone();
 	unauthorizedUrl.pathname = unauthorizedApiPath;
 
-	// redirects located in next.config.js
-
-	const bApiProfilePath = req.nextUrl.pathname.startsWith(apiProfilePath);
-
 	// skip any non-protected routes
-	if (!bApiProfilePath) {
+	if (!req.nextUrl.pathname.startsWith(apiProfilePath)) {
 		return NextResponse.next();
 	}
 
 	// ---------------------- //
 	// -- PROTECTED ROUTES -- //
 	// ---------------------- //
+	
 	// All of the routes below need Authorization Bearer header
 	// All failed routes go to /api/unauthorized
 

@@ -84,7 +84,7 @@ export async function findOrCreateUserFromSteamUser(userID: string): Promise<[st
 export async function deleteScoresByCustomGameModeName(userID: string, customGameModeName: string): Promise<number> {
 	const NumRemoved = await scores.destroy({
 		where: {
-			[Op.and]: [{ userID: userID }, { customGameModeName: customGameModeName }],
+			[Op.and]: [{ userID: userID }, {gameModeType: "Custom"}, { customGameModeName: customGameModeName }],
 		},
 	});
 	return NumRemoved;

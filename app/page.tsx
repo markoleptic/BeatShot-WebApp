@@ -146,7 +146,7 @@ const Home = () => {
 					</div>
 				</div>
 				<div className="home-container">
-					<h3 className="text-light text-center">Detailed Scoring Analysis</h3>
+					<h3 className="text-light text-center">Detailed Performance Statistics</h3>
 					<div className="home-inner-container">
 						<ul>
 							<li>
