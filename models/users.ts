@@ -7,6 +7,7 @@ export interface usersAttributes {
 	email?: string;
 	password?: string;
 	confirmed: number;
+	steamLinked: number;
 	refreshToken?: string;
 	createdAt?: Date;
 	updatedAt?: Date;
@@ -76,6 +77,12 @@ export class users extends Model<usersAttributes, usersAttributes> implements us
 		defaultValue: "0",
 	})
 	confirmed!: number;
+
+	@Column({
+		type: DataType.TINYINT,
+		defaultValue: "0",
+	})
+	steamLinked!: number;
 
 	@Column({
 		allowNull: true,

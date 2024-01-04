@@ -1,8 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { sequelize, users } from "@/models";
-import bcrypt from "bcrypt";
 import { createConfToken, sendConfEmail } from "@/util/ServerFunctions";
-import { saltRounds } from "@/types/Interfaces";
+import { createUserFromRegister } from "@/util/DatabaseFunctions";
 
 export async function POST(req: NextRequest) {
 	const { username, email, password } = await req.json();
@@ -24,16 +23,8 @@ export async function POST(req: NextRequest) {
 	}
 
 	try {
-		const hashedPassword = await bcrypt.hash(password, saltRounds);
 		const results = (await sequelize.query("CALL GetNewUserID ()")) as any;
-		const newUser = await users.create({
-			userID: results[0].nextUserID,
-			username: username,
-			displayName: username,
-			confirmed: 0,
-			email: email,
-			password: hashedPassword,
-		});
+		const newUser = await createUserFromRegister(results, username, email, password);
 
 		if (!newUser) {
 			return NextResponse.json({ message: "Something went wrong." }, { status: 400 });

@@ -29,10 +29,14 @@ export async function GET(req: NextRequest, { params }: SteamAuthTicketParams) {
 				status: 302,
 			});
 
-		const refreshToken = createRefreshToken(user.userID, user.displayName || "");
+		const refreshToken = createRefreshToken(user.userID);
 
 		// save long-lived refresh token in database
 		await user.update({ refreshToken: refreshToken });
+
+		if (user.steamLinked === 0) {
+			await user.update({ steamLinked: 1 });
+		}
 
 		// Send long-lived refresh token as cookie
 		cookies().set("jwt", refreshToken, {

@@ -1125,6 +1125,7 @@ form {
 	text-align: center;
 	text-decoration: none;
 	outline: none;
+	min-height: 1.25em;
 }
 .profile-name-text:hover {
 	text-shadow: 0 0 4px hsl(var(--clr-white));

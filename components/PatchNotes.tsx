@@ -8,7 +8,66 @@ const PatchNotes = () => {
 		<>
 			<div className="flex-container-column gap-1rem padding-1rem">
 				<h2 className="pn-title">Patch Notes</h2>
-
+				<div className="centered-bordered-container-1000">
+					<div className="pn-container">
+						<div className="pn-version-date">
+							<Link
+								className="link hover-blue fw-semibold pn-version-number"
+								href="https://store.steampowered.com/news/app/2126580/view/3906374309649174897?utm_source=beatshotwebsite&utm_medium=web"
+							>
+								0.6.2
+							</Link>
+							<p className="pn-date">January 3, 2024</p>
+						</div>
+						<ul>
+							<p className="fs-300"></p>
+							<li>
+								<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+								<p className="fs-300">Bug Fixes</p>
+								<ul>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Fixed a bug where the game incorrectly stated there was an error connecting
+											to the database when attempting to delete custom game mode scores with no
+											saved entries.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Fixed a bug causing custom game modes to not properly import from a string.
+										</p>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+								<p className="fs-300">Website Updates</p>
+								<ul>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Added an option to filter by date range for all default and custom mode
+											charts.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Added an option to delete score entries from the database to the history
+											page.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>Changed the appearance of various elements of all charts.</p>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
 				<div className="centered-bordered-container-1000">
 					<div className="pn-container">
 						<div className="pn-version-date">

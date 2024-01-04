@@ -8,7 +8,6 @@ export const saltRounds = 10;
 
 export interface TokenInterface {
 	userID: string;
-	displayName?: string;
 }
 
 export interface TokenParams {
@@ -27,9 +26,18 @@ export interface NewUserIDParams {
 	nextUserID: string;
 }
 
+export interface TokenResponse {
+	userID: string;
+	accessToken: string;
+}
+
+export interface ProfileInfo {
+	displayName: string;
+	steamLinked: number;
+}
+
 export interface AuthData {
 	userID: string;
-	displayName: string;
 	accessToken: string;
 	iat: number;
 	exp: number;
@@ -39,6 +47,8 @@ export interface AuthData {
 export type AuthContextType = {
 	auth: AuthData | null;
 	setAuth: (newAuth: AuthData | null) => void;
+	profileInfo: ProfileInfo | null;
+	setProfileInfo: (newProfileInfo: ProfileInfo | null) => void;
 	persist: boolean;
 	setPersist: (newPersist: boolean) => void;
 	isAccessTokenValid: (auth: AuthData | null) => Promise<boolean>;

@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect } from "react";
-import { AuthData, AuthContextType } from "@/types/Interfaces";
+import { AuthData, AuthContextType, ProfileInfo } from "@/types/Interfaces";
 import { useRefreshToken } from "@/hooks/useRefreshToken";
 import { JWTVerifyResult, jwtVerify } from "jose";
 
@@ -20,6 +20,7 @@ export const useAuthContext = () => {
 export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	// this is the data we want to share between components
 	const [auth, setAuth] = useState<AuthData | null>(null);
+	const [profileInfo, setProfileInfo] = useState<ProfileInfo | null>(null);
 	const [persist, setPersist] = useState<boolean>(true);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const refresh = useRefreshToken();
@@ -58,16 +59,39 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			}
 		};
 
+		const initializeProfileInfo = async (userID: string, accessToken: string) => {
+			try {
+				const response = await fetch(`/api/profile/${userID}/getprofileinfo`, {
+					headers: {
+						"Content-Type": "application/json",
+						"Access-Control-Allow-Credentials": "true",
+						Authorization: `Bearer ${accessToken}`,
+					},
+					method: "GET",
+				});
+				const data = await response.json();
+				if (response.ok) {
+					const payload = data as ProfileInfo;
+					if (payload) {
+						setProfileInfo(payload);
+					}
+				}
+			} catch (err) {
+				console.error(err);
+			}
+		};
+
 		if (!auth || !auth.accessToken || auth.exp < Date.now() / 1000) {
 			initializeAuth();
 		}
 
+		if (!profileInfo && auth) initializeProfileInfo(auth.userID, auth.accessToken);
 		return () => {
 			// Cleanup
 			setIsLoading(false);
 			mounted = false;
 		};
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [auth]);
 
 	return (
@@ -75,6 +99,8 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			value={{
 				auth,
 				setAuth,
+				profileInfo,
+				setProfileInfo,
 				persist,
 				setPersist,
 				isAccessTokenValid,

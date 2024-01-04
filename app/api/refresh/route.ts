@@ -23,7 +23,7 @@ export async function GET(req: NextRequest) {
 		}
 
 		// create short-lived access token
-		const accessToken = createAccessToken(verifyResult.userID, verifyResult.displayName || "");
+		const accessToken = createAccessToken(verifyResult.userID);
 
 		// send short-lived access token
 		return NextResponse.json({ accessToken: accessToken }, { status: 200 });

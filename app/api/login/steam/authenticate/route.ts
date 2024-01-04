@@ -1,7 +1,13 @@
 import { NextResponse, NextRequest } from "next/server";
 import { cookies } from "next/headers";
-import { instanceOfSteamUser, authenticateSteamUser, fetchSteamUser, createRelyingParty, createRefreshToken } from "@/util/ServerFunctions";
-import { findOrCreateUser } from "@/util/DatabaseFunctions";
+import {
+	instanceOfSteamUser,
+	authenticateSteamUser,
+	fetchSteamUser,
+	createRelyingParty,
+	createRefreshToken,
+} from "@/util/ServerFunctions";
+import { findOrCreateUserFromSteam } from "@/util/DatabaseFunctions";
 
 // return URI from Steam
 export async function GET(req: NextRequest) {
@@ -28,17 +34,22 @@ export async function GET(req: NextRequest) {
 		});
 	}
 
-	const [_, user] = await findOrCreateUser(steamUser.steamid, steamUser.personaname);
+	const [_, user] = await findOrCreateUserFromSteam(steamUser.steamid, steamUser.personaname);
 	if (!user)
 		return NextResponse.redirect(`${hostUrl as string}/redirect/?context=fetchsteamuser&success=false`, {
 			status: 302,
 		});
 
-	const refreshToken = createRefreshToken(user.userID, steamUser.personaname);
+	const refreshToken = createRefreshToken(user.userID);
+
 	await user.update({
 		displayName: steamUser.personaname,
 		refreshToken: refreshToken,
 	});
+
+	if (user.steamLinked === 0) {
+		await user.update({ steamLinked: 1 });
+	}
 
 	// Send long-lived refresh token as cookie
 	cookies().set("jwt", refreshToken as string, {

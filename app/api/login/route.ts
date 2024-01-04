@@ -3,6 +3,7 @@ import * as bcrypt from "bcrypt";
 import { cookies } from "next/headers";
 import { createAccessToken, createRefreshToken } from "@/util/ServerFunctions";
 import { loginUser } from "@/util/DatabaseFunctions";
+import { TokenResponse } from "@/types/Interfaces";
 
 export async function POST(req: NextRequest) {
 	const { username, email, password } = await req.json();
@@ -22,10 +23,10 @@ export async function POST(req: NextRequest) {
 		}
 
 		// create short-lived access token
-		const accessToken = createAccessToken(user.userID, user.displayName || "");
+		const accessToken = createAccessToken(user.userID);
 
 		// create long-lived refresh token
-		const refreshToken = createRefreshToken(user.userID, user.displayName || "");
+		const refreshToken = createRefreshToken(user.userID);
 
 		// save long-lived refresh token in database
 		await user.update({ refreshToken: refreshToken });
@@ -38,15 +39,13 @@ export async function POST(req: NextRequest) {
 			maxAge: 24 * 60 * 60 * 365 * 5,
 		});
 
+		const jsonData: TokenResponse = {
+			userID: String(user.userID),
+			accessToken: accessToken,
+		};
+
 		// Send short-lived access token as JSON
-		return NextResponse.json(
-			{
-				userID: String(user.userID),
-				displayName: user.displayName,
-				accessToken: accessToken,
-			},
-			{ status: 200 }
-		);
+		return NextResponse.json({ ...jsonData }, { status: 200 });
 	} catch (error) {
 		return NextResponse.json({ message: "Something went wrong." }, { status: 400 });
 	}

@@ -4,13 +4,13 @@ import { useAuthContext } from "@/context/AuthContext";
 import React from "react";
 
 const ProfileSidebar = ({ children }: { children: React.ReactNode }) => {
-	const { auth } = useAuthContext();
+	const { auth, profileInfo } = useAuthContext();
 	return (
 		<>
 			<div className="sidebar-container centered">
 				<div className="sidebar-main">
 					<NavLink href={`/profile/${auth?.userID}`} className="profile-name-text">
-						{auth?.displayName}
+						<p>{profileInfo?.displayName}</p>
 					</NavLink>
 					<ul>
 						<li>
@@ -33,11 +33,13 @@ const ProfileSidebar = ({ children }: { children: React.ReactNode }) => {
 								History
 							</NavLink>
 						</li>
-						<li>
-							<NavLink href={`/steamlink/${auth?.userID}`} className="hover-blue link">
-								Link to Steam
-							</NavLink>
-						</li>
+						{(!profileInfo || (profileInfo && profileInfo.steamLinked)) ? null : (
+							<li>
+								<NavLink href={`/steamlink/${auth?.userID}`} className="hover-blue link">
+									Link to Steam
+								</NavLink>
+							</li>
+						)}
 					</ul>
 				</div>
 			</div>

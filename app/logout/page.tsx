@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 const Logout = () => {
 	const router = useRouter();
-	const { setAuth } = useAuthContext();
+	const { setAuth, setProfileInfo } = useAuthContext();
 
 	useEffect(() => {
 		async function logoutWrapper() {
@@ -13,6 +13,7 @@ const Logout = () => {
 				const response = await fetch("/api/logout");
 				if (response.ok) {
 					setAuth(null);
+					setProfileInfo(null);
 					router.push("/login");
 					router.refresh();
 				}
@@ -21,7 +22,7 @@ const Logout = () => {
 			}
 		}
 		logoutWrapper();
-	}, [router, setAuth]);
+	}, [router, setAuth, setProfileInfo]);
 
 	return null;
 };

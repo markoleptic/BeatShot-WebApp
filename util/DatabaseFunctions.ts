@@ -1,6 +1,8 @@
 import { users, scores } from "@/models";
 import { Op } from "sequelize";
 import { fetchSteamUser } from "@/util/ServerFunctions";
+import bcrypt from "bcrypt";
+import { saltRounds } from "@/types/Interfaces";
 
 export async function findUser(userID: string): Promise<[string, users | null]>;
 export async function findUser(userID: string, email: string): Promise<[string, users | null]>;
@@ -48,13 +50,28 @@ export async function loginUser(username: string, email: string, password: strin
 	return ["", foundUser];
 }
 
-export async function findOrCreateUser(userID: string, displayName: string): Promise<[string, users | null]> {
+export async function createUserFromRegister(queryResults: any, username: string, email: string, password: string) {
+	const hashedPassword = await bcrypt.hash(password, saltRounds);
+	const newUser = await users.create({
+		userID: queryResults[0].nextUserID,
+		username: username,
+		displayName: username,
+		confirmed: 0,
+		steamLinked: 0,
+		email: email,
+		password: hashedPassword,
+	});
+	return newUser;
+}
+
+export async function findOrCreateUserFromSteam(userID: string, displayName: string): Promise<[string, users | null]> {
 	const [user, created] = await users.findOrCreate({
 		where: { userID: userID },
 		defaults: {
 			userID: userID,
 			displayName: displayName,
 			confirmed: 1,
+			steamLinked: 1,
 		},
 	});
 
@@ -73,6 +90,7 @@ export async function findOrCreateUserFromSteamUser(userID: string): Promise<[st
 			userID: userID,
 			displayName: steamUser.personaname,
 			confirmed: 1,
+			steamLinked: 1,
 		},
 	});
 
@@ -84,7 +102,7 @@ export async function findOrCreateUserFromSteamUser(userID: string): Promise<[st
 export async function deleteScoresByCustomGameModeName(userID: string, customGameModeName: string): Promise<number> {
 	const NumRemoved = await scores.destroy({
 		where: {
-			[Op.and]: [{ userID: userID }, {gameModeType: "Custom"}, { customGameModeName: customGameModeName }],
+			[Op.and]: [{ userID: userID }, { gameModeType: "Custom" }, { customGameModeName: customGameModeName }],
 		},
 	});
 	return NumRemoved;

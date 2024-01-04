@@ -15,7 +15,6 @@ export const useRefreshToken = () => {
 				const payload = decodeJwt(data?.accessToken);
 				const authData = {
 					userID: payload.userID,
-					displayName: payload.displayName,
 					accessToken: data.accessToken,
 					iat: payload.iat,
 					exp: payload.exp,

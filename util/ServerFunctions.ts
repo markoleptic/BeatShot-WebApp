@@ -159,26 +159,18 @@ export async function createConfToken(user: users): Promise<string> {
 }
 
 // create long-lived refresh token
-export function createRefreshToken(userID: string, displayName: string): string {
-	const refreshToken = sign(
-		{ userID: String(userID), displayName: displayName },
-		process.env.REFRESH_TOKEN_SECRET as string,
-		{
-			expiresIn: refreshTokenLength,
-		}
-	);
+export function createRefreshToken(userID: string): string {
+	const refreshToken = sign({ userID: String(userID) }, process.env.REFRESH_TOKEN_SECRET as string, {
+		expiresIn: refreshTokenLength,
+	});
 	return refreshToken;
 }
 
 // create short-lived access token, also use displayName so it doesn't need to be queried for separately
-export function createAccessToken(userID: string | bigint, displayName: string): string {
-	const accessToken = sign(
-		{ userID: String(userID), displayName: displayName },
-		process.env.ACCESS_TOKEN_SECRET as string,
-		{
-			expiresIn: accessTokenLength,
-		}
-	);
+export function createAccessToken(userID: string | bigint): string {
+	const accessToken = sign({ userID: String(userID) }, process.env.ACCESS_TOKEN_SECRET as string, {
+		expiresIn: accessTokenLength,
+	});
 	return accessToken;
 }
 

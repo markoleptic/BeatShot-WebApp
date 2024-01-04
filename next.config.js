@@ -32,8 +32,8 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
-				source: "/steamlink",
-				destination: "/api/steamlink",
+				source: "/steamlink/:userID",
+				destination: "/api/steamlink/:userID",
 				permanent: true,
 			},
 			{
