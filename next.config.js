@@ -27,8 +27,8 @@ const nextConfig = {
 				permanent: true,
 			},
 			{
-				source: "/login/steam",
-				destination: "/api/login/steam",
+				source: "/login/steam/:path*",
+				destination: "/api/login/steam/:path*",
 				permanent: true,
 			},
 			{

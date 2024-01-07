@@ -3,7 +3,6 @@ import * as bcrypt from "bcrypt";
 import { cookies } from "next/headers";
 import { createAccessToken, createRefreshToken } from "@/util/ServerFunctions";
 import { loginUser } from "@/util/DatabaseFunctions";
-import { TokenResponse } from "@/types/Interfaces";
 
 export async function POST(req: NextRequest) {
 	const { username, email, password } = await req.json();
@@ -39,9 +38,11 @@ export async function POST(req: NextRequest) {
 			maxAge: 24 * 60 * 60 * 365 * 5,
 		});
 
-		const jsonData: TokenResponse = {
+		// Still need to send display name if logging in in-game w/ username/email
+		const jsonData = {
 			userID: String(user.userID),
 			accessToken: accessToken,
+			displayName: user.displayName,
 		};
 
 		// Send short-lived access token as JSON

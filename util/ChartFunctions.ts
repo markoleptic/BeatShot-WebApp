@@ -43,7 +43,6 @@ export function onChartResize(chart: ChartJSOrUndefined, _: any) {
 		(chart.config.options.scales?.x?.type === "linear" || chart.config.options.scales?.x?.type === "time") &&
 		typeof chart.config.options.scales.x?.title?.font === "object"
 	) {
-		console.log("x.type", chart.config.options.scales.x.type);
 		chart.config.options.scales.x.title.font.size = responsiveFonts("xTitle");
 	}
 	if (

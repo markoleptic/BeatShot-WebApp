@@ -1,4 +1,3 @@
-import { AuthCheck } from "@/components/Auth/AuthCheck";
 import ProfileSidebar from "@/components/Profile/ProfileSidebar";
 import SEO from "@/components/SEO";
 import { PlayerDataProvider } from "@/context/PlayerDataContext";
@@ -14,13 +13,11 @@ export default function Profile({ children }: { children: React.ReactNode }) {
 	return (
 		<>
 			<div className="flex-container-row">
-				<AuthCheck>
-					<PlayerDataProvider>
-						<ProfileSidebar>
-							<div className="flex-container-column gap-1rem padding-1rem-0rem">{children}</div>
-						</ProfileSidebar>
-					</PlayerDataProvider>
-				</AuthCheck>
+				<PlayerDataProvider>
+					<ProfileSidebar>
+						<div className="flex-container-column gap-1rem padding-1rem-0rem">{children}</div>
+					</ProfileSidebar>
+				</PlayerDataProvider>
 			</div>
 		</>
 	);

@@ -62,13 +62,12 @@ const Login = () => {
 			//clear the form if no errors have been caught
 			if (response.status === 200) {
 				const payload = decodeJwt(data?.accessToken);
-				const authData = {
-					userID: payload.userID,
-					displayName: payload.displayName,
+				const authData: AuthData = {
+					userID: data.userID,
 					accessToken: data.accessToken,
-					iat: payload.iat,
-					exp: payload.exp,
-				} as AuthData;
+					iat: payload.iat as number,
+					exp: payload.exp as number,
+				};
 				setAuth(authData);
 				setUsername("");
 				setEmail("");

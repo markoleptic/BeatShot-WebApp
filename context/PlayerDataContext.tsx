@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useRef } from "react";
 import { useRefreshToken } from "@/hooks/useRefreshToken";
 
 export interface Accuracy {
@@ -66,7 +66,11 @@ export const PlayerDataProvider = ({ children }: { children: React.ReactNode }) 
 	const [gameModeTimes, SetGameModeTimes] = useState<GameModeTime[] | null>(null);
 	const refresh = useRefreshToken();
 
+	const initializingPlayerData = useRef(false);
+
 	const initializePlayerData = async () => {
+		if (initializingPlayerData.current) return;
+		initializingPlayerData.current = true;
 		try {
 			const freshAuthData = await refresh();
 			const response = await fetch(`/api/profile/${freshAuthData?.userID}/getscores`, {
@@ -95,11 +99,13 @@ export const PlayerDataProvider = ({ children }: { children: React.ReactNode }) 
 			}
 		} catch (err) {
 			console.log(err);
+		} finally {
+			initializingPlayerData.current = false;
 		}
 	};
 
 	useEffect(() => {
-		initializePlayerData();
+		initializePlayerData()
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

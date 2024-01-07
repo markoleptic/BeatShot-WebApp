@@ -1,5 +1,5 @@
 "use client";
-import React, { createContext, useContext, useState, useEffect } from "react";
+import React, { createContext, useContext, useState, useEffect, useRef } from "react";
 import { AuthData, AuthContextType, ProfileInfo } from "@/types/Interfaces";
 import { useRefreshToken } from "@/hooks/useRefreshToken";
 import { JWTVerifyResult, jwtVerify } from "jose";
@@ -24,6 +24,9 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 	const [persist, setPersist] = useState<boolean>(true);
 	const [isLoading, setIsLoading] = useState<boolean>(true);
 	const refresh = useRefreshToken();
+
+	const initializingAuth = useRef(false);
+	const initializingProfileInfo = useRef(false);
 
 	const isAccessTokenValid = async (auth: AuthData | null): Promise<boolean> => {
 		if (!auth || auth.accessToken || auth.exp < Date.now() / 1000) return false;
@@ -81,11 +84,23 @@ export const AuthProvider = ({ children }: { children: React.ReactNode }) => {
 			}
 		};
 
-		if (!auth || !auth.accessToken || auth.exp < Date.now() / 1000) {
-			initializeAuth();
+		if (!initializingAuth.current) {
+			if (!auth || !auth.accessToken || auth.exp < Date.now() / 1000) {
+				initializingAuth.current = true;
+				initializeAuth().finally(() => {
+					initializingAuth.current = false;
+				});
+			}
 		}
 
-		if (!profileInfo && auth) initializeProfileInfo(auth.userID, auth.accessToken);
+		if (!initializingProfileInfo.current) {
+			if (!profileInfo && auth) {
+				initializingProfileInfo.current = true;
+				initializeProfileInfo(auth.userID, auth.accessToken).finally(() => {
+					initializingProfileInfo.current = false;
+				});
+			}
+		}
 		return () => {
 			// Cleanup
 			setIsLoading(false);

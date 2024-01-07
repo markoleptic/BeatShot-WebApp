@@ -17,7 +17,7 @@ const PatchNotes = () => {
 							>
 								0.6.2
 							</Link>
-							<p className="pn-date">January 3, 2024</p>
+							<p className="pn-date">January 6, 2024</p>
 						</div>
 						<ul>
 							<p className="fs-300"></p>
@@ -37,6 +37,12 @@ const PatchNotes = () => {
 										<FontAwesomeIcon icon={faPlay} />
 										<p>
 											Fixed a bug causing custom game modes to not properly import from a string.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Fixed an issue where simultaneously spawned targets in non-grid modes could spawn intersecting each other.
 										</p>
 									</li>
 								</ul>

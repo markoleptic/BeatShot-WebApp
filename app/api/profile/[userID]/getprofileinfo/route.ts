@@ -23,7 +23,7 @@ export async function GET(req: NextRequest, { params }: UserIDParams) {
 			displayName: foundUser.displayName as string,
 			steamLinked: foundUser.steamLinked,
 		};
-		console.log(info);
+				
 		return NextResponse.json({ ...info }, { status: 200 });
 	} catch (err) {
 		console.log(err);
