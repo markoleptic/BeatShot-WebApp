@@ -148,7 +148,7 @@ const CustomModes = () => {
 				<h2 className="stats-title">Custom Game Modes</h2>
 				{statsSubtitle !== "" ? <h5 className="stats-subtitle">{statsSubtitle}</h5> : <></>}
 			</div>
-			{!data || data.length === 0 ? (
+			{!scores || scores.length === 0 ? (
 				<></>
 			) : (
 				<>

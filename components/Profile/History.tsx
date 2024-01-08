@@ -1,12 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import { DateTime } from "luxon";
-import { usePlayerDataContext, Score  } from "@/context/PlayerDataContext";
+import { usePlayerDataContext, Score } from "@/context/PlayerDataContext";
 
 const ProfileHistory = () => {
 	const { data, deleteScores } = usePlayerDataContext();
 	const [sortedData, setSortedData] = useState<Score[]>([]);
-	const [isLoaded, setIsLoaded] = useState(false);
 	const [statsSubtitle, setStatsSubtitle] = useState<string>("");
 	const [selectedScoreIDs, setSelectedScoreIDs] = useState<number[]>([]);
 	const [lastSelectedScoreID, setLastSelectedScoreID] = useState(-1);
@@ -21,25 +20,49 @@ const ProfileHistory = () => {
 				.sort((a, b) => (a[0] > b[0] ? -1 : a[0] < b[0] ? 1 : 0))
 				.map(([dateTime, score]) => score);
 			setSortedData(values);
-			setIsLoaded(true);
-			if (data && data.length > 0) {
+			if (data.length > 0) {
 				setStatsSubtitle("");
-			} else if (data && data.length === 0) {
+			} else if (data.length === 0) {
 				setStatsSubtitle("No scores yet. Play the game!");
 			}
 		}
 	}, [data]);
 
-	const getData = (): Score[] => {
-		return isLoaded ? sortedData : [];
-	};
+	const getScoreEntryTableRow = (entry: Score | null | undefined) => {
+		if (!entry) return null;
+		const time = DateTime.fromISO(entry.time);
+		if (!time) return null;
 
-	const getCombined = (date: string, name: string, difficulty: string) => {
+		const gameModeName = entry.gameModeType === "Custom" ? entry.customGameModeName : entry.baseGameMode;
+
+		if (gameModeName === undefined || entry.difficulty === undefined) return null;
+
 		return (
-			<td className="combined sticky-col2">
-				<p>{date}</p>
-				<p>{difficulty === "None" ? name : name + " | " + difficulty}</p>
-			</td>
+			<tr key={entry.scoreID}>
+				<td className="sticky-col">
+					<input
+						type="checkbox"
+						onChange={(e) => handleCheckboxChange(e, entry.scoreID)}
+						onKeyUp={(e) => handleCheckboxChange(e, entry.scoreID)}
+						checked={selectedScoreIDs.includes(entry.scoreID)}
+					/>
+				</td>
+				<td className="combined sticky-col2">
+					<p>{time.toFormat("dd LLL yyyy") || ""}</p>
+					<p>{entry.difficulty === "None" ? gameModeName : gameModeName + " | " + entry.difficulty}</p>
+				</td>
+				<td>
+					<div>{entry.songTitle || ""}</div>
+				</td>
+				<td>{Math.round(entry.score) || ""}</td>
+				<td>{Math.round(entry.accuracy * 100) + "%" || ""}</td>
+				<td>{Math.round(entry.completion * 100) + "%" || ""}</td>
+				<td>{entry.streak || ""}</td>
+				<td>{entry.shotsFired || ""}</td>
+				<td>{entry.targetsHit || ""}</td>
+				<td>{entry.targetsSpawned || ""}</td>
+				<td>{Math.round(entry.avgTimeOffset * 1000) / 1000 || ""}</td>
+			</tr>
 		);
 	};
 
@@ -63,7 +86,7 @@ const ProfileHistory = () => {
 		// Select/Deselect all
 		if (scoreID == -1) {
 			if (checked) {
-				const newArray = getData().map((item) => item.scoreID);
+				const newArray = sortedData.map((item) => item.scoreID);
 				setSelectedScoreIDs(newArray);
 			} else {
 				setSelectedScoreIDs([]);
@@ -73,8 +96,8 @@ const ProfileHistory = () => {
 
 		// If shift key is being held and there are previously selected rows
 		if (shiftKey && selectedScoreIDs.length > 0 && lastSelectedScoreID > -1) {
-			let startDataIdx = getData().findIndex((obj) => obj.scoreID === lastSelectedScoreID);
-			let endDataIdx = getData().findIndex((obj) => obj.scoreID === scoreID);
+			let startDataIdx = sortedData.findIndex((obj) => obj.scoreID === lastSelectedScoreID);
+			let endDataIdx = sortedData.findIndex((obj) => obj.scoreID === scoreID);
 
 			if (startDataIdx > endDataIdx) {
 				const temp = startDataIdx;
@@ -82,9 +105,7 @@ const ProfileHistory = () => {
 				endDataIdx = temp;
 			}
 
-			const currentSelection = getData()
-				.slice(startDataIdx, endDataIdx + 1)
-				.map((item) => item.scoreID);
+			const currentSelection = sortedData.slice(startDataIdx, endDataIdx + 1).map((item) => item.scoreID);
 
 			const newSelection = checked
 				? Array.from(new Set([...selectedScoreIDs, ...currentSelection]))
@@ -124,9 +145,7 @@ const ProfileHistory = () => {
 				<h2 className="stats-title">History</h2>
 				{statsSubtitle !== "" ? <h5 className="stats-subtitle">{statsSubtitle}</h5> : <></>}
 			</div>
-			{!data || data.length === 0 ? (
-				<></>
-			) : (
+			{!sortedData || sortedData.length === 0 ? null : (
 				<div className="content-main">
 					<div className="table-wrapper">
 						<div className="table-container">
@@ -153,40 +172,7 @@ const ProfileHistory = () => {
 										<th>Avg Time Offset</th>
 									</tr>
 								</thead>
-								<tbody>
-									{getData().map((obj: Score) => {
-										return (
-											<tr key={obj.scoreID}>
-												<td className="sticky-col">
-													<input
-														type="checkbox"
-														onChange={(e) => handleCheckboxChange(e, obj.scoreID)}
-														onKeyUp={(e) => handleCheckboxChange(e, obj.scoreID)}
-														checked={selectedScoreIDs.includes(obj.scoreID)}
-													/>
-												</td>
-												{getCombined(
-													DateTime.fromISO(obj.time).toFormat("dd LLL yyyy") || "",
-													(obj.gameModeType === "Custom"
-														? obj.customGameModeName
-														: obj.baseGameMode) || "",
-													obj.difficulty || ""
-												)}
-												<td>
-													<div>{obj.songTitle || ""}</div>
-												</td>
-												<td>{Math.round(obj.score) || ""}</td>
-												<td>{Math.round(obj.accuracy * 100) + "%" || ""}</td>
-												<td>{Math.round(obj.completion * 100) + "%" || ""}</td>
-												<td>{obj.streak || ""}</td>
-												<td>{obj.shotsFired || ""}</td>
-												<td>{obj.targetsHit || ""}</td>
-												<td>{obj.targetsSpawned || ""}</td>
-												<td>{Math.round(obj.avgTimeOffset * 1000) / 1000 || ""}</td>
-											</tr>
-										);
-									})}
-								</tbody>
+								<tbody>{sortedData.map((obj: Score) => getScoreEntryTableRow(obj))}</tbody>
 							</table>
 						</div>
 						<div className="delete-score-container">

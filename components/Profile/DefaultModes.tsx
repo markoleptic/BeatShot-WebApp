@@ -173,7 +173,7 @@ const DefaultModes = () => {
 				<h2 className="stats-title">Default Game Modes</h2>
 				<h5 className="stats-subtitle">{statsSubtitle}</h5>
 			</div>
-			{!data || data.length === 0 ? (
+			{!scores || scores.length === 0 ? (
 				<></>
 			) : (
 				<>

@@ -9,14 +9,14 @@ const checkInvalidNum = (number: number | string): string => {
 };
 
 const isDefaultGameMode = (scoreInst: Score): boolean => {
-	if (scoreInst.gameModeType === "Preset" && scoreInst.customGameModeName === "") {
+	if (scoreInst.gameModeType === "Preset" && scoreInst.customGameModeName === "" && scoreInst.difficulty !== "None") {
 		return true;
 	}
 	return false;
 };
 
 const isCustomGameMode = (scoreInst: Score): boolean => {
-	if (scoreInst.gameModeType === "Custom" && scoreInst.customGameModeName !== "") {
+	if (scoreInst.gameModeType === "Custom" && scoreInst.customGameModeName !== "" && scoreInst.difficulty === "None") {
 		return true;
 	}
 	return false;
@@ -111,8 +111,8 @@ export const getMatchingSongOptions = async (
 	let matchingSongTitles: LabelValue[] = [];
 	for (const scoreInst of scores) {
 		if (
-			(bCustom && scoreInst.customGameModeName === newSelectedGameMode) ||
-			(!bCustom && scoreInst.baseGameMode === newSelectedGameMode)
+			(bCustom && isCustomGameMode(scoreInst) && scoreInst.customGameModeName === newSelectedGameMode) ||
+			(!bCustom && isDefaultGameMode(scoreInst) && scoreInst.baseGameMode === newSelectedGameMode)
 		) {
 			if (matchingSongTitles.length === 0) {
 				matchingSongTitles.push({

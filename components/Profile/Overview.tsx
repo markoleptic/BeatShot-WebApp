@@ -20,8 +20,8 @@ const ProfileOverview = () => {
 	const [timePlayedHeatmap, setTimePlayedHeatmap] = useState<HeatMapCalendar[]>([]);
 	const [defaultGameModeTimes, setDefaultGameModeTimes] = useState<GameModeTimeShort[]>([]);
 	const [customGameModeTimes, setCustomGameModeTimes] = useState<GameModeTimeShort[]>([]);
-	const [mostPlayedGameMode, setMostPlayedGameMode] = useState<string>();
-	const [mostPlayedCustomGameMode, setMostPlayedCustomGameMode] = useState<string>();
+	const [mostPlayedGameMode, setMostPlayedGameMode] = useState<string>("None");
+	const [mostPlayedCustomGameMode, setMostPlayedCustomGameMode] = useState<string>("None");
 	const [mostPlayedGameModeHours, setMostPlayedGameModeHours] = useState<number>(0);
 	const [mostPlayedCustomGameModeHours, setMostPlayedCustomGameModeHours] = useState<number>(0);
 	const [statsSubtitle, setStatsSubtitle] = useState<string>("");
@@ -78,7 +78,7 @@ const ProfileOverview = () => {
 		if (data) {
 			initHeatmap(data);
 		}
-	// eslint-disable-next-line react-hooks/exhaustive-deps
+		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, [data]);
 
 	// sets the data for the heatmapLabels & timePlayedHeatmap
@@ -146,9 +146,7 @@ const ProfileOverview = () => {
 				<h2 className="stats-title">Overview</h2>
 				{statsSubtitle !== "" ? <h5 className="stats-subtitle">{statsSubtitle}</h5> : <></>}
 			</div>
-			{!data || data.length === 0 ? (
-				<></>
-			) : (
+			{!data || data.length === 0 ? null : (
 				<>
 					<div className="time-statistics-container">
 						<ul className="best-list">
@@ -157,23 +155,34 @@ const ProfileOverview = () => {
 							</li>
 							<li className="table-row">
 								<div className="col col-1">Total Time in any Game Mode:</div>
-								<div className="col col-2  text-light fw-semibold">{totalTimePlayed || "0"}&nbsp;hrs</div>
+								<div className="col col-2  text-light fw-semibold">
+									{totalTimePlayed || "0"}&nbsp;hrs
+								</div>
 							</li>
 							<li className="table-row">
 								<div className="col col-1">Most Played Default Mode:</div>
 								<div className="col col-2 text-light fw-semibold">{mostPlayedGameMode}</div>
 							</li>
 							<li className="table-row">
-								<div className="col col-1">Time for <p className="inline text-light fw-semibold">{mostPlayedGameMode}</p>:</div>
-								<div className="col col-2 text-light fw-semibold">{mostPlayedGameModeHours || "0"}&nbsp;hrs</div>
+								<div className="col col-1">
+									Time for <p className="inline text-light fw-semibold">{mostPlayedGameMode}</p>:
+								</div>
+								<div className="col col-2 text-light fw-semibold">
+									{mostPlayedGameModeHours || "0"}&nbsp;hrs
+								</div>
 							</li>
 							<li className="table-row">
 								<div className="col col-1">Most Played Custom Mode:</div>
 								<div className="col col-2 text-light fw-semibold">{mostPlayedCustomGameMode}</div>
 							</li>
 							<li className="table-row">
-								<div className="col col-1">Time for <p className="inline text-light fw-semibold">{mostPlayedCustomGameMode}</p>:</div>
-								<div className="col col-2 text-light fw-semibold">{mostPlayedCustomGameModeHours || "0"}&nbsp;hrs</div>
+								<div className="col col-1">
+									Time for <p className="inline text-light fw-semibold">{mostPlayedCustomGameMode}</p>
+									:
+								</div>
+								<div className="col col-2 text-light fw-semibold">
+									{mostPlayedCustomGameModeHours || "0"}&nbsp;hrs
+								</div>
 							</li>
 						</ul>
 					</div>
