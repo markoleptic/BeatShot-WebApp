@@ -13,11 +13,11 @@ const PatchNotes = () => {
 						<div className="pn-version-date">
 							<Link
 								className="link hover-blue fw-semibold pn-version-number"
-								href="https://store.steampowered.com/news/app/2126580/view/3906374309649174897?utm_source=beatshotwebsite&utm_medium=web"
+								href="https://store.steampowered.com/news/app/2126580/view/6770665671979434745?utm_source=beatshotwebsite&utm_medium=web"
 							>
 								0.6.2
 							</Link>
-							<p className="pn-date">January 6, 2024</p>
+							<p className="pn-date">January 12, 2024</p>
 						</div>
 						<ul>
 							<p className="fs-300"></p>
@@ -25,6 +25,13 @@ const PatchNotes = () => {
 								<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
 								<p className="fs-300">Bug Fixes</p>
 								<ul>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											The &#34;Bordering&#34; Spawn Selection custom game mode option now works as
+											intended.
+										</p>
+									</li>
 									<li>
 										<FontAwesomeIcon icon={faPlay} />
 										<p>
@@ -42,7 +49,53 @@ const PatchNotes = () => {
 									<li>
 										<FontAwesomeIcon icon={faPlay} />
 										<p>
-											Fixed an issue where simultaneously spawned targets in non-grid modes could spawn intersecting each other.
+											Fixed a bug where game modes similar to BeatGrid with reinforcement learning
+											enabled could get stuck without activating any targets.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Fixed a bug where spawning or activation could be skipped if a higher
+											priority setting failed.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Fixed a bug causing the audio analyzer threshold settings to not allow the
+											intended selection range.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Fixed an issue where multiple targets being spawned at the same time in
+											non-grid modes could spawn intersecting each other.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Fixed an issue where a black screen would briefly appear during a loading
+											screen.
+										</p>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+								<p className="fs-300">Steam</p>
+								<ul>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>Added achievement icons for all achievements.</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Added achievement progress notifications for game mode achievements
+											requiring greater than 5 playthroughs.
 										</p>
 									</li>
 								</ul>
@@ -54,20 +107,78 @@ const PatchNotes = () => {
 									<li>
 										<FontAwesomeIcon icon={faPlay} />
 										<p>
-											Added an option to filter by date range for all default and custom mode
-											charts.
+											Increased the maximum number of modes visible on the time played bar charts.
 										</p>
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faPlay} />
 										<p>
-											Added an option to delete score entries from the database to the history
-											page.
+											Added the option to filter by date range for all default and custom mode
+											charts.
 										</p>
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faPlay} />
-										<p>Changed the appearance of various elements of all charts.</p>
+										<p>Added the option to delete score entries from the history page.</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Fixed an issue where the location accuracy heat map was not visible in the
+											in-game web browser.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Fixed an issue where an invalid row could appear on the history page in the
+											in-game web browser.
+										</p>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+								<p className="fs-300">Miscellaneous</p>
+								<ul>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>Updated game mode descriptions.</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Changed the &#34;Targets Spawned&#34; PlayerHUD stat to &#34;Targets
+											Activated&#34;.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											The feedback widget no longer clears feedback upon an unsuccessful http
+											request.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Saving scores to the database now happens asynchronously, so unsuccessful
+											http requests should no longer cause problems.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											The game will postpone exiting to the desktop until it receives an http
+											response when saving scores from an in-progress game mode.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											The wall menu text now pulses when changing the night mode setting until the
+											time of day transition completes.
+										</p>
 									</li>
 								</ul>
 							</li>
