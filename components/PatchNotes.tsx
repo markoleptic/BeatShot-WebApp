@@ -13,6 +13,42 @@ const PatchNotes = () => {
 						<div className="pn-version-date">
 							<Link
 								className="link hover-blue fw-semibold pn-version-number"
+								href="https://store.steampowered.com/news/app/2126580/view/6770665671992274327?utm_source=beatshotwebsite&utm_medium=web"
+							>
+								0.6.3
+							</Link>
+							<p className="pn-date">January 16, 2024</p>
+						</div>
+						<ul>
+							<p className="fs-300"></p>
+							<li>
+								<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+								<p className="fs-300">Bug Fixes</p>
+								<ul>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Fixed an issue where multiple targets being spawned at the same time in
+											non-grid modes could spawn intersecting each other. (again...)
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Fixed an issue where the &#34;Spawn Every Other Target In Center&#34;
+											setting was not functioning properly.
+										</p>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div className="centered-bordered-container-1000">
+					<div className="pn-container">
+						<div className="pn-version-date">
+							<Link
+								className="link hover-blue fw-semibold pn-version-number"
 								href="https://store.steampowered.com/news/app/2126580/view/6770665671979434745?utm_source=beatshotwebsite&utm_medium=web"
 							>
 								0.6.2
