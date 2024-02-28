@@ -1139,6 +1139,7 @@ form {
 .pn-container {
 	font-size: var(--fs-200);
 	font-family: var(--ff-readable);
+	width: 100%;
 }
 
 /* each li has text and icon, make inline */

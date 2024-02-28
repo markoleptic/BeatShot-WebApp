@@ -13,6 +13,208 @@ const PatchNotes = () => {
 						<div className="pn-version-date">
 							<Link
 								className="link hover-blue fw-semibold pn-version-number"
+								href="https://store.steampowered.com/news/app/2126580/view/4143945532190357680?utm_source=beatshotwebsite&utm_medium=web"
+							>
+								0.7.0
+							</Link>
+							<p className="pn-date">February 27, 2024</p>
+						</div>
+						<ul>
+							<p className="fs-300"></p>
+							<li>
+								<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+								<p className="fs-300">General</p>
+								<ul>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Added a new full body skeletal mesh to the character (you can see your legs
+											now).
+										</p>
+									</li>
+
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>Added new character and weapon animations.</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>Adjusted the weapon viewmodel.</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Added a versioning system to custom game modes to help prevent breaking
+											existing custom game modes when changes are made.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>Improved save and load performance.</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>Updated the FAQ page and increased the font size.</p>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+								<p className="fs-300">Bug Fixes</p>
+								<ul>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Fixed an issue where the Post Game Mode Menu was not correctly loading a
+											newly selected game mode.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Fixed an issue where the QTable was not correctly saving in game modes with
+											reinforcement learning enabled.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Fixed an issue where the ClusterBeat game mode at Death difficulty had
+											invalid target spacing.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Fixed an issue where unrelated settings in the custom game mode editor could
+											change the Target Distribution setting.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Fixed an issue where targets could spawn without activating even when Allow
+											Spawn Without Activation was false.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											The Headshot Height Only Target Distribution now functions correctly (not
+											sure when it broke tbh).
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											The game mode preview in Creator View no longer frequently resizes the
+											widget frame when targets are close to the top.
+										</p>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+								<p className="fs-300">Game Modes</p>
+								<ul>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>Reworked Dynamic Spread</p>
+										<ul>
+											<li>
+												<FontAwesomeIcon icon={faPlay} />
+												<p>Removed the Spread Scaling and Directions to Change settings.</p>
+											</li>
+											<li>
+												<FontAwesomeIcon icon={faPlay} />
+												<p>
+													Each spread setting (Horizontal, Vertical, and Forward) now has a
+													checkbox to toggle constant or dynamic spread.
+												</p>
+												<ul>
+													<li>
+														<FontAwesomeIcon icon={faPlay} />
+														<p>
+															If unchecked, sliders for the minimum and maximum spread are
+															shown.
+														</p>
+													</li>
+												</ul>
+											</li>
+											<li>
+												<FontAwesomeIcon icon={faPlay} />
+												<p>
+													The Start Threshold, End Threshold, and Decrement Amount will
+													automatically show or hide based on the spread settings.
+												</p>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>Removed the Persistent Deactivation and Destruction conditions.</p>
+										<ul>
+											<li>
+												<FontAwesomeIcon icon={faPlay} />
+												<p>
+													These conditions will be removed from existing custom game modes
+													when the game is launched.
+												</p>
+											</li>
+											<li>
+												<FontAwesomeIcon icon={faPlay} />
+												<p>
+													Setting the Destruction condition to OnHealthReachedZero and the
+													Maximum Target Health to infinite and will mimic the Persistent
+													Destruction condition.
+												</p>
+											</li>
+											<li>
+												<FontAwesomeIcon icon={faPlay} />
+												<p>
+													If an existing custom game mode has the Persistent Destruction
+													condition as the only Destruction condition, it will be replaced
+													with OnHealthReachedZero, and Maximum Target Health set to infinite.
+												</p>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											The Headshot Height Only Target Distribution now forces the vertical spread
+											to be constant at 50 (which cannot be manually chosen).
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Custom game mode settings that are disabled or locked to a certain value
+											will now show a tooltip indicating what is causing their behavior.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>Slightly lowered the minimum allowed spread values.</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>Modified BeatGrid game modes to conform to setting changes.</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>Renamed some custom game mode setting categories.</p>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div className="centered-bordered-container-1000">
+					<div className="pn-container">
+						<div className="pn-version-date">
+							<Link
+								className="link hover-blue fw-semibold pn-version-number"
 								href="https://store.steampowered.com/news/app/2126580/view/6770665671992274327?utm_source=beatshotwebsite&utm_medium=web"
 							>
 								0.6.3
@@ -622,7 +824,6 @@ const PatchNotes = () => {
 						</ul>
 					</div>
 				</div>
-
 				<div className="centered-bordered-container-1000">
 					<div className="pn-container">
 						<div className="pn-version-date">
