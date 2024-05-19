@@ -1,4 +1,4 @@
-import { DateTime } from "luxon";
+import { DateTime, WeekdayNumbers } from "luxon";
 import "chartjs-adapter-luxon";
 import {
 	ChartData,
@@ -82,7 +82,7 @@ function heightCallback(ctx: ScriptableContext<"matrix">, _options: AnyObject) {
 }
 
 function yTickCallback(this: Scale<CoreScaleOptions>, tickValue: string | number, _index: number, _ticks: Tick[]) {
-	return DateTime.fromObject({ weekday: tickValue as number }).weekdayShort;
+	return DateTime.fromObject({ weekday: tickValue as WeekdayNumbers }).weekdayShort;
 }
 
 function createColorMap(data: HeatMapCalendar[]): Map<string, colorMapValue> {

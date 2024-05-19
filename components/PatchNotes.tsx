@@ -13,6 +13,128 @@ const PatchNotes = () => {
 						<div className="pn-version-date">
 							<Link
 								className="link hover-blue fw-semibold pn-version-number"
+								href="https://store.steampowered.com/news/app/2126580/view/6181831424325133094?utm_source=beatshotwebsite&utm_medium=web"
+							>
+								0.7.1
+							</Link>
+							<p className="pn-date">May 19, 2024</p>
+						</div>
+						<ul>
+							<p className="fs-300"></p>
+							<li>
+								<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+								<p className="fs-300">Audio</p>
+								<ul>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>Overhauled the audio system.</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>Added footstep sounds.</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>Updated the Audio Format pop-up window</p>
+										<ul>
+											<li>
+												<FontAwesomeIcon icon={faPlay} />
+												<p>
+													Removed the Output Device option. This has been moved to the Video
+													and Sound Settings menu.
+												</p>
+											</li>
+											<li>
+												<FontAwesomeIcon icon={faPlay} />
+												<p>
+													When selecting a previously played song title, the duration
+													information is now automatically filled out.
+												</p>
+											</li>
+											<li>
+												<FontAwesomeIcon icon={faPlay} />
+												<p>
+													Small improvements to interaction with the Previously Played Song
+													Title combo box and the New Song Title text box.
+												</p>
+											</li>
+										</ul>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											The volume from an audio device should be much less quiet than previously.
+										</p>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											The menu music now continues playing during the loading screen at a reduced
+											volume.
+										</p>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+								<p className="fs-300">FAQ</p>
+								<ul>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>Updated the Audio Analyzer section of the FAQ</p>
+										<ul>
+											<li>
+												<FontAwesomeIcon icon={faPlay} />
+												<p>Added information about how to use the Audio Device audio format.</p>
+											</li>
+											<li>
+												<FontAwesomeIcon icon={faPlay} />
+												<p>
+													Added information about the differences between Audio File and Audio
+													Device audio formats.
+												</p>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+							<li>
+								<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+								<p className="fs-300">Settings</p>
+								<ul>
+									<li>
+										<FontAwesomeIcon icon={faPlay} />
+										<p>
+											Moved Video and Sound settings from a save game slot to a .ini file, which
+											is locally stored for each machine.
+										</p>
+										<ul>
+											<li>
+												<FontAwesomeIcon icon={faPlay} />
+												<p>
+													This way, you can have separate video and sound settings for
+													different computers.
+												</p>
+											</li>
+											<li>
+												<FontAwesomeIcon icon={faPlay} />
+												<p>
+													The file is located in
+													C:/Username/AppData/Local/BeatShot/Saved/Config/Windows/GameUserSettings.ini.
+												</p>
+											</li>
+										</ul>
+									</li>
+								</ul>
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div className="centered-bordered-container-1000">
+					<div className="pn-container">
+						<div className="pn-version-date">
+							<Link
+								className="link hover-blue fw-semibold pn-version-number"
 								href="https://store.steampowered.com/news/app/2126580/view/4143945532190357680?utm_source=beatshotwebsite&utm_medium=web"
 							>
 								0.7.0
