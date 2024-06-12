@@ -2,6 +2,7 @@ import Link from "next/link";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSteam } from "@fortawesome/free-brands-svg-icons";
 import React from "react";
+import "@/styles/steam.scss";
 
 export default function SteamSteamPurchaseLink() {
 	return (

@@ -1,0 +1,100 @@
+@import "variables";
+
+.home-top-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: auto;
+	gap: 1rem;
+	width: 100%;
+	max-width: 800px;
+	background-color: $clr-beatshot-darkblue;
+	box-shadow: 0rem 0rem 0.25rem 0rem $clr-beatshot-lightblue;
+	border-radius: 0.25rem;
+	padding: 1rem;
+	font-family: var(--font-roboto);
+	line-height: normal;
+}
+.home-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: auto;
+	gap: 1rem;
+	width: 100%;
+	max-width: 800px;
+	background-color: $clr-beatshot-darkblue;
+	box-shadow: 0rem 0rem 0.25rem 0rem $clr-beatshot-lightblue;
+	border-radius: 0.25rem;
+	padding: 1rem;
+	font-family: var(--font-roboto);
+	font-size: $fs-200;
+	line-height: 1.5em;
+}
+.home-container li > p,
+.home-container li > svg {
+	vertical-align: middle !important;
+	display: inline;
+}
+.home-container ul {
+	display:flex;
+	flex-direction: column;
+	gap: 0.25em;
+}
+.home-container > ul > li {
+	font-size: $fs-200;
+}
+/* top indent/padding */
+.home-container ul li {
+	text-indent: -1em;
+	padding-left: 1.25em;
+	line-height: 1.25em;
+}
+/* 2nd level indent/padding */
+.home-container ul ul li {
+	text-indent: -1em;
+	padding-left: 1.4em;
+}
+/* top level icons */
+.home-container ul svg {
+	color: $clr-beatshot-lightblue;
+	height: auto;
+	width: 0.75em;
+	padding-right: 0.25em;
+}
+/* 2nd level icons */
+.home-container ul ul svg {
+	color: $clr-beatshot-lightblue;
+	height: auto;
+	width: 0.6em;
+	padding-right: 0.25em;
+}
+/* Description p before 1st */
+.home-container > ul > p {
+	padding: 0.25em 0em 0.25em 0em;
+	font-size: $fs-200;
+	line-height: 1.25em;
+	text-indent: 0em;
+}
+/* Description p before 2nd */
+.home-container > ul > li > ul > p {
+	padding: 0.25em 0em 0.25em 0em;
+	font-size: $fs-200;
+	line-height: 1.25em;
+	text-indent: 0em;
+}
+.home-inner-container {
+	padding: 0rem 0.5rem;
+	display: flex;
+	flex-direction: column;
+	gap: 0.5rem;
+}
+.home-container > .home-inner-container:last-of-type {
+	padding-bottom: 0.5rem;
+}
+.home-img {
+	display: flex;
+	align-self: center;
+	max-width: 80%;
+	height: auto;
+}

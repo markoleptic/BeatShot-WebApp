@@ -8,6 +8,7 @@ import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { passwordValidates, usernameValidates, emailValidates } from "@/util/AuthFunctions";
 import Link from "next/link";
 import SteamSignIn from "@/components/SteamSignIn";
+import "@/styles/form.scss";
 
 const Register = () => {
 	// all variables for the form, and the functions that change them

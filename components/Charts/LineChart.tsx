@@ -23,6 +23,7 @@ import {
 	Tick,
 } from "chart.js";
 import { AnyObject } from "chartjs-chart-matrix";
+import "@/styles/charts.scss";
 
 ChartJS.register(
 	CategoryScale,

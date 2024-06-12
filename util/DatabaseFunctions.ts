@@ -2,11 +2,11 @@ import { users, scores } from "@/models";
 import { Op } from "sequelize";
 import { fetchSteamUser } from "@/util/ServerFunctions";
 import bcrypt from "bcrypt";
-import { saltRounds } from "@/types/Interfaces";
+
+const saltRounds = 10;
 
 export async function findUser(userID: string): Promise<[string, users | null]>;
 export async function findUser(userID: string, email: string): Promise<[string, users | null]>;
-
 export async function findUser(arg1: string, arg2?: string): Promise<[string, users | null]> {
 	if (arg2 === undefined) {
 		let foundUser = await users.findOne({ where: { userID: arg1 } });

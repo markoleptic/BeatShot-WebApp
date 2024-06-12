@@ -1,6 +1,6 @@
 "use client";
 import React, { ReactNode, useEffect } from "react";
-
+import "@/styles/sidebar.scss"
 interface SidebarProps {
 	children: ReactNode;
 }

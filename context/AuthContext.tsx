@@ -1,6 +1,6 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect, useRef } from "react";
-import { AuthData, AuthContextType, ProfileInfo } from "@/types/Interfaces";
+import type { AuthData, AuthContextType, ProfileInfo } from "@/types/Interfaces";
 import { useRefreshToken } from "@/hooks/useRefreshToken";
 import { JWTVerifyResult, jwtVerify } from "jose";
 

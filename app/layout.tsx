@@ -5,7 +5,8 @@ import { Metadata } from "next";
 import SEO from "@/components/SEO";
 import { Roboto, Roboto_Mono, Montserrat } from "next/font/google";
 import React from "react";
-import "./globals.css";
+import "@/styles/global.scss"
+import "@/styles/utility.scss";
 
 export const metadata: Metadata = SEO({
 	title: "BeatShot",

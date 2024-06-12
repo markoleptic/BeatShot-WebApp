@@ -1,0 +1,32 @@
+@import "variables";
+
+.chart,
+.empty-chart {
+	margin: auto;
+	display: flex;
+	max-width: 750px;
+	max-height: 400px;
+	min-height: 200px;
+	justify-content: center;
+	background-color: $clr-beatshot-darkblue;
+	box-shadow: 0rem 0rem 0.25rem 0rem $clr-beatshot-lightblue;
+	border-radius: 0.25rem;
+	padding: 0.5rem;
+}
+.empty-chart {
+	position: relative;
+}
+.heatmap {
+	max-width: 1000px;
+	max-height: 250px;
+	min-height: 125px;
+}
+.chart-scroll {
+	scroll-margin-top: calc(#{$header-height} + 0.5rem);
+}
+
+@media (max-width: 40em) {
+	.chart {
+		padding: 0.25rem;
+	}
+}

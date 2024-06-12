@@ -18,6 +18,8 @@ import {
 import { DateFilter } from "./DateFilter";
 import { DateTime } from "luxon";
 import { FilteredScore, LabelValue } from "@/types/Interfaces";
+import "@/styles/charts.scss";
+import "@/styles/gameModes.scss";
 
 const DefaultModes = () => {
 	// Select box options

@@ -13,6 +13,7 @@ import {
 } from "chart.js";
 import { responsiveFonts, onChartResize, splitByUpperCase } from "@/util/ChartFunctions";
 import React from "react";
+import "@/styles/charts.scss";
 Chart.register(...registerables);
 
 function getArrayLabels(labels: string[]): string[][] {

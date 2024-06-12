@@ -4,6 +4,7 @@ import { faDiscord, faSteam, faGithub } from "@fortawesome/free-brands-svg-icons
 import Link from "next/link";
 import Image from "next/image";
 import React from "react";
+import "@/styles/footer.scss";
 
 const Footer = () => {
 	return (

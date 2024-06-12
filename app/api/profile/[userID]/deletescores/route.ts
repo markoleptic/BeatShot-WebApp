@@ -3,11 +3,10 @@ import { UserIDParams } from "@/types/Interfaces";
 import { deleteScoresByCustomGameModeName, deleteScoresByScoreID, findUser } from "@/util/DatabaseFunctions";
 
 // secured by access token middleware
-export async function DELETE(req: NextRequest, { params }: UserIDParams) {
-	const userID = params.userID;
+export async function DELETE(req: NextRequest, { params }: { params: UserIDParams }) {
 	const body = await req.json();
 
-	if (!userID) {
+	if (!params) {
 		return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 	}
 
@@ -16,7 +15,7 @@ export async function DELETE(req: NextRequest, { params }: UserIDParams) {
 	}
 
 	try {
-		const [errorMsg, foundUser] = await findUser(userID);
+		const [errorMsg, foundUser] = await findUser(params.userID);
 
 		if (!foundUser) {
 			return NextResponse.json({ message: errorMsg }, { status: 401 });

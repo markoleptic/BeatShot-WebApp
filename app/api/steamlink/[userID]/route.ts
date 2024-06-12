@@ -3,15 +3,13 @@ import { createRelyingParty, getRedirectUrl, createSteamVerifyLinkAccountUrl } f
 import { UserIDParams } from "@/types/Interfaces";
 
 // link steam account endpoint accessed from client, returns redirectURL or error
-export async function GET(req: NextRequest, { params }: UserIDParams) {
+export async function GET(req: NextRequest, { params }: { params: UserIDParams }) {
 	const hostUrl = process.env.NODE_ENV === "production" ? process.env.host_production : process.env.host_development;
-
-	const userID = params.userID;
-	if (!userID) {
+	if (!params) {
 		return NextResponse.redirect(`${hostUrl as string}/redirect/?context=nouserid&success=false`, { status: 302 });
 	}
 
-	const verifyUrl = createSteamVerifyLinkAccountUrl(String(userID));
+	const verifyUrl = createSteamVerifyLinkAccountUrl(String(params.userID));
 	const relyingParty = createRelyingParty(verifyUrl as string);
 
 	const authUrl = await getRedirectUrl(relyingParty);

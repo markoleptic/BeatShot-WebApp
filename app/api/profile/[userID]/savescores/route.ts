@@ -3,12 +3,11 @@ import { users, scores } from "@/models";
 import { UserIDParams } from "@/types/Interfaces";
 
 // secured by access token middleware
-export async function POST(req: NextRequest, { params }: UserIDParams) {
-	const userID = params.userID;
+export async function POST(req: NextRequest, { params }: { params: UserIDParams }) {
 	const newScores = await req.json();
 	let numCreated = 0;
 	const foundUser = await users.findOne({
-		where: { userID: userID },
+		where: { userID: params.userID },
 	});
 
 	if (!foundUser) {

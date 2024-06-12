@@ -1,4 +1,5 @@
 import React from "react";
+import "@/styles/form.scss";
 export default function Loading() {
 	return (
 		<div className="form-container">

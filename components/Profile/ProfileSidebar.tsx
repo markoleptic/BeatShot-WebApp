@@ -2,6 +2,7 @@
 import { NavLink } from "../Navlink";
 import { useAuthContext } from "@/context/AuthContext";
 import React from "react";
+import "@/styles/sidebar.scss"
 
 const ProfileSidebar = ({ children }: { children: React.ReactNode }) => {
 	const { auth, profileInfo } = useAuthContext();

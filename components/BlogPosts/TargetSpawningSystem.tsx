@@ -14,7 +14,8 @@ import image_Hero from "@/public/SpawnMemory_Hero_Cropped.png";
 import image_OverlappingVerts from "@/public/OverlappingVerts.png";
 import image_SpawnMemory_Dynamic_FewRecent from "@/public/SpawnMemory_Dynamic_FewRecent.png";
 import image_SpawnMemory_Dynamic_ManyRecent from "@/public/SpawnMemory_Dynamic_ManyRecent.png";
-
+import "@/styles/article.scss";
+import "@/styles/hero.scss";
 const OnAudioAnalyzerBeat = `void ATargetManager::OnAudioAnalyzerBeat()
 {
     if (!ShouldSpawn) return;

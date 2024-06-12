@@ -16,6 +16,7 @@ import {
 	updateBests,
 } from "@/util/StatFunctions";
 import { LabelValue, FilteredScore } from "@/types/Interfaces";
+import "@/styles/gameModes.scss";
 
 const CustomModes = () => {
 	// Select box options

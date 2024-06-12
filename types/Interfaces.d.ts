@@ -1,47 +1,30 @@
 import { DateTime, WeekdayNumbers } from "luxon";
 
-export const accessTokenLength = "30s";
-export const refreshTokenLength = "1825d";
-export const recoveryTokenLength = "5m";
-export const confirmationTokenLength = "24h";
-export const saltRounds = 10;
+export type TokenParams = {
+	token: string;
+};
 
-export interface TokenInterface {
+export type UserIDParams = {
 	userID: string;
-}
+};
 
-export interface TokenParams {
-	params: {
-		token: string;
-	};
-}
-
-export interface UserIDParams {
-	params: {
-		userID: string;
-	};
-}
-
-export interface NewUserIDParams {
-	nextUserID: string;
-}
-
-export interface TokenResponse {
+export type TokenResponse = {
 	userID: string;
-	accessToken: string;
-}
+	iat: number;
+	exp: number;
+};
 
-export interface ProfileInfo {
+export type ProfileInfo = {
 	displayName: string;
 	steamLinked: number;
-}
+};
 
-export interface AuthData {
+export type AuthData = {
 	userID: string;
 	accessToken: string;
 	iat: number;
 	exp: number;
-}
+};
 
 // this type is the actual type you are holding in state
 export type AuthContextType = {
@@ -55,7 +38,7 @@ export type AuthContextType = {
 	refreshAccessToken: () => Promise<boolean>;
 };
 
-export interface SteamUser {
+export type SteamUser = {
 	steamid: string;
 	communityvisibilitystate: number;
 	profilestate: number;
@@ -73,13 +56,13 @@ export interface SteamUser {
 	personastateflags: number;
 	loccountrycode: string;
 	locstatecode: string;
-}
+};
 
-export interface SteamAuthTicketParams {
+export type SteamAuthTicketParams = {
 	params: {
 		authticket: string;
 	};
-}
+};
 
 export interface SteamAuthTicketResponse {
 	result: string;

@@ -1,5 +1,4 @@
 import { NextResponse, NextRequest } from "next/server";
-import { TokenInterface } from "@/types/Interfaces";
 import { createAccessToken, verifyJWT } from "@/util/ServerFunctions";
 
 // returns a short lived access token from a jwt cookie
@@ -13,17 +12,14 @@ export async function GET(req: NextRequest) {
 
 	try {
 		// verify using refresh token secret
-		const verifyResult = (await verifyJWT(
-			refreshToken.value,
-			process.env.REFRESH_TOKEN_SECRET as string
-		)) as TokenInterface;
+		const userID = await verifyJWT(refreshToken.value, process.env.REFRESH_TOKEN_SECRET as string);
 
-		if (!verifyResult) {
+		if (!userID) {
 			return NextResponse.json({ message: "Failed to verify jwt." }, { status: 401 });
 		}
 
 		// create short-lived access token
-		const accessToken = createAccessToken(verifyResult.userID);
+		const accessToken = createAccessToken(userID);
 
 		// send short-lived access token
 		return NextResponse.json({ accessToken: accessToken }, { status: 200 });

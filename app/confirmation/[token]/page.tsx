@@ -1,8 +1,8 @@
 import Confirmation from "@/components/Auth/Confirmation";
-import { TokenParams } from "@/types/Interfaces";
+import type { TokenParams } from "@/types/Interfaces";
 import React from "react";
 
-const Page = ({ params }: TokenParams) => {
-	return <Confirmation params={params} />;
+const Page = ({ token }: TokenParams) => {
+	return <Confirmation token={token} />;
 };
 export default Page;

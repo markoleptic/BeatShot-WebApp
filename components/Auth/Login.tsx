@@ -9,7 +9,7 @@ import SteamSignIn from "@/components/SteamSignIn";
 import { useAuthContext } from "@/context/AuthContext";
 import { passwordValidates, usernameValidates, emailValidates } from "@/util/AuthFunctions";
 import { AuthData } from "@/types/Interfaces";
-
+import "@/styles/form.scss";
 
 const Login = () => {
 	const { setAuth, setPersist } = useAuthContext();

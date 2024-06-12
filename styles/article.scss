@@ -1,0 +1,206 @@
+@import "variables";
+
+$fs-multiplier: calc(#{$fs-200 * 0.9});
+$padding-calc: calc(#{$fs-multiplier} + 0.25em);
+$text-indent-calc: calc(#{$padding-calc} * -1);
+$padding-calc-wide: calc(#{$fs-multiplier} + 0.75em);
+$text-indent-calc-wide: calc(#{$padding-calc-wide} * -1);
+
+article h2 ~ h4,
+article h3 ~ h4 {
+	font-size: 0.75rem;
+}
+/* Containers */
+.devblog-article {
+	padding: 1rem 0 1rem 0;
+	font-family: var(--font-roboto);
+	gap: 1rem;
+}
+article em {
+	font-weight: 500;
+}
+article div {
+	display: flex;
+	flex-shrink: 1;
+	flex-direction: column;
+	scroll-margin-top: $header-height;
+}
+
+.article-heading {
+	gap: 0.1rem;
+	justify-content: center;
+	align-content: center;
+	margin-top: 0.5rem;
+	margin-bottom: 0.5rem;
+	vertical-align: middle;
+}
+
+.article-heading-content {
+	display: inline-flex;
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-content: center;
+	gap: 0.2em;
+}
+
+/* base spacing used between all elements */
+.article-section,
+.article-subsection,
+.article-subsection-2 {
+	gap: 0.5rem;
+}
+
+/* Header lines */
+.line-top,
+.line-bottom {
+	display: flex;
+	flex-direction: row;
+	background-color: $clr-beatshot-darkgrey;
+}
+.article-section .line-top,
+.article-section .line-bottom {
+	height: 6px;
+}
+.article-subsection .line-top,
+.article-subsection .line-bottom {
+	height: 4px;
+	background-color: rgba($clr-beatshot-darkgrey, 0.75);
+}
+.article-subsection-2 .line-top,
+.article-subsection-2 .line-bottom {
+	height: 2px;
+	background-color: rgba($clr-beatshot-darkgrey, 0.75);
+}
+
+/* Lists */
+article ul {
+	font-size: $fs-200;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	line-height: 1.35;
+}
+article ol {
+	font-size: $fs-200;
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+}
+article ul li {
+	font-size: $fs-200;
+	padding-left: $padding-calc;
+	text-indent: $text-indent-calc;
+	vertical-align: baseline;
+}
+article ul ul > li:first-of-type,
+article ul ul ul > li:first-of-type {
+	padding-top: 0.25rem;
+}
+article ol li {
+	font-size: $fs-200;
+	list-style-type: decimal;
+	list-style-position: inside;
+	padding-left: $padding-calc;
+	text-indent: $text-indent-calc;
+}
+article ol li:nth-child(9) ~ li {
+	font-size: $fs-200;
+	list-style-type: decimal;
+	list-style-position: inside;
+	padding-left: $padding-calc;
+	text-indent: $text-indent-calc;
+}
+article .li-icon {
+	color: $clr-beatshot-lightblue;
+	font-size: $fs-multiplier;
+	width: $fs-multiplier;
+	padding-right: 0.25em;
+}
+article p {
+	font-size: $fs-200;
+	line-height: 1.5;
+	padding: 0;
+	vertical-align: baseline;
+}
+article figure {
+	display: flex;
+	flex-direction: column;
+	align-self: center;
+	max-width: 100%;
+}
+.blueprint {
+	flex-grow: 1;
+	border: none;
+	margin: 0;
+	padding: 0;
+	min-height: 40vh;
+	overflow: hidden;
+}
+.blueprint-container {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	background-color: $clr-sidebar;
+	border-radius: 0.25rem;
+	width: 100%;
+	padding: 0.5rem;
+	overflow: hidden;
+}
+.blueprint-container figcaption {
+	font-size: $fs-100;
+	text-align: center;
+	padding-top: 0.5rem;
+	color: $clr-beatshot-lightgrey;
+}
+.blueprint-container .figlabel {
+	display: inline;
+	line-height: inherit;
+	vertical-align: inherit;
+	font-size: $fs-100;
+	font-weight: 700;
+	color: $clr-beatshot-lightgrey;
+}
+.figure-border-container {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	background-color: $clr-sidebar;
+	border-radius: 0.25rem;
+	margin: auto;
+	width: 100%;
+	padding: 0.5rem;
+}
+article figure img {
+	display: flex;
+	height: auto;
+}
+article figure figcaption {
+	font-size: $fs-100;
+	text-align: center;
+	padding-top: 0.5rem;
+	color: $clr-beatshot-lightgrey;
+}
+article figure .figlabel {
+	display: inline;
+	line-height: inherit;
+	vertical-align: inherit;
+	font-size: $fs-100;
+	font-weight: 700;
+	color: $clr-beatshot-lightgrey;
+}
+article .posted-date {
+	font-size: $fs-200;
+	font-weight: 700;
+	padding: 0;
+}
+article .updated-date {
+	font-size: $fs-200;
+	font-weight: 700;
+	padding: 0;
+}
+
+@media (max-width: 40em) {
+	article {
+		padding: 0 0 1rem 0;
+	}
+}

@@ -17,6 +17,7 @@ import { AnyObject, MatrixController, MatrixElement } from "chartjs-chart-matrix
 import { responsiveFonts, onChartResize, lerp, clamp } from "@/util/ChartFunctions";
 import React from "react";
 import { HeatMapCalendar } from "@/types/Interfaces";
+import "@/styles/charts.scss";
 ChartJS.register(MatrixController, MatrixElement, ...registerables);
 
 const hoverMultiplier = 1.25;

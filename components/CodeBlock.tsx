@@ -1,6 +1,7 @@
 import React from "react";
 import { CodeBlock, dracula } from "react-code-blocks";
 const backGroundColor = "#1E1E1E";
+import "@/styles/codeblock.scss"
 
 const codeBlockStyle = {
 	overflowX: "scroll",
@@ -161,7 +162,7 @@ export const BSInlineFunction: React.FC<{
 		return (
 			<>
 				<span className={`inline-code class`}>{className}</span>
-				<span className="inline-code separator text-white">{"::"}</span>
+				<span className="inline-code separator scope-res-operator-color">{"::"}</span>
 				<span className="inline-code function function-color">{functionName}</span>
 			</>
 		);
@@ -181,7 +182,7 @@ export const BSInlineEnum: React.FC<{
 			<>
 				<span className={`inline-code`}>
 					{className}
-					{<span className="text-white">{"::"}</span>}
+					{<span className="scope-res-operator-color">{"::"}</span>}
 					{<span className="enum-color">{valueName}</span>}
 				</span>
 			</>

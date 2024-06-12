@@ -8,10 +8,10 @@ import { faSquareXmark } from "@fortawesome/free-solid-svg-icons";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { passwordValidates, emailValidates } from "@/util/AuthFunctions";
 import Link from "next/link";
-import { TokenParams } from "@/types/Interfaces";
+import type { TokenParams } from "@/types/Interfaces";
+import "@/styles/form.scss";
 
-const ChangePassword = ({ params }: TokenParams) => {
-	const token = params.token;
+const ChangePassword = ({ token }: TokenParams) => {
 
 	// all variables for the form, and the functions that change them
 	const [password, setPassword] = useState("");

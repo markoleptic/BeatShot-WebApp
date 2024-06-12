@@ -2,6 +2,7 @@
 import React from "react";
 import { BSInlineCodeBlock, BSInlineCodeBlockHeader } from "@/components/CodeBlock";
 import Link from "next/link";
+import "@/styles/codeblock.scss";
 
 const getBaseClassText = (baseClass: string, headingLevel: number) => {
 	if (baseClass.length === 0) {
@@ -102,7 +103,7 @@ const getCodeBlock = (childClass: string, childClassLink: string, childClassColo
 		);
 	}
 	return (
-		<Link className="link inherit-color hover-white" href={childClassLink}>
+		<Link className="link-inline-code-block-header" href={childClassLink}>
 			<BSInlineCodeBlockHeader
 				color={childClassColor}
 				code={childClass}

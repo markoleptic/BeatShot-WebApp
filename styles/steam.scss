@@ -1,0 +1,66 @@
+@import "variables";
+
+.steam-login-container {
+	display: flex;
+	flex-direction: column;
+	margin: 0 auto;
+	width: max-content;
+	font-family: var(--font-montserrat);
+	line-height: normal;
+}
+.steam-login-container:hover {
+	cursor: pointer;
+	color: $clr-beatshot-lightblue;
+	box-shadow: 0rem 0rem 0.25rem 0rem $clr-beatshot-lightblue;
+	border-radius: 0.25rem;
+}
+.steam-login-container-top {
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+	align-items: center;
+	background-color: $clr-beatshot-bluegrey;
+	border-radius: 0.25rem 0.25rem 0 0;
+	padding: 0.25rem 0.75rem;
+	gap: 0.25rem;
+}
+.steam-login-container-bottom {
+	background-color: black;
+	border-radius: 0 0 0.25rem 0.25rem;
+	padding: 0.25rem 0.75rem;
+}
+.steam-login-text {
+	color: inherit;
+	font-weight: 400;
+	font-size: 0.65rem;
+}
+.steam-login-brand-text {
+	display: inline;
+	color: inherit;
+	font-weight: 600;
+	font-size: 1.25rem;
+	vertical-align: text-top;
+}
+.steam-login-tm {
+	display: inline;
+	color: inherit;
+	font-size: 0.4rem;
+	font-weight: 400;
+	vertical-align: super;
+}
+.steam-login-logo {
+	color: inherit !important;
+	height: 1.75rem !important;
+	width: auto !important;
+}
+.steam-login-text-bottom {
+	color: $clr-beatshot-lightgrey;
+	text-align: center;
+	font-size: 0.6rem;
+}
+
+@media (max-width: 40em) {
+	.steam-login-container {
+		width: auto;
+	}
+}

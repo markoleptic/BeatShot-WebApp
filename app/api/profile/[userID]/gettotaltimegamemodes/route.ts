@@ -3,15 +3,13 @@ import { sequelize } from "@/models";
 import { UserIDParams } from "@/types/Interfaces";
 
 // secured by access token middleware
-export async function GET(req: NextRequest, { params }: UserIDParams) {
-	const userID = params.userID;
-
-	if (!userID) {
+export async function GET(req: NextRequest, { params }: { params: UserIDParams }) {
+	if (!params) {
 		return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 	}
 	try {
 		const totalTime = await sequelize.query("CALL GetTotalTimeForGameModes (:p_userID)", {
-			replacements: { p_userID: userID },
+			replacements: { p_userID: params.userID },
 		});
 
 		if (!totalTime) {

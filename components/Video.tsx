@@ -2,6 +2,7 @@
 import React from "react";
 import LiteYouTubeEmbed from "react-lite-youtube-embed";
 import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
+import "@/styles/video.scss";
 
 const Video = () => {
 	return (

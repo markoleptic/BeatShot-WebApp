@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { DateTime } from "luxon";
 import { usePlayerDataContext, Score } from "@/context/PlayerDataContext";
+import "@/styles/history.scss";
 
 const ProfileHistory = () => {
 	const { data, deleteScores } = usePlayerDataContext();

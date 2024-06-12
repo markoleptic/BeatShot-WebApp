@@ -3,17 +3,12 @@ import * as aws from "@aws-sdk/client-ses";
 import nodemailer, { Transporter } from "nodemailer";
 import { users } from "@/models";
 import { sign, verify } from "jsonwebtoken";
-import {
-	SteamUser,
-	AuthResult,
-	SteamAuthTicketResponse,
-	SteamAuthTicketResponseError,
-	recoveryTokenLength,
-	confirmationTokenLength,
-	refreshTokenLength,
-	accessTokenLength,
-	TokenInterface,
-} from "@/types/Interfaces";
+import type { SteamUser, AuthResult, SteamAuthTicketResponse, SteamAuthTicketResponseError, TokenResponse } from "@/types/Interfaces";
+
+const accessTokenLength = "30s";
+const refreshTokenLength = "1825d";
+const recoveryTokenLength = "5m";
+const confirmationTokenLength = "24h";
 
 // creates a relying party for the specific verify Url
 export function createRelyingParty(verifyUrl: string): RelyingParty {
@@ -145,14 +140,14 @@ export async function authenticateUserTicket(authTicket: string) {
 }
 
 export async function createRecoveryToken(user: users): Promise<string> {
-	const recoveryToken = sign({ userID: String(user.userID) }, process.env.RECOV_TOKEN_SECRET as string, {
+	const recoveryToken = sign({userID: user.userID}, process.env.RECOV_TOKEN_SECRET as string, {
 		expiresIn: recoveryTokenLength,
 	});
 	return recoveryToken;
 }
 
 export async function createConfToken(user: users): Promise<string> {
-	const confToken = sign({ userID: String(user.userID) }, process.env.CONF_TOKEN_SECRET as string, {
+	const confToken = sign({userID: user.userID}, process.env.CONF_TOKEN_SECRET as string, {
 		expiresIn: confirmationTokenLength,
 	});
 	return confToken;
@@ -160,7 +155,7 @@ export async function createConfToken(user: users): Promise<string> {
 
 // create long-lived refresh token
 export function createRefreshToken(userID: string): string {
-	const refreshToken = sign({ userID: String(userID) }, process.env.REFRESH_TOKEN_SECRET as string, {
+	const refreshToken = sign({userID: userID as string}, process.env.REFRESH_TOKEN_SECRET as string, {
 		expiresIn: refreshTokenLength,
 	});
 	return refreshToken;
@@ -168,7 +163,7 @@ export function createRefreshToken(userID: string): string {
 
 // create short-lived access token, also use displayName so it doesn't need to be queried for separately
 export function createAccessToken(userID: string | bigint): string {
-	const accessToken = sign({ userID: String(userID) }, process.env.ACCESS_TOKEN_SECRET as string, {
+	const accessToken = sign({userID: userID as string}, process.env.ACCESS_TOKEN_SECRET as string, {
 		expiresIn: accessTokenLength,
 	});
 	return accessToken;
@@ -263,24 +258,16 @@ export function instanceOfAuthResult(object: any): object is AuthResult {
 	return "status" in object && "message" in object;
 }
 
-export function instanceOfTokenInterface(object: any): object is TokenInterface {
-	return "userID" in object;
-}
-
-export async function verifyJWT(token: string, secret: string): Promise<string | TokenInterface> {
-	return new Promise<string | TokenInterface>((resolve, reject) => {
+export async function verifyJWT(token: string, secret: string): Promise<string> {
+	return new Promise<string>((resolve, reject) => {
 		verify(token, secret, async (err, decoded) => {
 			if (err) {
 				return reject(err.message);
 			}
 			if (!decoded) {
 				return reject("Unable to authenticate.");
-			}
-			if (instanceOfTokenInterface(decoded)) {
-				return resolve(decoded as TokenInterface);
-			} else {
-				return resolve(decoded as any);
-			}
+			}			
+			return resolve((decoded as TokenResponse).userID);
 		});
 	});
 }

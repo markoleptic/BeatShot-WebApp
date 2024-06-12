@@ -6,6 +6,7 @@ import StatsPreview from "@/public/Stats_Preview.gif";
 import Image from "next/image";
 import Video from "@/components/Video";
 import SteamSteamPurchaseLink from "@/components/SteamPurchaseLink";
+import "@/styles/home.scss";
 
 const Home = () => {
 	return (
@@ -142,7 +143,7 @@ const Home = () => {
 						</p>
 					</div>
 					<div className="home-inner-container">
-						<Image className="front-page-img" priority src={Timing} quality={100} alt="timing-example" />
+						<Image className="home-img" priority src={Timing} quality={100} alt="timing-example" />
 					</div>
 				</div>
 				<div className="home-container">
@@ -197,7 +198,7 @@ const Home = () => {
 					</div>
 					<div className="home-inner-container">
 						<Image
-							className="front-page-img"
+							className="home-img"
 							priority
 							src={StatsPreview}
 							quality={100}

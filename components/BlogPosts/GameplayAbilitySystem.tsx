@@ -14,7 +14,9 @@ import Sidebar from "../Sidebar";
 import image_Hero from "@/public/GAS_Diagram_Cropped.png";
 import DA_InputConfig from "@/public/DA_InputConfig.png";
 import DA_KnifeAbilitySet from "@/public/DA_KnifeAbilitySet.png";
-
+import "@/styles/article.scss";
+import "@/styles/codeblock.scss";
+import "@/styles/hero.scss";
 const GameplayAbilitySystem = () => {
 	const articlePath = "/devblog/gameplay-ability-system-overview";
 

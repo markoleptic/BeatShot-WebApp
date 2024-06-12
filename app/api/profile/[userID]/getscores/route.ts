@@ -1,17 +1,14 @@
 import { NextResponse, NextRequest } from "next/server";
-import { UserIDParams } from "@/types/Interfaces";
+import type { UserIDParams } from "@/types/Interfaces";
 import { findUser, getScores } from "@/util/DatabaseFunctions";
 
 // secured by access token middleware
-export async function GET(req: NextRequest, { params }: UserIDParams) {
-	const userID = params.userID;
-
-	if (!userID) {
+export async function GET(req: NextRequest, { params }: { params: UserIDParams }) {
+	if (!params) {
 		return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 	}
-
 	try {
-		const [errMsg, foundUser] = await findUser(userID);
+		const [errMsg, foundUser] = await findUser(params.userID);
 
 		if (!foundUser) {
 			return NextResponse.json({ message: "User Not Found" }, { status: 401 });

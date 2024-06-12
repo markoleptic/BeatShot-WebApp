@@ -4,15 +4,57 @@ import Link from "next/link";
 import logo from "@/public/logo.ico";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBars } from "@fortawesome/free-solid-svg-icons";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { useAuthContext } from "@/context/AuthContext";
 import Image from "next/image";
+import "@/styles/navBar.scss";
 
 const NavBar = () => {
 	const [visible, setVisibility] = useState(false);
+	const visibleRef = useRef(visible);
 	const { auth } = useAuthContext();
 	const [profileStateText, setProfileStateText] = useState<string>("Login");
 	const [profileStatePath, setProfileStatePath] = useState<string>("/login");
+	const lastScrollTop = useRef(0);
+	const headerHeight = useRef(60);
+
+	const handleScroll = () => {
+		if (window.innerWidth < 640) {
+			const header = document.querySelector<HTMLElement>(".header-container");
+			if (header) {
+				let currentScroll = window.scrollY || document.documentElement.scrollTop;
+				if (currentScroll > lastScrollTop.current) {
+					// User is scrolling down
+					headerHeight.current -= currentScroll - lastScrollTop.current;
+					if (headerHeight.current < 0) {
+						headerHeight.current = 0;
+					}
+					if (visibleRef.current === true) {
+						setVisibility(false);
+					}
+				} else {
+					// User is scrolling up
+					headerHeight.current += lastScrollTop.current - currentScroll;
+					if (headerHeight.current > 60) {
+						headerHeight.current = 60;
+					}
+				}
+				header.style.top = `-${60 - headerHeight.current}px`;
+				lastScrollTop.current = currentScroll <= 0 ? 0 : currentScroll;
+			}
+		}
+	};
+
+	useEffect(() => {
+		visibleRef.current = visible;
+	}, [visible]);
+
+	useEffect(() => {
+		window.addEventListener("scroll", handleScroll);
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
 
 	useEffect(() => {
 		const signedIn = auth?.userID && auth?.accessToken;
@@ -23,8 +65,8 @@ const NavBar = () => {
 	return (
 		<div className="header-container">
 			<header>
-				<Link className="link" href="/">
-					<Image className="logo" src={logo} alt="logo" />
+				<Link className="link" href="/" onClick={() => setVisibility(false)}>
+					<Image className="header-logo" src={logo} alt="logo" />
 				</Link>
 				<div className="mobile-nav-toggle-background">
 					<FontAwesomeIcon
@@ -37,7 +79,7 @@ const NavBar = () => {
 					></FontAwesomeIcon>
 				</div>
 				<nav>
-					<ul id="primary-navigation" className="primary-navigation flex fs-300" data-visible={visible}>
+					<ul id="primary-navigation" className="primary-navigation" data-visible={visible}>
 						<li className="uppercase">
 							<NavLink href="/devblog" className="hover-blue link" onClick={() => setVisibility(false)}>
 								Dev Blog

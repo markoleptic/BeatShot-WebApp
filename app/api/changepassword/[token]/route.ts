@@ -1,13 +1,15 @@
 import { NextResponse, NextRequest } from "next/server";
 import bcrypt from "bcrypt";
 import { findUser } from "@/util/DatabaseFunctions";
-import { TokenParams, TokenInterface, saltRounds } from "@/types/Interfaces";
 import { verifyJWT } from "@/util/ServerFunctions";
+import type { TokenParams } from "@/types/Interfaces";
 
-export async function POST(req: NextRequest, { params }: TokenParams) {
+const saltRounds = 10;
+
+export async function POST(req: NextRequest, { params }: { params: TokenParams }) {
 	const { email, password } = await req.json();
 	try {
-		const { userID } = (await verifyJWT(params.token, process.env.RECOV_TOKEN_SECRET as string)) as TokenInterface;
+		const userID = await verifyJWT(params.token, process.env.RECOV_TOKEN_SECRET as string);
 
 		const [errMsg, foundUser] = await findUser(userID, email);
 		if (!foundUser) {

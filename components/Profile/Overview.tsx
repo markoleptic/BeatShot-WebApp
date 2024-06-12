@@ -5,6 +5,7 @@ import { DateTime } from "luxon";
 import BarChart from "@/components/Charts/BarChart";
 import Heatmap from "@/components/Charts/HeatMap";
 import { HeatMapCalendar } from "@/types/Interfaces";
+import "@/styles/gameModes.scss";
 
 const maxDefaultModesToShow = 8;
 const maxCustomModesToShow = 8;

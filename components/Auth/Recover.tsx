@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faInfoCircle } from "@fortawesome/free-solid-svg-icons";
 import { emailValidates } from "@/util/AuthFunctions";
 import Link from "next/link";
+import "@/styles/form.scss";
 
 const Recover = () => {
 	// all variables for the form, and the functions that change them
@@ -120,7 +121,7 @@ const Recover = () => {
 						</div>
 						<button
 							disabled={!validEmail ? true : false}
-							className="button-recover margin-top-05rem"
+							className="button-recover"
 							onClick={onSendPasswordRecoveryLinkClicked}
 						>
 							Send Password Recovery Link
@@ -133,7 +134,7 @@ const Recover = () => {
 							Resend Email Confirmation Link
 						</button>
 						<Link
-							className="link text-center text-white hover-blue fs-100 margin-top-05rem"
+							className="text-center fs-100 margin-top-05rem"
 							href="/register"
 						>
 							Don&#39;t have an account?
