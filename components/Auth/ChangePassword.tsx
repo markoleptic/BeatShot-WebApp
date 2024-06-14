@@ -11,8 +11,8 @@ import Link from "next/link";
 import type { TokenParams } from "@/types/Interfaces";
 import "@/styles/form.scss";
 
-const ChangePassword = ({ token }: TokenParams) => {
-
+const ChangePassword = ({ params }: { params: TokenParams }) => {
+console.log(params);
 	// all variables for the form, and the functions that change them
 	const [password, setPassword] = useState("");
 	const [validPassword, setValidPassword] = useState(false);
@@ -51,7 +51,8 @@ const ChangePassword = ({ token }: TokenParams) => {
 	const onNewPasswordSubmitted = async (e: React.FormEvent<HTMLFormElement>) => {
 		e.preventDefault();
 		try {
-			const response = await fetch(`/api/changepassword/${token}`, {
+			console.log(params.token);
+			const response = await fetch(`/api/changepassword/${params.token}`, {
 				body: JSON.stringify({ email: email, password: password }),
 				headers: { "Content-Type": "application/json" },
 				credentials: "same-origin",

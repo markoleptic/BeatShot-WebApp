@@ -4,14 +4,14 @@ import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { TokenParams } from "@/types/Interfaces";
 
-const Page = ({ token }: TokenParams) => {
+const Page = ({ params }: { params: TokenParams }) => {
 	const [confirmationResult, setConfirmationResult] = useState("Waiting for response...");
 	const [buttonText, setButtonText] = useState("");
 	const [buttonHref, setButtonHref] = useState(``);
 	const [redirectClassName, setRedirectClassName] = useState("fs-200 text-lightgrey offscreen");
 	const navigate = useRouter();
-	const sendRequest = async ({ token }: TokenParams) => {
-		const response = await fetch(`/api/confirmation/${token}`, {
+	const sendRequest = async ({ params }: { params: TokenParams }) => {
+		const response = await fetch(`/api/confirmation/${params.token}`, {
 			method: "GET",
 		});
 		const data = await response.json();
@@ -32,9 +32,9 @@ const Page = ({ token }: TokenParams) => {
 		}
 	};
 	useEffect(() => {
-		sendRequest({ token });
+		sendRequest({ params });
 		// eslint-disable-next-line react-hooks/exhaustive-deps
-	}, [token]);
+	}, [params]);
 
 	return (
 		<>
