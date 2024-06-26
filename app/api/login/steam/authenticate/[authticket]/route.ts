@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { authenticateUserTicket, createRefreshToken } from "@/util/ServerFunctions";
-import { SteamAuthTicketParams, SteamAuthTicketResponse } from "@/types/Interfaces";
+import type { SteamAuthTicketParams, SteamAuthTicketResponse } from "@/types/steam.types";
 import { cookies } from "next/headers";
 import { findOrCreateUserFromSteamUser } from "@/util/DatabaseFunctions";
 

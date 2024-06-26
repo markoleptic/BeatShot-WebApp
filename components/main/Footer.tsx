@@ -1,4 +1,4 @@
-import logo from "../../public/logo.ico";
+import logo from "@public/logo.ico";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord, faSteam, faGithub } from "@fortawesome/free-brands-svg-icons";
 import Link from "next/link";

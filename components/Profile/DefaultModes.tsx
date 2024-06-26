@@ -1,9 +1,9 @@
 "use client";
 import React, { useState, useEffect, useCallback, useMemo } from "react";
-import LineChart from "@/components/Charts/LineChart";
+import LineChart from "@/components/charts/LineChart";
 import SelectBox from "@/components/SelectBox";
-import { Score, usePlayerDataContext } from "@/context/PlayerDataContext";
-import LocationAccuracyHeatmap from "@/components/Charts/LocationAccuracyMap";
+import { usePlayerDataContext } from "@/context/PlayerDataContext";
+import LocationAccuracyHeatmap from "@/components/charts/LocationAccuracyMap";
 import {
 	getGameModes,
 	getScores,
@@ -15,9 +15,11 @@ import {
 	updateBests,
 	updateAvgs,
 } from "@/util/StatFunctions";
-import { DateFilter } from "./DateFilter";
+import { DateFilter } from "@/components/profile/DateFilter";
 import { DateTime } from "luxon";
-import { FilteredScore, LabelValue } from "@/types/Interfaces";
+import type { LabelValue } from "@/types/chart.types";
+import type { FilteredScore } from "@/types/profile.types";
+import type { Score } from "@/types/score.types";
 import "@/styles/charts.scss";
 import "@/styles/gameModes.scss";
 

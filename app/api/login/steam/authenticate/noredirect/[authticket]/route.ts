@@ -1,8 +1,8 @@
 import { NextResponse, NextRequest } from "next/server";
 import { authenticateUserTicket, createRefreshToken } from "@/util/ServerFunctions";
-import { SteamAuthTicketParams, SteamAuthTicketResponse, SteamAuthTicketResponseError } from "@/types/Interfaces";
 import { cookies } from "next/headers";
 import { findOrCreateUserFromSteamUser } from "@/util/DatabaseFunctions";
+import type { SteamAuthTicketParams, SteamAuthTicketResponse, SteamAuthTicketResponseError } from "@/types/steam.types";
 
 // client in game sends session ticket to this endpoint for verification
 export async function GET(req: NextRequest, { params }: SteamAuthTicketParams) {

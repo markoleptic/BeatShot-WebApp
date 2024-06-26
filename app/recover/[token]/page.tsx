@@ -1,5 +1,5 @@
-import ChangePassword from "@/components/Auth/ChangePassword";
-import type { TokenParams } from "@/types/Interfaces";
+import ChangePassword from "@/components/auth/ChangePassword";
+import type { TokenParams } from "@/types/auth.types";
 import React from "react";
 
 const Page = ({ params }: { params: TokenParams }) => {

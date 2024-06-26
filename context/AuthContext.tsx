@@ -1,8 +1,9 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect, useRef } from "react";
-import type { AuthData, AuthContextType, ProfileInfo } from "@/types/Interfaces";
 import { useRefreshToken } from "@/hooks/useRefreshToken";
 import { JWTVerifyResult, jwtVerify } from "jose";
+import type { AuthData, AuthContextType } from "@/types/auth.types";
+import type { ProfileInfo } from "@/types/profile.types";
 
 const AuthContext = createContext<AuthContextType | null>(null);
 const secret = new TextEncoder().encode(process.env.ACCESS_TOKEN_SECRET);

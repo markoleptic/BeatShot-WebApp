@@ -1,6 +1,7 @@
 import { DateTime } from "luxon";
-import { Score } from "@/context/PlayerDataContext";
-import { FilteredScore, LabelValue } from "@/types/Interfaces";
+import type { Score } from "@/types/score.types";
+import type { LabelValue } from "@/types/chart.types";
+import type { FilteredScore } from "@/types/profile.types";
 
 const checkInvalidNum = (number: number | string): string => {
 	const numberNumber = number as number;
@@ -80,7 +81,7 @@ export const getScores = async (
 							y: rowIndex,
 							v: accuracyValue,
 						}))
-					)
+				  )
 				: [];
 
 			scoreMap.set(scoreInst.time, {

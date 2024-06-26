@@ -1,5 +1,5 @@
-import Confirmation from "@/components/Auth/Confirmation";
-import type { TokenParams } from "@/types/Interfaces";
+import Confirmation from "@/components/auth/Confirmation";
+import type { TokenParams } from "@/types/auth.types";
 import React from "react";
 
 const Page = ({ params }: { params: TokenParams }) => {

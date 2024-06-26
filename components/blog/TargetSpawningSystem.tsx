@@ -1,12 +1,12 @@
 "use client";
 
-import React,{ useRef } from "react";
+import React, { useRef } from "react";
 import useOnScreen from "@/hooks/useScreenObserver";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SidebarHashLink } from "@/components/SidebarHashLink";
-import { BSCodeBlock, BSInlineCodeBlock, BSInlineEnum, BSInlineFunction } from "../CodeBlock";
-import { BlogHeading, BlogHeadingClass } from "./BlogComponents/BlogHeading";
+import { BSCodeBlock, BSInlineCodeBlock, BSInlineEnum, BSInlineFunction } from "@/components/CodeBlock";
+import { BlogHeading, BlogHeadingClass } from "@/components/blog/BlogHeading";
 import Sidebar from "@/components/Sidebar";
 import Image from "next/image";
 import image_BoxBounds from "@/public/BoxBounds.png";

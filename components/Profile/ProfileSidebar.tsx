@@ -1,8 +1,8 @@
 "use client";
-import { NavLink } from "../Navlink";
+import { NavLink } from "@/components/Navlink";
 import { useAuthContext } from "@/context/AuthContext";
 import React from "react";
-import "@/styles/sidebar.scss"
+import "@/styles/sidebar.scss";
 
 const ProfileSidebar = ({ children }: { children: React.ReactNode }) => {
 	const { auth, profileInfo } = useAuthContext();
@@ -34,7 +34,7 @@ const ProfileSidebar = ({ children }: { children: React.ReactNode }) => {
 								History
 							</NavLink>
 						</li>
-						{(!profileInfo || (profileInfo && profileInfo.steamLinked)) ? null : (
+						{!profileInfo || (profileInfo && profileInfo.steamLinked) ? null : (
 							<li>
 								<NavLink href={`/steamlink/${auth?.userID}`} className="hover-blue link">
 									Link to Steam

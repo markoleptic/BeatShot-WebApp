@@ -1,10 +1,12 @@
 "use client";
-import { GameModeTime, Score, usePlayerDataContext } from "@/context/PlayerDataContext";
+
 import React, { useState, useEffect } from "react";
 import { DateTime } from "luxon";
-import BarChart from "@/components/Charts/BarChart";
-import Heatmap from "@/components/Charts/HeatMap";
-import { HeatMapCalendar } from "@/types/Interfaces";
+import BarChart from "@/components/charts/BarChart";
+import Heatmap from "@/components/charts/HeatMap";
+import { usePlayerDataContext } from "@/context/PlayerDataContext";
+import type { HeatMapCalendar } from "@/types/chart.types";
+import type { GameModeTime, Score } from "@/types/score.types";
 import "@/styles/gameModes.scss";
 
 const maxDefaultModesToShow = 8;

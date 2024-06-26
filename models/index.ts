@@ -1,8 +1,8 @@
 "use strict";
 
-import { users } from "./users";
-import { scores } from "./scores";
-import { config } from "../config/config";
+import { users } from "@/models/users";
+import { scores } from "@/models/scores";
+import { config } from "@/config/config";
 import { Sequelize } from "sequelize-typescript";
 import mysql2 from "mysql2";
 

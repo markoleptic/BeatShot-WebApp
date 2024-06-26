@@ -12,7 +12,7 @@ import "chartjs-adapter-luxon";
 import { Chart } from "react-chartjs-2";
 import { AnyObject, MatrixController, MatrixElement } from "chartjs-chart-matrix";
 import { responsiveFonts, onChartResize, lerp } from "@/util/ChartFunctions";
-import { LocationAccuracyHeatMapData } from "@/types/Interfaces";
+import type { LocationAccuracyHeatMapData } from "@/types/chart.types";
 import "@/styles/charts.scss";
 
 ChartJS.register(MatrixController, MatrixElement, ...registerables);

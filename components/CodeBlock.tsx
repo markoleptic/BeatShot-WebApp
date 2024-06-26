@@ -1,7 +1,7 @@
 import React from "react";
 import { CodeBlock, dracula } from "react-code-blocks";
 const backGroundColor = "#1E1E1E";
-import "@/styles/codeblock.scss"
+import "@/styles/codeblock.scss";
 
 const codeBlockStyle = {
 	overflowX: "scroll",
@@ -38,7 +38,7 @@ const customStyle = {
 	width: "100%",
 };
 
-export interface BSCodeBlockProps {
+export type BSCodeBlockProps = {
 	code: string;
 	language?: string;
 	showLineNumbers?: boolean;
@@ -47,7 +47,7 @@ export interface BSCodeBlockProps {
 	lineHeight?: string;
 	padding?: string;
 	color?: string;
-}
+};
 
 let regularTheme = Object.assign({}, dracula);
 regularTheme.backgroundColor = backGroundColor;

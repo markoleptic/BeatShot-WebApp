@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import type { UserIDParams } from "@/types/Interfaces";
+import type { UserIDParams } from "@/types/auth.types";
 import { findUser, getScores } from "@/util/DatabaseFunctions";
 
 // secured by access token middleware

@@ -2,7 +2,7 @@ import { NextResponse, NextRequest } from "next/server";
 import bcrypt from "bcrypt";
 import { findUser } from "@/util/DatabaseFunctions";
 import { verifyJWT } from "@/util/ServerFunctions";
-import type { TokenParams } from "@/types/Interfaces";
+import type { TokenParams } from "@/types/auth.types";
 
 const saltRounds = 10;
 

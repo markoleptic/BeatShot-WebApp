@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import type { OpenGraphType } from "next/dist/lib/metadata/types/opengraph-types";
 
-export interface SEOInterface {
+export type SEOInterface = {
 	title?: string | undefined;
 	ogTwitterTitle?: string | undefined;
 	type: OpenGraphType | undefined;
@@ -11,7 +11,7 @@ export interface SEOInterface {
 	additionalKeywords?: string[] | undefined;
 	clearDefaultKeywords?: boolean;
 	isRoot?: boolean;
-}
+};
 
 export default function SEO(params: SEOInterface): Metadata {
 	const host = process.env.NODE_ENV === "development" ? process.env.host_development : process.env.host_production;

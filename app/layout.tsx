@@ -1,11 +1,11 @@
-import Navbar from "@/components/Core/NavBar";
-import Footer from "@/components/Core/Footer";
-import { AuthProvider } from "../context/AuthContext";
+import Navbar from "@/components/main/NavBar";
+import Footer from "@/components/main/Footer";
+import { AuthProvider } from "@/context/AuthContext";
 import { Metadata } from "next";
 import SEO from "@/components/SEO";
 import { Roboto, Roboto_Mono, Montserrat } from "next/font/google";
 import React from "react";
-import "@/styles/global.scss"
+import "@/styles/global.scss";
 import "@/styles/utility.scss";
 
 export const metadata: Metadata = SEO({

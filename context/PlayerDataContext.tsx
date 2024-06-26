@@ -1,54 +1,21 @@
 "use client";
 import React, { createContext, useContext, useState, useEffect, useRef } from "react";
 import { useRefreshToken } from "@/hooks/useRefreshToken";
+import type { GameModeTime, Score } from "@/types/score.types";
 
-export interface Accuracy {
-	accuracy: number[];
-}
-
-export interface Score {
-	accuracy: number;
-	avgTimeOffset: number;
-	baseGameMode: string;
-	completion: number;
-	customGameModeName: string;
-	difficulty: string;
-	gameModeType: string;
-	highScore: number;
-	locationAccuracy: Accuracy[] | null;
-	score: number;
-	scoreID: number;
-	shotsFired: number;
-	songLength: number;
-	songTitle: string;
-	streak: number;
-	targetsHit: number;
-	targetsSpawned: number;
-	time: string;
-	totalPossibleDamage: number;
-	totalTimeOffset: number;
-	userID: string;
-}
-
-export interface GameModeTime {
-	gameModeName: string;
-	gameModeType: string;
-	totalTime: number;
-}
-
-export interface DeleteScoresResponse {
+type DeleteScoresResponse = {
 	"Number Removed": number;
-}
+};
 
-export interface ErrorResponse {
+type ErrorResponse = {
 	message: string;
-}
+};
 
-export interface PlayerDataContextType {
+type PlayerDataContextType = {
 	data: Score[] | null;
 	gameModeTimes: GameModeTime[] | null;
 	deleteScores: (scoreIDs: number[]) => Promise<DeleteScoresResponse | ErrorResponse>;
-}
+};
 
 const PlayerDataContext = createContext<PlayerDataContextType | undefined>(undefined);
 
@@ -105,7 +72,7 @@ export const PlayerDataProvider = ({ children }: { children: React.ReactNode }) 
 	};
 
 	useEffect(() => {
-		initializePlayerData()
+		initializePlayerData();
 		// eslint-disable-next-line react-hooks/exhaustive-deps
 	}, []);
 

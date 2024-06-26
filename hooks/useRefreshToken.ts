@@ -1,5 +1,5 @@
-import { AuthData } from "@/types/Interfaces";
 import { decodeJwt } from "jose";
+import type { AuthData } from "@/types/auth.types";
 
 // requests a fresh access token from api, and returns AuthData object
 export const useRefreshToken = () => {

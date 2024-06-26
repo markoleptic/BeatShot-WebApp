@@ -1,14 +1,14 @@
 import React from "react";
 import Select, { ActionMeta, GroupBase, StylesConfig } from "react-select";
-import { LabelValue } from "@/types/Interfaces";
+import type { LabelValue } from "@/types/chart.types";
 
-export interface SelectBoxProps {
+export type SelectBoxProps = {
 	options: LabelValue[];
 	onChange: (newValue: any, actionMeta: ActionMeta<any>) => void;
 	placeholder: React.ReactNode;
 	value?: any;
 	id: string | undefined;
-}
+};
 
 const SelectBox: React.FC<SelectBoxProps> = ({ options, onChange, placeholder, value, id }) => {
 	const coloredSelectStyles = (): StylesConfig<any, false, GroupBase<any>> => ({

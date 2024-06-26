@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
 import { createRelyingParty, getRedirectUrl, createSteamVerifyLinkAccountUrl } from "@/util/ServerFunctions";
-import { UserIDParams } from "@/types/Interfaces";
+import type { UserIDParams } from "@/types/auth.types";
 
 // link steam account endpoint accessed from client, returns redirectURL or error
 export async function GET(req: NextRequest, { params }: { params: UserIDParams }) {

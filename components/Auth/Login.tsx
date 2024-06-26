@@ -8,7 +8,7 @@ import { faSquareCheck, faSquare } from "@fortawesome/free-solid-svg-icons";
 import SteamSignIn from "@/components/SteamSignIn";
 import { useAuthContext } from "@/context/AuthContext";
 import { passwordValidates, usernameValidates, emailValidates } from "@/util/AuthFunctions";
-import { AuthData } from "@/types/Interfaces";
+import type { AuthData } from "@/types/auth.types";
 import "@/styles/form.scss";
 
 const Login = () => {

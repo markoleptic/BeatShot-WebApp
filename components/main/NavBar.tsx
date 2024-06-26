@@ -1,5 +1,5 @@
 "use client";
-import { NavLink } from "../Navlink";
+import { NavLink } from "@/components/Navlink";
 import Link from "next/link";
 import logo from "@/public/logo.ico";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";

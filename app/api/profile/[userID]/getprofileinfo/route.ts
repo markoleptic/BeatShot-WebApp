@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
-import { ProfileInfo, UserIDParams } from "@/types/Interfaces";
 import { findUser } from "@/util/DatabaseFunctions";
+import type { UserIDParams } from "@/types/auth.types";
+import type { ProfileInfo } from "@/types/profile.types";
 
 // secured by access token middleware
 export async function GET(req: NextRequest, { params }: { params: UserIDParams }) {
@@ -21,7 +22,7 @@ export async function GET(req: NextRequest, { params }: { params: UserIDParams }
 			displayName: foundUser.displayName as string,
 			steamLinked: foundUser.steamLinked,
 		};
-				
+
 		return NextResponse.json({ ...info }, { status: 200 });
 	} catch (err) {
 		console.log(err);

@@ -1,4 +1,4 @@
-import TargetSpawningSystem from "@/components/BlogPosts/TargetSpawningSystem";
+import TargetSpawningSystem from "@/components/blog/TargetSpawningSystem";
 import React from "react";
 
 const Page = () => {

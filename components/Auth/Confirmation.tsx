@@ -2,7 +2,7 @@
 import Link from "next/link";
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { TokenParams } from "@/types/Interfaces";
+import type { TokenParams } from "@/types/auth.types";
 
 const Page = ({ params }: { params: TokenParams }) => {
 	const [confirmationResult, setConfirmationResult] = useState("Waiting for response...");
