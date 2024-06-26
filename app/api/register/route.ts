@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
-import { sequelize, users } from "@/models";
-import { createConfToken, sendConfEmail } from "@/util/ServerFunctions";
-import { createUserFromRegister } from "@/util/DatabaseFunctions";
+import { sequelize, users } from "@/models/index";
+import { createConfToken, sendConfEmail } from "@/utility/ServerFunctions";
+import { createUserFromRegister } from "@/utility/DatabaseFunctions";
 
 export async function POST(req: NextRequest) {
 	const { username, email, password } = await req.json();

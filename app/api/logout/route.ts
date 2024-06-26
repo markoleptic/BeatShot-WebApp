@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { users } from "@/models";
+import { users } from "@/models/index";
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 

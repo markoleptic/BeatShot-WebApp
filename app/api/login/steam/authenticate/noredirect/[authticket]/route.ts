@@ -1,7 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
-import { authenticateUserTicket, createRefreshToken } from "@/util/ServerFunctions";
+import { authenticateUserTicket, createRefreshToken } from "@/utility/ServerFunctions";
 import { cookies } from "next/headers";
-import { findOrCreateUserFromSteamUser } from "@/util/DatabaseFunctions";
+import { findOrCreateUserFromSteamUser } from "@/utility/DatabaseFunctions";
 import type { SteamAuthTicketParams, SteamAuthTicketResponse, SteamAuthTicketResponseError } from "@/types/steam.types";
 
 // client in game sends session ticket to this endpoint for verification

@@ -1,4 +1,4 @@
-import ProfileSidebar from "@/components/profile/ProfileSidebar";
+import ProfileSidebar from "@/pages/profile/ProfileSidebar";
 import SEO from "@/components/SEO";
 import { PlayerDataProvider } from "@/context/PlayerDataContext";
 import { Metadata } from "next";

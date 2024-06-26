@@ -6,8 +6,8 @@ import {
 	fetchSteamUser,
 	createRelyingParty,
 	createRefreshToken,
-} from "@/util/ServerFunctions";
-import { findOrCreateUserFromSteam } from "@/util/DatabaseFunctions";
+} from "@/utility/ServerFunctions";
+import { findOrCreateUserFromSteam } from "@/utility/DatabaseFunctions";
 
 // return URI from Steam
 export async function GET(req: NextRequest) {

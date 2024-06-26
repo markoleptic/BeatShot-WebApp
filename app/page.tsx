@@ -6,7 +6,7 @@ import StatsPreview from "@/public/Stats_Preview.gif";
 import Image from "next/image";
 import Video from "@/components/Video";
 import SteamSteamPurchaseLink from "@/components/SteamPurchaseLink";
-import "@/styles/home.scss";
+import "@/styles/Home.scss";
 
 const Home = () => {
 	return (
@@ -71,7 +71,7 @@ const Home = () => {
 								</p>
 							</li>
 							<li>
-								<FontAwesomeIcon icon={faCrosshairs}/>
+								<FontAwesomeIcon icon={faCrosshairs} />
 								<p>And more!</p>
 							</li>
 						</ul>
@@ -197,13 +197,7 @@ const Home = () => {
 						</ul>
 					</div>
 					<div className="home-inner-container">
-						<Image
-							className="home-img"
-							priority
-							src={StatsPreview}
-							quality={100}
-							alt="stats-preview"
-						/>
+						<Image className="home-img" priority src={StatsPreview} quality={100} alt="stats-preview" />
 					</div>
 				</div>
 				<div className="home-container">

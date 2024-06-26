@@ -1,8 +1,8 @@
 import { NextResponse, NextRequest } from "next/server";
 import * as bcrypt from "bcrypt";
 import { cookies } from "next/headers";
-import { createAccessToken, createRefreshToken } from "@/util/ServerFunctions";
-import { loginUser } from "@/util/DatabaseFunctions";
+import { createAccessToken, createRefreshToken } from "@/utility/ServerFunctions";
+import { loginUser } from "@/utility/DatabaseFunctions";
 
 export async function POST(req: NextRequest) {
 	const { username, email, password } = await req.json();

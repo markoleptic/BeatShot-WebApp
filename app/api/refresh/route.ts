@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { createAccessToken, verifyJWT } from "@/util/ServerFunctions";
+import { createAccessToken, verifyJWT } from "@/utility/ServerFunctions";
 
 // returns a short lived access token from a jwt cookie
 export async function GET(req: NextRequest) {

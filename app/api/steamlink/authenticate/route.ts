@@ -5,9 +5,9 @@ import {
 	createRelyingParty,
 	fetchSteamUser,
 	createSteamVerifyLinkAccountUrl,
-} from "@/util/ServerFunctions";
-import { users } from "@/models";
-import { findUser } from "@/util/DatabaseFunctions";
+} from "@/utility/ServerFunctions";
+import { users } from "@/models/index";
+import { findUser } from "@/utility/DatabaseFunctions";
 
 // return URI from Steam
 export async function GET(req: NextRequest) {

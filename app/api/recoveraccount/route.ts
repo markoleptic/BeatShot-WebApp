@@ -1,6 +1,6 @@
 import { NextResponse, NextRequest } from "next/server";
-import { createRecoveryToken, sendRecoveryEmail } from "@/util/ServerFunctions";
-import { findUserByEmail } from "@/util/DatabaseFunctions";
+import { createRecoveryToken, sendRecoveryEmail } from "@/utility/ServerFunctions";
+import { findUserByEmail } from "@/utility/DatabaseFunctions";
 
 // Emails a link that directs to /recover/[token], where they can change their password
 export async function POST(req: NextRequest) {

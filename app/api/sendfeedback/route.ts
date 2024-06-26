@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { sendFeedbackEmail } from "@/util/ServerFunctions";
+import { sendFeedbackEmail } from "@/utility/ServerFunctions";
 
 export async function POST(req: NextRequest) {
 	const { title, content } = await req.json();

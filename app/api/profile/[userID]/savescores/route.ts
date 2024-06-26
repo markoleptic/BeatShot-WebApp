@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { users, scores } from "@/models";
+import { users, scores } from "@/models/index";
 import type { UserIDParams } from "@/types/auth.types";
 
 // secured by access token middleware

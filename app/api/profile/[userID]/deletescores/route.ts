@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { deleteScoresByCustomGameModeName, deleteScoresByScoreID, findUser } from "@/util/DatabaseFunctions";
+import { deleteScoresByCustomGameModeName, deleteScoresByScoreID, findUser } from "@/utility/DatabaseFunctions";
 import type { UserIDParams } from "@/types/auth.types";
 
 // secured by access token middleware

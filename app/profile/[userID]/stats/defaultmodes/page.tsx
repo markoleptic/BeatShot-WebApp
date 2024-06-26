@@ -1,4 +1,4 @@
-import DefaultModes from "@/components/profile/DefaultModes";
+import DefaultModes from "@/pages/profile/DefaultModes";
 
 const Page = () => {
 	return <DefaultModes />;

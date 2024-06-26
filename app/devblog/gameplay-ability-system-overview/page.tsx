@@ -1,4 +1,4 @@
-import GameplayAbilitySystem from "@/components/blog/GameplayAbilitySystem";
+import GameplayAbilitySystem from "@/pages/blog/GameplayAbilitySystem";
 import React from "react";
 
 const Page = () => {

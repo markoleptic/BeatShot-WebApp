@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { findUser } from "@/util/DatabaseFunctions";
+import { findUser } from "@/utility/DatabaseFunctions";
 import type { UserIDParams } from "@/types/auth.types";
 import type { ProfileInfo } from "@/types/profile.types";
 

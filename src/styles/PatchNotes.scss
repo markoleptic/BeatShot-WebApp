@@ -1,0 +1,141 @@
+@import "Variables";
+
+.pn-container {
+	font-size: $fs-200;
+	font-family: var(--font-roboto);
+	width: 100%;
+}
+/* each li has text and icon, make inline */
+.pn-container li > p,
+.pn-container li > svg {
+	vertical-align: middle !important;
+	display: inline;
+}
+/* 1st level size */
+.pn-container > ul > li {
+	font-size: $fs-400;
+	line-height: 1.25em;
+	font-weight: 700;
+}
+/* 2nd level size */
+.pn-container > ul > li > ul {
+	font-size: $fs-200;
+	line-height: 1.25em;
+	font-weight: 400;
+}
+/* 3rd level size */
+.pn-container > ul > li > ul > li > ul {
+	font-size: $fs-200;
+	line-height: 1.25em;
+	font-weight: 400;
+}
+/* space between 1st */
+.pn-container > ul > li ~ li {
+	padding-top: 0.25em;
+}
+/* space between 1st and first 2nd */
+.pn-container > ul ul > li {
+	padding-top: 0.25em;
+}
+/* space between 2nd */
+.pn-container > ul ul > li ~ li {
+	padding-top: 0.25em;
+}
+/* space between 2nd and first 3rd */
+.pn-container > ul ul ul > li {
+	padding-top: 0.25em;
+}
+/* space between 3rd */
+.pn-container > ul ul ul > li ~ li {
+	padding-top: 0.25em;
+}
+/* Description p before 1st */
+.pn-container > ul > p {
+	padding: 0.5em 0em 0.5em 0em;
+	font-size: $fs-200;
+	line-height: 1.25em;
+	font-weight: 400;
+	text-indent: 0em;
+	color: $clr-white;
+}
+/* Description p before 2nd */
+.pn-container > ul > li > ul > p {
+	padding: 0.5em 0em 0.5em 0em;
+	font-size: $fs-200;
+	line-height: 1.25em;
+	font-weight: 400;
+	text-indent: 0em;
+	color: $clr-white;
+}
+/* top level text/icon color */
+.pn-container > ul > li > p {
+	color: $clr-beatshot-lightblue;
+}
+.pn-container > ul > li > svg {
+	color: $clr-white;
+}
+/* 2nd level text/icon color */
+.pn-container > ul > li > p {
+	color: $clr-beatshot-lightblue;
+}
+.pn-container > ul > li > ul svg {
+	color: $clr-beatshot-lightblue;
+}
+
+/* text indent should be same width as total svg width (width + padding-right) */
+/* padding-left needs to be > text-indent */
+
+/* top indent/padding */
+.pn-container ul li {
+	text-indent: -1em;
+	padding-left: 1.25em;
+}
+/* 2nd level indent/padding */
+.pn-container ul ul li {
+	text-indent: -1em;
+	padding-left: 1.4em;
+}
+/* top level icons */
+.pn-container ul svg {
+	height: auto;
+	width: 0.75em;
+	padding-right: 0.25em;
+}
+/* 2nd level icons */
+.pn-container ul ul svg {
+	height: auto;
+	width: 0.6em;
+	padding-right: 0.4em;
+}
+.pn-title {
+	text-align: center;
+	font-size: $fs-600;
+	font-weight: 500;
+	text-shadow: 0 0 4px $clr-beatshot-lightblue;
+	color: $clr-beatshot-lightblue;
+}
+.pn-version-number {
+	font-weight: 600;
+	color: white;
+	font-size: $fs-h3;
+}
+.pn-date {
+	display: flex;
+	justify-content: flex-end;
+	font-size: $fs-100;
+	letter-spacing: 0.05rem;
+	text-align: end;
+}
+.pn-version-date {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	line-height: 1.1rem;
+	padding-bottom: 0.3em;
+}
+.pn-dev-note {
+	color: $clr-beatshot-lightblue;
+	text-indent: 0em !important;
+	padding-left: 0em !important;
+	line-height: 1.25em !important;
+}

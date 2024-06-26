@@ -1,0 +1,174 @@
+@import "Variables";
+
+.form-container {
+	width: auto;
+	max-width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+	background-color: hsla(0, 0%, 0%, 0.5);
+	box-shadow: -0.5rem 0.5rem 0.5rem #000;
+	gap: 0.5rem;
+	font-size: 1rem;
+	border-radius: 0.25rem;
+}
+.confirmation-container {
+	max-width: 200px;
+	max-width: 400px;
+	margin-left: auto;
+	margin-right: auto;
+	display: flex;
+	flex-direction: column;
+	padding: 1rem;
+	background-color: hsla(0, 0%, 0%, 0.5);
+	box-shadow: -0.5rem 0.5rem 0.5rem #000;
+	gap: 0.5rem;
+	font-size: 1rem;
+	border-radius: 0.25rem;
+	top: 1rem;
+	justify-content: center;
+	text-align: center;
+}
+form {
+	display: flex;
+	flex-direction: column;
+	flex-grow: 1;
+	justify-content: center;
+	gap: 0.25rem;
+}
+.form-title {
+	font-size: 1.25rem;
+	color: $clr-beatshot-lightblue;
+	text-align: center;
+}
+.form-label {
+	font-size: $fs-100;
+	display: flex;
+	align-items: center;
+}
+.form-text {
+	font-size: $fs-200;
+	background: $clr-white;
+	border: none;
+	padding: 0.15rem;
+	border-radius: 0.25rem;
+	width: 100%;
+}
+.label-input-container {
+	display: flex;
+	flex-direction: column;
+	gap: 0.05rem;
+}
+.errmsg {
+	background-color: lightpink;
+	color: firebrick;
+	font-weight: $fw-600;
+	font-size: $fs-200;
+	text-transform: capitalize;
+	text-align: center;
+	border-radius: 0.25rem;
+	padding: 0.25rem;
+}
+.checkEmailMsg {
+	background-color: $clr-beatshot-lightblue;
+	//color: $clr-dark;
+	font-size: $fs-200;
+	text-align: center;
+	border-radius: 0.25rem;
+	padding: 0.25rem;
+}
+.instructions-container {
+	display: flex;
+	flex-direction: column;
+	gap: 0.25rem;
+	line-height: 1;
+	font-size: $fs-100;
+	background: $clr-beatshot-bluegrey;
+	color: $clr-white;
+	padding: 0.25rem;
+	position: relative;
+	bottom: -5px;
+	border-radius: 0.25rem;
+	margin-bottom: 0.25rem;
+}
+.instructions-icon-container {
+	display: flex;
+	flex-direction: row;
+	gap: 0.25rem;
+	padding-right: 0.2rem;
+}
+.instructions {
+	font-size: $fs-100;
+	background: $clr-beatshot-bluegrey;
+	color: $clr-white;
+	padding: 0.2rem;
+}
+/* checkbox container */
+.persistCheck {
+	display: inline-flex;
+	gap: 0.25rem;
+	cursor: pointer;
+	align-items: center;
+	width: fit-content;
+	&:hover {
+		color: $clr-beatshot-lightblue;
+	}
+}
+.form input[type="checkbox"] {
+	appearance: none;
+	display: none;
+	background-color: #fff;
+}
+/* unchecked icon */
+.form input[type="checkbox"] + label.fa:before {
+	display: inline-block;
+	cursor: pointer;
+	letter-spacing: 6px;
+}
+/* hover unchecked icon */
+.form input[type="checkbox"] + label.fa:hover {
+	color: $clr-beatshot-lightblue;
+}
+/* pressed unchecked icon */
+.form input[type="checkbox"] + label.fa:active {
+	color: rgba($clr-beatshot-lightblue, 0.5);
+}
+/* checked icon */
+.form input[type="checkbox"]:checked + label.fa:before {
+	cursor: pointer;
+	letter-spacing: 6px;
+}
+/* checked icon color */
+.form input[type="checkbox"]:checked + label.fa {
+	color: $clr-beatshot-lightblue;
+}
+/* hovered checked icon */
+.form input[type="checkbox"]:checked + label.fa:hover {
+	color: $clr-beatshot-lightgrey;
+}
+/* pressed checked icon */
+.form input[type="checkbox"]:checked + label.fa:active {
+	color: $clr-beatshot-darkgrey;
+}
+.offscreen {
+	position: absolute;
+	left: -9999px;
+}
+.hide {
+	display: none !important;
+}
+.show {
+	display: inline-block !important;
+}
+.valid {
+	display: inline-block !important;
+	color: limegreen;
+	margin-left: 0.25rem;
+}
+.invalid {
+	display: inline-block !important;
+	color: red;
+	margin-left: 0.25rem;
+}

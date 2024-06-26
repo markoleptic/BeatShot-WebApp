@@ -1,0 +1,46 @@
+@import "Variables";
+
+div.hero {
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	flex-wrap: wrap;
+	clear: both;
+	width: 100%;
+	line-height: 1;
+	padding: 1rem;
+}
+div.hero-container {
+	position: relative;
+	display: flex;
+	background: url("../../public/unreal-grid.png");
+	width: 100%;
+	padding: 0;
+}
+.hero-image {
+	display: flex;
+	padding: 2rem;
+	max-width: 80%;
+	height: auto;
+	align-self: center;
+	filter: drop-shadow(10px 10px 5px #000);
+}
+.hero-lead {
+	margin-top: 0.5rem;
+	font-size: $fs-400;
+}
+
+@media (min-width: 101.25rem) {
+	div.hero {
+		max-width: 1625px;
+		margin-left: auto;
+		margin-right: auto;
+	}
+}
+@media (max-width: 40em) {
+	.hero-image {
+		padding: 0.5rem 0rem 0rem 0rem;
+		padding-right: 0rem;
+		max-width: 100%;
+	}
+}

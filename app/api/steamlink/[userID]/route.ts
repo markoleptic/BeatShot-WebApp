@@ -1,5 +1,5 @@
 import { NextResponse, NextRequest } from "next/server";
-import { createRelyingParty, getRedirectUrl, createSteamVerifyLinkAccountUrl } from "@/util/ServerFunctions";
+import { createRelyingParty, getRedirectUrl, createSteamVerifyLinkAccountUrl } from "@/utility/ServerFunctions";
 import type { UserIDParams } from "@/types/auth.types";
 
 // link steam account endpoint accessed from client, returns redirectURL or error

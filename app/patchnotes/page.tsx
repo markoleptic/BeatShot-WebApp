@@ -1,4 +1,4 @@
-import PatchNotes from "@/components/PatchNotes";
+import PatchNotes from "@/pages/patchNotes/PatchNotes";
 import React from "react";
 
 const Page = () => {
