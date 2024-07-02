@@ -17,7 +17,7 @@ type PatchNotesData = {
 const patchNotesData: PatchNotesData[] = [
 	{
 		version: "0.7.2",
-		date: DateTime.fromFormat("July 1, 2024", "DDD"),
+		date: DateTime.fromFormat("July 2, 2024", "DDD"),
 		link: "4246413199426288066",
 		content: (
 			<ul>
