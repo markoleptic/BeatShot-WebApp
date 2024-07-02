@@ -110,12 +110,12 @@
 .pn-title {
 	text-align: center;
 	font-size: $fs-600;
-	font-weight: 500;
+	font-weight: $fw-500;
 	text-shadow: 0 0 4px $clr-beatshot-lightblue;
 	color: $clr-beatshot-lightblue;
 }
 .pn-version-number {
-	font-weight: 600;
+	font-weight: $fw-600;
 	color: white;
 	font-size: $fs-h3;
 }
@@ -138,4 +138,17 @@
 	text-indent: 0em !important;
 	padding-left: 0em !important;
 	line-height: 1.25em !important;
+}
+.pn-page-container {
+	display: block;
+	column-count: 3;
+	column-gap: 0.5rem;
+	justify-content: center;
+	width: min-content;
+	margin: auto;
+	button {
+		width: 100%;
+		font-size: $fs-425;
+		font-weight: $fw-600;
+	}
 }
