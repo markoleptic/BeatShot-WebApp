@@ -1,4 +1,4 @@
-import ProfileHistory from "@/pages/profile/History";
+import ProfileHistory from "@/src/webpages/profile/History";
 
 const Page = () => {
 	return <ProfileHistory />;

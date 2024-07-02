@@ -1,4 +1,4 @@
-import ProfileOverview from "@/pages/profile/Overview";
+import ProfileOverview from "@/src/webpages/profile/Overview";
 
 const Page = () => {
 	return <ProfileOverview />;

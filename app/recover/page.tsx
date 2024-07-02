@@ -1,4 +1,4 @@
-import Recover from "@/pages/auth/Recover";
+import Recover from "@/src/webpages/auth/Recover";
 import React from "react";
 
 const Page = () => {

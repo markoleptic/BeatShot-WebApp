@@ -89,18 +89,4 @@ export class users extends Model<usersAttributes, usersAttributes> implements us
 		type: DataType.STRING(255),
 	})
 	refreshToken?: string;
-
-	@Column({
-		allowNull: true,
-		type: DataType.DATE,
-		defaultValue: DataType.NOW,
-	})
-	createdAt?: Date;
-
-	@Column({
-		allowNull: true,
-		type: DataType.DATE,
-		defaultValue: DataType.NOW,
-	})
-	updatedAt?: Date;
 }

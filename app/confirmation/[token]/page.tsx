@@ -1,4 +1,4 @@
-import Confirmation from "@/pages/auth/Confirmation";
+import Confirmation from "@/src/webpages/auth/Confirmation";
 import type { TokenParams } from "@/types/auth.types";
 import React from "react";
 

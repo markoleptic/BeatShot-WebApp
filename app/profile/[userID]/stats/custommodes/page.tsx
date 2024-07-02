@@ -1,4 +1,4 @@
-import CustomModes from "@/pages/profile/CustomModes";
+import CustomModes from "@/src/webpages/profile/CustomModes";
 import React from "react";
 
 const Page = () => {

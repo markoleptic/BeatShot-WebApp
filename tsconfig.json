@@ -29,7 +29,7 @@
 			"@/hooks/*": ["./src/hooks/*"],
 			"@/context/*": ["./src/context/*"],
 			"@/models/*": ["./src/models/*"],
-			"@/pages/*": ["./src/pages/*"],
+			"@/pages/*": ["./src/webpages/*"],
 			"@/components/*": ["./src/components/*"]
 		}
 	},

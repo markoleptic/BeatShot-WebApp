@@ -13,9 +13,9 @@ type RedirectParams = {
 const contexts = ["loginsteam", "loginsteamauthenticate", "steamlinkauthenticate", "steamlinkuserID"];
 const statuses = ["200", "400", "401", "304"];
 
-function getPageTitle(searchParams: ReadonlyURLSearchParams) {
-	const context = searchParams.get("context");
-	const success = searchParams.get("success");
+function getPageTitle(searchParams: ReadonlyURLSearchParams | null) {
+	const context = searchParams?.get("context");
+	const success = searchParams?.get("success");
 
 	if (context === "authsteamuser") {
 		return "Authenticate Failed";
@@ -42,9 +42,9 @@ function getPageTitle(searchParams: ReadonlyURLSearchParams) {
 	}
 }
 
-function getDescription(searchParams: ReadonlyURLSearchParams) {
-	const context = searchParams.get("context");
-	const success = searchParams.get("success");
+function getDescription(searchParams: ReadonlyURLSearchParams | null) {
+	const context = searchParams?.get("context");
+	const success = searchParams?.get("success");
 
 	if (context === "authsteamuser") {
 		return "Failed to authenticate Steam user.";
