@@ -1,4 +1,4 @@
-import BlogPostsMain from "@/src/webpages/blog/BlogPostsMain";
+import BlogPostsMain from "@/webpages/blog/BlogPostsMain";
 import React from "react";
 
 const Page = () => {

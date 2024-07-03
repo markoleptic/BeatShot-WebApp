@@ -10,8 +10,8 @@
 		"forceConsistentCasingInFileNames": true,
 		"noEmit": true,
 		"esModuleInterop": true,
-		"module": "esnext",
-		"moduleResolution": "node",
+		"module": "NodeNext",
+		"moduleResolution": "NodeNext",
 		"resolveJsonModule": true,
 		"isolatedModules": true,
 		"jsx": "preserve",
@@ -21,8 +21,9 @@
 				"name": "next"
 			}
 		],
+		"baseUrl": "./",
 		"paths": {
-			"@/*": ["./*"],
+			"@/*": ["./src/*"],
 			"@/styles/*": ["./src/styles/*"],
 			"@/types/*": ["./src/types/*"],
 			"@/utility/*": ["./src/utility/*"],
@@ -30,7 +31,8 @@
 			"@/context/*": ["./src/context/*"],
 			"@/models/*": ["./src/models/*"],
 			"@/pages/*": ["./src/webpages/*"],
-			"@/components/*": ["./src/components/*"]
+			"@/components/*": ["./src/components/*"],
+			"public/*": ["./public/*"]
 		}
 	},
 	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

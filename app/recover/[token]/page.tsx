@@ -1,4 +1,4 @@
-import ChangePassword from "@/src/webpages/auth/ChangePassword";
+import ChangePassword from "@/webpages/auth/ChangePassword";
 import type { TokenParams } from "@/types/auth.types";
 import React from "react";
 

@@ -1,4 +1,4 @@
-import Navbar from "@/src/components/NavBar";
+import Navbar from "@/components/NavBar";
 import Footer from "@/components/Footer";
 import { AuthProvider } from "@/context/AuthContext";
 import { Metadata } from "next";

@@ -1,4 +1,4 @@
-import Login from "@/src/webpages/auth/Login";
+import Login from "@/webpages/auth/Login";
 import React from "react";
 
 const Page = () => {

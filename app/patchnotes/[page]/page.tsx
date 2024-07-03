@@ -1,4 +1,4 @@
-import PatchNotes from "@/src/webpages/patchNotes/PatchNotes";
+import PatchNotes from "@/webpages/patchNotes/PatchNotes";
 import React from "react";
 
 const Page = ({ params }: { params: { page: string } }) => {

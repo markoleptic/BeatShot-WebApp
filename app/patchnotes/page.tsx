@@ -1,5 +1,5 @@
 import React from "react";
-import PatchNotes from "@/src/webpages/patchNotes/PatchNotes";
+import PatchNotes from "@/webpages/patchNotes/PatchNotes";
 
 const Page = () => {
 	return <PatchNotes initialPage={1} />;

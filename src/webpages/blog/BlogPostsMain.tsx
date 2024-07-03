@@ -1,6 +1,6 @@
 "use client";
-import image_TargetSpawningSystem_teaser from "@/public/TargetSpawningSystem-teaser.png";
-import image_Hero from "@/public/GAS_Diagram.png";
+import image_TargetSpawningSystem_teaser from "public/TargetSpawningSystem-teaser.png";
+import image_Hero from "public/GAS_Diagram.png";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";

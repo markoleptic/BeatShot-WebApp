@@ -1,8 +1,8 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faCrosshairs } from "@fortawesome/free-solid-svg-icons";
-import Timing from "@/public/BeatShotTiming_large.png";
-import StatsPreview from "@/public/Stats_Preview.gif";
+import Timing from "public/BeatShotTiming_large.png";
+import StatsPreview from "public/Stats_Preview.gif";
 import Image from "next/image";
 import Video from "@/components/Video";
 import SteamSteamPurchaseLink from "@/components/SteamPurchaseLink";

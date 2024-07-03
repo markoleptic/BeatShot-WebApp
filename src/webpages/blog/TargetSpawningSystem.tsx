@@ -9,11 +9,11 @@ import { BSCodeBlock, BSInlineCodeBlock, BSInlineEnum, BSInlineFunction } from "
 import { BlogHeading, BlogHeadingClass } from "@/components/BlogHeading";
 import Sidebar from "@/components/Sidebar";
 import Image from "next/image";
-import image_BoxBounds from "@/public/BoxBounds.png";
-import image_Hero from "@/public/SpawnMemory_Hero_Cropped.png";
-import image_OverlappingVerts from "@/public/OverlappingVerts.png";
-import image_SpawnMemory_Dynamic_FewRecent from "@/public/SpawnMemory_Dynamic_FewRecent.png";
-import image_SpawnMemory_Dynamic_ManyRecent from "@/public/SpawnMemory_Dynamic_ManyRecent.png";
+import image_BoxBounds from "public/BoxBounds.png";
+import image_Hero from "public/SpawnMemory_Hero_Cropped.png";
+import image_OverlappingVerts from "public/OverlappingVerts.png";
+import image_SpawnMemory_Dynamic_FewRecent from "public/SpawnMemory_Dynamic_FewRecent.png";
+import image_SpawnMemory_Dynamic_ManyRecent from "public/SpawnMemory_Dynamic_ManyRecent.png";
 import "@/styles/Article.scss";
 import "@/styles/Hero.scss";
 const OnAudioAnalyzerBeat = `void ATargetManager::OnAudioAnalyzerBeat()
