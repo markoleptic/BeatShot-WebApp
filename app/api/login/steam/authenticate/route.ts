@@ -11,6 +11,7 @@ import { findOrCreateUserFromSteam } from "@/utility/DatabaseFunctions";
 
 // return URI from Steam
 export async function GET(req: NextRequest) {
+	console.log("steam/auth");
 	const hostUrl = process.env.NODE_ENV === "production" ? process.env.host_production : process.env.host_development;
 	const steamVerifyUrl =
 		process.env.NODE_ENV === "production"

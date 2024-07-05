@@ -10,3 +10,5 @@ nginx/
 .gitignore
 .next
 .dockerignore
+__tests__/
+jest.config.ts

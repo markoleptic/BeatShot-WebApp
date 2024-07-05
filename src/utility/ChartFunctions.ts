@@ -1,4 +1,4 @@
-import { ChartJSOrUndefined } from "react-chartjs-2/dist/types";
+import { ChartJSOrUndefined } from "node_modules/react-chartjs-2/dist/types";
 
 const fontMap = new Map();
 fontMap.set("title", 20);

@@ -17,7 +17,7 @@ type PatchNotesData = {
 const patchNotesData: PatchNotesData[] = [
 	{
 		version: "0.7.2",
-		date: DateTime.fromFormat("July 2, 2024", "DDD"),
+		date: DateTime.fromFormat("July 4, 2024", "DDD"),
 		link: "4246413199426288066",
 		content: (
 			<ul>
@@ -32,7 +32,7 @@ const patchNotesData: PatchNotesData[] = [
 						</li>
 						<li>
 							<FontAwesomeIcon icon={faPlay} />
-							<p>Updated DLSS from 3.5 to 3.7.</p>
+							<p>Updated Nvidia DLSS to 3.7.</p>
 						</li>
 						<li>
 							<FontAwesomeIcon icon={faPlay} />
@@ -46,6 +46,10 @@ const patchNotesData: PatchNotesData[] = [
 							<FontAwesomeIcon icon={faPlay} />
 							<p>Improved GameUserSettings initialization.</p>
 						</li>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>Created a more comprehensive validation system for custom game modes.</p>
+						</li>
 					</ul>
 				</li>
 				<li>
@@ -55,8 +59,29 @@ const patchNotesData: PatchNotesData[] = [
 						<li>
 							<FontAwesomeIcon icon={faPlay} />
 							<p>
+								Fixed a bug where the game could crash when failing to receive an HTTP response from the
+								BeatShot API after changing levels.
+							</p>
+						</li>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>
+								Fixed a bug where the game would not quit to desktop after saving scores if &#34;Save
+								and Quit&#34; was clicked from the Quit to Desktop pop-up in the Pause Menu.
+							</p>
+						</li>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>
+								Fixed a bug where the setting storing if night mode was unlocked could have been
+								overwritten. A fix is in place to restore this setting to its proper value.
+							</p>
+						</li>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>
 								Fixed an issue where no text would show upon failing to retrieve an access token from
-								the BeatShot API.
+								the BeatShot API when deleting scores from the database.
 							</p>
 						</li>
 						<li>
@@ -64,13 +89,6 @@ const patchNotesData: PatchNotesData[] = [
 							<p>
 								Fixed an issue where GameUserSettings.ini config variables were not correctly inheriting
 								from the base GameUserSettings class.
-							</p>
-						</li>
-						<li>
-							<FontAwesomeIcon icon={faPlay} />
-							<p>
-								Fixed an issue where the setting storing if night mode was unlocked could have been
-								overwritten.
 							</p>
 						</li>
 					</ul>

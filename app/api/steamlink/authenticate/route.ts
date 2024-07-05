@@ -12,7 +12,6 @@ import { findUser } from "@/utility/DatabaseFunctions";
 // return URI from Steam
 export async function GET(req: NextRequest) {
 	const hostUrl = process.env.NODE_ENV === "production" ? process.env.host_production : process.env.host_development;
-
 	// get userID param
 	const userID = req.nextUrl.searchParams.get("userid");
 	if (!userID) {
