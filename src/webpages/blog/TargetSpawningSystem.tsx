@@ -10,6 +10,7 @@ import { BlogHeading, BlogHeadingClass } from "@/components/BlogHeading";
 import Sidebar from "@/components/Sidebar";
 import Image from "next/image";
 import image_BoxBounds from "public/BoxBounds.png";
+import image_TotalSpawnArea from "public/TotalSpawnArea.png";
 import image_Hero from "public/SpawnMemory_Hero_Cropped.png";
 import image_OverlappingVerts from "public/OverlappingVerts.png";
 import image_SpawnMemory_Dynamic_FewRecent from "public/SpawnMemory_Dynamic_FewRecent.png";
@@ -555,36 +556,19 @@ const TargetSpawningSystem = () => {
 									childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Public/Target/SpawnAreaManagerComponent.h"
 								/>
 								<p>
-									Target spawn locations are chosen from a 2-D rectangle that I&#39;ll be referring to
-									as the <em>total spawn area</em>. The total spawn area dimensions are the Horizontal
-									and Vertical Spread from custom game mode options. These dimensions correspond to
-									the actual size in Unreal units, and when maxed out represent 3.2 million individual
-									points.
+									The area where targets may spawn is represented as a two-dimensional spatial grid,
+									or <em>total spawn area</em>. A Spawn Area is simply a piece of the spatial grid.
 								</p>
-								<p>
-									I needed to find a way to keep track of target locations and the total area that
-									they occupied. Iterating through 3.2 million points isn&#39;t even an option, so the
-									total two-dimensional spawn rectangle is broken into the smaller rectangles, where
-									each one is represented by a SpawnArea.
-								</p>
-								<ul>
-									Each SpawnArea contains:
-									<li>
-										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										info about the area it represents
-									</li>
-									<li>
-										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										info about the targets that have spawned within it, such as the scale the target
-										spawned with and its global unique identifier
-									</li>
-									<li>
-										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										flags that indicate if a target in its area is activated, deactivated, or if its
-										only holding the location (target is no longer visible, but still not allowed to
-										spawn there)
-									</li>
-								</ul>
+								<p>When maxed out, the total spawn area represents 3.2 million individual points.</p>
+								<figure>
+									<div className="figure-border-container">
+										<Image src={image_TotalSpawnArea} alt="TotalSpawnArea" />
+										<figcaption>
+											<p className="figlabel">Figure 1: </p>
+											Individual Spawn Areas making up the total spawn area
+										</figcaption>
+									</div>
+								</figure>
 							</div>
 							<div className="article-subsection" ref={Ref_ATargetManager} id="classes-ATargetManager">
 								<BlogHeadingClass
@@ -593,12 +577,28 @@ const TargetSpawningSystem = () => {
 									headingLevel={2}
 									childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/Target/TargetManager.cpp"
 								/>
+
+								<ul>
+									<p>
+										The Target Manager is an actor that represents the highest level of the target
+										spawning system. It has several responsibilities including:
+									</p>
+									<li>
+										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+										Spawning, activating, deactivating, and destroying targets
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+										Stores references to targets using a map based on the target’s GUID
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+										Managing the size of the total spawn area, which can change during a game mode
+									</li>
+								</ul>
 								<p>
-									The Target Manager spawns and holds references to targets. It is responsible for
-									target activation and handles all <em>Target Activation Responses</em>, which are
-									used to describe what a target does when it is activated. Some examples include
-									removing immunity and changing the direction of a moving target. This actor relies
-									on several important components that distribe its functionality.
+									This class delegates responsibilties to several components described in the
+									following three sections.
 								</p>
 								<div
 									className="article-subsection-2"
@@ -618,7 +618,7 @@ const TargetSpawningSystem = () => {
 									</p>
 									<p>
 										The first plane (middle red in Figure 1) corresponds to the total spawn area, or
-										the 2-D area encompassed by all SpawnArea objects.
+										the 2-D area encompassed by all Spawn Area objects.
 									</p>
 									<p>
 										The other six form a rectangular prism (blue, green, front & back red planes in
@@ -680,18 +680,29 @@ const TargetSpawningSystem = () => {
 										childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/Target/SpawnAreaManagerComponent.cpp"
 									/>
 									<p>
-										The SpawnArea Manager Component creates and manages all the SpawnArea objects.
+										The Spawn Area Manager Component creates and manages all Spawn Area objects. It
+										contains the logic for choosing where to spawn targets and which targets to
+										activate.
 									</p>
 									<p>
-										It calculates the size that all SpawnAreas are set to, with the main limiting
-										factor being that RL Component is always a 5x5 grid. This means that the number
-										of horizontal and vertical SpawnAreas must also be in multiples of five, though
-										they don&#39;t need to be the same multiple of five.
+										The Spawn Area Manager never interfaces directly with targets. To associate a
+										target with a Spawn Area, the target’s Guid is mapped to the spawn area in which
+										it resides. This means that there can only ever be one target per Spawn Area at
+										a time.
+									</p>
+									<p>
+										Spawn Areas must frequently be combined and filtered based on their current
+										state. To facilitate this, I chose to store Spawn Areas in{" "}
+										<BSInlineFunction className={"TSets"} /> so that I would have access to{" "}
+										<BSInlineFunction functionName={"Union"} />,{" "}
+										<BSInlineFunction functionName={"Difference"} />, and{" "}
+										<BSInlineFunction functionName={"Intersection"} /> functions. The elements in
+										the set are hashed using the Spawn Area’s index.
 									</p>
 									<p>
 										This component used to be part of the base Target Manager class, but as the
-										class grew in size, it made sense to encapsulate all SpawnArea-related functions
-										into a component.
+										class grew in size, it made sense to encapsulate all Spawn Area-related
+										functions into a component.
 									</p>
 								</div>
 							</div>
@@ -705,19 +716,14 @@ const TargetSpawningSystem = () => {
 									childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/Target/Target.cpp"
 								/>
 								<p>
-									While the Target Manager is responsible for target activation, the target itself is
-									responsible for deactivation and handling <em>Target Deactivation Responses</em>,
-									which are used to describe what a target does when it is deactivated. Some examples
-									include applying immunity and playing effects. To trigger a Target Deactivation
-									Response, a <em>Target Deactivation Condition</em> must be met. In addition to
-									deactivation, the target is also responsible for its own destruction, which is
-									triggered by a <em>Target Destruction Condition</em>. Deactivation and Destruction
-									are discussed more in their respective sections.
+									The target is the only visible actor in the target spawning system (in the release
+									build).
 								</p>
 								<p>
-									The target relays information to the Target Manager any time it takes damage or
-									times out due to its <em>Max Lifespan</em> expiring. The class has several important
-									components that help game modes run smoothly.
+									A target may receive damage from a player or themself, in the case of timing out. In
+									either case, it notifies the Target Manager when damage events occur. Targets
+									control their color using curve assets and timelines. Similar to the Target Manager,
+									this class uses components detailed in the following three sections.
 								</p>
 								<div
 									className="article-subsection-2"
@@ -734,10 +740,10 @@ const TargetSpawningSystem = () => {
 									<p>
 										The Projectile Movement Component is used to automate moving targets. The Target
 										Manager calls{" "}
-										<BSInlineFunction className={"ATarget"} functionName={"SetTargetSpeed"} /> and{" "}
+										<BSInlineFunction className={"ATarget"} functionName={"SetTargetSpeed"} /> to
+										change a target&#39;s speed, and{" "}
 										<BSInlineFunction className={"ATarget"} functionName={"SetTargetDirection"} />{" "}
-										when it wants to change the velocity or direction. These also happen to be
-										Target Activation Responses.
+										to change a target&#39;s velocity or direction.
 									</p>
 									<p>
 										In order to retain the same velocity that a target had prior to bouncing into
@@ -767,8 +773,8 @@ const TargetSpawningSystem = () => {
 										communication between their ASC and the target ASC.
 									</p>
 									<p>
-										The ASC enables us to apply immunity to the target for the different damage
-										types (and control them independently) and has built in support for tracking
+										The ASC enables applying immunity to the target for the different damage types
+										(and control them independently) and has built in support for tracking
 										attributes like health.
 									</p>
 									<p>
@@ -798,13 +804,13 @@ const TargetSpawningSystem = () => {
 										the target health changes, the function will be called.
 									</p>
 									<p>
-										In this case, the OnHealthChanged delegate has three parameters that will be
-										passed to the function:
+										The OnHealthChanged delegate has three parameters that are passed to the
+										function:
 									</p>
 									<ul>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											The actor who insigated the damage
+											The actor who instigated the damage
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -817,8 +823,7 @@ const TargetSpawningSystem = () => {
 									</ul>
 									<p>
 										With this configuration, the target knows if it was the actor who caused the
-										damage event. This is important becuase the target damages itself if its Max
-										Lifespan expires.
+										damage event. This is important becuase the target damages itself if it expires.
 									</p>
 								</div>
 							</div>
@@ -879,26 +884,26 @@ const TargetSpawningSystem = () => {
 										className={"USpawnAreaManagerComponent"}
 										functionName={"InitializeSpawnAreas"}
 									/>{" "}
-									is called to generate all SpawnAreas for the game mode. This is where the SpawnArea
-									Manager Component determines how many SpawnAreas the total spawn area needs to be
-									divided into. This happens inside{" "}
+									is called to generate all Spawn Areas for the game mode. This is where the Spawn
+									Area Manager Component determines how many Spawn Areas the total spawn area needs to
+									be divided into. This happens inside{" "}
 									<BSInlineFunction
 										className={"USpawnAreaManagerComponent"}
 										functionName={"SetSpawnMemoryValues"}
 									/>
-									. Once the width and height of the SpawnAreas are found, the SpawnArea Manager
+									. Once the width and height of the Spawn Areas are found, the Spawn Area Manager
 									Component creates a new USpawnArea object for each section of the total spawn area.
 									It then calls <BSInlineFunction className={"USpawnArea"} functionName={"Init"} />,
-									which sets up basic information about the SpawnArea. Notably, it also specifies
+									which sets up basic information about the Spawn Area. Notably, it also specifies
 									which type of section inside the total spawn area it belongs to, represented by
 									EGridIndexType:
 								</p>
 								<BSCodeBlock code={EGridIndexType} fontSize="0.65rem" />
 								<p>
-									The SpawnArea then finds all adjacent SpawnAreas based on the Grid Index Type and
-									the number of horizontal SpawnAreas that make up the total spawn area. The Grid
+									The Spawn Area then finds all adjacent Spawn Areas based on the Grid Index Type and
+									the number of horizontal Spawn Areas that make up the total spawn area. The Grid
 									Index Type allows the Grid <em>Target Distribution Policy</em> to quickly access all
-									adjacent SpawnAreas, which is how BeatGrid finds targets to activate.
+									adjacent Spawn Areas, which is how BeatGrid finds targets to activate.
 								</p>
 							</div>
 							<div className="article-subsection" ref={Ref_Spawning} id="target-lifecycle-Spawning">
@@ -930,9 +935,9 @@ const TargetSpawningSystem = () => {
 								</p>
 								<BSCodeBlock code={SpawnTarget} fontSize="0.65rem" />
 								<p>
-									The location and scale of the target are retrieved from a previously found
-									SpawnArea. I use SpawnActorDeferred so the game mode config can be passed to the
-									target before it&#39;s finished spawning.
+									The location and scale of the target are retrieved from a previously found Spawn
+									Area. I use SpawnActorDeferred so the game mode config can be passed to the target
+									before it&#39;s finished spawning.
 								</p>
 								<p>
 									<BSInlineFunction className={"ATarget"} functionName={"Init"} /> sets the Max Health
@@ -942,26 +947,26 @@ const TargetSpawningSystem = () => {
 									is discussed more in the Deactivation section.
 								</p>
 								<p>
-									The SpawnArea is assigned the target&#39;s global unique identifier, the target is
+									The Spawn Area is assigned the target&#39;s global unique identifier, the target is
 									added to the Target Manager&#39;s array of managed targets, and{" "}
 									<BSInlineFunction
 										className={"USpawnAreaManagerComponent"}
 										functionName={"FlagSpawnAreaAsManaged"}
 									/>{" "}
-									is called. This lets the Spawn Area Manager know that the SpawnArea now represents a
-									target.
+									is called. This lets the Spawn Area Manager know that the Spawn Area now represents
+									a target.
 								</p>
 								<p>
-									When a SpawnArea is flagged as <em>Managed</em>,{" "}
+									When a Spawn Area is flagged as <em>Managed</em>,{" "}
 									<BSInlineFunction
 										className={"USpawnArea"}
 										functionName={"GenerateOverlappingVertices"}
 									/>{" "}
-									is called. This function finds all surrounding SpawnAreas that would cause an
-									overlap if a target with the same radius is spawned inside that SpawnArea. This is
+									is called. This function finds all surrounding Spawn Areas that would cause an
+									overlap if a target with the same radius is spawned inside that Spawn Area. This is
 									done by tracing a sphere centered at the location the target was spawned inside the
-									SpawnArea. These traced spheres are shown in Figure 2 as purple wireframes, while
-									the red and green points are the center of individual SpawnAreas.
+									Spawn Area. These traced spheres are shown in Figure 2 as purple wireframes, while
+									the red and green points are the center of individual Spawn Areas.
 								</p>
 								<figure>
 									<div className="figure-border-container">
@@ -973,22 +978,22 @@ const TargetSpawningSystem = () => {
 									</div>
 								</figure>
 								<p>
-									The green points mean that it&#39;s currently safe to spawn a target in that
-									SpawnArea, while the red points mean it&#39;s not. Each time a new target occupies a
-									given SpawnArea, these vertices generated and stored. They are then used when
+									The green points mean that it&#39;s currently safe to spawn a target in that Spawn
+									Area, while the red points mean it&#39;s not. Each time a new target occupies a
+									given Spawn Area, these vertices generated and stored. They are then used when
 									finding subsequent target spawn locations, which is discussed in the Activation
 									section.
 								</p>
 								<p>
-									The radius of the traced sphere should be big enough that it captures all SpawnAreas
-									that would cause an overlap, but small enough that it doesn&#39;t restrict the
+									The radius of the traced sphere should be big enough that it captures all Spawn
+									Areas that would cause an overlap, but small enough that it doesn&#39;t restrict the
 									possible spawn locations to an unnecessary small amount. Since a target can spawn
-									anywhere inside a SpawnArea, some amount of error is introduced.
+									anywhere inside a Spawn Area, some amount of error is introduced.
 								</p>
 								<p>
 									I ended up setting the traced sphere radius is equal to twice the radius of the
 									target that was spawned in the spawn area plus the larger of the width and height of
-									the SpawnArea. This seemed to give me the best results when testing many targets at
+									the Spawn Area. This seemed to give me the best results when testing many targets at
 									once with varying scales, without restricting the number of spawn locations too
 									much.
 								</p>
@@ -1029,7 +1034,7 @@ const TargetSpawningSystem = () => {
 								<p>
 									In both of these functions, the general procedure is to activate the target{" ("}
 									<BSInlineFunction className={"ATargetManager"} functionName={"ActivateTarget"} />
-									{")"} and then find the scale and SpawnArea for the next target if it was
+									{")"} and then find the scale and Spawn Area for the next target if it was
 									successfully activated
 									{" ("}
 									<BSInlineFunction
@@ -1040,7 +1045,7 @@ const TargetSpawningSystem = () => {
 								</p>
 								<BSCodeBlock code={ActivateTarget} fontSize="0.65rem" />
 								<p>
-									The only two SpawnArea objects that the Target Manager keeps track of are the
+									The only two Spawn Area objects that the Target Manager keeps track of are the
 									PreviousSpawnArea and the CurrentSpawnArea. The only place these two variables are
 									changed is inside{" "}
 									<BSInlineFunction
@@ -1060,10 +1065,10 @@ const TargetSpawningSystem = () => {
 									successfully destroyed.
 								</p>
 								<p>
-									The SpawnArea containing the next target location is found using{" "}
+									The Spawn Area containing the next target location is found using{" "}
 									<BSInlineFunction className={"ATargetManager"} functionName={"GetNextSpawnArea"} />,
 									which goes through several checks to see if it can spawn at the origin or get a
-									SpawnArea from the RL Component, but the main thing I want to focus on is when it
+									Spawn Area from the RL Component, but the main thing I want to focus on is when it
 									calls{" "}
 									<BSInlineFunction
 										className={"USpawnAreaManagerComponent"}
@@ -1074,25 +1079,25 @@ const TargetSpawningSystem = () => {
 								<BSCodeBlock code={GetValidSpawnLocations} fontSize="0.65rem" />
 								<p>
 									The game mode config&#39;s Target Distribution Policy dictates which series of
-									functions are executed. Most distribution policies begin considering all SpawnAreas
-									as valid choices, rather than only finding SpawnAreas that aren&#39;t currently
+									functions are executed. Most distribution policies begin considering all Spawn Areas
+									as valid choices, rather than only finding Spawn Areas that aren&#39;t currently
 									activated or recent. This is because a smaller target may spawn before a larger
 									target, and the cutout size of the sphere it left will not be big enough to safely
 									spawn the next larger target without overlapping the smaller one. This is also why
-									the target scale is found before finding the SpawnArea.
+									the target scale is found before finding the Spawn Area.
 								</p>
 								<p>
 									<BSInlineFunction
 										className={"USpawnAreaManagerComponent"}
 										functionName={"HandleFullRangeSpawnLocations"}
 									/>{" "}
-									removes all SpawnAreas that fall outside of the current total spawn area. This only
+									removes all Spawn Areas that fall outside of the current total spawn area. This only
 									applies to game modes using{" "}
 									<BSInlineEnum className={"EBoundsScalingPolicy"} valueName={"Dynamic"} /> since the
 									total spawn area is always the same for game modes using{" "}
 									<BSInlineEnum className={"EBoundsScalingPolicy"} valueName={"Static"} />. Referring
 									to Figure 3, the red boxes outside the the current spawn area (blue box) are the
-									SpawnAreas this function removed from consideration for a game mode using{" "}
+									Spawn Areas this function removed from consideration for a game mode using{" "}
 									<BSInlineEnum className={"EBoundsScalingPolicy"} valueName={"Dynamic"} />.
 								</p>
 								<p>
@@ -1123,7 +1128,7 @@ const TargetSpawningSystem = () => {
 										className={"USpawnAreaManagerComponent"}
 										functionName={"RemoveOverlappingSpawnLocations"}
 									/>
-									. This function loops over all SpawnAreas that are flagged as <em>Activated</em> or{" "}
+									. This function loops over all Spawn Areas that are flagged as <em>Activated</em> or{" "}
 									<em>Recent</em> and adds their overlapping vertices to a temporary array that is
 									used to filter the spawn locations passed by reference to the function.
 								</p>
@@ -1212,7 +1217,7 @@ const TargetSpawningSystem = () => {
 										className={"USpawnAreaManagerComponent"}
 										functionName={"HandleRecentTargetRemoval"}
 									/>{" "}
-									is called. This function removes the Activated flag from the SpawnArea and flags it
+									is called. This function removes the Activated flag from the Spawn Area and flags it
 									as Recent. A timer is set based on the <em>Recent Target Memory Policy</em> and the
 									Recent flag is then removed when the timer expires. Upon removal of the Recent flag,
 									the overlapping vertices that were generated when the target was spawned are
