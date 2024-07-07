@@ -454,15 +454,13 @@ const GameplayAbilitySystem = () => {
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 										<span className="text-light">ASCs</span> on targets reside on the actor itself (
-										<BSInlineFunction className={"ATarget"} />
+										<BSInlineFunction>ATarget</BSInlineFunction>
 										).
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 										<span className="text-light">ASCs</span> on the character reside in the Player
-										State (
-										<BSInlineFunction className={"ABSPlayerState"} />
-										).
+										State (<BSInlineFunction>ABSPlayerState</BSInlineFunction>).
 									</li>
 								</ul>
 							</div>
@@ -495,7 +493,7 @@ const GameplayAbilitySystem = () => {
 								</p>{" "}
 								<p>
 									Unreal includes a couple default ones like{" "}
-									<BSInlineFunction functionName={"UAbilityTask_PlayMontageAndWait"} />, which is the
+									<BSInlineFunction>::UAbilityTask_PlayMontageAndWait</BSInlineFunction>, which is the
 									first <span className="text-light">Ability Task</span> shown in{" "}
 									<Link className="link text-lightgrey hover-blue" scroll={true} href={"#bpgraph-1"}>
 										Blueprint Graph 1
@@ -526,7 +524,7 @@ const GameplayAbilitySystem = () => {
 									blueprint. The additional output execution pins that appear on the blueprint node
 									are executed using delegates in C++. In C++, a task is created by using a static
 									factory function that instantiates the task. After this, the task delegates can be
-									bound to. In C++, <BSInlineFunction functionName={"ReadyForActivation"} /> must be
+									bound to. In C++, <BSInlineFunction>::ReadyForActivation</BSInlineFunction> must be
 									called, but does not have to be called in blueprints.
 								</p>
 								<BlueprintGraph
@@ -580,7 +578,7 @@ const GameplayAbilitySystem = () => {
 									<p>
 										This is the ability for dealing damage to targets for a game mode that uses
 										Tracking Damage. Most of this class is implemented in C++.{" "}
-										<BSInlineFunction functionName={"OnTargetDataReady"} /> is the only
+										<BSInlineFunction>::OnTargetDataReady</BSInlineFunction> is the only
 										event/function used in the blueprint version of this ability.
 									</p>
 									<p>
@@ -607,16 +605,16 @@ const GameplayAbilitySystem = () => {
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											The <BSInlineFunction className={"UBSAT_TickTrace"} />{" "}
+											The <BSInlineFunction>UBSAT_TickTrace</BSInlineFunction>{" "}
 											<span className="text-light">Ability Task</span> is created. Its{" "}
 											<span className="text-light">OnTickTraceHit</span> delegate is bound to the{" "}
-											<BSInlineFunction functionName={"OnTickTraceHitResultHit"} /> function.
+											<BSInlineFunction>::OnTickTraceHitResultHit</BSInlineFunction> function.
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											When <BSInlineFunction functionName={"OnTickTraceHitResultHit"} /> is
-											called, the HitResult is packaged into Target Data and eventually the{" "}
-											<BSInlineFunction functionName={"OnTargetDataReady"} /> event, shown in{" "}
+											When <BSInlineFunction>OnTickTraceHitResultHit</BSInlineFunction> is called,
+											the HitResult is packaged into Target Data and eventually the{" "}
+											<BSInlineFunction>::OnTargetDataReady</BSInlineFunction> event, shown in{" "}
 											<Link className="link text-lightgrey hover-blue" href={"#bpgraph-2"}>
 												Blueprint Graph 2
 											</Link>
@@ -625,8 +623,8 @@ const GameplayAbilitySystem = () => {
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 											After passing some checks, the Hit Actor from the HitResult is cast to a{" "}
-											<BSInlineFunction className={"BP_Sphere_Target"} />, which is the blueprint
-											class for an <BSInlineFunction className={"ATarget"} />.
+											<BSInlineFunction>BP_Sphere_Target</BSInlineFunction>, which is the
+											blueprint class for an <BSInlineFunction>ATarget</BSInlineFunction>.
 											<ul>
 												<li>
 													<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -640,7 +638,7 @@ const GameplayAbilitySystem = () => {
 													their crosshair on the target. No damage is applied and the{" "}
 													<span className="text-light">OnPlayerStopTrackingTarget</span>{" "}
 													delegate is broadcast to{" "}
-													<BSInlineFunction className={"ATargetManager"} /> so that it can
+													<BSInlineFunction>ATargetManager</BSInlineFunction> so that it can
 													change all target colors to red.
 												</li>
 											</ul>
@@ -665,9 +663,9 @@ const GameplayAbilitySystem = () => {
 										<p>
 											The purpose of this task is to broadcast a{" "}
 											<span className="text-light">HitResult</span> from a{" "}
-											<BSInlineFunction functionName={"LineTraceSingleByChannel"} /> every frame.
+											<BSInlineFunction>::LineTraceSingleByChannel</BSInlineFunction> every frame.
 											I chose to use an <span className="text-light">Ability Task</span> here
-											because it can tick using <BSInlineFunction functionName={"TickTask"} />,
+											because it can tick using <BSInlineFunction>::TickTask</BSInlineFunction>,
 											while a <span className="text-light">GA</span> cannot.
 										</p>
 										<p>
@@ -701,7 +699,7 @@ const GameplayAbilitySystem = () => {
 											className="link text-light hover-white"
 											href="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/Player/BSCheatManager.cpp"
 										>
-											<BSInlineFunction className={"UBSCheatManager"} />
+											<BSInlineFunction>UBSCheatManager</BSInlineFunction>
 										</Link>{" "}
 										does.
 									</p>
@@ -709,22 +707,23 @@ const GameplayAbilitySystem = () => {
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 											When the Aim Bot console command is executed, the{" "}
-											<BSInlineFunction functionName={"CVarOnChanged_EnableAimBot"} /> function is
-											called.
+											<BSInlineFunction>::CVarOnChanged_EnableAimBot</BSInlineFunction> function
+											is called.
 											<ul>
 												<li>
 													<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 													This function binds the{" "}
 													<span className="text-light">OnTargetActivated_AimBot</span>{" "}
 													delegate located in{" "}
-													<BSInlineFunction className={"ATargetManager"} /> to the{" "}
-													<BSInlineFunction functionName={"OnTargetSpawned_AimBot"} />{" "}
-													function located in <BSInlineFunction className={"ABSCharacter"} />.
+													<BSInlineFunction>ATargetManager</BSInlineFunction> to the{" "}
+													<BSInlineFunction>::OnTargetSpawned_AimBot</BSInlineFunction>{" "}
+													function located in{" "}
+													<BSInlineFunction>ABSCharacter</BSInlineFunction>.
 												</li>
 												<li>
 													<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 													It also gives the ability to the Character using the{" "}
-													<BSInlineFunction functionName={"GiveAbility"} /> function on
+													<BSInlineFunction>::GiveAbility</BSInlineFunction> function on
 													Character&#39;s <span className="text-light">ASC</span>.
 												</li>
 											</ul>
@@ -736,8 +735,8 @@ const GameplayAbilitySystem = () => {
 											<ul>
 												<li>
 													<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-													Inside <BSInlineFunction functionName={"ActivateAbility"} />, the{" "}
-													<BSInlineFunction functionName={"OnTargetAddedToQueue"} /> function
+													Inside <BSInlineFunction>::ActivateAbility</BSInlineFunction>, the{" "}
+													<BSInlineFunction>::OnTargetAddedToQueue</BSInlineFunction> function
 													is bound to the owning Character&#39;s{" "}
 													<span className="text-light">OnTargetAddedToQueue</span> delegate.
 												</li>
@@ -748,13 +747,12 @@ const GameplayAbilitySystem = () => {
 											Each time a target is activated by the Target Manager, the Character adds a
 											target to the head of a queue and broadcasts its{" "}
 											<span className="text-light">OnTargetAddedToQueue</span> delegate, which
-											calls the <BSInlineFunction functionName={"OnTargetAddedToQueue"} />{" "}
+											calls the <BSInlineFunction>::OnTargetAddedToQueue</BSInlineFunction>{" "}
 											function in the ability:
 											<ul>
 												<li>
 													<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-													This function calls{" "}
-													<BSInlineFunction functionName={"PeekActiveTargets"} /> on the
+													This function calls{" "}<BSInlineFunction>::PeekActiveTargets</BSInlineFunction> on the
 													Character. This returns a pointer to the queue&#39;s tail item
 													without removing it from the queue.
 												</li>
@@ -767,10 +765,10 @@ const GameplayAbilitySystem = () => {
 												<li>
 													<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 													If a valid pointer to a target is returned, the ablitity creates a
-													new <BSInlineFunction functionName={"UBSAT_AimToTarget"} /> task and
+													new <BSInlineFunction>::UBSAT_AimToTarget</BSInlineFunction> task and
 													binds to its <span className="text-light">OnCancelled</span> and{" "}
 													<span className="text-light">OnCompleted</span> delegates.{" "}
-													<BSInlineFunction functionName={"ReadyForActivation"} /> is called
+													<BSInlineFunction>::ReadyForActivation</BSInlineFunction> is called
 													to activate the task.
 												</li>
 											</ul>
@@ -779,7 +777,7 @@ const GameplayAbilitySystem = () => {
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 											When either the <span className="text-light">OnCancelled</span> or{" "}
 											<span className="text-light">OnCompleted</span> delegates are broadcast from
-											the task, <BSInlineFunction functionName={"PopActiveTargets"} /> is called
+											the task, <BSInlineFunction>::PopActiveTargets</BSInlineFunction> is called
 											on the Character which removes the target from the tail of the queue.
 										</li>
 										<li>
@@ -798,7 +796,7 @@ const GameplayAbilitySystem = () => {
 										<p>
 											The main reason I chose to use an{" "}
 											<span className="text-light">Ability Task</span> for the Aim Bot ability is
-											because it can tick using <BSInlineFunction functionName={"TickTask"} />,
+											because it can tick using <BSInlineFunction>::TickTask</BSInlineFunction>,
 											while a <span className="text-light">GA</span> cannot. Tick is needed here
 											because the control rotation of the character needs to be lerped smoothly
 											across frames.
@@ -807,10 +805,10 @@ const GameplayAbilitySystem = () => {
 										<ul>
 											<li>
 												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />A{" "}
-												<BSInlineFunction className={"UCurveFloat"} /> is used to read the value
+												<BSInlineFunction>UCurveFloat</BSInlineFunction> is used to read the value
 												from a curve on tick. This is done using a{" "}
 												<span className="text-light">FOnTimelineFloat</span> delegate and the
-												curve. The <BSInlineFunction functionName={"OnTimelineTick"} /> function
+												curve. The <BSInlineFunction>::OnTimelineTick</BSInlineFunction> function
 												is bound to the <span className="text-light">FOnTimelineFloat</span>{" "}
 												delegate, so every time the timeline ticks, the value from the curve is
 												passed as a parameter to this function.
@@ -818,7 +816,7 @@ const GameplayAbilitySystem = () => {
 											<li>
 												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 												The target (
-												<BSInlineFunction className={"ATarget"} />) to aim toward
+												<BSInlineFunction>ATarget</BSInlineFunction>) to aim toward
 											</li>
 											<li>
 												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -828,44 +826,38 @@ const GameplayAbilitySystem = () => {
 										<p>
 											An <span className="text-light">FOnTimelineEvent</span> is used to bind the
 											timeline completion to the{" "}
-											<BSInlineFunction functionName={"OnTimelineCompleted"} /> function. When the
+											<BSInlineFunction>::OnTimelineCompleted</BSInlineFunction> function. When the
 											task is activated, the timeline is played from the start.{" "}
-											<BSInlineFunction functionName={"TickTimeline"} /> is called from{" "}
-											<BSInlineFunction functionName={"TickTask"} /> as long as the task state is
+											<BSInlineFunction>::TickTimeline</BSInlineFunction> is called from{" "}
+											<BSInlineFunction>::TickTask</BSInlineFunction> as long as the task state is
 											active.
 										</p>
 										<p>
-											Inside <BSInlineFunction functionName={"OnTimelineTick"} />,{" "}
-											<BSInlineFunction functionName={"SetControlRotation"} /> is called to update
+											Inside <BSInlineFunction>::OnTimelineTick</BSInlineFunction>,{" "}
+											<BSInlineFunction>::SetControlRotation</BSInlineFunction> is called to update
 											the controller rotation every frame.
 										</p>
 										<ul>
 											<li>
 												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												<BSInlineFunction functionName={"GetActorEyesViewPoint"} /> is called to
+												<BSInlineFunction>::GetActorEyesViewPoint</BSInlineFunction> is called to
 												get the current location and rotation of the player controller.
 											</li>
 											<li>
 												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 												The new controller rotation is found using{" "}
-												<BSInlineFunction
-													className="UKismetMathLibrary"
-													functionName={"RLerp"}
-												/>{" "}
+												<BSInlineFunction>UKismetMathLibrary::RLerp</BSInlineFunction>{" "}
 												with the following parameters:
 												<ul>
 													<li>
 														<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 														Start rotation: rotation obtained from{" "}
-														<BSInlineFunction functionName={"GetActorEyesViewPoint"} />
+														<BSInlineFunction>::GetActorEyesViewPoint</BSInlineFunction>
 													</li>
 													<li>
 														<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 														End rotation: found using{" "}
-														<BSInlineFunction
-															className="UKismetMathLibrary"
-															functionName={"FindLookAtRotation"}
-														/>{" "}
+														<BSInlineFunction>UKismetMathLibrary::FindLookAtRotation</BSInlineFunction>{" "}
 														with the following parameters:
 														<ul>
 															<li>
@@ -874,9 +866,7 @@ const GameplayAbilitySystem = () => {
 																	className="li-icon"
 																/>
 																Start location: location obtained from{" "}
-																<BSInlineFunction
-																	functionName={"GetActorEyesViewPoint"}
-																/>
+																<BSInlineFunction>::GetActorEyesViewPoint</BSInlineFunction>
 															</li>
 															<li>
 																<FontAwesomeIcon
@@ -932,13 +922,13 @@ const GameplayAbilitySystem = () => {
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 										Attribute sets on targets reside on the actor itself (
-										<BSInlineFunction className={"ATarget"} />
+										<BSInlineFunction>ATarget</BSInlineFunction>
 										).
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 										Attribute sets on characters reside in the Player State (
-										<BSInlineFunction className={"ABSPlayerState"} />
+										<BSInlineFunction>ABSPlayerState</BSInlineFunction>
 										).
 									</li>
 								</ul>
@@ -1011,7 +1001,7 @@ const GameplayAbilitySystem = () => {
 										immunity. These various types of immunity are applied using infinite duration{" "}
 										<span className="text-light">GEs</span> and are typically called directly on the
 										target itself using{" "}
-										<BSInlineFunction functionName="ApplyGameplayEffectToSelf" />.
+										<BSInlineFunction>::ApplyGameplayEffectToSelf</BSInlineFunction>.
 									</p>
 								</div>
 								<div className="article-subsection-2" id="fire-cooldown" ref={Ref_gasC_ge_fireCD}>
@@ -1056,11 +1046,11 @@ const GameplayAbilitySystem = () => {
 								/>
 								<p>
 									I chose to implement this class simply because I found the{" "}
-									<BSInlineFunction functionName={"BindAbilityActions"} /> function in the Lyra Sample
+									<BSInlineFunction>::BindAbilityActions</BSInlineFunction> function in the Lyra Sample
 									Project. This function allows abilities to be bound to an{" "}
 									<span className="text-light">Input Action</span> using an{" "}
 									<span className="text-light">Input Tag</span>. These mappings are done through the
-									data asset <BSInlineFunction className={"UBSInputConfig"} />.
+									data asset <BSInlineFunction>UBSInputConfig</BSInlineFunction>.
 								</p>
 								<div className="article-subsection" ref={Ref_gasC_eic_ic} id="classes-UBSInputConfig">
 									<BlogHeadingClass
@@ -1077,8 +1067,8 @@ const GameplayAbilitySystem = () => {
 										<span className="text-light">Input Tags</span> are used so that{" "}
 										<span className="text-light">IAs</span> can be bound to abilities that might not
 										yet be granted. All <span className="text-light">IAs</span> are bound to
-										functions inside the <BSInlineFunction className={"ABSCharacter"} /> class and
-										are bound during <BSInlineFunction functionName={"InitializePlayerInput"} />.
+										functions inside the <BSInlineFunction>ABSCharacter</BSInlineFunction> class and
+										are bound during <BSInlineFunction>::InitializePlayerInput</BSInlineFunction>.
 										This data asset splits <span className="text-light">IAs</span> into two
 										categories:
 									</p>
@@ -1093,8 +1083,8 @@ const GameplayAbilitySystem = () => {
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 											<span className="text-light">Ability Input Actions</span> are bound to
 											specific abilities. All of these are bound to the same functions:{" "}
-											<BSInlineFunction functionName={"Input_AbilityInputTagPressed"} /> and{" "}
-											<BSInlineFunction functionName={"Input_AbilityInputTagReleased"} />.
+											<BSInlineFunction>::Input_AbilityInputTagPressed</BSInlineFunction> and{" "}
+											<BSInlineFunction>::Input_AbilityInputTagReleased</BSInlineFunction>.
 										</li>
 									</ul>
 									<p>
@@ -1138,36 +1128,36 @@ const GameplayAbilitySystem = () => {
 									that use various <span className="text-light">Attribute Sets</span>.
 								</p>
 								<p>
-									<BSInlineFunction functionName={"GiveToAbilitySystem"} /> handles granting all
+									<BSInlineFunction>::GiveToAbilitySystem</BSInlineFunction> handles granting all
 									components of this class to the specified <span className="text-light">ASC</span>{" "}
-									and <BSInlineFunction functionName={"TakeFromAbilitySystem"} /> handles their
+									and <BSInlineFunction>::TakeFromAbilitySystem</BSInlineFunction> handles their
 									removal.
 								</p>
 								<p>
 									A <span className="text-light">GA</span> is granted by creating an{" "}
-									<BSInlineFunction className={"FGameplayAbilitySpec"} /> and calling{" "}
-									<BSInlineFunction functionName={"GiveAbility"} /> on the{" "}
+									<BSInlineFunction>FGameplayAbilitySpec</BSInlineFunction> and calling{" "}
+									<BSInlineFunction>::GiveAbility</BSInlineFunction> on the{" "}
 									<span className="text-light">ASC</span>. This returns an{" "}
 									<span className="text-light">FGameplayAbilitySpecHandle</span>, which is stored so
 									that it can later be used to remove the <span className="text-light">GA</span> using{" "}
-									<BSInlineFunction functionName={"ClearAbility"} />.
+									<BSInlineFunction>::ClearAbility</BSInlineFunction>.
 								</p>
 								<p>
 									Similarly, a <span className="text-light">GE</span> is applied by creating an{" "}
-									<BSInlineFunction className={"FGameplayEffectSpec"} /> and calling{" "}
-									<BSInlineFunction functionName={"ApplyGameplayEffectToSelf"} /> on the{" "}
+									<BSInlineFunction>FGameplayEffectSpec</BSInlineFunction> and calling{" "}
+									<BSInlineFunction>::ApplyGameplayEffectToSelf</BSInlineFunction> on the{" "}
 									<span className="text-light">ASC</span>. This returns an{" "}
 									<span className="text-light">FGameplayEffectSpecHandle</span>, which is stored so
 									that it can later be used to remove the <span className="text-light">GE</span> using{" "}
-									<BSInlineFunction functionName={"RemoveActiveGameplayEffect"} />.
+									<BSInlineFunction>::RemoveActiveGameplayEffect</BSInlineFunction>.
 								</p>
 								<p>
 									An <span className="text-light">Attribute Set</span> is granted by creating a new{" "}
 									<span className="text-light">Attribute Set</span> object and calling{" "}
-									<BSInlineFunction functionName={"AddAttributeSetSubobject"} />. This returns the
+									<BSInlineFunction>::AddAttributeSetSubobject</BSInlineFunction>. This returns the
 									added <span className="text-light">Attribute Set</span>, which is stored so that it
 									can be later used to remove the <span className="text-light">Attribute Set</span>{" "}
-									using <BSInlineFunction functionName={"RemoveSpawnedAttribute"} />.
+									using <BSInlineFunction>::RemoveSpawnedAttribute</BSInlineFunction>.
 								</p>
 								<p>
 									<Link className="link text-lightgrey hover-white" href={"#figure-2"}>
@@ -1218,7 +1208,7 @@ const GameplayAbilitySystem = () => {
 								</p>
 								<p>
 									To be honest, the Health Component is kind of unnecessary since the target could
-									just bind to the <BSInlineFunction className={"UBSAttributeSetBase"} />
+									just bind to the <BSInlineFunction>UBSAttributeSetBase</BSInlineFunction>
 									&#39;s <span className="text-light">OnHealthChanged</span> delegate directly, but if
 									I wanted to add additional actors that use Health Components in the future, it would
 									be less coding in the long run.
@@ -1232,7 +1222,7 @@ const GameplayAbilitySystem = () => {
 								Hit-Based damage game mode, starting from when the player presses the{" "}
 								<span className="text-light">IA</span>. This means that the{" "}
 								<span className="text-light">GA</span> used throughout this section will always be{" "}
-								<BSInlineFunction className={"UBSGA_FireGun"} />.
+								<BSInlineFunction>UBSGA_FireGun</BSInlineFunction>.
 							</p>
 							<div className="article-subsection" ref={Ref_tl_input} id="timeline-Input">
 								<BlogHeading headingText="Input" headingLevel={2} />
@@ -1244,18 +1234,18 @@ const GameplayAbilitySystem = () => {
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										<BSInlineFunction functionName={"Input_AbilityInputTagPressed"} /> is called on
+										<BSInlineFunction>::Input_AbilityInputTagPressed</BSInlineFunction> is called on
 										the character, which simply calls{" "}
-										<BSInlineFunction functionName={"AbilityInputTagPressed"} /> on the
+										<BSInlineFunction>::AbilityInputTagPressed</BSInlineFunction> on the
 										character&#39;s <span className="text-light">ASC</span>. If the{" "}
 										<span className="text-light">ASC</span> finds an activatable{" "}
 										<span className="text-light">GA</span> with the matching{" "}
 										<span className="text-light">Ability Tag</span>, the{" "}
 										<span className="text-light">Gameplay Ability Handle</span> is added to the
 										member variable <span className="text-light">InputPressedSpecHandles</span>.
-										These get processed in <BSInlineFunction functionName={"ProcessAbilityInput"} />
+										These get processed in <BSInlineFunction>::ProcessAbilityInput</BSInlineFunction>
 										. This function is called from the player controller inside{" "}
-										<BSInlineFunction functionName={"PostProcessInput"} />.
+										<BSInlineFunction>::PostProcessInput</BSInlineFunction>.
 									</li>
 								</ul>
 							</div>
@@ -1266,20 +1256,20 @@ const GameplayAbilitySystem = () => {
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 										If an activatable ability was found in the{" "}
 										<span className="text-light">ASC</span>,{" "}
-										<BSInlineFunction functionName={"TryActivateAbility"} /> is called, which begins
+										<BSInlineFunction>::TryActivateAbility</BSInlineFunction> is called, which begins
 										a series of internal function calls that eventually end up calling{" "}
-										<BSInlineFunction functionName={"ActivateAbility"} /> on the Fire Gun Ability.
+										<BSInlineFunction>::ActivateAbility</BSInlineFunction> on the Fire Gun Ability.
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										The C++ version of <BSInlineFunction functionName={"ActivateAbility"} /> doesn’t
+										The C++ version of <BSInlineFunction>::ActivateAbility</BSInlineFunction> doesn’t
 										do anything noteworthy but the{" "}
 										<Link className="link text-lightgrey hover-blue" href={"#bpgraph-1"}>
 											blueprint version
 										</Link>{" "}
-										calls <BSInlineFunction functionName={"StartTargeting"} />, which is implemented
+										calls <BSInlineFunction>::StartTargeting</BSInlineFunction>, which is implemented
 										in C++ and is discussed in the next section. It also calls the{" "}
-										<BSInlineFunction functionName={"PlayMontageAndWait"} />{" "}
+										<BSInlineFunction>::PlayMontageAndWait</BSInlineFunction>{" "}
 										<span className="text-light">Ability Task</span> to play the Animation Montage
 										for the weapon recoil.
 									</li>
@@ -1295,37 +1285,32 @@ const GameplayAbilitySystem = () => {
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 											This function&#39;s main purpose is to create the structure that holds the
 											targeting data. This comes in the form of an{" "}
-											<BSInlineFunction className={"FGameplayAbilityTargetDataHandle"} />, which
+											<BSInlineFunction>FGameplayAbilityTargetDataHandle</BSInlineFunction>, which
 											holds an array of pointers to{" "}
-											<BSInlineFunction className={"FGameplayAbilityTargetData"} />.
+											<BSInlineFunction>FGameplayAbilityTargetData</BSInlineFunction>.
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											<BSInlineFunction className={"FGameplayAbilityTargetData"} /> allows passing
+											<BSInlineFunction>FGameplayAbilityTargetData</BSInlineFunction> allows passing
 											data across the network. <span className="text-light">GAS</span> comes with
 											several subclassed versions, but the one used here is{" "}
-											<BSInlineFunction
-												className={"FGameplayAbilityTargetData_SingleTargetHit"}
-											/>{" "}
+											<BSInlineFunction>FGameplayAbilityTargetData_SingleTargetHit</BSInlineFunction>{" "}
 											since it allows passing a HitResult.
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 											The HitResult is obtained by calling{" "}
-											<BSInlineFunction functionName={"SingleWeaponTrace"} />, which traces a
+											<BSInlineFunction>::SingleWeaponTrace</BSInlineFunction>, which traces a
 											single line using a collision channel I created that ignores any pawn or
 											weapon meshes. The start of the trace begins at the player’s Camera
 											Component, some maths are done to find end location, and{" "}
-											<BSInlineFunction
-												className="UWorld"
-												functionName="LineTraceSingleByChannel"
-											/>{" "}
+											<BSInlineFunction>UWorld::LineTraceSingleByChannel</BSInlineFunction>{" "}
 											is called to get the HitResult.
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											The last thing <BSInlineFunction functionName={"StartTargeting"} /> does is
-											call <BSInlineFunction functionName={"OnTargetDataReadyCallback"} />.
+											The last thing <BSInlineFunction>::StartTargeting</BSInlineFunction> does is
+											call <BSInlineFunction>::OnTargetDataReadyCallback</BSInlineFunction>.
 										</li>
 									</ul>
 								</div>
@@ -1349,14 +1334,14 @@ const GameplayAbilitySystem = () => {
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											<BSInlineFunction functionName={"CommitAbility"} /> is called on the{" "}
+											<BSInlineFunction>::CommitAbility</BSInlineFunction> is called on the{" "}
 											<span className="text-light">GA</span>. This is where any cooldowns or costs
 											associated with the ability are checked. The cooldown for FireGun is the
 											same as the weapon’s fire rate, but there is no cost to firing the weapon
 											since BeatShot’s weapons have unlimited ammo. If{" "}
-											<BSInlineFunction functionName={"CommitAbility"} /> returns false, the
+											<BSInlineFunction>::CommitAbility</BSInlineFunction> returns false, the
 											ability is ended, otherwise{" "}
-											<BSInlineFunction functionName={"OnTargetDataReady"} /> is called.
+											<BSInlineFunction>::OnTargetDataReady</BSInlineFunction> is called.
 										</li>
 									</ul>
 								</div>
@@ -1381,16 +1366,16 @@ const GameplayAbilitySystem = () => {
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											The <BSInlineFunction className={"FGameplayAbilityTargetDataHandle"} /> is
+											The <BSInlineFunction>FGameplayAbilityTargetDataHandle</BSInlineFunction> is
 											the only parameter passed to this function, which is what{" "}
-											<BSInlineFunction functionName={"StartTargeting"} /> created earlier.
+											<BSInlineFunction>::StartTargeting</BSInlineFunction> created earlier.
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 											If the HitResult contained a blocking hit, an{" "}
-											<BSInlineFunction className={"FGameplayEffectSpec"} /> (
+											<BSInlineFunction>FGameplayEffectSpec</BSInlineFunction> (
 											<span className="text-light">GESpec</span>) is creating using{" "}
-											<BSInlineFunction functionName={"MakeOutgoingGameplayEffectSpec"} /> with
+											<BSInlineFunction>::MakeOutgoingGameplayEffectSpec</BSInlineFunction> with
 											the input <span className="text-light">GE</span> containing the blueprint
 											properties:
 											<ul>
@@ -1401,21 +1386,19 @@ const GameplayAbilitySystem = () => {
 												<li>
 													<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 													<span className="text-light">Executions</span>: The C++ class{" "}
-													<BSInlineFunction className={"BSDamageExecCalc"} /> is added
+													<BSInlineFunction>BSDamageExecCalc</BSInlineFunction> is added
 												</li>
 											</ul>
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											<BSInlineFunction className={"ApplyGameplayEffectSpecToTarget"} /> is called
+											<BSInlineFunction>::ApplyGameplayEffectSpecToTarget</BSInlineFunction> is called
 											using the <span className="text-light">GESpec</span> and target data.
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 											The{" "}
-											<BSInlineFunction
-												functionName={"ExecuteGameplayCueWithParamsOnOwner"}
-											/>{" "}
+											<BSInlineFunction>::ExecuteGameplayCueWithParamsOnOwner</BSInlineFunction>{" "}
 											function is called using the HitResult as a parameter and the{" "}
 											<span className="text-light">Gameplay Cue Tag</span> of{" "}
 											<span className="text-light">GameplayCue.FireGun</span>. The{" "}
@@ -1429,7 +1412,7 @@ const GameplayAbilitySystem = () => {
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											<BSInlineFunction className={"EndAbility"} /> is called after execution of
+											<BSInlineFunction>::EndAbility</BSInlineFunction> is called after execution of
 											the <span className="text-light">GE</span> and{" "}
 											<span className="text-light">Gameplay Cue</span>.
 										</li>
@@ -1438,10 +1421,7 @@ const GameplayAbilitySystem = () => {
 										bpLink="https://blueprintue.com/render/hoqr4itn/"
 										label="Blueprint Graph 3"
 										description={
-											<BSInlineFunction
-												className="UBSGA_FireGun"
-												functionName={"OnTargetDataReady"}
-											/>
+											<BSInlineFunction>::UBSGA_FireGun::OnTargetDataReady</BSInlineFunction>
 										}
 										id="bpgraph-3"
 									/>
@@ -1453,19 +1433,19 @@ const GameplayAbilitySystem = () => {
 									A <span className="text-light">GESpec</span> is essentially just a modifiable
 									instance of a <span className="text-light">GE</span> since a{" "}
 									<span className="text-light">GE</span> is a data-only class. Inside its{" "}
-									<BSInlineFunction functionName={"Initialize"} /> function, it sets the context and
+									<BSInlineFunction>::Initialize</BSInlineFunction> function, it sets the context and
 									performs other prep-related tasks. One of these tasks is calling{" "}
-									<BSInlineFunction functionName={"CaptureDataFromSource"} />. This informs the{" "}
+									<BSInlineFunction>::CaptureDataFromSource</BSInlineFunction>. This informs the{" "}
 									<span className="text-light">GESpec</span> which attributes to capture from the
 									source. This can be called multiple times depending on source target setup. Target
 									attributes are captured later in execution.
 								</p>
 								<p>
 									There&#39;s actually three{" "}
-									<BSInlineFunction functionName={"ApplyGameplayEffectSpecToTarget"} /> functions that
+									<BSInlineFunction>::ApplyGameplayEffectSpecToTarget</BSInlineFunction> functions that
 									are called since we&#39;re starting from a <span className="text-light">GA</span>.
 									It starts with the one owned by the <span className="text-light">GA</span> and then
-									calls the <BSInlineFunction className={"FGameplayAbilityTargetData"} /> version,
+									calls the <BSInlineFunction>FGameplayAbilityTargetData</BSInlineFunction> version,
 									which duplicates the <span className="text-light">GESpec</span> and context. Then it
 									calls the <span className="text-light">ASC</span> version for each targeted actor,
 									but there will only be one in this example.
@@ -1481,11 +1461,11 @@ const GameplayAbilitySystem = () => {
 										headingLevel={3}
 									/>
 									<p>
-										<BSInlineFunction functionName={"ApplyGameplayEffectSpecToTarget"} /> is just a
+										<BSInlineFunction>::ApplyGameplayEffectSpecToTarget</BSInlineFunction> is just a
 										convenience function that calls{" "}
-										<BSInlineFunction functionName={"ApplyGameplayEffectSpecToSelf"} /> using the
+										<BSInlineFunction>::ApplyGameplayEffectSpecToSelf</BSInlineFunction> using the
 										target <span className="text-light">ASC</span> parameter. In this example, it’s
-										the <BSInlineFunction className={"ATarget"} />
+										the <BSInlineFunction>ATarget</BSInlineFunction>
 										’s <span className="text-light">ASC</span>.
 									</p>
 									<ul>
@@ -1502,10 +1482,10 @@ const GameplayAbilitySystem = () => {
 											The major difference between Instant and all other{" "}
 											<span className="text-light">Duration Types</span> is that Instant GEs are
 											not <u>applied</u> but instead <u>executed</u> through{" "}
-											<BSInlineFunction functionName={"ExecuteGameplayEffect"} />. All other types
-											instead call <BSInlineFunction functionName={"ApplyGameplayEffectSpec"} />{" "}
-											on the <BSInlineFunction className={"FActiveGameplayEffectsContainer"} />.{" "}
-											<BSInlineFunction functionName={"ExecuteGameplayEffect"} /> is detailed in
+											<BSInlineFunction>::ExecuteGameplayEffect</BSInlineFunction>. All other types
+											instead call <BSInlineFunction>::ApplyGameplayEffectSpec</BSInlineFunction>{" "}
+											on the <BSInlineFunction>FActiveGameplayEffectsContainer</BSInlineFunction>.{" "}
+											<BSInlineFunction>::ExecuteGameplayEffect</BSInlineFunction> is detailed in
 											the next section.
 										</li>
 										<li>
@@ -1515,11 +1495,9 @@ const GameplayAbilitySystem = () => {
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											The source <BSInlineFunction
-												className={"OnGameplayEffectAppliedToSelf"}
-											/>{" "}
+											The source <BSInlineFunction>::OnGameplayEffectAppliedToSelf</BSInlineFunction>{" "}
 											and the target{" "}
-											<BSInlineFunction className={"OnGameplayEffectAppliedToTarget"} /> delegates
+											<BSInlineFunction>OnGameplayEffectAppliedToTarget</BSInlineFunction> delegates
 											are broadcast.
 										</li>
 										<div
@@ -1533,9 +1511,9 @@ const GameplayAbilitySystem = () => {
 												headingLevel={4}
 											/>
 											<p>
-												<BSInlineFunction functionName={"ExecuteGameplayEffect"} /> calls{" "}
-												<BSInlineFunction functionName={"ExecuteActiveEffectsFrom"} /> on the{" "}
-												<BSInlineFunction className={"FActiveGameplayEffectsContainer"} />{" "}
+												<BSInlineFunction>::ExecuteGameplayEffect</BSInlineFunction> calls{" "}
+												<BSInlineFunction>::ExecuteActiveEffectsFrom</BSInlineFunction> on the{" "}
+												<BSInlineFunction>FActiveGameplayEffectsContainer</BSInlineFunction>{" "}
 												within the <span className="text-light">ASC</span>, which is really
 												where the <span className="text-light">GE</span> gets executed on
 												attributes and <span className="text-light">Active GEs</span>.
@@ -1544,7 +1522,7 @@ const GameplayAbilitySystem = () => {
 												<li>
 													<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 													Target attributes are captured using{" "}
-													<BSInlineFunction functionName={"CaptureAttributeDataFromTarget"} />
+													<BSInlineFunction>::CaptureAttributeDataFromTarget</BSInlineFunction>
 													.
 												</li>
 												<li>
@@ -1564,8 +1542,8 @@ const GameplayAbilitySystem = () => {
 															<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 															The <span className="text-light">GE</span> created earlier
 															uses the <span className="text-light">Execution</span>{" "}
-															<BSInlineFunction className={"UBSDamageExecCalc"} />.{" "}
-															<BSInlineFunction functionName={"Execute_Implementation"} />{" "}
+															<BSInlineFunction>UBSDamageExecCalc</BSInlineFunction>.{" "}
+															<BSInlineFunction>::Execute_Implementation</BSInlineFunction>{" "}
 															is where the calculation takes place.
 															<ul>
 																<li>
@@ -1607,15 +1585,11 @@ const GameplayAbilitySystem = () => {
 															<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 															After the <span className="text-light">GE</span> is
 															executed,{" "}
-															<BSInlineFunction
-																functionName={"PostGameplayEffectExecute"}
-															/>{" "}
+															<BSInlineFunction>::PostGameplayEffectExecute</BSInlineFunction>{" "}
 															is called on the target{" "}
 															<span className="text-light">Attribute Set</span>. The input
 															parameter{" "}
-															<BSInlineFunction
-																className={"FGameplayEffectModCallbackData"}
-															/>{" "}
+															<BSInlineFunction>::FGameplayEffectModCallbackData</BSInlineFunction>{" "}
 															describes which, if any, attributes were changed by the{" "}
 															<span className="text-light">GE</span>. In this example, the{" "}
 															<span className="text-light">Total Damage</span> attribute
@@ -1646,12 +1620,12 @@ const GameplayAbilitySystem = () => {
 													<span className="text-light">Health Attribute</span> inside the
 													Execution Calculation. However, the attribute could get changed
 													twice if the Execution Calculation did not clamp the value while{" "}
-													<BSInlineFunction functionName={"PreAttributeChange"} /> did.{" "}
+													<BSInlineFunction>::PreAttributeChange</BSInlineFunction> did.{" "}
 												</p>
 												<p>
-													<BSInlineFunction functionName={"PreAttributeChange"} /> still gets
+													<BSInlineFunction>::PreAttributeChange</BSInlineFunction> still gets
 													called before{" "}
-													<BSInlineFunction functionName={"PostGameplayEffectExecute"} />, so
+													<BSInlineFunction>::PostGameplayEffectExecute</BSInlineFunction>, so
 													it would not have an impact on any{" "}
 													<span className="text-light">OnHealthChanged</span> delegate
 													receivers. However, the <span className="text-light">ASC</span>{" "}
@@ -1681,9 +1655,9 @@ const GameplayAbilitySystem = () => {
 									application success.
 								</p>
 								<p>
-									I chose to use an <BSInlineFunction className="UGameplayCueNotify_Burst" /> since
+									I chose to use an <BSInlineFunction>UGameplayCueNotify_Burst</BSInlineFunction> since
 									its meant to be used for one-off events.{" "}
-									<BSInlineFunction className="AGameplayCueNotify_Actor" /> is another version that is
+									<BSInlineFunction>AGameplayCueNotify_Actor</BSInlineFunction> is another version that is
 									actually spawned in the world, but that is not used in this example.
 								</p>
 								<div className="article-subsection-2" ref={Ref_tl_gc_wf} id="timeline-GCNWeaponFire">
@@ -1691,10 +1665,10 @@ const GameplayAbilitySystem = () => {
 									<ul>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											<BSInlineFunction className="GCN_WeaponFire" /> is the{" "}
-											<BSInlineFunction className="UGameplayCueNotify_Burst" /> blueprint class
+											<BSInlineFunction>GCN_WeaponFire</BSInlineFunction> is the{" "}
+											<BSInlineFunction>UGameplayCueNotify_Burst</BSInlineFunction> blueprint class
 											that handles the <span className="text-light">GameplayCue.FireGun</span>{" "}
-											response. First, the C++ function <BSInlineFunction functionName="Fire" />{" "}
+											response. First, the C++ function <BSInlineFunction>::Fire</BSInlineFunction>{" "}
 											is called on the character’s weapon to increment the total shots fired by
 											the player.
 										</li>
@@ -1706,10 +1680,10 @@ const GameplayAbilitySystem = () => {
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											Finally, the blueprint function <BSInlineFunction functionName="Fire_BP" />{" "}
+											Finally, the blueprint function <BSInlineFunction>::Fire_BP</BSInlineFunction>{" "}
 											is called on the weapon, and the Impact Position and Impact Normal from the
 											HitResult are passed as parameters. This function is responsible for
-											spawning the <BSInlineFunction className="WeaponFire" /> blueprint class, as
+											spawning the <BSInlineFunction>WeaponFire</BSInlineFunction> blueprint class, as
 											well as updating a few variables inside that instruct whether or not and
 											where to spawn the various effects.
 										</li>
@@ -1718,21 +1692,18 @@ const GameplayAbilitySystem = () => {
 										bpLink="https://blueprintue.com/render/pqprz-_7/"
 										label="Blueprint Graph 4"
 										description={
-											<BSInlineFunction
-												className="GameplayCueNotify_Burst"
-												functionName={"OnBurst"}
-											/>
+											<BSInlineFunction>GameplayCueNotify_Burst::OnBurst</BSInlineFunction>
 										}
 									/>
 									<ul>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											<BSInlineFunction className="WeaponFire" /> manages the bullet tracers,
+											<BSInlineFunction>::WeaponFire</BSInlineFunction> manages the bullet tracers,
 											muzzle flash, and decals. A separate actor is used so that if the character
 											swaps to the knife, the effects are still managed without relying on the
 											weapon. There isn’t much too much going on here besides calling{" "}
-											<BSInlineFunction functionName="SpawnSystemAttached" /> and{" "}
-											<BSInlineFunction functionName="SpawnDecal" />.
+											<BSInlineFunction>::SpawnSystemAttached</BSInlineFunction> and{" "}
+											<BSInlineFunction>::SpawnDecal</BSInlineFunction>.
 										</li>
 									</ul>
 								</div>
