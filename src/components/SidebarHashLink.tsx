@@ -7,14 +7,19 @@ const semiBold = " fw-semibold";
 const activeClassName = "hover-blue link active";
 const inactiveClassName = "hover-blue link";
 
-type NavLinkProps = React.PropsWithChildren<LinkProps> & {
+type NavLinkProps = React.PropsWithChildren & {
 	hash: string;
 	onScreen: boolean;
-	text: string;
 	topLevelLink?: boolean;
 };
 
-export const SidebarHashLink = ({ children, hash, text, onScreen, topLevelLink, ...props }: NavLinkProps) => {
+export const SidebarHashLink: React.FC<NavLinkProps> = ({
+	children,
+	hash,
+	onScreen,
+	topLevelLink = false,
+	...props
+}) => {
 	const pathname = usePathname();
 
 	const getSidebarClassName = () => {
@@ -29,11 +34,9 @@ export const SidebarHashLink = ({ children, hash, text, onScreen, topLevelLink, 
 			{...props}
 			href={pathname + hash}
 			replace={true}
-			passHref
 			scroll={true}
 			className={"sidebar-hash-link " + getSidebarClassName()}
 		>
-			{text}
 			{children}
 		</Link>
 	);

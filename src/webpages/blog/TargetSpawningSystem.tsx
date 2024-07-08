@@ -34,8 +34,6 @@ import "@/styles/Hero.scss";
 import "@/styles/Utility.scss";
 
 const TargetSpawningSystem = () => {
-	const articlePath = "/devblog/target-spawning-system";
-
 	const Ref_Classes = useRef(null);
 	const Ref_USpawnArea = useRef(null);
 	const Ref_ATargetManager = useRef(null);
@@ -47,6 +45,14 @@ const TargetSpawningSystem = () => {
 	const Ref_UBSAbilitySystemComponent = useRef(null);
 	const Ref_UBSHealthComponent = useRef(null);
 	const Ref_ABSGameMode = useRef(null);
+
+	const Ref_States = useRef(null);
+	const Ref_TargetStates = useRef(null);
+	const Ref_SpawnAreaStates = useRef(null);
+	const Ref_ConditionsAndResponses = useRef(null);
+	const Ref_Conditions = useRef(null);
+	const Ref_Responses = useRef(null);
+	const Ref_TargetDistributionPolicy = useRef(null);
 
 	const Ref_TargetLifeCycle = useRef(null);
 	const Ref_Initialization = useRef(null);
@@ -67,6 +73,15 @@ const TargetSpawningSystem = () => {
 	const onScreen_UBSAbilitySystemComponent = useOnScreen(Ref_UBSAbilitySystemComponent);
 	const onScreen_UBSHealthComponent = useOnScreen(Ref_UBSHealthComponent);
 	const onScreen_ABSGameMode = useOnScreen(Ref_ABSGameMode);
+
+	const onScreen_States = useOnScreen(Ref_States);
+	const onScreen_TargetStates = useOnScreen(Ref_TargetStates);
+	const onScreen_SpawnAreaStates = useOnScreen(Ref_SpawnAreaStates);
+	const onScreen_ConditionsAndResponses = useOnScreen(Ref_ConditionsAndResponses);
+	const onScreen_Conditions = useOnScreen(Ref_Conditions);
+	const onScreen_Responses = useOnScreen(Ref_Responses);
+	const onScreen_TargetDistributionPolicy = useOnScreen(Ref_TargetDistributionPolicy);
+
 	const onScreen_TargetLifeCycle = useOnScreen(Ref_TargetLifeCycle);
 	const onScreen_Initialization = useOnScreen(Ref_Initialization);
 	const onScreen_Spawning = useOnScreen(Ref_Spawning);
@@ -97,6 +112,301 @@ const TargetSpawningSystem = () => {
 	// 	};
 	// }, []);
 
+	const sideBar = (
+		<Sidebar>
+			<ul>
+				<li>
+					<SidebarHashLink hash={`#classes-header`} onScreen={onScreen_Classes} topLevelLink={true}>
+						Classes
+					</SidebarHashLink>
+					<ul>
+						<li>
+							<SidebarHashLink
+								hash={`#classes-USpawnArea`}
+								onScreen={onScreen_Classes && onScreen_USpawnArea}
+							>
+								Spawn Area
+							</SidebarHashLink>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#classes-ATargetManager`}
+								onScreen={onScreen_Classes && !onScreen_USpawnArea && onScreen_ATargetManager}
+							>
+								Target Manager
+							</SidebarHashLink>
+							<ul>
+								<li>
+									<SidebarHashLink
+										hash={`#classes-UBoxComponent`}
+										onScreen={
+											onScreen_Classes &&
+											!onScreen_USpawnArea &&
+											onScreen_ATargetManager &&
+											onScreen_UBoxComponent
+										}
+									>
+										Box Components
+									</SidebarHashLink>
+								</li>
+								<li>
+									<SidebarHashLink
+										hash={`#classes-UReinforcementLearningComponent`}
+										onScreen={
+											onScreen_Classes &&
+											!onScreen_USpawnArea &&
+											onScreen_ATargetManager &&
+											!onScreen_UBoxComponent &&
+											onScreen_UReinforcementLearningComponent
+										}
+									>
+										Reinforcement Learning Component
+									</SidebarHashLink>
+								</li>
+								<li>
+									<SidebarHashLink
+										hash={`#classes-USpawnAreaManagerComponent`}
+										onScreen={
+											onScreen_Classes &&
+											!onScreen_USpawnArea &&
+											onScreen_ATargetManager &&
+											!onScreen_UReinforcementLearningComponent &&
+											onScreen_USpawnAreaManagerComponent
+										}
+									>
+										Spawn Area Manager Component
+									</SidebarHashLink>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#classes-ATarget`}
+								onScreen={onScreen_Classes && !onScreen_ATargetManager && onScreen_ATarget}
+							>
+								Target
+							</SidebarHashLink>
+							<ul>
+								<li>
+									<SidebarHashLink
+										hash={`#classes-UProjectileMovementComponent`}
+										onScreen={
+											onScreen_Classes &&
+											!onScreen_ATargetManager &&
+											onScreen_ATarget &&
+											onScreen_UProjectileMovementComponent
+										}
+									>
+										Projectile Movement Component
+									</SidebarHashLink>
+								</li>
+								<li>
+									<SidebarHashLink
+										hash={`#classes-UBSAbilitySystemComponent`}
+										onScreen={
+											onScreen_Classes &&
+											!onScreen_ATargetManager &&
+											onScreen_ATarget &&
+											!onScreen_UProjectileMovementComponent &&
+											onScreen_UBSAbilitySystemComponent
+										}
+									>
+										Ability System Component
+									</SidebarHashLink>
+								</li>
+								<li>
+									<SidebarHashLink
+										hash={`#classes-UBSHealthComponent`}
+										onScreen={
+											onScreen_Classes &&
+											!onScreen_ATargetManager &&
+											onScreen_ATarget &&
+											!onScreen_UBSAbilitySystemComponent &&
+											onScreen_UBSHealthComponent
+										}
+									>
+										Health Component
+									</SidebarHashLink>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#classes-ABSGameMode`}
+								onScreen={onScreen_Classes && !onScreen_ATarget && onScreen_ABSGameMode}
+							>
+								BSGameMode
+							</SidebarHashLink>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<SidebarHashLink
+						hash={`#states`}
+						onScreen={!onScreen_Classes && onScreen_States}
+						topLevelLink={true}
+					>
+						States
+					</SidebarHashLink>
+					<ul>
+						<li>
+							<SidebarHashLink
+								hash={`#states-target`}
+								onScreen={!onScreen_Classes && onScreen_States && onScreen_TargetStates}
+							>
+								Target States
+							</SidebarHashLink>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#states-spawn-area`}
+								onScreen={
+									!onScreen_Classes &&
+									onScreen_States &&
+									!onScreen_TargetStates &&
+									onScreen_SpawnAreaStates
+								}
+							>
+								Spawn Area States
+							</SidebarHashLink>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<SidebarHashLink
+						hash={`#conditions-and-responses`}
+						onScreen={!onScreen_States && onScreen_ConditionsAndResponses}
+						topLevelLink={true}
+					>
+						Conditions and Responses
+					</SidebarHashLink>
+					<ul>
+						<li>
+							<SidebarHashLink
+								hash={`#conditions`}
+								onScreen={!onScreen_States && onScreen_ConditionsAndResponses && onScreen_Conditions}
+							>
+								Conditions
+							</SidebarHashLink>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#responses`}
+								onScreen={
+									!onScreen_States &&
+									onScreen_ConditionsAndResponses &&
+									!onScreen_Conditions &&
+									onScreen_Responses
+								}
+							>
+								Responses
+							</SidebarHashLink>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<SidebarHashLink
+						hash={`#target-distribution`}
+						onScreen={!onScreen_ConditionsAndResponses && onScreen_TargetDistributionPolicy}
+						topLevelLink={true}
+					>
+						Target Distribution
+					</SidebarHashLink>
+				</li>
+				<li>
+					<SidebarHashLink
+						hash={`#target-lifecycle`}
+						onScreen={!onScreen_TargetDistributionPolicy && onScreen_TargetLifeCycle}
+						topLevelLink={true}
+					>
+						Target Lifecycle
+					</SidebarHashLink>
+					<ul>
+						<li>
+							<SidebarHashLink
+								hash={`#target-lifecycle-Initialization`}
+								onScreen={
+									!onScreen_TargetDistributionPolicy &&
+									onScreen_TargetLifeCycle &&
+									onScreen_Initialization
+								}
+							>
+								Initialization
+							</SidebarHashLink>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#target-lifecycle-Spawning`}
+								onScreen={
+									!onScreen_TargetDistributionPolicy &&
+									onScreen_TargetLifeCycle &&
+									!onScreen_Initialization &&
+									onScreen_Spawning
+								}
+							>
+								Spawning
+							</SidebarHashLink>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#target-lifecycle-Activation`}
+								onScreen={
+									!onScreen_TargetDistributionPolicy &&
+									onScreen_TargetLifeCycle &&
+									!onScreen_Initialization &&
+									!onScreen_Spawning &&
+									onScreen_Activation
+								}
+							>
+								Activation
+							</SidebarHashLink>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#target-lifecycle-Deactivation`}
+								onScreen={
+									!onScreen_TargetDistributionPolicy &&
+									onScreen_TargetLifeCycle &&
+									!onScreen_Initialization &&
+									!onScreen_Spawning &&
+									!onScreen_Activation &&
+									onScreen_Deactivation
+								}
+							>
+								Deactivation
+							</SidebarHashLink>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#target-lifecycle-Destruction`}
+								onScreen={
+									!onScreen_TargetDistributionPolicy &&
+									onScreen_TargetLifeCycle &&
+									!onScreen_Initialization &&
+									!onScreen_Spawning &&
+									!onScreen_Activation &&
+									!onScreen_Deactivation &&
+									onScreen_Destruction
+								}
+							>
+								Destruction
+							</SidebarHashLink>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<SidebarHashLink
+						hash={`#conclusion`}
+						onScreen={!onScreen_TargetLifeCycle && onScreen_Conclusion}
+						topLevelLink={true}
+					>
+						Conclusion
+					</SidebarHashLink>
+				</li>
+			</ul>
+		</Sidebar>
+	);
+
 	return (
 		<>
 			<div className="flex-container-column">
@@ -111,230 +421,7 @@ const TargetSpawningSystem = () => {
 					</div>
 				</div>
 				<div className="flex-container-row">
-					<Sidebar>
-						<ul>
-							<li>
-								<SidebarHashLink
-									hash={`#classes-header`}
-									text="Classes"
-									onScreen={onScreen_Classes}
-									topLevelLink={true}
-									href={""}
-								/>
-								<ul>
-									<li>
-										<SidebarHashLink
-											hash={`#classes-USpawnArea`}
-											text="Spawn Area"
-											onScreen={onScreen_Classes && onScreen_USpawnArea}
-											href={""}
-										/>
-									</li>
-									<li>
-										<SidebarHashLink
-											hash={`#classes-ATargetManager`}
-											text="Target Manager"
-											onScreen={
-												onScreen_Classes && !onScreen_USpawnArea && onScreen_ATargetManager
-											}
-											href={""}
-										/>
-										<ul>
-											<li>
-												<SidebarHashLink
-													hash={`#classes-UBoxComponent`}
-													text="Box Components"
-													onScreen={
-														onScreen_Classes &&
-														!onScreen_USpawnArea &&
-														onScreen_ATargetManager &&
-														onScreen_UBoxComponent
-													}
-													href={""}
-												/>
-											</li>
-											<li>
-												<SidebarHashLink
-													hash={`#classes-UReinforcementLearningComponent`}
-													text="Reinforcement Learning Component"
-													onScreen={
-														onScreen_Classes &&
-														!onScreen_USpawnArea &&
-														onScreen_ATargetManager &&
-														!onScreen_UBoxComponent &&
-														onScreen_UReinforcementLearningComponent
-													}
-													href={""}
-												/>
-											</li>
-											<li>
-												<SidebarHashLink
-													hash={`#classes-USpawnAreaManagerComponent`}
-													text="Spawn Area Manager Component"
-													onScreen={
-														onScreen_Classes &&
-														!onScreen_USpawnArea &&
-														onScreen_ATargetManager &&
-														!onScreen_UReinforcementLearningComponent &&
-														onScreen_USpawnAreaManagerComponent
-													}
-													href={""}
-												/>
-											</li>
-										</ul>
-									</li>
-									<li>
-										<SidebarHashLink
-											hash={`#classes-ATarget`}
-											text="Target"
-											onScreen={onScreen_Classes && !onScreen_ATargetManager && onScreen_ATarget}
-											href={""}
-										/>
-										<ul>
-											<li>
-												<SidebarHashLink
-													hash={`#classes-UProjectileMovementComponent`}
-													text="Projectile Movement Component"
-													onScreen={
-														onScreen_Classes &&
-														!onScreen_ATargetManager &&
-														onScreen_ATarget &&
-														onScreen_UProjectileMovementComponent
-													}
-													href={""}
-												/>
-											</li>
-											<li>
-												<SidebarHashLink
-													hash={`#classes-UBSAbilitySystemComponent`}
-													text="Ability System Component"
-													onScreen={
-														onScreen_Classes &&
-														!onScreen_ATargetManager &&
-														onScreen_ATarget &&
-														!onScreen_UProjectileMovementComponent &&
-														onScreen_UBSAbilitySystemComponent
-													}
-													href={""}
-												/>
-											</li>
-											<li>
-												<SidebarHashLink
-													hash={`#classes-UBSHealthComponent`}
-													text="Health Component"
-													onScreen={
-														onScreen_Classes &&
-														!onScreen_ATargetManager &&
-														onScreen_ATarget &&
-														!onScreen_UBSAbilitySystemComponent &&
-														onScreen_UBSHealthComponent
-													}
-													href={""}
-												/>
-											</li>
-										</ul>
-									</li>
-									<li>
-										<SidebarHashLink
-											hash={`#classes-ABSGameMode`}
-											text="BSGameMode"
-											onScreen={onScreen_Classes && !onScreen_ATarget && onScreen_ABSGameMode}
-											href={""}
-										/>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<SidebarHashLink
-									hash={`#target-lifecycle`}
-									text="Target Lifecycle"
-									onScreen={!onScreen_Classes && onScreen_TargetLifeCycle}
-									topLevelLink={true}
-									href={""}
-								/>
-								<ul>
-									<li>
-										<SidebarHashLink
-											hash={`#target-lifecycle-Initialization`}
-											text="Initialization"
-											onScreen={
-												!onScreen_Classes && onScreen_TargetLifeCycle && onScreen_Initialization
-											}
-											href={""}
-										/>
-									</li>
-									<li>
-										<SidebarHashLink
-											hash={`#target-lifecycle-Spawning`}
-											text="Spawning"
-											onScreen={
-												!onScreen_Classes &&
-												onScreen_TargetLifeCycle &&
-												!onScreen_Initialization &&
-												onScreen_Spawning
-											}
-											href={""}
-										/>
-									</li>
-									<li>
-										<SidebarHashLink
-											hash={`#target-lifecycle-Activation`}
-											text="Activation"
-											onScreen={
-												!onScreen_Classes &&
-												onScreen_TargetLifeCycle &&
-												!onScreen_Initialization &&
-												!onScreen_Spawning &&
-												onScreen_Activation
-											}
-											href={""}
-										/>
-									</li>
-									<li>
-										<SidebarHashLink
-											hash={`#target-lifecycle-Deactivation`}
-											text="Deactivation"
-											onScreen={
-												!onScreen_Classes &&
-												onScreen_TargetLifeCycle &&
-												!onScreen_Initialization &&
-												!onScreen_Spawning &&
-												!onScreen_Activation &&
-												onScreen_Deactivation
-											}
-											href={""}
-										/>
-									</li>
-									<li>
-										<SidebarHashLink
-											hash={`#target-lifecycle-Destruction`}
-											text="Destruction"
-											onScreen={
-												!onScreen_Classes &&
-												onScreen_TargetLifeCycle &&
-												!onScreen_Initialization &&
-												!onScreen_Spawning &&
-												!onScreen_Activation &&
-												!onScreen_Deactivation &&
-												onScreen_Destruction
-											}
-											href={""}
-										/>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<SidebarHashLink
-									href={articlePath.concat(`#conclusion`)}
-									hash={`#conclusion`}
-									text="Conclusion"
-									passHref={true}
-									onScreen={!onScreen_TargetLifeCycle && onScreen_Conclusion}
-									topLevelLink={true}
-								/>
-							</li>
-						</ul>
-					</Sidebar>
+					{sideBar}
 					<article className="devblog-article flex-container-column" id="article">
 						<p>
 							I wrote this article with the goal that the reader doesn&#39;t need to understand C++ to
@@ -639,15 +726,15 @@ const TargetSpawningSystem = () => {
 								</p>
 							</div>
 						</div>
-						<div className="article-section" id="">
+						<div className="article-section" ref={Ref_States} id="states">
 							<BlogHeading headingText="States" headingLevel={1} />
-							<div className="article-subsection" id="">
-								<BlogHeading headingText="Targets states" headingLevel={2} />
+							<div className="article-subsection" ref={Ref_TargetStates} id="states-target">
+								<BlogHeading headingText="Targets States" headingLevel={2} />
 								<ul>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										Activated: target is damageable by the player and can be a variety of colors
-										based on the current position in its lifetime
+										<b>Activated</b>: target is damageable by the player and can be a variety of
+										colors based on the current position in its lifetime
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -667,8 +754,8 @@ const TargetSpawningSystem = () => {
 									</div>
 								</figure>
 							</div>
-							<div className="article-subsection" id="">
-								<BlogHeading headingText="Spawn Area states" headingLevel={2} />
+							<div className="article-subsection" ref={Ref_SpawnAreaStates} id="states-spawn-area">
+								<BlogHeading headingText="Spawn Area States" headingLevel={2} />
 								<div className="article-section-row">
 									<div className="div-50" id="">
 										<p>
@@ -730,78 +817,187 @@ const TargetSpawningSystem = () => {
 								</div>
 							</div>
 						</div>
-						<div className="article-section" id="">
+						<div className="article-section" ref={Ref_ConditionsAndResponses} id="conditions-and-responses">
 							<BlogHeading headingText="Conditions and Responses" headingLevel={1} />
 							<p>Target behavior is manipulated using conditions and responses.</p>
-						</div>
-						<div className="article-section" id="">
-							<BlogHeading headingText="Target Distribution Policy" headingLevel={1} />
-							<p>
-								The Target Distribution Policy determines how targets are distributed within individual
-								Spawn Areas. A target does not need to fit inside the Spawn Area it is associated with.
-							</p>
-							<div className="article-section-row">
-								<div className="article-subsection div-50" id="">
-									<BlogHeading headingText="Full-range" headingLevel={2} />
+							<div className="article-subsection" ref={Ref_Conditions} id="conditions">
+								<BlogHeading headingText="Conditions" headingLevel={2} />
+								<ul>
+									<p>Conditions dictate how long a target is relevant for and come in two forms:</p>
+									<li>
+										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+										<BSInlineEnum>ETargetDeactivationCondition</BSInlineEnum>: event that triggers a
+										target to transition from <BSInlineEnum>::Activated</BSInlineEnum> to{" "}
+										<BSInlineEnum>::Deactivated</BSInlineEnum>
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+										<BSInlineEnum>ETargetDestructionCondition</BSInlineEnum>: event that immediately
+										causes the target to be destoyed by the Target Manager regardless of its current
+										state
+									</li>
+								</ul>
+								<p>
+									If multiple conditions are specified, the condition that occurs first will trigger
+									the deactivation/destruction.
+								</p>
+								<div className="article-subsection-2" id="">
+									<BlogHeading headingText="Examples" headingLevel={3} />
 									<ul>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											Targets can spawn anywhere within the Spawn Area
-										</li>
-										<li>
-											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											Spawn area size is always 50x50
+											<BSInlineEnum>::OnSpecificHealthLoss</BSInlineEnum> as the only deactivation
+											condition:
 											<ul>
 												<li>
 													<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-													This is mostly because 50x50 covers the smallest possible target
-													size option
+													<b>Health Loss Required for Deactivation</b> = 100,{" "}
+													<b>Maximum Target Health</b> = 300
+													<ul>
+														<li>
+															<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+															If <BSInlineEnum>::OnHealthReachedZero</BSInlineEnum> is the
+															only target destruction condition, targets are deactivated
+															when reaching 200, 100, and 0 health
+														</li>
+														<li>
+															<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+															If <BSInlineEnum>
+																::OnSpecificHealthLost
+															</BSInlineEnum> and{" "}
+															<BSInlineEnum>::OnExpiration</BSInlineEnum> are target
+															destruction conditions, targets are deactivated when
+															reaching 200, 100, and 0 health when damaged by the player,
+															but will be immediately destroyed if the player does not
+															damage the target while activated
+														</li>
+													</ul>
 												</li>
 											</ul>
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											Since the spatial grid has fixed maximum dimensions and increment values,
-											there will only ever be a maximum of 1280 Spawn Areas.
+											<BSInlineEnum>::OnAnyExternalDamageTaken</BSInlineEnum> and{" "}
+											<BSInlineEnum>::OnExpiration</BSInlineEnum> as deactivation conditions:
+											<ul>
+												<li>
+													<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+													Targets are deactivated when damaged by the player or when their
+													maximum lifespan expires, whichever comes first
+												</li>
+											</ul>
 										</li>
 									</ul>
 								</div>
-								<div className="article-subsection div-50" id="">
-									<BlogHeading headingText="Grid-based" headingLevel={2} />
-									<ul>
-										<li>
-											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											Targets always spawn at bottom left vertex of Spawn Area
-										</li>
-										<li>
-											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											Spawn Area size based on the number of targets, target size, and grid
-											spacing
-										</li>
-										<li>
-											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											Grid-based is a subset of Full-range, limited to one position within a Spawn
-											Area.
-										</li>
-									</ul>
-								</div>
+								<p>
+									By combining both deactivation and destruction conditions, it becomes possible for a
+									target to be reactivated numerous times if the player is able to damage it, while
+									also immediately destroying it the first time they are not able to damage it while
+									activated.
+								</p>
 							</div>
-							<div className="article-section-row">
-								<div className="article-subsection div-50" id="">
-									<figure>
-										<div className="figure-border-container">
-											<Image src={image_NonBeatGrid} alt="BoxBounds" />
-											<figcaption>Full-range (Spawn Area size: 50x50)</figcaption>
-										</div>
-									</figure>
+							<div className="article-subsection" ref={Ref_Responses} id="responses">
+								<BlogHeading headingText="Responses" headingLevel={2} />
+								<p>Responses specify what the target does when it reaches a certain state.</p>
+								<ul>
+									<p>There are three kinds of responses:</p>
+									<li>
+										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+										<BSInlineEnum>ETargetSpawnResponse</BSInlineEnum>: modification to apply to a
+										target when spawned. Always applied and only happens once in a target&#39;s
+										lifetime.
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+										<BSInlineEnum>ETargetActivationResponse</BSInlineEnum>: modification to apply to
+										a target when activated. No restriction on how many times this may happen in a
+										target&#39;s lifetime.
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+										<BSInlineEnum>ETargetDeactivationResponse</BSInlineEnum>: modification to apply
+										to a target when deactivated. No restriction on how many times this may happen
+										in a target&#39;s lifetime.
+									</li>
+								</ul>
+								<p>
+									Responses at each state in a target&#39;s lifecycle allow for modifications like
+									target movement and target size changes to be applied only when activated, only when
+									deactivated, both, or neither.
+								</p>
+								<p>When a target is destroyed, deactivation responses are always applied.</p>
+							</div>
+						</div>
+						<div className="article-section" ref={Ref_TargetDistributionPolicy} id="target-distribution">
+							<BlogHeading headingText="Target Distribution Policy" headingLevel={1} />
+							<p>
+								The Target Distribution Policy determines how targets are distributed within individual
+								Spawn Areas. A target does not need to fit inside the Spawn Area it is associated with.
+							</p>
+							<div className="article-subsection" id="">
+								<div className="article-section-row">
+									<div className="div-50">
+										<BlogHeading headingText="Full-range" headingLevel={2} />
+										<ul>
+											<li>
+												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+												Targets can spawn anywhere within the Spawn Area
+											</li>
+											<li>
+												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+												Spawn area size is always 50x50
+												<ul>
+													<li>
+														<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+														This is mostly because 50x50 covers the smallest possible target
+														size option
+													</li>
+												</ul>
+											</li>
+											<li>
+												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+												Since the spatial grid has fixed maximum dimensions and increment
+												values, there will only ever be a maximum of 1280 Spawn Areas.
+											</li>
+										</ul>
+									</div>
+									<div className="div-50">
+										<BlogHeading headingText="Grid-based" headingLevel={2} />
+										<ul>
+											<li>
+												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+												Targets always spawn at bottom left vertex of Spawn Area
+											</li>
+											<li>
+												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+												Spawn Area size based on the number of targets, target size, and grid
+												spacing
+											</li>
+											<li>
+												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+												Grid-based is a subset of Full-range, limited to one position within a
+												Spawn Area.
+											</li>
+										</ul>
+									</div>
 								</div>
-								<div className="article-subsection div-50" id="">
-									<figure>
-										<div className="figure-border-container">
-											<Image src={image_BeatGrid} alt="BoxBounds" />
-											<figcaption>Grid-Based (Spawn Area size: 145x145)</figcaption>
-										</div>
-									</figure>
+								<div className="article-section-row">
+									<div className="div-50">
+										<figure>
+											<div className="figure-border-container">
+												<Image src={image_NonBeatGrid} alt="BoxBounds" />
+												<figcaption>Full-range (Spawn Area size: 50x50)</figcaption>
+											</div>
+										</figure>
+									</div>
+									<div className="div-50">
+										<figure>
+											<div className="figure-border-container">
+												<Image src={image_BeatGrid} alt="BoxBounds" />
+												<figcaption>Grid-Based (Spawn Area size: 145x145)</figcaption>
+											</div>
+										</figure>
+									</div>
 								</div>
 							</div>
 						</div>

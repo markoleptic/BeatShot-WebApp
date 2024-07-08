@@ -1,6 +1,5 @@
 import React from "react";
-import { CodeBlock, dracula, github, vs2015 } from "react-code-blocks";
-const backGroundColor = "#1E1E1E";
+import { CodeBlock } from "react-code-blocks";
 import "@/styles/Codeblock.scss";
 
 const codeBlockStyle = {
@@ -116,6 +115,7 @@ type BSInlineCodeBlockProps = {
 	padding?: string;
 	color?: string;
 };
+
 export const BSInlineCodeBlock: React.FC<BSInlineCodeBlockProps> = ({
 	code,
 	language = "c",
@@ -150,8 +150,8 @@ export const BSInlineCodeBlock: React.FC<BSInlineCodeBlockProps> = ({
 
 export const BSInlineCodeBlockHeader: React.FC<BSInlineCodeBlockProps> = ({
 	code,
-	language,
-	showLineNumbers,
+	language = "c",
+	showLineNumbers = false,
 	fontSize = "inherit",
 	lineHeight = "inherit",
 	padding = "0 0.1em",
@@ -161,8 +161,8 @@ export const BSInlineCodeBlockHeader: React.FC<BSInlineCodeBlockProps> = ({
 	return (
 		<CodeBlock
 			text={code}
-			language={language || "c"}
-			showLineNumbers={showLineNumbers || false}
+			language={language}
+			showLineNumbers={showLineNumbers}
 			theme={theme}
 			codeBlockStyle={inlineCodeBlockStyle}
 			codeContainerStyle={inlineCodeBlockStyle}
@@ -180,10 +180,18 @@ export const BSInlineCodeBlockHeader: React.FC<BSInlineCodeBlockProps> = ({
 	);
 };
 
-let inlineTheme = Object.assign({}, dracula);
-inlineTheme.backgroundColor = "transparent";
+export enum InlineCodeType {
+	Function,
+	Enum,
+}
 
-export const BSInlineFunction: React.FC<{ children?: string }> = ({ children }) => {
+type BSInlineCodeProps = {
+	children?: string;
+	fontSize?: string;
+	inlineCodeType: InlineCodeType;
+};
+
+export const BSInlineCode: React.FC<BSInlineCodeProps> = ({ children, inlineCodeType, fontSize = "0.65rem" }) => {
 	if (!children) {
 		return <span className="inline-code">{children}</span>;
 	}
@@ -191,50 +199,39 @@ export const BSInlineFunction: React.FC<{ children?: string }> = ({ children }) 
 	const parts = children.split("::");
 
 	if (parts.length === 2) {
-		const [className, functionName] = parts;
+		const [className, inlineCodeTypeName] = parts;
+		const inlineCodeTypeColorStyleName =
+			inlineCodeType === InlineCodeType.Function ? "function-color" : "enum-color";
+		const inlineCodeTypeStyleName = inlineCodeType === InlineCodeType.Function ? "function" : "enum";
 
-		if (className && !functionName) {
-			return <span className="inline-code class-color">{className}</span>;
-		} else if (!className && functionName) {
-			return <span className="inline-code function-color">{functionName}</span>;
-		} else {
+		if (className && inlineCodeTypeName) {
 			return (
 				<>
-					<span className="inline-code class class-color">{className}</span>
-					<span className="inline-code separator scope-res-operator-color">{"::"}</span>
-					<span className="inline-code function function-color">{functionName}</span>
+					<span className={`inline-code class class-color`}>{className}</span>
+					<span className={`inline-code separator scope-res-operator-color`}>{"::"}</span>
+					<span className={`inline-code ${inlineCodeTypeStyleName} ${inlineCodeTypeColorStyleName}`}>
+						{inlineCodeTypeName}
+					</span>
 				</>
+			);
+		} else if (className && !inlineCodeTypeName) {
+			return <span className="inline-code class-color">{className}</span>;
+		} else if (!className && inlineCodeTypeName) {
+			return (
+				<span className={`inline-code ${inlineCodeTypeStyleName} ${inlineCodeTypeColorStyleName}`}>
+					{inlineCodeTypeName}
+				</span>
 			);
 		}
 	}
 
-	return <span className="inline-code">{children}</span>;
+	return <span className="inline-code class-color">{children}</span>;
+};
+
+export const BSInlineFunction: React.FC<{ children?: string }> = ({ children }) => {
+	return <BSInlineCode inlineCodeType={InlineCodeType.Function}>{children}</BSInlineCode>;
 };
 
 export const BSInlineEnum: React.FC<{ children?: string }> = ({ children }) => {
-	if (!children) {
-		return <span className="inline-code">{children}</span>;
-	}
-
-	const parts = children.split("::");
-
-	if (parts.length === 2) {
-		const [className, enumValue] = parts;
-
-		if (className && !enumValue) {
-			return <span className={`inline-code class-color`}>{className}</span>;
-		} else if (!className && enumValue) {
-			return <span className={`inline-code enum-color`}>{enumValue}</span>;
-		} else {
-			return (
-				<>
-					<span className="inline-code class class-color">{className}</span>
-					<span className="inline-code separator scope-res-operator-color">{"::"}</span>
-					<span className="inline-code enum enum-color">{enumValue}</span>
-				</>
-			);
-		}
-	}
-
-	return <span className="inline-code">{children}</span>;
+	return <BSInlineCode inlineCodeType={InlineCodeType.Enum}>{children}</BSInlineCode>;
 };

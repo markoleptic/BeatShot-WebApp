@@ -72,6 +72,252 @@ const GameplayAbilitySystem = () => {
 	const onScreen_tl_geApp_ege = useOnScreen(Ref_tl_geApp_ege);
 	const onScreen_conclusion = useOnScreen(Ref_conclusion);
 
+	const sideBar = (
+		<Sidebar>
+			<ul>
+				<li>
+					<SidebarHashLink hash={`#gas-classes`} onScreen={onScreen_gasC} topLevelLink={true}>
+						Classes
+					</SidebarHashLink>
+					<ul>
+						<li>
+							<SidebarHashLink
+								hash={`#classes-UAbilitySystemComponent`}
+								onScreen={onScreen_gasC && onScreen_gasC_asc}
+							>
+								Ability System Component
+							</SidebarHashLink>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#classes-UAbilityTask`}
+								onScreen={onScreen_gasC && onScreen_gasC_at && !onScreen_gasC_asc}
+							>
+								Ability Task
+							</SidebarHashLink>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#classes-UGameplayAbility`}
+								onScreen={onScreen_gasC && !onScreen_gasC_at && onScreen_gasC_ga}
+							>
+								Gameplay Abilities
+							</SidebarHashLink>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#classes-UBSAttributeSetBase`}
+								onScreen={!onScreen_gasC_at && !onScreen_gasC_ga && onScreen_gasC_asb}
+							>
+								Attribute Set
+							</SidebarHashLink>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#gameplay-effects`}
+								onScreen={!onScreen_gasC_asb && onScreen_gasC_ge}
+							>
+								Gameplay Effects
+							</SidebarHashLink>
+							<ul>
+								<li>
+									<SidebarHashLink
+										hash={`#ge-infinite`}
+										onScreen={!onScreen_gasC_asb && onScreen_gasC_ge && onScreen_ge_tarImm}
+									>
+										Target Immunity
+									</SidebarHashLink>
+								</li>
+								<li>
+									<SidebarHashLink
+										hash={`#fire-cooldown`}
+										onScreen={
+											!onScreen_gasC_asb &&
+											onScreen_gasC_ge &&
+											!onScreen_ge_tarImm &&
+											onScreen_ge_fireCD
+										}
+									>
+										Fire Gun Cooldown
+									</SidebarHashLink>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#classes-UBSInputComponent`}
+								onScreen={!onScreen_gasC_ge && onScreen_gasC_eic}
+							>
+								Enhanced Input Component
+							</SidebarHashLink>
+							<ul>
+								<li>
+									<SidebarHashLink
+										hash={`#classes-UBSInputConfig`}
+										onScreen={!onScreen_gasC_ge && onScreen_gasC_eic && onScreen_gasC_eic_ic}
+									>
+										Input Config
+									</SidebarHashLink>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#classes-UBSAbilitySet`}
+								onScreen={!onScreen_gasC_ge && !onScreen_gasC_eic && onScreen_gasC_as}
+							>
+								Ability Set
+							</SidebarHashLink>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#classes-UBSDamageExecCalc`}
+								onScreen={!onScreen_gasC_eic && !onScreen_gasC_as && onScreen_gasC_dec}
+							>
+								Damage Exec Calc
+							</SidebarHashLink>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#classes-UBSHealthComponent`}
+								onScreen={!onScreen_gasC_dec && onScreen_gasC_hc}
+							>
+								Health Component
+							</SidebarHashLink>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<SidebarHashLink hash={`#timeline`} onScreen={!onScreen_gasC && onScreen_tl} topLevelLink={true}>
+						Timeline
+					</SidebarHashLink>
+					<ul>
+						<li>
+							<SidebarHashLink
+								hash={`#timeline-Input`}
+								onScreen={!onScreen_gasC && onScreen_tl && onScreen_tl_input}
+							>
+								Input
+							</SidebarHashLink>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#timeline-AbilityActivation`}
+								onScreen={onScreen_tl && !onScreen_tl_input && onScreen_tl_aa}
+							>
+								Ability Activation
+							</SidebarHashLink>
+							<ul>
+								<li>
+									<SidebarHashLink
+										hash={`#timeline-StartTargeting`}
+										onScreen={
+											onScreen_tl && !onScreen_tl_input && onScreen_tl_aa && onScreen_tl_aa_st
+										}
+									>
+										Start Targeting
+									</SidebarHashLink>
+								</li>
+								<li>
+									<SidebarHashLink
+										hash={`#timeline-OnTargetDataReadyCallback`}
+										onScreen={
+											onScreen_tl && onScreen_tl_aa && !onScreen_tl_aa_st && onScreen_tl_aa_otdrc
+										}
+									>
+										On Target Data Ready Callback
+									</SidebarHashLink>
+								</li>
+								<li>
+									<SidebarHashLink
+										hash={`#timeline-OnTargetDataReady`}
+										onScreen={
+											onScreen_tl &&
+											onScreen_tl_aa &&
+											!onScreen_tl_aa_st &&
+											!onScreen_tl_aa_otdrc &&
+											onScreen_tl_aa_otdr
+										}
+									>
+										On Target Data Ready
+									</SidebarHashLink>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#timeline-ApplyingTheGE`}
+								onScreen={onScreen_tl && !onScreen_tl_aa && onScreen_tl_geApp}
+							>
+								GE Application
+							</SidebarHashLink>
+							<ul>
+								<li>
+									<SidebarHashLink
+										hash={`#timeline-ApplyGESpectoSelf`}
+										onScreen={
+											onScreen_tl &&
+											!onScreen_tl_aa &&
+											onScreen_tl_geApp &&
+											onScreen_tl_geApp_agets
+										}
+									>
+										Apply GESpec to Self
+									</SidebarHashLink>
+									<ul>
+										<li>
+											<SidebarHashLink
+												hash={`#timeline-ExecuteGameplayEffect`}
+												onScreen={
+													onScreen_tl &&
+													!onScreen_tl_aa &&
+													onScreen_tl_geApp &&
+													onScreen_tl_geApp_agets &&
+													onScreen_tl_geApp_ege
+												}
+											>
+												Execute Gameplay Effect
+											</SidebarHashLink>
+										</li>
+									</ul>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<SidebarHashLink
+								hash={`#timeline-GameplayCues`}
+								onScreen={onScreen_tl && !onScreen_tl_geApp && onScreen_tl_gc}
+							>
+								Gameplay Cues
+							</SidebarHashLink>
+							<ul>
+								<li>
+									<SidebarHashLink
+										hash={`#timeline-GCNWeaponFire`}
+										onScreen={
+											onScreen_tl && !onScreen_tl_geApp && onScreen_tl_gc && onScreen_tl_gc_wf
+										}
+									>
+										Weapon Fire
+									</SidebarHashLink>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<SidebarHashLink
+						hash={`#conclusion`}
+						onScreen={!onScreen_tl && onScreen_conclusion}
+						topLevelLink={true}
+					>
+						Conclusion
+					</SidebarHashLink>
+				</li>
+			</ul>
+		</Sidebar>
+	);
+
 	return (
 		<>
 			<div className="flex-container-column">
@@ -86,270 +332,7 @@ const GameplayAbilitySystem = () => {
 					</div>
 				</div>
 				<div className="flex-container-row">
-					<Sidebar>
-						<ul>
-							<li>
-								<SidebarHashLink
-									hash={`#gas-classes`}
-									text="Classes"
-									onScreen={onScreen_gasC}
-									topLevelLink={true}
-									href={""}
-								/>
-								<ul>
-									<li>
-										<SidebarHashLink
-											hash={`#classes-UAbilitySystemComponent`}
-											text="Ability System Component"
-											onScreen={onScreen_gasC && onScreen_gasC_asc}
-											href={""}
-										/>
-									</li>
-									<li>
-										<SidebarHashLink
-											hash={`#classes-UAbilityTask`}
-											text="Ability Task"
-											onScreen={onScreen_gasC && onScreen_gasC_at && !onScreen_gasC_asc}
-											href={""}
-										/>
-									</li>
-									<li>
-										<SidebarHashLink
-											hash={`#classes-UGameplayAbility`}
-											text="Gameplay Abilities"
-											onScreen={onScreen_gasC && !onScreen_gasC_at && onScreen_gasC_ga}
-											href={""}
-										/>
-									</li>
-									<li>
-										<SidebarHashLink
-											hash={`#classes-UBSAttributeSetBase`}
-											text="Attribute Set"
-											onScreen={!onScreen_gasC_at && !onScreen_gasC_ga && onScreen_gasC_asb}
-											href={""}
-										/>
-									</li>
-									<li>
-										<SidebarHashLink
-											hash={`#gameplay-effects`}
-											text="Gameplay Effects"
-											onScreen={!onScreen_gasC_asb && onScreen_gasC_ge}
-											href={""}
-										/>
-										<ul>
-											<li>
-												<SidebarHashLink
-													hash={`#ge-infinite`}
-													text="Target Immunity"
-													onScreen={
-														!onScreen_gasC_asb && onScreen_gasC_ge && onScreen_ge_tarImm
-													}
-													href={""}
-												/>
-											</li>
-											<li>
-												<SidebarHashLink
-													hash={`#fire-cooldown`}
-													text="Fire Gun Cooldown"
-													onScreen={
-														!onScreen_gasC_asb &&
-														onScreen_gasC_ge &&
-														!onScreen_ge_tarImm &&
-														onScreen_ge_fireCD
-													}
-													href={""}
-												/>
-											</li>
-										</ul>
-									</li>
-									<li>
-										<SidebarHashLink
-											hash={`#classes-UBSInputComponent`}
-											text="Enhanced Input Component"
-											onScreen={!onScreen_gasC_ge && onScreen_gasC_eic}
-											href={""}
-										/>
-										<ul>
-											<li>
-												<SidebarHashLink
-													hash={`#classes-UBSInputConfig`}
-													text="Input Config"
-													onScreen={
-														!onScreen_gasC_ge && onScreen_gasC_eic && onScreen_gasC_eic_ic
-													}
-													href={""}
-												/>
-											</li>
-										</ul>
-									</li>
-									<li>
-										<SidebarHashLink
-											hash={`#classes-UBSAbilitySet`}
-											text="Ability Set"
-											onScreen={!onScreen_gasC_ge && !onScreen_gasC_eic && onScreen_gasC_as}
-											href={""}
-										/>
-									</li>
-									<li>
-										<SidebarHashLink
-											hash={`#classes-UBSDamageExecCalc`}
-											text="Damage Exec Calc"
-											onScreen={!onScreen_gasC_eic && !onScreen_gasC_as && onScreen_gasC_dec}
-											href={""}
-										/>
-									</li>
-									<li>
-										<SidebarHashLink
-											hash={`#classes-UBSHealthComponent`}
-											text="Health Component"
-											onScreen={!onScreen_gasC_dec && onScreen_gasC_hc}
-											href={""}
-										/>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<SidebarHashLink
-									hash={`#timeline`}
-									text="Timeline"
-									onScreen={!onScreen_gasC && onScreen_tl}
-									topLevelLink={true}
-									href={""}
-								/>
-								<ul>
-									<li>
-										<SidebarHashLink
-											hash={`#timeline-Input`}
-											text="Input"
-											onScreen={!onScreen_gasC && onScreen_tl && onScreen_tl_input}
-											href={""}
-										/>
-									</li>
-									<li>
-										<SidebarHashLink
-											hash={`#timeline-AbilityActivation`}
-											text="Ability Activation"
-											onScreen={onScreen_tl && !onScreen_tl_input && onScreen_tl_aa}
-											href={""}
-										/>
-										<ul>
-											<li>
-												<SidebarHashLink
-													hash={`#timeline-StartTargeting`}
-													text="Start Targeting"
-													onScreen={
-														onScreen_tl &&
-														!onScreen_tl_input &&
-														onScreen_tl_aa &&
-														onScreen_tl_aa_st
-													}
-													href={""}
-												/>
-											</li>
-											<li>
-												<SidebarHashLink
-													hash={`#timeline-OnTargetDataReadyCallback`}
-													text="On Target Data Ready Callback"
-													onScreen={
-														onScreen_tl &&
-														onScreen_tl_aa &&
-														!onScreen_tl_aa_st &&
-														onScreen_tl_aa_otdrc
-													}
-													href={""}
-												/>
-											</li>
-											<li>
-												<SidebarHashLink
-													hash={`#timeline-OnTargetDataReady`}
-													text="On Target Data Ready"
-													onScreen={
-														onScreen_tl &&
-														onScreen_tl_aa &&
-														!onScreen_tl_aa_st &&
-														!onScreen_tl_aa_otdrc &&
-														onScreen_tl_aa_otdr
-													}
-													href={""}
-												/>
-											</li>
-										</ul>
-									</li>
-									<li>
-										<SidebarHashLink
-											hash={`#timeline-ApplyingTheGE`}
-											text="GE Application"
-											onScreen={onScreen_tl && !onScreen_tl_aa && onScreen_tl_geApp}
-											href={""}
-										/>
-										<ul>
-											<li>
-												<SidebarHashLink
-													hash={`#timeline-ApplyGESpectoSelf`}
-													text="Apply GESpec to Self"
-													onScreen={
-														onScreen_tl &&
-														!onScreen_tl_aa &&
-														onScreen_tl_geApp &&
-														onScreen_tl_geApp_agets
-													}
-													href={""}
-												/>
-												<ul>
-													<li>
-														<SidebarHashLink
-															hash={`#timeline-ExecuteGameplayEffect`}
-															text="Execute Gameplay Effect"
-															onScreen={
-																onScreen_tl &&
-																!onScreen_tl_aa &&
-																onScreen_tl_geApp &&
-																onScreen_tl_geApp_agets &&
-																onScreen_tl_geApp_ege
-															}
-															href={""}
-														/>
-													</li>
-												</ul>
-											</li>
-										</ul>
-									</li>
-									<li>
-										<SidebarHashLink
-											hash={`#timeline-GameplayCues`}
-											text="Gameplay Cues"
-											onScreen={onScreen_tl && !onScreen_tl_geApp && onScreen_tl_gc}
-											href={""}
-										/>
-										<ul>
-											<li>
-												<SidebarHashLink
-													hash={`#timeline-GCNWeaponFire`}
-													text="Weapon Fire"
-													onScreen={
-														onScreen_tl &&
-														!onScreen_tl_geApp &&
-														onScreen_tl_gc &&
-														onScreen_tl_gc_wf
-													}
-													href={""}
-												/>
-											</li>
-										</ul>
-									</li>
-								</ul>
-							</li>
-							<li>
-								<SidebarHashLink
-									hash={`#conclusion`}
-									text="Conclusion"
-									onScreen={!onScreen_tl && onScreen_conclusion}
-									topLevelLink={true}
-									href={""}
-								/>
-							</li>
-						</ul>
-					</Sidebar>
+					{sideBar}
 					<article className="devblog-article flex-container-column" id="article">
 						<p>
 							From the{" "}
@@ -752,7 +735,8 @@ const GameplayAbilitySystem = () => {
 											<ul>
 												<li>
 													<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-													This function calls{" "}<BSInlineFunction>::PeekActiveTargets</BSInlineFunction> on the
+													This function calls{" "}
+													<BSInlineFunction>::PeekActiveTargets</BSInlineFunction> on the
 													Character. This returns a pointer to the queue&#39;s tail item
 													without removing it from the queue.
 												</li>
@@ -765,8 +749,8 @@ const GameplayAbilitySystem = () => {
 												<li>
 													<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 													If a valid pointer to a target is returned, the ablitity creates a
-													new <BSInlineFunction>::UBSAT_AimToTarget</BSInlineFunction> task and
-													binds to its <span className="text-light">OnCancelled</span> and{" "}
+													new <BSInlineFunction>::UBSAT_AimToTarget</BSInlineFunction> task
+													and binds to its <span className="text-light">OnCancelled</span> and{" "}
 													<span className="text-light">OnCompleted</span> delegates.{" "}
 													<BSInlineFunction>::ReadyForActivation</BSInlineFunction> is called
 													to activate the task.
@@ -805,18 +789,18 @@ const GameplayAbilitySystem = () => {
 										<ul>
 											<li>
 												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />A{" "}
-												<BSInlineFunction>UCurveFloat</BSInlineFunction> is used to read the value
-												from a curve on tick. This is done using a{" "}
+												<BSInlineFunction>UCurveFloat</BSInlineFunction> is used to read the
+												value from a curve on tick. This is done using a{" "}
 												<span className="text-light">FOnTimelineFloat</span> delegate and the
-												curve. The <BSInlineFunction>::OnTimelineTick</BSInlineFunction> function
-												is bound to the <span className="text-light">FOnTimelineFloat</span>{" "}
-												delegate, so every time the timeline ticks, the value from the curve is
-												passed as a parameter to this function.
+												curve. The <BSInlineFunction>::OnTimelineTick</BSInlineFunction>{" "}
+												function is bound to the{" "}
+												<span className="text-light">FOnTimelineFloat</span> delegate, so every
+												time the timeline ticks, the value from the curve is passed as a
+												parameter to this function.
 											</li>
 											<li>
 												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												The target (
-												<BSInlineFunction>ATarget</BSInlineFunction>) to aim toward
+												The target (<BSInlineFunction>ATarget</BSInlineFunction>) to aim toward
 											</li>
 											<li>
 												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -826,28 +810,28 @@ const GameplayAbilitySystem = () => {
 										<p>
 											An <span className="text-light">FOnTimelineEvent</span> is used to bind the
 											timeline completion to the{" "}
-											<BSInlineFunction>::OnTimelineCompleted</BSInlineFunction> function. When the
-											task is activated, the timeline is played from the start.{" "}
+											<BSInlineFunction>::OnTimelineCompleted</BSInlineFunction> function. When
+											the task is activated, the timeline is played from the start.{" "}
 											<BSInlineFunction>::TickTimeline</BSInlineFunction> is called from{" "}
 											<BSInlineFunction>::TickTask</BSInlineFunction> as long as the task state is
 											active.
 										</p>
 										<p>
 											Inside <BSInlineFunction>::OnTimelineTick</BSInlineFunction>,{" "}
-											<BSInlineFunction>::SetControlRotation</BSInlineFunction> is called to update
-											the controller rotation every frame.
+											<BSInlineFunction>::SetControlRotation</BSInlineFunction> is called to
+											update the controller rotation every frame.
 										</p>
 										<ul>
 											<li>
 												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												<BSInlineFunction>::GetActorEyesViewPoint</BSInlineFunction> is called to
-												get the current location and rotation of the player controller.
+												<BSInlineFunction>::GetActorEyesViewPoint</BSInlineFunction> is called
+												to get the current location and rotation of the player controller.
 											</li>
 											<li>
 												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 												The new controller rotation is found using{" "}
-												<BSInlineFunction>UKismetMathLibrary::RLerp</BSInlineFunction>{" "}
-												with the following parameters:
+												<BSInlineFunction>UKismetMathLibrary::RLerp</BSInlineFunction> with the
+												following parameters:
 												<ul>
 													<li>
 														<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -857,7 +841,9 @@ const GameplayAbilitySystem = () => {
 													<li>
 														<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 														End rotation: found using{" "}
-														<BSInlineFunction>UKismetMathLibrary::FindLookAtRotation</BSInlineFunction>{" "}
+														<BSInlineFunction>
+															UKismetMathLibrary::FindLookAtRotation
+														</BSInlineFunction>{" "}
 														with the following parameters:
 														<ul>
 															<li>
@@ -866,7 +852,9 @@ const GameplayAbilitySystem = () => {
 																	className="li-icon"
 																/>
 																Start location: location obtained from{" "}
-																<BSInlineFunction>::GetActorEyesViewPoint</BSInlineFunction>
+																<BSInlineFunction>
+																	::GetActorEyesViewPoint
+																</BSInlineFunction>
 															</li>
 															<li>
 																<FontAwesomeIcon
@@ -1046,8 +1034,8 @@ const GameplayAbilitySystem = () => {
 								/>
 								<p>
 									I chose to implement this class simply because I found the{" "}
-									<BSInlineFunction>::BindAbilityActions</BSInlineFunction> function in the Lyra Sample
-									Project. This function allows abilities to be bound to an{" "}
+									<BSInlineFunction>::BindAbilityActions</BSInlineFunction> function in the Lyra
+									Sample Project. This function allows abilities to be bound to an{" "}
 									<span className="text-light">Input Action</span> using an{" "}
 									<span className="text-light">Input Tag</span>. These mappings are done through the
 									data asset <BSInlineFunction>UBSInputConfig</BSInlineFunction>.
@@ -1243,8 +1231,9 @@ const GameplayAbilitySystem = () => {
 										<span className="text-light">Ability Tag</span>, the{" "}
 										<span className="text-light">Gameplay Ability Handle</span> is added to the
 										member variable <span className="text-light">InputPressedSpecHandles</span>.
-										These get processed in <BSInlineFunction>::ProcessAbilityInput</BSInlineFunction>
-										. This function is called from the player controller inside{" "}
+										These get processed in{" "}
+										<BSInlineFunction>::ProcessAbilityInput</BSInlineFunction>. This function is
+										called from the player controller inside{" "}
 										<BSInlineFunction>::PostProcessInput</BSInlineFunction>.
 									</li>
 								</ul>
@@ -1256,19 +1245,19 @@ const GameplayAbilitySystem = () => {
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 										If an activatable ability was found in the{" "}
 										<span className="text-light">ASC</span>,{" "}
-										<BSInlineFunction>::TryActivateAbility</BSInlineFunction> is called, which begins
-										a series of internal function calls that eventually end up calling{" "}
+										<BSInlineFunction>::TryActivateAbility</BSInlineFunction> is called, which
+										begins a series of internal function calls that eventually end up calling{" "}
 										<BSInlineFunction>::ActivateAbility</BSInlineFunction> on the Fire Gun Ability.
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										The C++ version of <BSInlineFunction>::ActivateAbility</BSInlineFunction> doesn’t
-										do anything noteworthy but the{" "}
+										The C++ version of <BSInlineFunction>::ActivateAbility</BSInlineFunction>{" "}
+										doesn’t do anything noteworthy but the{" "}
 										<Link className="link text-lightgrey hover-blue" href={"#bpgraph-1"}>
 											blueprint version
 										</Link>{" "}
-										calls <BSInlineFunction>::StartTargeting</BSInlineFunction>, which is implemented
-										in C++ and is discussed in the next section. It also calls the{" "}
+										calls <BSInlineFunction>::StartTargeting</BSInlineFunction>, which is
+										implemented in C++ and is discussed in the next section. It also calls the{" "}
 										<BSInlineFunction>::PlayMontageAndWait</BSInlineFunction>{" "}
 										<span className="text-light">Ability Task</span> to play the Animation Montage
 										for the weapon recoil.
@@ -1291,10 +1280,12 @@ const GameplayAbilitySystem = () => {
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											<BSInlineFunction>FGameplayAbilityTargetData</BSInlineFunction> allows passing
-											data across the network. <span className="text-light">GAS</span> comes with
-											several subclassed versions, but the one used here is{" "}
-											<BSInlineFunction>FGameplayAbilityTargetData_SingleTargetHit</BSInlineFunction>{" "}
+											<BSInlineFunction>FGameplayAbilityTargetData</BSInlineFunction> allows
+											passing data across the network. <span className="text-light">GAS</span>{" "}
+											comes with several subclassed versions, but the one used here is{" "}
+											<BSInlineFunction>
+												FGameplayAbilityTargetData_SingleTargetHit
+											</BSInlineFunction>{" "}
 											since it allows passing a HitResult.
 										</li>
 										<li>
@@ -1304,8 +1295,8 @@ const GameplayAbilitySystem = () => {
 											single line using a collision channel I created that ignores any pawn or
 											weapon meshes. The start of the trace begins at the player’s Camera
 											Component, some maths are done to find end location, and{" "}
-											<BSInlineFunction>UWorld::LineTraceSingleByChannel</BSInlineFunction>{" "}
-											is called to get the HitResult.
+											<BSInlineFunction>UWorld::LineTraceSingleByChannel</BSInlineFunction> is
+											called to get the HitResult.
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -1392,13 +1383,15 @@ const GameplayAbilitySystem = () => {
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											<BSInlineFunction>::ApplyGameplayEffectSpecToTarget</BSInlineFunction> is called
-											using the <span className="text-light">GESpec</span> and target data.
+											<BSInlineFunction>::ApplyGameplayEffectSpecToTarget</BSInlineFunction> is
+											called using the <span className="text-light">GESpec</span> and target data.
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 											The{" "}
-											<BSInlineFunction>::ExecuteGameplayCueWithParamsOnOwner</BSInlineFunction>{" "}
+											<BSInlineFunction>
+												::ExecuteGameplayCueWithParamsOnOwner
+											</BSInlineFunction>{" "}
 											function is called using the HitResult as a parameter and the{" "}
 											<span className="text-light">Gameplay Cue Tag</span> of{" "}
 											<span className="text-light">GameplayCue.FireGun</span>. The{" "}
@@ -1412,8 +1405,8 @@ const GameplayAbilitySystem = () => {
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											<BSInlineFunction>::EndAbility</BSInlineFunction> is called after execution of
-											the <span className="text-light">GE</span> and{" "}
+											<BSInlineFunction>::EndAbility</BSInlineFunction> is called after execution
+											of the <span className="text-light">GE</span> and{" "}
 											<span className="text-light">Gameplay Cue</span>.
 										</li>
 									</ul>
@@ -1442,13 +1435,14 @@ const GameplayAbilitySystem = () => {
 								</p>
 								<p>
 									There&#39;s actually three{" "}
-									<BSInlineFunction>::ApplyGameplayEffectSpecToTarget</BSInlineFunction> functions that
-									are called since we&#39;re starting from a <span className="text-light">GA</span>.
-									It starts with the one owned by the <span className="text-light">GA</span> and then
-									calls the <BSInlineFunction>FGameplayAbilityTargetData</BSInlineFunction> version,
-									which duplicates the <span className="text-light">GESpec</span> and context. Then it
-									calls the <span className="text-light">ASC</span> version for each targeted actor,
-									but there will only be one in this example.
+									<BSInlineFunction>::ApplyGameplayEffectSpecToTarget</BSInlineFunction> functions
+									that are called since we&#39;re starting from a{" "}
+									<span className="text-light">GA</span>. It starts with the one owned by the{" "}
+									<span className="text-light">GA</span> and then calls the{" "}
+									<BSInlineFunction>FGameplayAbilityTargetData</BSInlineFunction> version, which
+									duplicates the <span className="text-light">GESpec</span> and context. Then it calls
+									the <span className="text-light">ASC</span> version for each targeted actor, but
+									there will only be one in this example.
 								</p>
 								<div
 									className="article-subsection-2"
@@ -1482,9 +1476,10 @@ const GameplayAbilitySystem = () => {
 											The major difference between Instant and all other{" "}
 											<span className="text-light">Duration Types</span> is that Instant GEs are
 											not <u>applied</u> but instead <u>executed</u> through{" "}
-											<BSInlineFunction>::ExecuteGameplayEffect</BSInlineFunction>. All other types
-											instead call <BSInlineFunction>::ApplyGameplayEffectSpec</BSInlineFunction>{" "}
-											on the <BSInlineFunction>FActiveGameplayEffectsContainer</BSInlineFunction>.{" "}
+											<BSInlineFunction>::ExecuteGameplayEffect</BSInlineFunction>. All other
+											types instead call{" "}
+											<BSInlineFunction>::ApplyGameplayEffectSpec</BSInlineFunction> on the{" "}
+											<BSInlineFunction>FActiveGameplayEffectsContainer</BSInlineFunction>.{" "}
 											<BSInlineFunction>::ExecuteGameplayEffect</BSInlineFunction> is detailed in
 											the next section.
 										</li>
@@ -1495,10 +1490,10 @@ const GameplayAbilitySystem = () => {
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											The source <BSInlineFunction>::OnGameplayEffectAppliedToSelf</BSInlineFunction>{" "}
-											and the target{" "}
-											<BSInlineFunction>OnGameplayEffectAppliedToTarget</BSInlineFunction> delegates
-											are broadcast.
+											The source{" "}
+											<BSInlineFunction>::OnGameplayEffectAppliedToSelf</BSInlineFunction> and the
+											target <BSInlineFunction>OnGameplayEffectAppliedToTarget</BSInlineFunction>{" "}
+											delegates are broadcast.
 										</li>
 										<div
 											className="article-subsection-2"
@@ -1522,7 +1517,9 @@ const GameplayAbilitySystem = () => {
 												<li>
 													<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 													Target attributes are captured using{" "}
-													<BSInlineFunction>::CaptureAttributeDataFromTarget</BSInlineFunction>
+													<BSInlineFunction>
+														::CaptureAttributeDataFromTarget
+													</BSInlineFunction>
 													.
 												</li>
 												<li>
@@ -1543,7 +1540,9 @@ const GameplayAbilitySystem = () => {
 															The <span className="text-light">GE</span> created earlier
 															uses the <span className="text-light">Execution</span>{" "}
 															<BSInlineFunction>UBSDamageExecCalc</BSInlineFunction>.{" "}
-															<BSInlineFunction>::Execute_Implementation</BSInlineFunction>{" "}
+															<BSInlineFunction>
+																::Execute_Implementation
+															</BSInlineFunction>{" "}
 															is where the calculation takes place.
 															<ul>
 																<li>
@@ -1585,11 +1584,15 @@ const GameplayAbilitySystem = () => {
 															<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 															After the <span className="text-light">GE</span> is
 															executed,{" "}
-															<BSInlineFunction>::PostGameplayEffectExecute</BSInlineFunction>{" "}
+															<BSInlineFunction>
+																::PostGameplayEffectExecute
+															</BSInlineFunction>{" "}
 															is called on the target{" "}
 															<span className="text-light">Attribute Set</span>. The input
 															parameter{" "}
-															<BSInlineFunction>::FGameplayEffectModCallbackData</BSInlineFunction>{" "}
+															<BSInlineFunction>
+																::FGameplayEffectModCallbackData
+															</BSInlineFunction>{" "}
 															describes which, if any, attributes were changed by the{" "}
 															<span className="text-light">GE</span>. In this example, the{" "}
 															<span className="text-light">Total Damage</span> attribute
@@ -1655,10 +1658,10 @@ const GameplayAbilitySystem = () => {
 									application success.
 								</p>
 								<p>
-									I chose to use an <BSInlineFunction>UGameplayCueNotify_Burst</BSInlineFunction> since
-									its meant to be used for one-off events.{" "}
-									<BSInlineFunction>AGameplayCueNotify_Actor</BSInlineFunction> is another version that is
-									actually spawned in the world, but that is not used in this example.
+									I chose to use an <BSInlineFunction>UGameplayCueNotify_Burst</BSInlineFunction>{" "}
+									since its meant to be used for one-off events.{" "}
+									<BSInlineFunction>AGameplayCueNotify_Actor</BSInlineFunction> is another version
+									that is actually spawned in the world, but that is not used in this example.
 								</p>
 								<div className="article-subsection-2" ref={Ref_tl_gc_wf} id="timeline-GCNWeaponFire">
 									<BlogHeading headingText="GCN_WeaponFire and BP_WeaponFire" headingLevel={3} />
@@ -1666,11 +1669,11 @@ const GameplayAbilitySystem = () => {
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 											<BSInlineFunction>GCN_WeaponFire</BSInlineFunction> is the{" "}
-											<BSInlineFunction>UGameplayCueNotify_Burst</BSInlineFunction> blueprint class
-											that handles the <span className="text-light">GameplayCue.FireGun</span>{" "}
-											response. First, the C++ function <BSInlineFunction>::Fire</BSInlineFunction>{" "}
-											is called on the character’s weapon to increment the total shots fired by
-											the player.
+											<BSInlineFunction>UGameplayCueNotify_Burst</BSInlineFunction> blueprint
+											class that handles the{" "}
+											<span className="text-light">GameplayCue.FireGun</span> response. First, the
+											C++ function <BSInlineFunction>::Fire</BSInlineFunction> is called on the
+											character’s weapon to increment the total shots fired by the player.
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -1680,12 +1683,13 @@ const GameplayAbilitySystem = () => {
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											Finally, the blueprint function <BSInlineFunction>::Fire_BP</BSInlineFunction>{" "}
-											is called on the weapon, and the Impact Position and Impact Normal from the
-											HitResult are passed as parameters. This function is responsible for
-											spawning the <BSInlineFunction>WeaponFire</BSInlineFunction> blueprint class, as
-											well as updating a few variables inside that instruct whether or not and
-											where to spawn the various effects.
+											Finally, the blueprint function{" "}
+											<BSInlineFunction>::Fire_BP</BSInlineFunction> is called on the weapon, and
+											the Impact Position and Impact Normal from the HitResult are passed as
+											parameters. This function is responsible for spawning the{" "}
+											<BSInlineFunction>WeaponFire</BSInlineFunction> blueprint class, as well as
+											updating a few variables inside that instruct whether or not and where to
+											spawn the various effects.
 										</li>
 									</ul>
 									<BlueprintGraph
@@ -1698,10 +1702,10 @@ const GameplayAbilitySystem = () => {
 									<ul>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											<BSInlineFunction>::WeaponFire</BSInlineFunction> manages the bullet tracers,
-											muzzle flash, and decals. A separate actor is used so that if the character
-											swaps to the knife, the effects are still managed without relying on the
-											weapon. There isn’t much too much going on here besides calling{" "}
+											<BSInlineFunction>::WeaponFire</BSInlineFunction> manages the bullet
+											tracers, muzzle flash, and decals. A separate actor is used so that if the
+											character swaps to the knife, the effects are still managed without relying
+											on the weapon. There isn’t much too much going on here besides calling{" "}
 											<BSInlineFunction>::SpawnSystemAttached</BSInlineFunction> and{" "}
 											<BSInlineFunction>::SpawnDecal</BSInlineFunction>.
 										</li>

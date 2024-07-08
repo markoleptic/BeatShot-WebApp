@@ -48,7 +48,7 @@
 }
 .inline-code-header {
 	font-family: var(--ff-code);
-	color: $clr-beatshot-lightblue;
+	color: $clr-class;
 	overflow-wrap: break-word;
 	white-space: normal !important;
 	align-self: center;
@@ -90,13 +90,13 @@
 	color: $clr-white;
 }
 .class-color {
-	color: #39c8b0;
+	color: $clr-class;
 }
 .enum-color {
-	color: #b8d7a3;
+	color: $clr-enum;
 }
 .function-color {
-	color: #dcdcaa;
+	color: $clr-function;
 }
 .scope-res-operator-color {
 	color: $clr-white;
