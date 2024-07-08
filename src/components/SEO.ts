@@ -2,7 +2,7 @@ import { Metadata } from "next";
 import type { OpenGraphType } from "next/dist/lib/metadata/types/opengraph-types";
 
 export type SEOInterface = {
-	title?: string | undefined;
+	title?: string;
 	ogTwitterTitle?: string | undefined;
 	type: OpenGraphType | undefined;
 	description?: string | undefined;

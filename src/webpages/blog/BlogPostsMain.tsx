@@ -31,10 +31,15 @@ const BlogPostsMain = () => {
 									<time dateTime="2023-07-02">July 2, 2023 </time>
 								</p>
 								<Image src={image_TargetSpawningSystem_teaser} alt="TargetSpawningSystem-teaser" />
-								<div className="card-label">A look into BeatShot&#39;s target spawning system</div>
+								<div className="card-label">
+									BeatShot&#39;s Target Spawning System: Part 1 - Core Classes, State, and Conventions
+								</div>
 								<p className="card-sub-label">
-									How are spawn locations decided for targets? How are targets managed? This article
-									goes into detail about how this is accomplished in Unreal.
+									In this first part of the series, I introduce the foundation used to build the
+									Target Spawning System in BeatShot. You&#39;ll learn about the classes, state
+									management systems, and some of the conventions used to make the game function
+									smoothly, alongside insights into the decision-making process that guided their
+									selection and implementation.
 								</p>
 							</div>
 						</Link>
@@ -56,6 +61,26 @@ const BlogPostsMain = () => {
 								<p className="card-sub-label">
 									How is the Gameplay Ability System used in BeatShot? This article shows the
 									implementation and walks through the execution of a common ability.
+								</p>
+							</div>
+						</Link>
+					</div>
+					<div className="card-container gap-1rem padding-1rem">
+						<Link className="link" href="/devblog/target-spawning-system-part-2">
+							<div className="card">
+								<p className="sub-heading">
+									Article
+									<time dateTime="2023-07-02">July 2, 2023 </time>
+								</p>
+								<Image src={image_TargetSpawningSystem_teaser} alt="TargetSpawningSystem-teaser" />
+								<div className="card-label">
+									BeatShot&#39;s Target Spawning System: Part 2 - Target Lifecycle Timeline
+								</div>
+								<p className="card-sub-label">
+									In this second part of the series, I&#39;ll explain how the core systems from Part 1
+									work together. I walk through the lifecycle of targets, outlining the key functions
+									and their roles. I also discuss some challenging problems I encountered and how I
+									solved them.
 								</p>
 							</div>
 						</Link>

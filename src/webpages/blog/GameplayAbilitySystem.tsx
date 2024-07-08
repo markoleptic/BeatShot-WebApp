@@ -18,8 +18,6 @@ import "@/styles/Article.scss";
 import "@/styles/Codeblock.scss";
 import "@/styles/Hero.scss";
 const GameplayAbilitySystem = () => {
-	const articlePath = "/devblog/gameplay-ability-system-overview";
-
 	const Ref_gasC = useRef(null);
 	const Ref_gasC_asc = useRef(null);
 	const Ref_gasC_ga = useRef(null);
