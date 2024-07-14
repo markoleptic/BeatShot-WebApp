@@ -1,0 +1,21 @@
+@import "Variables";
+
+.button-container {
+	display: block;
+	column-count: 2;
+	column-gap: 0.5rem;
+	justify-content: center;
+	width: min-content;
+	margin: auto;
+	padding-top: 0.5rem;
+	button {
+		&.active {
+			background-color: $clr-beatshot-lightblue;
+		}
+		width: 100%;
+		font-size: $fs-300;
+		font-weight: $fw-500;
+		padding-top: 0rem;
+		padding-bottom: 0rem;
+	}
+}

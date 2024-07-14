@@ -9,15 +9,6 @@ const codeBlockStyle = {
 	width: "100%",
 };
 
-const inlineCodeBlockStyle = {
-	display: "inline",
-	fontSize: "inherit",
-	fontFamily: "inherit",
-	padding: "0px",
-	lineHeight: "inherit",
-	whiteSpace: "normal",
-};
-
 const codeContainerStyle = {
 	overflowX: "scroll",
 	overflowY: "scroll",
@@ -26,7 +17,6 @@ const codeContainerStyle = {
 };
 
 const customStyle = {
-	flexshrink: "1",
 	display: "flex",
 	overflowX: "scroll",
 	fontFamily: "inherit",
@@ -106,97 +96,30 @@ export const BSCodeBlock: React.FC<BSCodeBlockProps> = ({ children, fontSize = "
 	);
 };
 
-type BSInlineCodeBlockProps = {
-	code?: string;
-	language?: string;
-	showLineNumbers?: boolean;
-	fontSize?: string;
-	lineHeight?: string;
-	padding?: string;
-	color?: string;
-};
-
-export const BSInlineCodeBlock: React.FC<BSInlineCodeBlockProps> = ({
-	code,
-	language = "c",
-	showLineNumbers = false,
-	fontSize = "inherit",
-	lineHeight = "inherit",
-	padding = "0rem",
-	color = "inherit",
-}) => {
-	inlineCodeBlockStyle.lineHeight = lineHeight;
-	return (
-		<CodeBlock
-			text={code}
-			language={language}
-			showLineNumbers={showLineNumbers}
-			theme={theme}
-			codeBlockStyle={inlineCodeBlockStyle}
-			codeContainerStyle={inlineCodeBlockStyle}
-			customStyle={{
-				display: "inline",
-				overflowY: "clip",
-				overflowWrap: "anywhere",
-				fontSize: fontSize,
-				lineHeight: lineHeight,
-				padding: padding,
-				color: color,
-			}}
-			wrapLongLines={false}
-		/>
-	);
-};
-
-export const BSInlineCodeBlockHeader: React.FC<BSInlineCodeBlockProps> = ({
-	code,
-	language = "c",
-	showLineNumbers = false,
-	fontSize = "inherit",
-	lineHeight = "inherit",
-	padding = "0 0.1em",
-	color = "inherit",
-}) => {
-	inlineCodeBlockStyle.lineHeight = lineHeight;
-	return (
-		<CodeBlock
-			text={code}
-			language={language}
-			showLineNumbers={showLineNumbers}
-			theme={theme}
-			codeBlockStyle={inlineCodeBlockStyle}
-			codeContainerStyle={inlineCodeBlockStyle}
-			customStyle={{
-				display: "flex",
-				overflowY: "clip",
-				overflowWrap: "anywhere",
-				fontSize: fontSize,
-				lineHeight: lineHeight,
-				padding: padding,
-				color: color,
-			}}
-			wrapLongLines={false}
-		/>
-	);
-};
-
 export enum InlineCodeType {
+	Any,
 	Function,
 	Enum,
 }
 
 type BSInlineCodeProps = {
 	children?: string;
-	fontSize?: string;
-	inlineCodeType: InlineCodeType;
+	inlineCodeType?: InlineCodeType;
+	link?: boolean;
 };
 
-export const BSInlineCode: React.FC<BSInlineCodeProps> = ({ children, inlineCodeType, fontSize = "0.65rem" }) => {
+export const BSInlineCode: React.FC<BSInlineCodeProps> = ({
+	children,
+	inlineCodeType = InlineCodeType.Any,
+	link = false,
+}) => {
 	if (!children) {
 		return <span className="inline-code">{children}</span>;
 	}
 
 	const parts = children.split("::");
+
+	const linkStyleName = link ? " hover-white" : "";
 
 	if (parts.length === 2) {
 		const [className, inlineCodeTypeName] = parts;
@@ -207,25 +130,29 @@ export const BSInlineCode: React.FC<BSInlineCodeProps> = ({ children, inlineCode
 		if (className && inlineCodeTypeName) {
 			return (
 				<>
-					<span className={`inline-code class class-color`}>{className}</span>
+					<span className={`inline-code class class-color${linkStyleName}`}>{className}</span>
 					<span className={`inline-code separator scope-res-operator-color`}>{"::"}</span>
-					<span className={`inline-code ${inlineCodeTypeStyleName} ${inlineCodeTypeColorStyleName}`}>
+					<span
+						className={`inline-code ${inlineCodeTypeStyleName} ${inlineCodeTypeColorStyleName}${linkStyleName}`}
+					>
 						{inlineCodeTypeName}
 					</span>
 				</>
 			);
 		} else if (className && !inlineCodeTypeName) {
-			return <span className="inline-code class-color">{className}</span>;
+			return <span className={`inline-code class-color${linkStyleName}`}>{className}</span>;
 		} else if (!className && inlineCodeTypeName) {
 			return (
-				<span className={`inline-code ${inlineCodeTypeStyleName} ${inlineCodeTypeColorStyleName}`}>
+				<span
+					className={`inline-code ${inlineCodeTypeStyleName} ${inlineCodeTypeColorStyleName}${linkStyleName}`}
+				>
 					{inlineCodeTypeName}
 				</span>
 			);
 		}
 	}
 
-	return <span className="inline-code class-color">{children}</span>;
+	return <span className={`inline-code class-color${linkStyleName}`}>{children}</span>;
 };
 
 export const BSInlineFunction: React.FC<{ children?: string }> = ({ children }) => {

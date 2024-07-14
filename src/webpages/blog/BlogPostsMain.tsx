@@ -1,12 +1,18 @@
 "use client";
-import image_TargetSpawningSystem_teaser from "public/TargetSpawningSystem-teaser.png";
-import image_Hero from "public/GAS_Diagram.png";
+
+import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import React from "react";
+import { titleLong, description } from "@/pages/blog/TargetSpawningSystem";
+import { titleLong as titleLongPart2, description as descriptionPart2 } from "@/pages/blog/TargetSpawningSystemPart2";
+
+import image_TargetSpawningSystem_teaser from "public/TargetSpawningSystem-teaser.png";
+import image_Hero from "public/GAS_Diagram.png";
+
 import "@/styles/Card.scss";
 import "@/styles/Hero.scss";
+
 const BlogPostsMain = () => {
 	let router = useRouter();
 
@@ -31,16 +37,8 @@ const BlogPostsMain = () => {
 									<time dateTime="2023-07-02">July 2, 2023 </time>
 								</p>
 								<Image src={image_TargetSpawningSystem_teaser} alt="TargetSpawningSystem-teaser" />
-								<div className="card-label">
-									BeatShot&#39;s Target Spawning System: Part 1 - Core Classes, State, and Conventions
-								</div>
-								<p className="card-sub-label">
-									In this first part of the series, I introduce the foundation used to build the
-									Target Spawning System in BeatShot. You&#39;ll learn about the classes, state
-									management systems, and some of the conventions used to make the game function
-									smoothly, alongside insights into the decision-making process that guided their
-									selection and implementation.
-								</p>
+								<div className="card-label">{titleLong}</div>
+								<p className="card-sub-label">{description}</p>
 							</div>
 						</Link>
 					</div>
@@ -73,15 +71,8 @@ const BlogPostsMain = () => {
 									<time dateTime="2023-07-02">July 2, 2023 </time>
 								</p>
 								<Image src={image_TargetSpawningSystem_teaser} alt="TargetSpawningSystem-teaser" />
-								<div className="card-label">
-									BeatShot&#39;s Target Spawning System: Part 2 - Target Lifecycle Timeline
-								</div>
-								<p className="card-sub-label">
-									In this second part of the series, I&#39;ll explain how the core systems from Part 1
-									work together. I walk through the lifecycle of targets, outlining the key functions
-									and their roles. I also discuss some challenging problems I encountered and how I
-									solved them.
-								</p>
+								<div className="card-label">{titleLongPart2}</div>
+								<p className="card-sub-label">{descriptionPart2}</p>
 							</div>
 						</Link>
 					</div>

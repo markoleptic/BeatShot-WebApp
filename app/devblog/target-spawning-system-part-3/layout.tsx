@@ -1,13 +1,13 @@
 import SEO from "@/components/SEO";
 import { Metadata } from "next";
-import { titleShort, titleLong, description } from "@/pages/blog/TargetSpawningSystem";
+import { titleShort, titleLong, description } from "@/pages/blog/TargetSpawningSystemPart3";
 
 export const metadata: Metadata = SEO({
 	title: titleShort,
 	ogTwitterTitle: titleLong,
 	description: description,
 	type: "article",
-	url: "/devblog/target-spawning-system",
+	url: "/devblog/target-spawning-system-part-3",
 	twitterCard: "summary_large_image",
 	additionalKeywords: [
 		"aim-training",

@@ -9,6 +9,7 @@ div.sidebar-container {
 	top: $header-height;
 	position: sticky;
 	height: auto;
+	line-height: normal;
 }
 div.sidebar-container.centered {
 	min-width: 250px;

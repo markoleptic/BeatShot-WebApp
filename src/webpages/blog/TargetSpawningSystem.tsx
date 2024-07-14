@@ -5,20 +5,24 @@ import useOnScreen from "@/hooks/useScreenObserver";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SidebarHashLink } from "@/components/SidebarHashLink";
-import { BSInlineEnum, BSInlineFunction } from "@/components/CodeBlock";
+import { BSInlineFunction } from "@/components/CodeBlock";
 import { BlogHeading, BlogHeadingClass } from "@/components/BlogHeading";
 import Sidebar from "@/components/Sidebar";
 import Image from "next/image";
 import image_BoxBounds from "public/BoxBounds.png";
-import image_ClusterBeat from "public/ClusterBeat.png";
 import image_TotalSpawnArea from "public/TotalSpawnArea.png";
 import image_Hero from "public/SpawnMemory_Hero_Cropped.png";
-import image_SphereColorGradient from "public/SphereColorGradient.png";
-import image_BeatGrid from "public/BeatGrid.png";
-import image_NonBeatGrid from "public/NonBeatGrid.png";
 import "@/styles/Article.scss";
 import "@/styles/Hero.scss";
 import "@/styles/Utility.scss";
+import Link from "next/link";
+
+const titleShort = "BeatShot's Target Spawning System: Part 1 | Developer Blog";
+const titleLong = "BeatShot's Target Spawning System: Part 1 - Core Classes and Conventions";
+const description =
+	"In this first part of the series, you’ll learn about the classes, state management systems, and some of the " +
+	"conventions used to make the game function smoothly, alongside insights into the decision-making process that " +
+	"guided their selection and implementation.";
 
 const TargetSpawningSystem = () => {
 	const Ref_Classes = useRef(null);
@@ -33,14 +37,6 @@ const TargetSpawningSystem = () => {
 	const Ref_UBSHealthComponent = useRef(null);
 	const Ref_ABSGameMode = useRef(null);
 
-	const Ref_States = useRef(null);
-	const Ref_TargetStates = useRef(null);
-	const Ref_SpawnAreaStates = useRef(null);
-	const Ref_ConditionsAndResponses = useRef(null);
-	const Ref_Conditions = useRef(null);
-	const Ref_Responses = useRef(null);
-	const Ref_TargetDistributionPolicy = useRef(null);
-
 	const Ref_Conclusion = useRef(null);
 
 	const onScreen_Classes = useOnScreen(Ref_Classes);
@@ -54,14 +50,6 @@ const TargetSpawningSystem = () => {
 	const onScreen_UBSAbilitySystemComponent = useOnScreen(Ref_UBSAbilitySystemComponent);
 	const onScreen_UBSHealthComponent = useOnScreen(Ref_UBSHealthComponent);
 	const onScreen_ABSGameMode = useOnScreen(Ref_ABSGameMode);
-
-	const onScreen_States = useOnScreen(Ref_States);
-	const onScreen_TargetStates = useOnScreen(Ref_TargetStates);
-	const onScreen_SpawnAreaStates = useOnScreen(Ref_SpawnAreaStates);
-	const onScreen_ConditionsAndResponses = useOnScreen(Ref_ConditionsAndResponses);
-	const onScreen_Conditions = useOnScreen(Ref_Conditions);
-	const onScreen_Responses = useOnScreen(Ref_Responses);
-	const onScreen_TargetDistributionPolicy = useOnScreen(Ref_TargetDistributionPolicy);
 
 	const onScreen_Conclusion = useOnScreen(Ref_Conclusion);
 
@@ -195,81 +183,8 @@ const TargetSpawningSystem = () => {
 				</li>
 				<li>
 					<SidebarHashLink
-						hash={`#states`}
-						onScreen={!onScreen_Classes && onScreen_States}
-						topLevelLink={true}
-					>
-						States
-					</SidebarHashLink>
-					<ul>
-						<li>
-							<SidebarHashLink
-								hash={`#states-target`}
-								onScreen={!onScreen_Classes && onScreen_States && onScreen_TargetStates}
-							>
-								Target States
-							</SidebarHashLink>
-						</li>
-						<li>
-							<SidebarHashLink
-								hash={`#states-spawn-area`}
-								onScreen={
-									!onScreen_Classes &&
-									onScreen_States &&
-									!onScreen_TargetStates &&
-									onScreen_SpawnAreaStates
-								}
-							>
-								Spawn Area States
-							</SidebarHashLink>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<SidebarHashLink
-						hash={`#conditions-and-responses`}
-						onScreen={!onScreen_States && onScreen_ConditionsAndResponses}
-						topLevelLink={true}
-					>
-						Conditions and Responses
-					</SidebarHashLink>
-					<ul>
-						<li>
-							<SidebarHashLink
-								hash={`#conditions`}
-								onScreen={!onScreen_States && onScreen_ConditionsAndResponses && onScreen_Conditions}
-							>
-								Conditions
-							</SidebarHashLink>
-						</li>
-						<li>
-							<SidebarHashLink
-								hash={`#responses`}
-								onScreen={
-									!onScreen_States &&
-									onScreen_ConditionsAndResponses &&
-									!onScreen_Conditions &&
-									onScreen_Responses
-								}
-							>
-								Responses
-							</SidebarHashLink>
-						</li>
-					</ul>
-				</li>
-				<li>
-					<SidebarHashLink
-						hash={`#target-distribution`}
-						onScreen={!onScreen_ConditionsAndResponses && onScreen_TargetDistributionPolicy}
-						topLevelLink={true}
-					>
-						Target Distribution
-					</SidebarHashLink>
-				</li>
-				<li>
-					<SidebarHashLink
 						hash={`#conclusion`}
-						onScreen={!onScreen_TargetDistributionPolicy && onScreen_Conclusion}
+						onScreen={!onScreen_Classes && onScreen_Conclusion}
 						topLevelLink={true}
 					>
 						Conclusion
@@ -284,11 +199,8 @@ const TargetSpawningSystem = () => {
 			<div className="flex-container-column">
 				<div className="hero-container">
 					<div className="hero">
-						<h1>A look into BeatShot&#39;s target spawning system</h1>
-						<p className="hero-lead">
-							How are spawn locations decided for targets? How are targets managed? This article goes into
-							detail about how this is accomplished in Unreal.
-						</p>
+						<h1>{titleLong}</h1>
+						<p className="hero-lead">{description}</p>
 						<Image className="hero-image" priority src={image_Hero} quality={100} alt="logo" />
 					</div>
 				</div>
@@ -296,16 +208,14 @@ const TargetSpawningSystem = () => {
 					{sideBar}
 					<article className="devblog-article flex-container-column" id="article">
 						<p>
-							I wrote this article with the goal that the reader doesn&#39;t need to understand C++ to
-							grasp the main concepts that BeatShot uses in its target spawning system. The code blocks
-							are supplementary and I follow a general pattern when inserting them: introduce the function
-							and context, insert code block, describe what&#39;s happening in the code block.
+							TODO: I wrote this article with the goal that the reader doesn&#39;t need to understand C++
+							to grasp the main concepts that BeatShot uses in its target spawning system.
 						</p>
 						<div className="article-section" ref={Ref_Classes} id="classes-header">
 							<BlogHeading headingText="Classes" headingLevel={1} />
 							<p>
 								This section gives a brief description of all classes involved in BeatShot&#39;s target
-								spawning system and establishes the context needed for the next section.
+								spawning system and establishes the context needed for the following sections.
 							</p>
 							<div className="article-subsection" ref={Ref_USpawnArea} id="classes-USpawnArea">
 								<BlogHeadingClass
@@ -356,7 +266,7 @@ const TargetSpawningSystem = () => {
 									</li>
 								</ul>
 								<p>
-									This class delegates responsibilties to several components described in the
+									This class delegates responsibilities to several components described in the
 									following three sections.
 								</p>
 								<div
@@ -372,7 +282,7 @@ const TargetSpawningSystem = () => {
 										childClassLink="https://docs.unrealengine.com/5.3/en-US/API/Runtime/Engine/Components/UBoxComponent/"
 									/>
 									<p>
-										The Target Manager uses seven box components that can all be considerd 2-D
+										The Target Manager uses seven box components that can all be considered 2-D
 										planes since one out of three dimensions is always zero.
 									</p>
 									<p>
@@ -383,7 +293,7 @@ const TargetSpawningSystem = () => {
 										The other six form a rectangular prism (blue, green, front & back red planes in
 										Figure TODO) used to confine moving targets. I would&#39;ve preferred to only
 										use one box component, but &#34;hollow collision&#34; is not a thing. They form
-										a closed volume, but are offset in Figure TODO for visiblity.
+										a closed volume, but are offset in Figure TODO for visibility.
 									</p>
 									<figure>
 										<div className="figure-border-container">
@@ -509,7 +419,7 @@ const TargetSpawningSystem = () => {
 										<BSInlineFunction>
 											UProjectileMovementComponent::OnProjectileBounce
 										</BSInlineFunction>{" "}
-										is overriden.
+										is overridden.
 									</p>
 								</div>
 								<div
@@ -536,8 +446,8 @@ const TargetSpawningSystem = () => {
 									</p>
 									<p>
 										Sidenote: The ASC comes from the Gameplay Ability System plugin (GAS) by Unreal.
-										I might do a seperate article covering more about GAS, but for now I&#39;ll only
-										discuss the relvant parts.
+										I might do a separate article covering more about GAS, but for now I&#39;ll only
+										discuss the relevant parts.
 									</p>
 								</div>
 								<div
@@ -580,7 +490,7 @@ const TargetSpawningSystem = () => {
 									</ul>
 									<p>
 										With this configuration, the target knows if it was the actor who caused the
-										damage event. This is important becuase the target damages itself if it expires.
+										damage event. This is important because the target damages itself if it expires.
 									</p>
 								</div>
 							</div>
@@ -598,289 +508,22 @@ const TargetSpawningSystem = () => {
 								</p>
 							</div>
 						</div>
-						<div className="article-section" ref={Ref_States} id="states">
-							<BlogHeading headingText="States" headingLevel={1} />
-							<div className="article-subsection" ref={Ref_TargetStates} id="states-target">
-								<BlogHeading headingText="Targets States" headingLevel={2} />
-								<ul>
-									<li>
-										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										<b>Activated</b>: target is damageable by the player and can be a variety of
-										colors based on the current position in its lifetime
-									</li>
-									<li>
-										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										<span className="text-purple">
-											<b>Deactivated</b>
-										</span>
-										: not damageable by the player, shown as purple in Figure TODO
-									</li>
-								</ul>
-								<figure>
-									<div className="figure-border-container">
-										<Image src={image_SphereColorGradient} alt="BoxBounds" />
-										<figcaption>
-											<p className="figlabel">Figure TODO: </p>
-											Activated target colors
-										</figcaption>
-									</div>
-								</figure>
-							</div>
-							<div className="article-subsection" ref={Ref_SpawnAreaStates} id="states-spawn-area">
-								<BlogHeading headingText="Spawn Area States" headingLevel={2} />
-								<div className="article-section-row">
-									<div className="div-50" id="">
-										<p>
-											Spawn Areas are essentially glorified data containers. The Target Manager
-											notifies the Spawn Area Manager when targets are spawned, damaged, and/or
-											change state. The Spawn Area Manager updates the state of Spawn Areas based
-											on the information it receives from the Target Manager.
-										</p>
-										<p>
-											Spawn Areas have more states than targets since they also keep track of
-											where targets have been previously.
-										</p>
-										<ul>
-											<li>
-												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												<b>Managed</b>: mapped to a spawned target, can either be activated or
-												deactivated. All visible targets are managed.
-												<ul>
-													<li>
-														<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-														<span className="text-green">
-															<b>Activated</b>
-														</span>
-														: mapped target is activated, shown as green squares in Figure
-														TODO
-													</li>
-													<li>
-														<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-														<span className="text-red">Deactivated</span>: mapped target is
-														deactivated, shown as red squares in Figure TODO
-													</li>
-												</ul>
-											</li>
-											<li>
-												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												<span className="text-light">
-													<b>Recent</b>
-												</span>
-												: does not reference a target, not valid to spawn or activate, shown as
-												light blue squares in Figure TODO
-											</li>
-										</ul>
-									</div>
-									<div className="div-50">
-										<figure>
-											<div className="figure-border-container">
-												<Image
-													className=" max-height-400"
-													src={image_ClusterBeat}
-													alt="BoxBounds"
-												/>
-												<figcaption>
-													<p className="figlabel">Figure TODO: </p>
-													TODO
-												</figcaption>
-											</div>
-										</figure>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className="article-section" ref={Ref_ConditionsAndResponses} id="conditions-and-responses">
-							<BlogHeading headingText="Conditions and Responses" headingLevel={1} />
-							<p>Target behavior is manipulated using conditions and responses.</p>
-							<div className="article-subsection" ref={Ref_Conditions} id="conditions">
-								<BlogHeading headingText="Conditions" headingLevel={2} />
-								<ul>
-									<p>Conditions dictate how long a target is relevant for and come in two forms:</p>
-									<li>
-										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										<BSInlineEnum>ETargetDeactivationCondition</BSInlineEnum>: event that triggers a
-										target to transition from <BSInlineEnum>::Activated</BSInlineEnum> to{" "}
-										<BSInlineEnum>::Deactivated</BSInlineEnum>
-									</li>
-									<li>
-										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										<BSInlineEnum>ETargetDestructionCondition</BSInlineEnum>: event that immediately
-										causes the target to be destoyed by the Target Manager regardless of its current
-										state
-									</li>
-								</ul>
-								<p>
-									If multiple conditions are specified, the condition that occurs first will trigger
-									the deactivation/destruction.
-								</p>
-								<div className="article-subsection-2" id="">
-									<BlogHeading headingText="Examples" headingLevel={3} />
-									<ul>
-										<li>
-											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											<BSInlineEnum>::OnSpecificHealthLoss</BSInlineEnum> as the only deactivation
-											condition:
-											<ul>
-												<li>
-													<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-													<b>Health Loss Required for Deactivation</b> = 100,{" "}
-													<b>Maximum Target Health</b> = 300
-													<ul>
-														<li>
-															<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-															If <BSInlineEnum>::OnHealthReachedZero</BSInlineEnum> is the
-															only target destruction condition, targets are deactivated
-															when reaching 200, 100, and 0 health
-														</li>
-														<li>
-															<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-															If <BSInlineEnum>
-																::OnSpecificHealthLost
-															</BSInlineEnum> and{" "}
-															<BSInlineEnum>::OnExpiration</BSInlineEnum> are target
-															destruction conditions, targets are deactivated when
-															reaching 200, 100, and 0 health when damaged by the player,
-															but will be immediately destroyed if the player does not
-															damage the target while activated
-														</li>
-													</ul>
-												</li>
-											</ul>
-										</li>
-										<li>
-											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											<BSInlineEnum>::OnAnyExternalDamageTaken</BSInlineEnum> and{" "}
-											<BSInlineEnum>::OnExpiration</BSInlineEnum> as deactivation conditions:
-											<ul>
-												<li>
-													<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-													Targets are deactivated when damaged by the player or when their
-													maximum lifespan expires, whichever comes first
-												</li>
-											</ul>
-										</li>
-									</ul>
-								</div>
-								<p>
-									By combining both deactivation and destruction conditions, it becomes possible for a
-									target to be reactivated numerous times if the player is able to damage it, while
-									also immediately destroying it the first time they are not able to damage it while
-									activated.
-								</p>
-							</div>
-							<div className="article-subsection" ref={Ref_Responses} id="responses">
-								<BlogHeading headingText="Responses" headingLevel={2} />
-								<p>Responses specify what the target does when it reaches a certain state.</p>
-								<ul>
-									<p>There are three kinds of responses:</p>
-									<li>
-										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										<BSInlineEnum>ETargetSpawnResponse</BSInlineEnum>: modification to apply to a
-										target when spawned. Always applied and only happens once in a target&#39;s
-										lifetime.
-									</li>
-									<li>
-										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										<BSInlineEnum>ETargetActivationResponse</BSInlineEnum>: modification to apply to
-										a target when activated. No restriction on how many times this may happen in a
-										target&#39;s lifetime.
-									</li>
-									<li>
-										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										<BSInlineEnum>ETargetDeactivationResponse</BSInlineEnum>: modification to apply
-										to a target when deactivated. No restriction on how many times this may happen
-										in a target&#39;s lifetime.
-									</li>
-								</ul>
-								<p>
-									Responses at each state in a target&#39;s lifecycle allow for modifications like
-									target movement and target size changes to be applied only when activated, only when
-									deactivated, both, or neither.
-								</p>
-								<p>When a target is destroyed, deactivation responses are always applied.</p>
-							</div>
-						</div>
-						<div className="article-section" ref={Ref_TargetDistributionPolicy} id="target-distribution">
-							<BlogHeading headingText="Target Distribution Policy" headingLevel={1} />
-							<p>
-								The Target Distribution Policy determines how targets are distributed within individual
-								Spawn Areas. A target does not need to fit inside the Spawn Area it is associated with.
-							</p>
-							<div className="article-subsection" id="">
-								<div className="article-section-row">
-									<div className="div-50">
-										<BlogHeading headingText="Full-range" headingLevel={2} />
-										<ul>
-											<li>
-												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												Targets can spawn anywhere within the Spawn Area
-											</li>
-											<li>
-												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												Spawn area size is always 50x50
-												<ul>
-													<li>
-														<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-														This is mostly because 50x50 covers the smallest possible target
-														size option
-													</li>
-												</ul>
-											</li>
-											<li>
-												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												Since the spatial grid has fixed maximum dimensions and increment
-												values, there will only ever be a maximum of 1280 Spawn Areas.
-											</li>
-										</ul>
-									</div>
-									<div className="div-50">
-										<BlogHeading headingText="Grid-based" headingLevel={2} />
-										<ul>
-											<li>
-												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												Targets always spawn at bottom left vertex of Spawn Area
-											</li>
-											<li>
-												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												Spawn Area size based on the number of targets, target size, and grid
-												spacing
-											</li>
-											<li>
-												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												Grid-based is a subset of Full-range, limited to one position within a
-												Spawn Area.
-											</li>
-										</ul>
-									</div>
-								</div>
-								<div className="article-section-row">
-									<div className="div-50">
-										<figure>
-											<div className="figure-border-container">
-												<Image src={image_NonBeatGrid} alt="BoxBounds" />
-												<figcaption>Full-range (Spawn Area size: 50x50)</figcaption>
-											</div>
-										</figure>
-									</div>
-									<div className="div-50">
-										<figure>
-											<div className="figure-border-container">
-												<Image src={image_BeatGrid} alt="BoxBounds" />
-												<figcaption>Grid-Based (Spawn Area size: 145x145)</figcaption>
-											</div>
-										</figure>
-									</div>
-								</div>
-							</div>
-						</div>
 						<div className="article-section" ref={Ref_Conclusion} id="conclusion">
 							<BlogHeading headingText="Conclusion" headingLevel={1} />
 							<p>
-								Well, that was a lot. The system I described is by no means the only way to approach the
-								problem, it&#39;s just the way that made sense to me and worked. I hoped you learned
-								something and weren&#39;t too overwhelmed.
+								The system I described is by no means the only way to approach the problem, it&#39;s
+								just the way that made sense to me and worked. I hoped you learned something and
+								weren&#39;t too overwhelmed. Part 2 of the Target Spawning System series TODO.
 							</p>
 						</div>
+						<h3 className="text-center">
+							<Link
+								className="link text-light hover-white"
+								href={"/devblog/target-spawning-system-part-2"}
+							>
+								Check out Part 2 here!
+							</Link>
+						</h3>
 						<div className="article-section">
 							<p className="inline posted-date">
 								<span className="inline text-light">Posted:</span> July 2, 2023
@@ -897,4 +540,4 @@ const TargetSpawningSystem = () => {
 	);
 };
 
-export default TargetSpawningSystem;
+export { TargetSpawningSystem, titleShort, titleLong, description };

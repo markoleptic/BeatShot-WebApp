@@ -1,9 +1,5 @@
 @import "Variables";
 
-:root {
-	--ff-code: var(--font-roboto-mono);
-}
-
 .code-border-container {
 	display: flex;
 	flex-direction: row;
@@ -30,7 +26,7 @@
 	padding: 0;
 	width: 100%;
 	border-radius: 0.25rem;
-	font-family: var(--ff-code);
+	font-family: var(--font-roboto-mono);
 	line-height: 1.1;
 	tab-size: "0.1rem";
 }
@@ -47,7 +43,7 @@
 	font-size: $fs-200;
 }
 .inline-code-header {
-	font-family: var(--ff-code);
+	font-family: var(--font-roboto-mono);
 	color: $clr-class;
 	overflow-wrap: break-word;
 	white-space: normal !important;
@@ -62,12 +58,11 @@
 	font-size: inherit;
 	text-align: left;
 	line-height: 100%;
-	font-family: var(--ff-code);
+	font-family: var(--font-roboto-mono);
 	border-radius: 3px;
 	background-color: #1e1e1e;
 	padding-left: 0.1em;
 	padding-right: 0.1em;
-	color: $clr-beatshot-lightblue;
 }
 .inline-code.separator {
 	border-radius: 0px;
@@ -83,12 +78,6 @@
 	border-radius: 0px 3px 3px 0px;
 	padding-left: 0em;
 }
-.link-inline-code-block-header {
-	color: inherit;
-}
-.link-inline-code-block-header:hover {
-	color: $clr-white;
-}
 .class-color {
 	color: $clr-class;
 }
@@ -99,5 +88,11 @@
 	color: $clr-function;
 }
 .scope-res-operator-color {
+	color: $clr-white;
+}
+.link-inline-code-block-header {
+	color: inherit;
+}
+.link-inline-code-block-header:hover {
 	color: $clr-white;
 }

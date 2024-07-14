@@ -5,7 +5,7 @@ import useOnScreen from "@/hooks/useScreenObserver";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { SidebarHashLink } from "@/components/SidebarHashLink";
-import { BSCodeBlock, BSInlineEnum, BSInlineFunction } from "@/components/CodeBlock";
+import { BSCodeBlock, BSInlineCode, BSInlineEnum, BSInlineFunction } from "@/components/CodeBlock";
 import { BlogHeading, BlogHeadingClass } from "@/components/BlogHeading";
 import Sidebar from "@/components/Sidebar";
 import Image from "next/image";
@@ -26,6 +26,13 @@ import {
 import "@/styles/Article.scss";
 import "@/styles/Hero.scss";
 import "@/styles/Utility.scss";
+
+const titleShort = "BeatShot's Target Spawning System: Part 2 | Developer Blog";
+const titleLong = "BeatShot's Target Spawning System: Part 2 - Target Lifecycle";
+const description =
+	"In this second part of the series, you'll learn how the core systems from Part 1 work together. I walk through " +
+	"the lifecycle of targets, outlining the key functions and their roles. I also discuss some challenging problems " +
+	"I encountered and how I solved them.";
 
 const TargetSpawningSystemPart2 = () => {
 	const Ref_TargetLifeCycle = useRef(null);
@@ -130,11 +137,8 @@ const TargetSpawningSystemPart2 = () => {
 			<div className="flex-container-column">
 				<div className="hero-container">
 					<div className="hero">
-						<h1>A look into BeatShot&#39;s target spawning system</h1>
-						<p className="hero-lead">
-							How are spawn locations decided for targets? How are targets managed? This article goes into
-							detail about how this is accomplished in Unreal.
-						</p>
+						<h1>{titleLong}</h1>
+						<p className="hero-lead">{description}</p>
 						<Image className="hero-image" priority src={image_Hero} quality={100} alt="logo" />
 					</div>
 				</div>
@@ -162,70 +166,62 @@ const TargetSpawningSystemPart2 = () => {
 								<BlogHeading headingText="Initialization" headingLevel={2} />
 								<p>
 									When you first load into the map, the game mode spawns the Target Manager and passes
-									the game mode configuration to it. It then passes the relevant configuration
-									settings to each of its components inside{" "}
-									<BSInlineFunction>ATargetManager::Init</BSInlineFunction>. More specifically, it
-									does the following:
+									the game mode configuration to it. The Target Manager then determines the minimum
+									and maximum size of the total spawn area and sets the dimensions of all box
+									components to appropriate values. Next, each component of the Targe Manager is
+									initialized.
 								</p>
-								<ol>
-									<li>Sets the dimensions of all box components</li>
-									<li>
-										Calls <BSInlineFunction>USpawnAreaManagerComponent::Init</BSInlineFunction>
-									</li>
-									<li>
-										Calls <BSInlineFunction>UReinforcementLearningComponent::Init</BSInlineFunction>
-									</li>
-								</ol>
 								<p>
-									After receiving the game mode config from the Target Manager,{" "}
-									<BSInlineFunction>
-										USpawnAreaManagerComponent::InitializeSpawnAreas
-									</BSInlineFunction>{" "}
-									is called to generate all Spawn Areas for the game mode. This is where the Spawn
-									Area Manager Component determines how many Spawn Areas the total spawn area needs to
-									be divided into. This happens inside{" "}
-									<BSInlineFunction>
-										USpawnAreaManagerComponent::SetSpawnMemoryValues
-									</BSInlineFunction>
-									. Once the width and height of the Spawn Areas are found, the Spawn Area Manager
-									Component creates a new USpawnArea object for each section of the total spawn area.
-									It then calls <BSInlineFunction>USpawnArea::Init</BSInlineFunction>, which sets up
-									basic information about the Spawn Area. Notably, it also specifies which type of
-									section inside the total spawn area it belongs to, represented by EGridIndexType:
+									The Spawn Area Manager determines the dimensions of all Spawn Areas using the
+									maximum size of the total spawn area. Then, it creates and initializes all Spawn
+									Areas for the game mode.
+								</p>
+								<p>
+									When a Spawn Area is created, it determines its{" "}
+									<BSInlineEnum>EGridIndexType</BSInlineEnum> based on the location and index it
+									received from the Spawn Area Manager. Using this, it stores the direction and index
+									of all adjacent Spawn Areas in a map which are primarily used in Grid-based game
+									modes
 								</p>
 								<BSCodeBlock>{EGridIndexType}</BSCodeBlock>
-								<p>
-									The Spawn Area then finds all adjacent Spawn Areas based on the Grid Index Type and
-									the number of horizontal Spawn Areas that make up the total spawn area. The Grid
-									Index Type allows the Grid <em>Target Distribution Policy</em> to quickly access all
-									adjacent Spawn Areas, which is how BeatGrid finds targets to activate.
-								</p>
 							</div>
 							<div className="article-subsection" ref={Ref_Spawning} id="target-lifecycle-Spawning">
 								<BlogHeading headingText="Spawning" headingLevel={2} />
+								<ul>
+									<p>There are two spawning methods in BeatShot:</p>
+									<li>
+										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+										<BSInlineEnum>::UpfrontOnly</BSInlineEnum>: Spawns all targets inside{" "}
+										<BSInlineFunction>ATargetManager::Init</BSInlineFunction>. No other targets are
+										spawned for the duration of the game mode.
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+										<BSInlineEnum>::RuntimeOnly</BSInlineEnum>: Spawns targets based on beat
+										thresholds being met by the audio analyzer, which triggers the game mode to call{" "}
+										<BSInlineFunction>::HandleAudioAnalyzerBeat</BSInlineFunction> on the Target
+										Manager. If using a song from a file, this would occur exactly Spawn Beat Delay
+										seconds before you hear the beat.
+									</li>
+								</ul>
 								<p>
-									There are two spawning methods in BeatShot:{" "}
-									<BSInlineEnum>ETargetSpawningPolicy::UpfrontOnly</BSInlineEnum> and{" "}
-									<BSInlineEnum>ETargetSpawningPolicy::RuntimeOnly</BSInlineEnum>.
+									The first function <BSInlineFunction>::OnAudioAnalyzerBeat</BSInlineFunction> calls
+									is <BSInlineFunction>::HandleRuntimeSpawning</BSInlineFunction>. Here, the
+									TargetManager determines how many targets to spawn. It ensures it only spawns
+									targets that can be activated, unless the game mode allows spawning without
+									activation. If three targets are currently activated, and the{" "}
+									<em>Maximum Number of Activated Targets at Once</em> is set to four, only one target
+									will be spawned regardless of the Number of Runtime Targets to Spawn.
 								</p>
 								<p>
-									Game modes using <BSInlineEnum>ETargetSpawningPolicy::UpfrontOnly</BSInlineEnum>{" "}
-									spawn all targets inside <BSInlineFunction>ATargetManager::Init</BSInlineFunction>.
-									No other targets are spawned for the duration of the game mode.
-								</p>
-								<p>
-									Game modes using <BSInlineEnum>ETargetSpawningPolicy::RuntimeOnly</BSInlineEnum>{" "}
-									spawn their targets based on beat thresholds being met by the audio analyzer, which
-									triggers the game mode to call{" "}
-									<BSInlineFunction>ATargetManager::OnAudioAnalyzerBeat</BSInlineFunction>. I discuss
-									this function more in the Activation section, but for now I want to focus on what
-									happens when any target is spawned, regardless of the Target Spawning Policy.
-								</p>
-								<BSCodeBlock>{SpawnTarget}</BSCodeBlock>
-								<p>
-									The location and scale of the target are retrieved from a previously found Spawn
-									Area. I use SpawnActorDeferred so the game mode config can be passed to the target
-									before it&#39;s finished spawning.
+									At the end of <BSInlineFunction>::HandleRuntimeSpawning</BSInlineFunction>,{" "}
+									<BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction> is called. The size of
+									the total spawn area is updated, and the size of the targets to spawn are determined
+									using a curve table lookup if dynamic, or randomly selected if random. Finally, the
+									Target Manager retrieves a set of{" "}
+									<BSInlineFunction>FTargetSpawnParams</BSInlineFunction> from the Spawn Area Manager
+									by calling <BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction>, where the
+									number of targets to spawn and an array of target sizes are passed to the function.
 								</p>
 								<p>
 									<BSInlineFunction>ATarget::Init</BSInlineFunction> sets the Max Health attribute of
@@ -235,24 +231,11 @@ const TargetSpawningSystemPart2 = () => {
 									discussed more in the Deactivation section.
 								</p>
 								<p>
-									The Spawn Area is assigned the target&#39;s global unique identifier, the target is
-									added to the Target Manager&#39;s array of managed targets, and{" "}
-									<BSInlineFunction>
-										USpawnAreaManagerComponent::FlagSpawnAreaAsManaged
-									</BSInlineFunction>
-									is called. This lets the Spawn Area Manager know that the Spawn Area now represents
-									a target.
+									<BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction> is the heart of spawn
+									location decision making, and a lot is involved. The{" "}
+									<em>Target Distribution Policy</em> dictates which series of functions are executed.
 								</p>
-								<p>
-									When a Spawn Area is flagged as <em>Managed</em>,{" "}
-									<BSInlineFunction>USpawnArea::GenerateOverlappingVertices</BSInlineFunction> is
-									called. This function finds all surrounding Spawn Areas that would cause an overlap
-									if a target with the same radius is spawned inside that Spawn Area. This is done by
-									tracing a sphere centered at the location the target was spawned inside the Spawn
-									Area. These traced spheres are shown in Figure TODO as purple wireframes, while the
-									red and green points are the center of individual Spawn Areas.
-								</p>
-								<figure>
+								{/* <figure>
 									<div className="figure-border-container">
 										<Image src={image_OverlappingVerts} alt="OverlappingVerts" />
 										<figcaption>
@@ -260,153 +243,108 @@ const TargetSpawningSystemPart2 = () => {
 											Overlapping Vertices generated after each target was flagged as Managed.
 										</figcaption>
 									</div>
-								</figure>
+								</figure> */}
 								<p>
-									The green points mean that it&#39;s currently safe to spawn a target in that Spawn
-									Area, while the red points mean it&#39;s not. Each time a new target occupies a
-									given Spawn Area, these vertices generated and stored. They are then used when
-									finding subsequent target spawn locations, which is discussed in the Activation
-									section.
+									<BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction> begins by considering
+									the set of Spawn Areas that fall within the current total spawn area as potential
+									candidates for spawning. The set of invalid Spawn Areas, or Spawn Areas which should
+									not be considered for spawn locations, is the union of the managed, activated, and
+									recent Spawn Area sets.{" "}
 								</p>
 								<p>
-									The radius of the traced sphere should be big enough that it captures all Spawn
-									Areas that would cause an overlap, but small enough that it doesn&#39;t restrict the
-									possible spawn locations to an unnecessary small amount. Since a target can spawn
-									anywhere inside a Spawn Area, some amount of error is introduced.
+									The main loop inside <BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction>{" "}
+									iterates over the number of targets to spawn. At each iteration, a copy of the
+									potential Spawn Area candidates is made, and{" "}
+									<BSInlineFunction>::RemoveOverlappingSpawnAreas</BSInlineFunction> is called to
+									modify the Spawn Area candidates copy. It removes any invalid spawn areas from the
+									candidates set, as well as any Spawn Areas where the target overlaps neighboring
+									Spawn Areas. A sphere trace is performed to find the surrounding Spawn Areas that
+									should also be removed from consideration due to the target overlapping.
 								</p>
 								<p>
-									I ended up setting the traced sphere radius is equal to twice the radius of the
-									target that was spawned in the spawn area plus the larger of the width and height of
-									the Spawn Area. This seemed to give me the best results when testing many targets at
-									once with varying scales, without restricting the number of spawn locations too
-									much.
+									Back inside <BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction>,{" "}
+									<BSInlineFunction>::ChooseSpawnableSpawnAreas</BSInlineFunction> is called with the
+									modified candidate set, along with the previous Spawn Area, and a set of Spawn Areas
+									that have been chosen during iteration. This function determines which Spawn Area to
+									pick from the available selection based on game mode settings like{" "}
+									<em>Spawn Every Other Target In Center</em>,{" "}
+									<em>Spawn At Origin Whenever Possible</em>, and can also request a spawn location
+									from the Reinforcement Learning Component if the game mode uses AI. The last
+									priority is simply choosing a random Spawn Area from the candidates.{" "}
+								</p>
+								<p>
+									If <BSInlineFunction>::ChooseSpawnableSpawnAreas</BSInlineFunction> returned a valid
+									Spawn Area, it is added to the set to be returned by{" "}
+									<BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction>. It is also removed from
+									the candidate set and added to the invalid set, since it cannot be chosen again.
+								</p>
+								<p>
+									Once the <BSInlineCode>FTargetSpawnParams</BSInlineCode> have been obtained,{" "}
+									<BSInlineFunction>::SpawnTarget</BSInlineFunction> is called for each element in the
+									set. The target sets its Attribute Set values like health and the amount of damage
+									it deals to itself in{" "}
+									<BSInlineFunction>::PostInitializeComponents</BSInlineFunction>, but it needs the
+									game mode configuration data to do this. I use the{" "}
+									<BSInlineFunction>::SpawnActor</BSInlineFunction> overload that takes{" "}
+									<BSInlineCode>FActorSpawnParameters</BSInlineCode> to create a
+									CustomPreSpawnInitalization function that calls{" "}
+									<BSInlineFunction>ATarget::Init</BSInlineFunction>, which passes the relevant game
+									mode configuration to the target. Using a CustomPreSpawnInitalization function is
+									nice because <BSInlineFunction>::Init</BSInlineFunction> is guaranteed to be called
+									before <BSInlineFunction>::PostInitializeComponents</BSInlineFunction>.
+									Additionally, any immunity is applied to the target here, and the
+									ProjectileMovementComponent is configured based on the game mode’s movement
+									settings.
+								</p>
+								<p>
+									Once the target has been spawned, the target is added to the Target Manager's map of
+									managed targets. The Spawn Area Manager's{" "}
+									<BSInlineFunction>::FlagSpawnAreaAsManaged</BSInlineFunction> function is called by
+									the Target Manager to assign the target's <BSInlineCode>FGuid</BSInlineCode>, or
+									globally unique identifier, to the Spawn Area and flagged it as managed, signifying
+									the Spawn Area now represents a target. The Spawn Area Manager maps the{" "}
+									<BSInlineCode>FGuid</BSInlineCode> to the Spawn Area inside the GuidMap and the
+									SpawnArea is added to the set of cached managed Spawn Areas, CachedManaged.
 								</p>
 							</div>
 							<div className="article-subsection" ref={Ref_Activation} id="target-lifecycle-Activation">
 								<BlogHeading headingText="Activation" headingLevel={2} />
 								<p>
-									The chain of events leading to target activation begins when the game mode recieves
-									input from the audio analyzer that the beat threshold has been met, and calls{" "}
-									<BSInlineFunction>ATargetManager::OnAudioAnalyzerBeat</BSInlineFunction>. If using a
-									song from a file, this would occur exactly Spawn Beat Delay seconds before you
-									actually hear the beat.
+									The second function <BSInlineFunction>::OnAudioAnalyzerBeat</BSInlineFunction> calls
+									is <BSInlineFunction>::HandleTargetActivation</BSInlineFunction>.
 								</p>
-								<BSCodeBlock>{OnAudioAnalyzerBeat}</BSCodeBlock>
+								{/* <BSCodeBlock>{OnAudioAnalyzerBeat}</BSCodeBlock> */}
 								<p>
-									The TargetManager looks for any existing target(s) that can be activated, and tries
-									to activate them according to the game mode config using{" "}
-									<BSInlineFunction>ATargetManager::HandleActivateExistingTargets</BSInlineFunction>.
+									Here, the TargetManager queries the Spawn Area Manager to get the number of
+									activated and deactivated Spawn Areas and uses these values and the game mode
+									settings to determine how many targets to activate. The Target Manager receives a
+									set of target <BSInlineCode>FGuid</BSInlineCode>s from the Spawn Area Manager by
+									calling <BSInlineFunction>::GetActivatableTargets</BSInlineFunction>, where the
+									number of targets to activate are passed to the function.
 								</p>
+								<p>TODO: Massive breakdown of GetActivatableTargets</p>
 								<p>
-									If the game mode config allows for targets to be spawned at runtime (
-									<BSInlineEnum>ETargetSpawningPolicy::RuntimeOnly</BSInlineEnum>
-									),{" "}
-									<BSInlineFunction>
-										ATargetManager::HandleRuntimeSpawnAndActivation
-									</BSInlineFunction>{" "}
-									is called.
+									Once the target <BSInlineCode>FGuid</BSInlineCode>s have been obtained,{" "}
+									<BSInlineFunction>::ActivateTarget</BSInlineFunction> is called for each one. This
+									is where any Target Activation Responses are applied to the target.{" "}
 								</p>
 								<p>
-									In both of these functions, the general procedure is to activate the target{" ("}
-									<BSInlineFunction>ATargetManager::ActivateTarget</BSInlineFunction>
-									{")"} and then find the scale and Spawn Area for the next target if it was
-									successfully activated
-									{" ("}
-									<BSInlineFunction>ATargetManager::FindNextTargetProperties</BSInlineFunction>
-									{")"}.
+									The Target Manager executes{" "}
+									<BSInlineFunction>::FlagSpawnAreaAsActivated</BSInlineFunction> on the Spawn Area
+									Manager, where the Spawn Area is added to the set of activated Spawn Areas
+									(CachedActivated), the Spawn Area state is updated, and the target scale when
+									activated is stored in the Spawn Area.
 								</p>
-								<BSCodeBlock>{ActivateTarget}</BSCodeBlock>
-								<p>
-									The only two Spawn Area objects that the Target Manager keeps track of are the
-									PreviousSpawnArea and the CurrentSpawnArea. The only place these two variables are
-									changed is inside{" "}
-									<BSInlineFunction>ATargetManager::FindNextTargetProperties</BSInlineFunction>, and
-									this function is always called immediately after activating a target.
-								</p>
-								<BSCodeBlock>{FindNextTargetProperties}</BSCodeBlock>
-								<p>
-									<BSInlineFunction>ATargetManager::GetNextTargetScale</BSInlineFunction> returns
-									either a random target scale between the Min and Max Target Scale or a dynamic
-									target scale taken from a curve based on the number of recent targets successfully
-									destroyed.
-								</p>
-								<p>
-									The Spawn Area containing the next target location is found using{" "}
-									<BSInlineFunction>ATargetManager::GetNextSpawnArea</BSInlineFunction>, which goes
-									through several checks to see if it can spawn at the origin or get a Spawn Area from
-									the RL Component, but the main thing I want to focus on is when it calls{" "}
-									<BSInlineFunction>
-										USpawnAreaManagerComponent::GetValidSpawnLocations
-									</BSInlineFunction>
-									. This function is the heart of spawn location decision making.
-								</p>
-								<BSCodeBlock>{GetValidSpawnLocations}</BSCodeBlock>
-								<p>
-									The game mode config&#39;s Target Distribution Policy dictates which series of
-									functions are executed. Most distribution policies begin considering all Spawn Areas
-									as valid choices, rather than only finding Spawn Areas that aren&#39;t currently
-									activated or recent. This is because a smaller target may spawn before a larger
-									target, and the cutout size of the sphere it left will not be big enough to safely
-									spawn the next larger target without overlapping the smaller one. This is also why
-									the target scale is found before finding the Spawn Area.
-								</p>
-								<p>
-									<BSInlineFunction>
-										USpawnAreaManagerComponent::HandleFullRangeSpawnLocations
-									</BSInlineFunction>{" "}
-									removes all Spawn Areas that fall outside of the current total spawn area. This only
-									applies to game modes using{" "}
-									<BSInlineEnum>EBoundsScalingPolicy::Dynamic</BSInlineEnum> since the total spawn
-									area is always the same for game modes using{" "}
-									<BSInlineEnum>EBoundsScalingPolicy::Static</BSInlineEnum>. Referring to Figure TODO,
-									the red boxes outside the the current spawn area (blue box) are the Spawn Areas this
-									function removed from consideration for a game mode using{" "}
-									<BSInlineEnum>EBoundsScalingPolicy::Dynamic</BSInlineEnum>.
-								</p>
-								<p>
-									<BSInlineFunction>
-										USpawnAreaManagerComponent::HandleEdgeOnlySpawnLocations
-									</BSInlineFunction>{" "}
-									only adds the points along the border of the current total spawn area.
-								</p>
-								<figure>
-									<div className="figure-border-container">
-										<Image
-											src={image_SpawnMemory_Dynamic_FewRecent}
-											alt="SpawnMemory_Dynamic_FewRecent"
-										/>
-										<figcaption>
-											<p className="figlabel">Figure TODO: </p>
-											All Spawn Areas for a game mode using{" "}
-											<BSInlineEnum>EBoundsScalingPolicy::Dynamic</BSInlineEnum>, where green
-											boxes represent valid and red boxes represent invalid. The blue box
-											represents the current total spawn area.
-										</figcaption>
-									</div>
-								</figure>
-								<p>
-									All Target Distribution Policies besides Grid call{" "}
-									<BSInlineFunction>
-										USpawnAreaManagerComponent::RemoveOverlappingSpawnLocations
-									</BSInlineFunction>
-									. This function loops over all Spawn Areas that are flagged as <em>Activated</em> or{" "}
-									<em>Recent</em> and adds their overlapping vertices to a temporary array that is
-									used to filter the spawn locations passed by reference to the function.
-								</p>
-								<BSCodeBlock>{RemovingOverlappingSpawnLocations}</BSCodeBlock>
-								<p>
-									The overlapping vertices that are added are the same overlapping vertices that were
-									generated when the target was spawned. If the scale for the target to be spawned is
-									greater than the scale that the overlapping points were generated with, a temporary
-									set is generated using the larger radius.
-								</p>
+								{/* <BSCodeBlock>{ActivateTarget}</BSCodeBlock> */}
 								<p>
 									As soon as the target is activated by the Target Manager, the timelines that control
 									the color and/or scale of the target begin playing and a timer is set for the
-									duration of its Max Lifespan. If the timer is allowed to expire, the target damages
-									itself using a <BSInlineFunction>UGameplayEffect</BSInlineFunction> that applies
-									damage equal to the Expiration Health Penalty.
+									duration of its Max Lifespan. If the timer is allowed to expire, the target inflicts
+									damage to itself equal to the Expiration Health Penalty using a{" "}
+									<BSInlineCode>UGameplayEffect</BSInlineCode>.
 								</p>
+								{/* <BSCodeBlock>{FindNextTargetProperties}</BSCodeBlock> */}
+								{/* <BSCodeBlock>{GetValidSpawnLocations}</BSCodeBlock> */}
 							</div>
 							<div
 								className="article-subsection"
@@ -415,28 +353,28 @@ const TargetSpawningSystemPart2 = () => {
 							>
 								<BlogHeading headingText="Deactivation" headingLevel={2} />
 								<p>
-									The catalyst for deactivation is the target&#39;s health attribute changing. Any
-									time this occurs, the OnTargetDamageEventOrTimeout delegate introduced in the
-									Spawning section is broadcast to the Target Manager.
+									The catalyst for deactivation is the target health attribute changing. Any time this
+									occurs, the <BSInlineCode>OnTargetDamageEvent</BSInlineCode> delegate is broadcast
+									with a <BSInlineCode>FTargetDamageEvent</BSInlineCode> payload containing the
+									following:
 								</p>
 								<ul>
-									This delegate sends a struct containing the following:
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 										Current health of the target
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										Global unique identifier for the target
+										<BSInlineCode>FGuid</BSInlineCode> for the target
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										How far into the target&#39;s Max Lifespawn the target was destroyed. The value
-										will be -1 if the target expired. This is mostly used for scoring
+										The length of time the target was alive for, or -1 if the target expired. This
+										is mostly used for scoring
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										How much health the target lost from this instance of damage
+										Amount of health the target lost from this instance of damage
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -444,72 +382,64 @@ const TargetSpawningSystemPart2 = () => {
 									</li>
 								</ul>
 								<p>
-									<BSInlineFunction>ATargetManager::OnTargetHealthChangedOrExpired</BSInlineFunction>{" "}
-									is the function that all targets broadcast the delegate to.
+									Every delegate is bound to the Target Manager's{" "}
+									<BSInlineFunction>::HandleTargetDamageEvent</BSInlineFunction> function. The Target
+									Manager uses the data from the <BSInlineCode>FTargetDamageEvent</BSInlineCode> and
+									the Target Deactivation Conditions to determine whether the target should be
+									deactivated inside the <BSInlineFunction>::ShouldDeactivateTarget</BSInlineFunction>{" "}
+									function. If it should be deactivated,{" "}
+									<BSInlineFunction>::DeactivateTarget</BSInlineFunction> is called, which handles
+									applying all Target Deactivation Responses to the target and executes{" "}
+									<BSInlineFunction>ATarget::DeactivateTarget</BSInlineFunction>. Similarly, the
+									Target Destruction Conditions to determine whether the target should be destroyed
+									inside the <BSInlineFunction>::ShouldDestroyTarget</BSInlineFunction> function.
 								</p>
 								<p>
-									First, the Target Manager updates the consecutive targets hit and adjusts the
-									dynamic scale factor. This value controls the target scale if using{" "}
-									<BSInlineEnum>EConsecutiveTargetScalePolicy::SkillBased</BSInlineEnum> and the total
-									spawn area if using <BSInlineEnum>EBoundsScalingPolicy::Dynamic</BSInlineEnum>. The
-									struct is then forwarded to the game mode which updates the score and player HUD.
-									The target is removed from the Target Manager&#39;s managed target array if the
-									Target Destruction Conditions permit. Any time a target is removed from this array,{" "}
+									By this point, all data has been extracted from the target, and the{" "}
+									<BSInlineCode>FTargetDamageEvent</BSInlineCode> has been updated indicating if the
+									target will be deactivated and if the target will be destroyed.
+								</p>
+								<p>
+									Then, the Target Manager updates the consecutive targets hit and adjusts the dynamic
+									scale factor. This value controls the target scale if using a{" "}
+									<BSInlineEnum>::SkillBased</BSInlineEnum> Consecutive Target Scale Policy and the
+									total spawn area if using a <BSInlineEnum>::Dynamic</BSInlineEnum> Bounds Scaling
+									Policy. The struct is then forwarded to the game mode which updates the score and
+									player HUD.
+								</p>
+								<p>
+									Next,{" "}
 									<BSInlineFunction>
-										USpawnAreaManagerComponent::RemoveManagedFlagFromSpawnArea
+										USpawnAreaManagerComponent::HandleTargetDamageEvent
 									</BSInlineFunction>{" "}
-									is also called.
+									is called. The Spawn Area associated with the Target Guid is found and data about
+									whether the target was successfully hit is stored. If the damage event indicates
+									that the target was deactivated or destroyed,{" "}
+									<BSInlineFunction>::RemoveActivatedFlagFromSpawnArea</BSInlineFunction> and
+									<BSInlineFunction>::FlagSpawnAreaAsRecent</BSInlineFunction> are called. If the
+									damage event indicates the target was destroyed,{" "}
+									<BSInlineFunction>::RemoveManagedFlagFromSpawnArea</BSInlineFunction> is called.
 								</p>
 								<p>
-									Next, if the game mode uses the RL Component, the reward for the previous-current
-									target location pair is updated.
+									<BSInlineFunction>::RemoveActivatedFlagFromSpawnArea</BSInlineFunction> removes the
+									the Spawn Area from the CachedManaged set and updates the state of the Spawn Area to
+									be deactivated. <BSInlineFunction>::FlagSpawnAreaAsRecent</BSInlineFunction> adds
+									the Spawn Area to the set of recent Spawn Areas, CachedRecent. Depending on the
+									Recent Target Memory Policy, the Spawn Area is either removed, set to be removed on
+									a timer, or removed at a later time based on the number of recent Spawn Areas.
 								</p>
 								<p>
-									Then,{" "}
-									<BSInlineFunction>
-										USpawnAreaManagerComponent::HandleRecentTargetRemoval
-									</BSInlineFunction>{" "}
-									is called. This function removes the Activated flag from the Spawn Area and flags it
-									as Recent. A timer is set based on the <em>Recent Target Memory Policy</em> and the
-									Recent flag is then removed when the timer expires. Upon removal of the Recent flag,
-									the overlapping vertices that were generated when the target was spawned are
-									emptied.
+									Next, if the game mode uses AI, the reward for the previous-current target location
+									pair is updated in the the Reinforcement Learning Component.
 								</p>
-								<p>
-									If the game mode uses a Recent Target Memory Policy that keeps the footprint of
-									recent targets too long, targets won&#39;t have anywhere to be spawned. Figure TODO
-									shows what it looks like moments before disaster (not really, the game simply
-									won&#39;t spawn a target until there&#39;s space).
-								</p>
-								<figure>
-									<div className="figure-border-container">
-										<Image
-											src={image_SpawnMemory_Dynamic_ManyRecent}
-											alt="SpawnMemory_Dynamic_ManyRecent"
-										/>
-										<figcaption>
-											<p className="figlabel">Figure TODO: </p>
-											All Spawn Areas for a game mode using a Recent Target Memory Policy that
-											keeps targets for 1.5 seconds after they are deactivated.
-										</figcaption>
-									</div>
-								</figure>
-								<p>
-									Finally, the target then checks its Target Deactivation Conditions to see if it
-									should deactivate. Deactivation conditions are solely based on whether or not the
-									target expired. If a deactivation condition was met,{" "}
-									<BSInlineFunction>ATarget::HandleDeactivationResponses</BSInlineFunction> is called.
-								</p>
-								<BSCodeBlock>{HandleDeactivation}</BSCodeBlock>
+								{/* <BSCodeBlock>{HandleDeactivation}</BSCodeBlock> */}
 							</div>
 							<div className="article-subsection" ref={Ref_Destruction} id="target-lifecycle-Destruction">
 								<BlogHeading headingText="Destruction" headingLevel={2} />
 								<p>
-									Just after checking deactivation conditions and broadcasting the
-									OnTargetDamageEventOrTimeout delegate, the target checks the Target Destruction
-									Conditions to see if it needs to destroy itself. Since the target broadcast the
-									delegate before checking the Destruction Conditions, the Target Manager will have
-									already removed it from its managed target array before the target destroys itself.
+									Continuing right where the Deactivation section left off, if the target should be
+									destroyed, the target is removed from the Target Manager's managed target map, and{" "}
+									<BSInlineFunction>::Destroy</BSInlineFunction> is called on the target.
 								</p>
 								<ol>
 									Destruction conditions are based on a combination of only two factors:
@@ -520,11 +450,7 @@ const TargetSpawningSystemPart2 = () => {
 						</div>
 						<div className="article-section" ref={Ref_Conclusion} id="conclusion">
 							<BlogHeading headingText="Conclusion" headingLevel={1} />
-							<p>
-								Well, that was a lot. The system I described is by no means the only way to approach the
-								problem, it&#39;s just the way that made sense to me and worked. I hoped you learned
-								something and weren&#39;t too overwhelmed.
-							</p>
+							<p>TODO:</p>
 						</div>
 						<div className="article-section">
 							<p className="inline posted-date">
@@ -542,4 +468,4 @@ const TargetSpawningSystemPart2 = () => {
 	);
 };
 
-export default TargetSpawningSystemPart2;
+export { TargetSpawningSystemPart2, titleShort, titleLong, description };
