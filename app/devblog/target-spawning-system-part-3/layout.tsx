@@ -1,6 +1,9 @@
 import SEO from "@/components/SEO";
 import { Metadata } from "next";
-import { titleShort, titleLong, description } from "@/pages/blog/TargetSpawningSystemPart3";
+
+const titleShort = "BeatShot's Target Spawning System: Part 3 | Developer Blog";
+const titleLong = "BeatShot's Target Spawning System: Part 3";
+const description = "TODO";
 
 export const metadata: Metadata = SEO({
 	title: titleShort,

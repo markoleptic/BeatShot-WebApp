@@ -1,21 +1,28 @@
 "use client";
 
 import React, { useRef } from "react";
-import useOnScreen from "@/hooks/useScreenObserver";
+import Image from "next/image";
+import Link from "next/link";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DateTime } from "luxon";
+
+import Sidebar from "@/components/Sidebar";
+import useOnScreen from "@/hooks/useScreenObserver";
 import { SidebarHashLink } from "@/components/SidebarHashLink";
 import { BSInlineFunction } from "@/components/CodeBlock";
 import { BlogHeading, BlogHeadingClass } from "@/components/BlogHeading";
-import Sidebar from "@/components/Sidebar";
-import Image from "next/image";
-import image_BoxBounds from "public/BoxBounds.png";
-import image_TotalSpawnArea from "public/TotalSpawnArea.png";
-import image_Hero from "public/SpawnMemory_Hero_Cropped.png";
+
+import image_BoxBounds from "public/targetSpawningSystem/BoxBounds.png";
+import image_TotalSpawnArea from "public/targetSpawningSystem/TotalSpawnArea.png";
+import image_Hero from "public/targetSpawningSystem/SpawnMemory_Hero_Cropped.png";
+import image_Card from "public/targetSpawningSystem/TargetSpawningSystemCard.png";
+
+import type { BlogPostData } from "@/types/blog.types";
+
 import "@/styles/Article.scss";
 import "@/styles/Hero.scss";
 import "@/styles/Utility.scss";
-import Link from "next/link";
 
 const titleShort = "BeatShot's Target Spawning System: Part 1 | Developer Blog";
 const titleLong = "BeatShot's Target Spawning System: Part 1 - Core Classes and Conventions";
@@ -23,6 +30,8 @@ const description =
 	"In this first part of the series, you’ll learn about the classes, state management systems, and some of the " +
 	"conventions used to make the game function smoothly, alongside insights into the decision-making process that " +
 	"guided their selection and implementation.";
+const postDate: DateTime = DateTime.fromFormat("July 2, 2023", "DDD");
+const editDate: DateTime = DateTime.fromFormat("July 14, 2024", "DDD");
 
 const TargetSpawningSystem = () => {
 	const Ref_Classes = useRef(null);
@@ -389,7 +398,7 @@ const TargetSpawningSystem = () => {
 									build).
 								</p>
 								<p>
-									A target may receive damage from a player or themself, in the case of timing out. In
+									A target may receive damage from a player or itself, in the case of timing out. In
 									either case, it notifies the Target Manager when damage events occur. Targets
 									control their color using curve assets and timelines. Similar to the Target Manager,
 									this class uses components detailed in the following three sections.
@@ -502,7 +511,7 @@ const TargetSpawningSystem = () => {
 									childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/BSGameMode.cpp"
 								/>
 								<p>
-									The game mode spawns and intializes new Target Manager each time a game mode is
+									The game mode spawns and initializes new Target Manager each time a game mode is
 									started. It also configures the audio analyzer and notifies the Target Manager each
 									time a beat threshold is met.
 								</p>
@@ -526,10 +535,12 @@ const TargetSpawningSystem = () => {
 						</h3>
 						<div className="article-section">
 							<p className="inline posted-date">
-								<span className="inline text-light">Posted:</span> July 2, 2023
+								<span className="inline text-light">Posted: </span>
+								{postDate.toFormat("DDD")}
 								<br></br>
-								<time dateTime="2023-12-23">
-									<span className="inline text-light">Updated:</span> December 23, 2023
+								<time dateTime={editDate.toHTTP() as string}>
+									<span className="inline text-light">Updated: </span>
+									{editDate.toFormat("DDD")}
 								</time>
 							</p>
 						</div>
@@ -540,4 +551,13 @@ const TargetSpawningSystem = () => {
 	);
 };
 
-export { TargetSpawningSystem, titleShort, titleLong, description };
+const blogPostData: BlogPostData = {
+	titleShort: titleShort,
+	titleLong: titleLong,
+	description: description,
+	cardImage: image_Card,
+	postDate: postDate,
+	editDate: editDate,
+};
+
+export { TargetSpawningSystem, blogPostData };

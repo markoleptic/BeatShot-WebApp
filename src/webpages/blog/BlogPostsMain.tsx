@@ -4,11 +4,11 @@ import React from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { titleLong, description } from "@/pages/blog/TargetSpawningSystem";
-import { titleLong as titleLongPart2, description as descriptionPart2 } from "@/pages/blog/TargetSpawningSystemPart2";
-
-import image_TargetSpawningSystem_teaser from "public/TargetSpawningSystem-teaser.png";
-import image_Hero from "public/GAS_Diagram.png";
+import { blogPostData as targetSpawningSystemBlogPostData } from "@/pages/blog/TargetSpawningSystem";
+import { blogPostData as gameplayAbilitySystemBlogPostData } from "@/webpages/blog/GameplayAbilitySystem";
+import { blogPostData as targetSpawningSystemPart2BlogPostData } from "@/pages/blog/TargetSpawningSystemPart2";
+import { blogPostData as targetSpawningSystemPart3BlogPostData } from "@/pages/blog/TargetSpawningSystemPart3";
+import { blogPostData as SpawningWithoutBlogPostData } from "@/pages/blog/SpawningWithoutIntersection";
 
 import "@/styles/Card.scss";
 import "@/styles/Hero.scss";
@@ -34,32 +34,34 @@ const BlogPostsMain = () => {
 							<div className="card">
 								<p className="sub-heading">
 									Article
-									<time dateTime="2023-07-02">July 2, 2023 </time>
+									<time dateTime={targetSpawningSystemBlogPostData.postDate.toHTTP() as string}>
+										{targetSpawningSystemBlogPostData.postDate.toFormat("DD")}
+									</time>
 								</p>
-								<Image src={image_TargetSpawningSystem_teaser} alt="TargetSpawningSystem-teaser" />
-								<div className="card-label">{titleLong}</div>
-								<p className="card-sub-label">{description}</p>
+								<Image
+									src={targetSpawningSystemBlogPostData.cardImage}
+									alt="TargetSpawningSystem-teaser"
+								/>
+								<div className="card-label">{targetSpawningSystemBlogPostData.titleLong}</div>
+								<p className="card-sub-label">{targetSpawningSystemBlogPostData.description}</p>
 							</div>
 						</Link>
 					</div>
-					<div
-						className="card-container gap-1rem padding-1rem"
-						onClick={(event) => handleClick(event, `/devblog/gameplay-ability-system-overview`)}
-					>
-						<Link className="link" href="/devblog/target-spawning-system">
+					<div className="card-container gap-1rem padding-1rem">
+						<Link className="link" href="/devblog/gameplay-ability-system-overview">
 							<div className="card">
 								<p className="sub-heading">
 									Article
-									<time dateTime="2023-09-10">September 15, 2023 </time>
+									<time dateTime={gameplayAbilitySystemBlogPostData.postDate.toHTTP() as string}>
+										{gameplayAbilitySystemBlogPostData.postDate.toFormat("DD")}
+									</time>
 								</p>
-								<Image src={image_Hero} alt="TargetSpawningSystem-teaser" />
-								<div className="card-label">
-									An Overview of Unreal&#39;s Gameplay Ability System in BeatShot
-								</div>
-								<p className="card-sub-label">
-									How is the Gameplay Ability System used in BeatShot? This article shows the
-									implementation and walks through the execution of a common ability.
-								</p>
+								<Image
+									src={gameplayAbilitySystemBlogPostData.cardImage}
+									alt="TargetSpawningSystem-teaser"
+								/>
+								<div className="card-label">{gameplayAbilitySystemBlogPostData.titleLong}</div>
+								<p className="card-sub-label">{gameplayAbilitySystemBlogPostData.description}</p>
 							</div>
 						</Link>
 					</div>
@@ -68,11 +70,52 @@ const BlogPostsMain = () => {
 							<div className="card">
 								<p className="sub-heading">
 									Article
-									<time dateTime="2023-07-02">July 2, 2023 </time>
+									<time dateTime={targetSpawningSystemPart2BlogPostData.postDate.toHTTP() as string}>
+										{targetSpawningSystemPart2BlogPostData.postDate.toFormat("DD")}
+									</time>
 								</p>
-								<Image src={image_TargetSpawningSystem_teaser} alt="TargetSpawningSystem-teaser" />
-								<div className="card-label">{titleLongPart2}</div>
-								<p className="card-sub-label">{descriptionPart2}</p>
+								<Image
+									src={targetSpawningSystemPart2BlogPostData.cardImage}
+									alt="TargetSpawningSystem-teaser"
+								/>
+								<div className="card-label">{targetSpawningSystemPart2BlogPostData.titleLong}</div>
+								<p className="card-sub-label">{targetSpawningSystemPart2BlogPostData.description}</p>
+							</div>
+						</Link>
+					</div>
+					<div className="card-container gap-1rem padding-1rem">
+						<Link className="link" href="/devblog/target-spawning-system-part-3">
+							<div className="card">
+								<p className="sub-heading">
+									Article
+									<time dateTime={targetSpawningSystemPart3BlogPostData.postDate.toHTTP() as string}>
+										{targetSpawningSystemPart3BlogPostData.postDate.toFormat("DD")}
+									</time>
+								</p>
+								<Image
+									src={targetSpawningSystemPart3BlogPostData.cardImage}
+									alt="TargetSpawningSystem-teaser"
+								/>
+								<div className="card-label">{targetSpawningSystemPart3BlogPostData.titleLong}</div>
+								<p className="card-sub-label">{targetSpawningSystemPart3BlogPostData.description}</p>
+							</div>
+						</Link>
+					</div>
+					<div className="card-container gap-1rem padding-1rem">
+						<Link className="link" href="/devblog/spawning-without-intersection">
+							<div className="card">
+								<p className="sub-heading">
+									Article
+									<time dateTime={SpawningWithoutBlogPostData.postDate.toHTTP() as string}>
+										{SpawningWithoutBlogPostData.postDate.toFormat("DD")}{" "}
+									</time>
+								</p>
+								<Image
+									src={SpawningWithoutBlogPostData.cardImage}
+									alt="Spawning-without-intersection-teaser"
+								/>
+								<div className="card-label">{SpawningWithoutBlogPostData.titleLong}</div>
+								<p className="card-sub-label">{SpawningWithoutBlogPostData.description}</p>
 							</div>
 						</Link>
 					</div>

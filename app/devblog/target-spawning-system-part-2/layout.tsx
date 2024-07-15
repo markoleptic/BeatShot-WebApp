@@ -1,6 +1,12 @@
 import SEO from "@/components/SEO";
 import { Metadata } from "next";
-import { titleShort, titleLong, description } from "@/pages/blog/TargetSpawningSystemPart2";
+
+const titleShort = "BeatShot's Target Spawning System: Part 2 | Developer Blog";
+const titleLong = "BeatShot's Target Spawning System: Part 2 - Target Lifecycle";
+const description =
+	"In this second part of the series, you'll learn how the core systems from Part 1 work together. I walk through " +
+	"the lifecycle of targets, outlining the key functions and their roles. I also discuss some challenging problems " +
+	"I encountered and how I solved them.";
 
 export const metadata: Metadata = SEO({
 	title: titleShort,

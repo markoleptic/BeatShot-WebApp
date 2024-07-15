@@ -80,10 +80,26 @@
 .max-width-1000 {
 	max-width: 1000px;
 }
-.max-height-400 {
+.max-height-500 {
 	width: 100%;
 	max-height: 500px;
 }
+.height-100 {
+	height: 100%;
+}
 .width-auto {
 	width: auto;
+}
+.max-height-unset {
+	max-height: unset;
+}
+.max-width-unset {
+	max-width: unset;
+}
+.flex-row {
+	flex-direction: row;
+}
+.height-400-width-100 {
+	height: 400px;
+	width: 100%;
 }

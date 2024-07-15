@@ -1,18 +1,17 @@
 "use client";
 
 import React, { useRef } from "react";
-import useOnScreen from "@/hooks/useScreenObserver";
+import Image from "next/image";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DateTime } from "luxon";
+
+import Sidebar from "@/components/Sidebar";
+import useOnScreen from "@/hooks/useScreenObserver";
 import { SidebarHashLink } from "@/components/SidebarHashLink";
 import { BSCodeBlock, BSInlineCode, BSInlineEnum, BSInlineFunction } from "@/components/CodeBlock";
 import { BlogHeading, BlogHeadingClass } from "@/components/BlogHeading";
-import Sidebar from "@/components/Sidebar";
-import Image from "next/image";
-import image_Hero from "public/SpawnMemory_Hero_Cropped.png";
-import image_OverlappingVerts from "public/OverlappingVerts.png";
-import image_SpawnMemory_Dynamic_FewRecent from "public/SpawnMemory_Dynamic_FewRecent.png";
-import image_SpawnMemory_Dynamic_ManyRecent from "public/SpawnMemory_Dynamic_ManyRecent.png";
+import { MultiImageCarousel } from "@/components/ImageCarousel";
 import {
 	ActivateTarget,
 	EGridIndexType,
@@ -23,6 +22,37 @@ import {
 	RemovingOverlappingSpawnLocations,
 	SpawnTarget,
 } from "@/components/blog/TargetSpawningSystemFunctions";
+
+import image_Hero from "public/targetSpawningSystem/SpawnMemory_Hero_Cropped.png";
+import image_Card from "public/targetSpawningSystem/TargetSpawningSystemCard.png";
+
+import image_OverlappingVerts from "public/targetSpawningSystem/OverlappingVerts.png";
+import image_SpawnMemory_Dynamic_FewRecent from "public/targetSpawningSystem/SpawnMemory_Dynamic_FewRecent.png";
+import image_SpawnMemory_Dynamic_ManyRecent from "public/targetSpawningSystem/SpawnMemory_Dynamic_ManyRecent.png";
+import image_Execution1 from "public/targetSpawningSystem/execution/Execution1.png";
+import image_Execution2 from "public/targetSpawningSystem/execution/Execution2.png";
+import image_Execution3 from "public/targetSpawningSystem/execution/Execution3.png";
+import image_Execution4 from "public/targetSpawningSystem/execution/Execution4.png";
+import image_Execution5 from "public/targetSpawningSystem/execution/Execution5.png";
+import image_Execution6 from "public/targetSpawningSystem/execution/Execution6.png";
+import image_Execution7 from "public/targetSpawningSystem/execution/Execution7.png";
+import image_Execution8 from "public/targetSpawningSystem/execution/Execution8.png";
+import image_Execution9 from "public/targetSpawningSystem/execution/Execution9.png";
+import image_Execution10 from "public/targetSpawningSystem/execution/Execution10.png";
+import image_Execution11 from "public/targetSpawningSystem/execution/Execution11.png";
+import image_Execution12 from "public/targetSpawningSystem/execution/Execution12.png";
+import image_Execution13 from "public/targetSpawningSystem/execution/Execution13.png";
+import image_Execution14 from "public/targetSpawningSystem/execution/Execution14.png";
+import image_Execution15 from "public/targetSpawningSystem/execution/Execution15.png";
+import image_Execution16 from "public/targetSpawningSystem/execution/Execution16.png";
+import image_Execution17 from "public/targetSpawningSystem/execution/Execution17.png";
+import image_Execution18 from "public/targetSpawningSystem/execution/Execution18.png";
+import image_Execution19 from "public/targetSpawningSystem/execution/Execution19.png";
+import image_Execution20 from "public/targetSpawningSystem/execution/Execution20.png";
+import image_Execution21 from "public/targetSpawningSystem/execution/Execution21.png";
+
+import { BlogPostData } from "@/types/blog.types";
+
 import "@/styles/Article.scss";
 import "@/styles/Hero.scss";
 import "@/styles/Utility.scss";
@@ -33,6 +63,8 @@ const description =
 	"In this second part of the series, you'll learn how the core systems from Part 1 work together. I walk through " +
 	"the lifecycle of targets, outlining the key functions and their roles. I also discuss some challenging problems " +
 	"I encountered and how I solved them.";
+const postDate: DateTime = DateTime.fromFormat("July 14, 2024", "DDD");
+const editDate: DateTime = DateTime.fromFormat("July 14, 2024", "DDD");
 
 const TargetSpawningSystemPart2 = () => {
 	const Ref_TargetLifeCycle = useRef(null);
@@ -287,9 +319,9 @@ const TargetSpawningSystemPart2 = () => {
 									game mode configuration data to do this. I use the{" "}
 									<BSInlineFunction>::SpawnActor</BSInlineFunction> overload that takes{" "}
 									<BSInlineCode>FActorSpawnParameters</BSInlineCode> to create a
-									CustomPreSpawnInitalization function that calls{" "}
+									CustomPreSpawnInitialization function that calls{" "}
 									<BSInlineFunction>ATarget::Init</BSInlineFunction>, which passes the relevant game
-									mode configuration to the target. Using a CustomPreSpawnInitalization function is
+									mode configuration to the target. Using a CustomPreSpawnInitialization function is
 									nice because <BSInlineFunction>::Init</BSInlineFunction> is guaranteed to be called
 									before <BSInlineFunction>::PostInitializeComponents</BSInlineFunction>.
 									Additionally, any immunity is applied to the target here, and the
@@ -297,15 +329,68 @@ const TargetSpawningSystemPart2 = () => {
 									settings.
 								</p>
 								<p>
-									Once the target has been spawned, the target is added to the Target Manager's map of
-									managed targets. The Spawn Area Manager's{" "}
+									Once the target has been spawned, the target is added to the Target Manager&#39;s
+									map of managed targets. The Spawn Area Manager&#39;s{" "}
 									<BSInlineFunction>::FlagSpawnAreaAsManaged</BSInlineFunction> function is called by
-									the Target Manager to assign the target's <BSInlineCode>FGuid</BSInlineCode>, or
+									the Target Manager to assign the target&#39;s <BSInlineCode>FGuid</BSInlineCode>, or
 									globally unique identifier, to the Spawn Area and flagged it as managed, signifying
 									the Spawn Area now represents a target. The Spawn Area Manager maps the{" "}
 									<BSInlineCode>FGuid</BSInlineCode> to the Spawn Area inside the GuidMap and the
 									SpawnArea is added to the set of cached managed Spawn Areas, CachedManaged.
 								</p>
+								<MultiImageCarousel
+									images={[
+										{
+											image: image_Execution1,
+											figNumber: 0.1,
+											caption: "The largest valid rectangle of the total spawn area.",
+											alt: "TODO",
+											buttonText: "Largest",
+										},
+										{
+											image: image_Execution2,
+											figNumber: 0.2,
+											caption: "The largest rectangles that can fit a 5x5 grid block.",
+											alt: "TODO",
+											buttonText: "Optimal",
+										},
+										{
+											image: image_Execution3,
+											figNumber: 0.3,
+											caption: "The largest valid rectangle of the total spawn area.",
+											alt: "TODO",
+											buttonText: "Largest",
+										},
+										{
+											image: image_Execution4,
+											figNumber: 0.4,
+											caption: "The largest rectangles that can fit a 5x5 grid block.",
+											alt: "TODO",
+											buttonText: "Optimal",
+										},
+										{
+											image: image_Execution5,
+											figNumber: 0.5,
+											caption: "The largest rectangles that can fit a 5x5 grid block.",
+											alt: "TODO",
+											buttonText: "Optimal",
+										},
+										{
+											image: image_Execution6,
+											figNumber: 0.6,
+											caption: "The largest valid rectangle of the total spawn area.",
+											alt: "TODO",
+											buttonText: "Largest",
+										},
+										{
+											image: image_Execution7,
+											figNumber: 0.7,
+											caption: "The largest rectangles that can fit a 5x5 grid block.",
+											alt: "TODO",
+											buttonText: "Optimal",
+										},
+									]}
+								/>
 							</div>
 							<div className="article-subsection" ref={Ref_Activation} id="target-lifecycle-Activation">
 								<BlogHeading headingText="Activation" headingLevel={2} />
@@ -345,6 +430,52 @@ const TargetSpawningSystemPart2 = () => {
 								</p>
 								{/* <BSCodeBlock>{FindNextTargetProperties}</BSCodeBlock> */}
 								{/* <BSCodeBlock>{GetValidSpawnLocations}</BSCodeBlock> */}
+								<MultiImageCarousel
+									images={[
+										{
+											image: image_Execution8,
+											figNumber: 0.1,
+											caption: "The largest valid rectangle of the total spawn area.",
+											alt: "TODO",
+											buttonText: "Largest",
+										},
+										{
+											image: image_Execution9,
+											figNumber: 0.2,
+											caption: "The largest rectangles that can fit a 5x5 grid block.",
+											alt: "TODO",
+											buttonText: "Optimal",
+										},
+										{
+											image: image_Execution10,
+											figNumber: 0.3,
+											caption: "The largest valid rectangle of the total spawn area.",
+											alt: "TODO",
+											buttonText: "Largest",
+										},
+										{
+											image: image_Execution11,
+											figNumber: 0.4,
+											caption: "The largest rectangles that can fit a 5x5 grid block.",
+											alt: "TODO",
+											buttonText: "Optimal",
+										},
+										{
+											image: image_Execution12,
+											figNumber: 0.5,
+											caption: "The largest rectangles that can fit a 5x5 grid block.",
+											alt: "TODO",
+											buttonText: "Optimal",
+										},
+										{
+											image: image_Execution13,
+											figNumber: 0.6,
+											caption: "The largest valid rectangle of the total spawn area.",
+											alt: "TODO",
+											buttonText: "Largest",
+										},
+									]}
+								/>
 							</div>
 							<div
 								className="article-subsection"
@@ -382,7 +513,7 @@ const TargetSpawningSystemPart2 = () => {
 									</li>
 								</ul>
 								<p>
-									Every delegate is bound to the Target Manager's{" "}
+									Every delegate is bound to the Target Manager&#39;s{" "}
 									<BSInlineFunction>::HandleTargetDamageEvent</BSInlineFunction> function. The Target
 									Manager uses the data from the <BSInlineCode>FTargetDamageEvent</BSInlineCode> and
 									the Target Deactivation Conditions to determine whether the target should be
@@ -432,14 +563,74 @@ const TargetSpawningSystemPart2 = () => {
 									Next, if the game mode uses AI, the reward for the previous-current target location
 									pair is updated in the the Reinforcement Learning Component.
 								</p>
+								<MultiImageCarousel
+									images={[
+										{
+											image: image_Execution14,
+											figNumber: 0.1,
+											caption: "The largest valid rectangle of the total spawn area.",
+											alt: "TODO",
+											buttonText: "Largest",
+										},
+										{
+											image: image_Execution15,
+											figNumber: 0.2,
+											caption: "The largest rectangles that can fit a 5x5 grid block.",
+											alt: "TODO",
+											buttonText: "Optimal",
+										},
+										{
+											image: image_Execution16,
+											figNumber: 0.3,
+											caption: "The largest valid rectangle of the total spawn area.",
+											alt: "TODO",
+											buttonText: "Largest",
+										},
+										{
+											image: image_Execution17,
+											figNumber: 0.4,
+											caption: "The largest rectangles that can fit a 5x5 grid block.",
+											alt: "TODO",
+											buttonText: "Optimal",
+										},
+										{
+											image: image_Execution18,
+											figNumber: 0.5,
+											caption: "The largest rectangles that can fit a 5x5 grid block.",
+											alt: "TODO",
+											buttonText: "Optimal",
+										},
+										{
+											image: image_Execution19,
+											figNumber: 0.6,
+											caption: "The largest valid rectangle of the total spawn area.",
+											alt: "TODO",
+											buttonText: "Largest",
+										},
+										{
+											image: image_Execution20,
+											figNumber: 0.7,
+											caption: "The largest rectangles that can fit a 5x5 grid block.",
+											alt: "TODO",
+											buttonText: "Optimal",
+										},
+										{
+											image: image_Execution21,
+											figNumber: 0.8,
+											caption: "The largest rectangles that can fit a 5x5 grid block.",
+											alt: "TODO",
+											buttonText: "Optimal",
+										},
+									]}
+								/>
 								{/* <BSCodeBlock>{HandleDeactivation}</BSCodeBlock> */}
 							</div>
 							<div className="article-subsection" ref={Ref_Destruction} id="target-lifecycle-Destruction">
 								<BlogHeading headingText="Destruction" headingLevel={2} />
 								<p>
 									Continuing right where the Deactivation section left off, if the target should be
-									destroyed, the target is removed from the Target Manager's managed target map, and{" "}
-									<BSInlineFunction>::Destroy</BSInlineFunction> is called on the target.
+									destroyed, the target is removed from the Target Manager&#39;s managed target map,
+									and <BSInlineFunction>::Destroy</BSInlineFunction> is called on the target.
 								</p>
 								<ol>
 									Destruction conditions are based on a combination of only two factors:
@@ -454,10 +645,12 @@ const TargetSpawningSystemPart2 = () => {
 						</div>
 						<div className="article-section">
 							<p className="inline posted-date">
-								<span className="inline text-light">Posted:</span> July 2, 2023
+								<span className="inline text-light">Posted: </span>
+								{postDate.toFormat("DDD")}
 								<br></br>
-								<time dateTime="2023-12-23">
-									<span className="inline text-light">Updated:</span> December 23, 2023
+								<time dateTime={editDate.toHTTP() as string}>
+									<span className="inline text-light">Updated: </span>
+									{editDate.toFormat("DDD")}
 								</time>
 							</p>
 						</div>
@@ -468,4 +661,13 @@ const TargetSpawningSystemPart2 = () => {
 	);
 };
 
-export { TargetSpawningSystemPart2, titleShort, titleLong, description };
+const blogPostData: BlogPostData = {
+	titleShort: titleShort,
+	titleLong: titleLong,
+	description: description,
+	cardImage: image_Card,
+	postDate: postDate,
+	editDate: editDate,
+};
+
+export { TargetSpawningSystemPart2, blogPostData };

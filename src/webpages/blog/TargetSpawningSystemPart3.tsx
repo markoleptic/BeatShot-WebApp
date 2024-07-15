@@ -1,34 +1,44 @@
 "use client";
 
 import React, { useRef } from "react";
-import useOnScreen from "@/hooks/useScreenObserver";
+import Image from "next/image";
+import Link from "next/link";
+import { DateTime } from "luxon";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+
+import Sidebar from "@/components/Sidebar";
+import useOnScreen from "@/hooks/useScreenObserver";
+import { DualImageCarousel } from "@/components/ImageCarousel";
 import { SidebarHashLink } from "@/components/SidebarHashLink";
 import { BSInlineEnum, BSInlineFunction } from "@/components/CodeBlock";
 import { BlogHeading, BlogHeadingClass } from "@/components/BlogHeading";
-import Sidebar from "@/components/Sidebar";
-import Image from "next/image";
-import Link from "next/link";
-import image_BoxBounds from "public/BoxBounds.png";
-import image_ClusterBeat from "public/ClusterBeat.png";
-import image_TotalSpawnArea from "public/TotalSpawnArea.png";
-import image_Hero from "public/SpawnMemory_Hero_Cropped.png";
-import image_SphereColorGradient from "public/SphereColorGradient.png";
-import image_BeatGrid from "public/BeatGrid.png";
-import image_NonBeatGrid from "public/NonBeatGrid.png";
-import image_GridBlockSpawning from "public/GridBlockSpawning.png";
-import image_ClusterBeatLog1 from "public/ClusterBeatExampleLog1.png";
-import image_ClusterBeatLog2 from "public/ClusterBeatExampleLog2.png";
-import image_ClusterBeatLog3 from "public/ClusterBeatExampleLog3.png";
+
+import image_Hero from "public/targetSpawningSystem/SpawnMemory_Hero_Cropped.png";
+import image_Card from "public/targetSpawningSystem/TargetSpawningSystemCard.png";
+
+import image_BoxBounds from "public/targetSpawningSystem/BoxBounds.png";
+import image_ClusterBeat from "public/targetSpawningSystem/ClusterBeat.png";
+import image_TotalSpawnArea from "public/targetSpawningSystem/TotalSpawnArea.png";
+import image_SphereColorGradient from "public/targetSpawningSystem/SphereColorGradient.png";
+import image_BeatGrid from "public/targetSpawningSystem/BeatGrid.png";
+import image_NonBeatGrid from "public/targetSpawningSystem/NonBeatGrid.png";
+import image_GridBlockSpawning from "public/targetSpawningSystem/GridBlockSpawning.png";
+import image_ClusterBeatLog1 from "public/targetSpawningSystem/ClusterBeatExampleLog1.png";
+import image_ClusterBeatLog2 from "public/targetSpawningSystem/ClusterBeatExampleLog2.png";
+import image_ClusterBeatLog3 from "public/targetSpawningSystem/ClusterBeatExampleLog3.png";
+
+import { BlogPostData } from "@/types/blog.types";
+
 import "@/styles/Article.scss";
 import "@/styles/Hero.scss";
 import "@/styles/Utility.scss";
-import ImageCarousel from "@/components/ImageCarousel";
 
 const titleShort = "BeatShot's Target Spawning System: Part 3 | Developer Blog";
 const titleLong = "BeatShot's Target Spawning System: Part 3";
 const description = "TODO";
+const postDate: DateTime = DateTime.fromFormat("July 14, 2024", "DDD");
+const editDate: DateTime = DateTime.fromFormat("July 14, 2024", "DDD");
 
 const TargetSpawningSystemPart3 = () => {
 	const Ref_States = useRef(null);
@@ -38,6 +48,8 @@ const TargetSpawningSystemPart3 = () => {
 	const Ref_Conditions = useRef(null);
 	const Ref_Responses = useRef(null);
 	const Ref_TargetDistributionPolicy = useRef(null);
+	const Ref_SpawnSelectionMode = useRef(null);
+	const Ref_SpawnAreaSizing = useRef(null);
 	const Ref_Conclusion = useRef(null);
 
 	const onScreen_States = useOnScreen(Ref_States);
@@ -47,7 +59,8 @@ const TargetSpawningSystemPart3 = () => {
 	const onScreen_Conditions = useOnScreen(Ref_Conditions);
 	const onScreen_Responses = useOnScreen(Ref_Responses);
 	const onScreen_TargetDistributionPolicy = useOnScreen(Ref_TargetDistributionPolicy);
-
+	const onScreen_SpawnSelectionMode = useOnScreen(Ref_SpawnSelectionMode);
+	const onScreen_SpawnAreaSizing = useOnScreen(Ref_SpawnAreaSizing);
 	const onScreen_Conclusion = useOnScreen(Ref_Conclusion);
 
 	const sideBar = (
@@ -119,8 +132,26 @@ const TargetSpawningSystemPart3 = () => {
 				</li>
 				<li>
 					<SidebarHashLink
+						hash={`#spawn-selection-mode`}
+						onScreen={!onScreen_TargetDistributionPolicy && onScreen_SpawnSelectionMode}
+						topLevelLink={true}
+					>
+						Spawn Selection Mode
+					</SidebarHashLink>
+				</li>
+				<li>
+					<SidebarHashLink
+						hash={`#spawn-area-sizing`}
+						onScreen={!onScreen_SpawnSelectionMode && onScreen_SpawnAreaSizing}
+						topLevelLink={true}
+					>
+						Spawn Area Sizing
+					</SidebarHashLink>
+				</li>
+				<li>
+					<SidebarHashLink
 						hash={`#conclusion`}
-						onScreen={!onScreen_TargetDistributionPolicy && onScreen_Conclusion}
+						onScreen={!onScreen_SpawnAreaSizing && onScreen_Conclusion}
 						topLevelLink={true}
 					>
 						Conclusion
@@ -218,7 +249,7 @@ const TargetSpawningSystemPart3 = () => {
 									<figure>
 										<div className="figure-border-container">
 											<Image
-												className=" max-height-400"
+												className=" max-height-500"
 												src={image_ClusterBeat}
 												alt="BoxBounds"
 											/>
@@ -248,7 +279,7 @@ const TargetSpawningSystemPart3 = () => {
 								<li>
 									<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 									<BSInlineEnum>ETargetDestructionCondition</BSInlineEnum>: event that immediately
-									causes the target to be destoyed by the Target Manager regardless of its current
+									causes the target to be destroyed by the Target Manager regardless of its current
 									state
 								</li>
 							</ul>
@@ -412,7 +443,7 @@ const TargetSpawningSystemPart3 = () => {
 							</div>
 						</div>
 					</div>
-					<div className="article-section" id="">
+					<div className="article-section" ref={Ref_SpawnSelectionMode} id="spawn-selection-mode">
 						<BlogHeading headingText="Spawn Selection Mode" headingLevel={1} />
 						<ul>
 							<p>
@@ -521,7 +552,7 @@ const TargetSpawningSystemPart3 = () => {
 							only fit a 1x25 grid block. The second image shows why multiple rectangles are considered,
 							prioritizing rectangles that can fit more compact grid blocks.
 						</p>
-						<ImageCarousel
+						<DualImageCarousel
 							images={[
 								{
 									image: image_ClusterBeatLog2,
@@ -540,7 +571,7 @@ const TargetSpawningSystemPart3 = () => {
 							]}
 						/>
 					</div>
-					<div className="article-section" id="">
+					<div className="article-section" ref={Ref_SpawnAreaSizing} id="spawn-area-sizing">
 						<BlogHeading headingText="Spawn Area Sizing" headingLevel={1} />
 						<ul>
 							<p>
@@ -577,10 +608,34 @@ const TargetSpawningSystemPart3 = () => {
 							</div>
 						</figure>
 					</div>
+					<div className="article-section" ref={Ref_Conclusion} id="conclusion">
+						<BlogHeading headingText="Conclusion" headingLevel={1} />
+						<p>TODO:</p>
+					</div>
+					<div className="article-section">
+						<p className="inline posted-date">
+							<span className="inline text-light">Posted: </span>
+							{postDate.toFormat("DDD")}
+							<br></br>
+							<time dateTime={editDate.toHTTP() as string}>
+								<span className="inline text-light">Updated: </span>
+								{editDate.toFormat("DDD")}
+							</time>
+						</p>
+					</div>
 				</article>
 			</div>
 		</div>
 	);
 };
 
-export { TargetSpawningSystemPart3, titleShort, titleLong, description };
+const blogPostData: BlogPostData = {
+	titleShort: titleShort,
+	titleLong: titleLong,
+	description: description,
+	cardImage: image_Card,
+	postDate: postDate,
+	editDate: editDate,
+};
+
+export { TargetSpawningSystemPart3, blogPostData };

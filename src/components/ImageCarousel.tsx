@@ -9,15 +9,16 @@ type ImageData = {
 	image: StaticImageData;
 	alt: string;
 	figNumber: number;
-	caption: string;
-	buttonText: string;
+	caption?: string;
+	buttonText?: string;
 };
 
 type ImageSliderProps = {
 	images: ImageData[];
+	imageClassName?: string;
 };
 
-const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
+const DualImageCarousel: React.FC<ImageSliderProps> = ({ images, imageClassName = "" }) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 
 	const handleFirst = () => {
@@ -33,9 +34,12 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
 	return (
 		<figure>
 			<div className="figure-border-container">
-				<Image src={images[currentIndex].image} alt={images[currentIndex].alt} />
+				<Image className={imageClassName} src={images[currentIndex].image} alt={images[currentIndex].alt} />
 				<figcaption>
-					<p className="figlabel">Figure {images[currentIndex].figNumber}: </p>
+					<p className="figlabel">
+						Figure {images[currentIndex].figNumber}
+						{images[currentIndex].caption === undefined ? "" : ": "}
+					</p>
 					{images[currentIndex].caption}
 				</figcaption>
 				<div className="button-container">
@@ -59,4 +63,39 @@ const ImageSlider: React.FC<ImageSliderProps> = ({ images }) => {
 	);
 };
 
-export default ImageSlider;
+const MultiImageCarousel: React.FC<ImageSliderProps> = ({ images, imageClassName = "" }) => {
+	const [currentIndex, setCurrentIndex] = useState(0);
+
+	const handlePrev = () => {
+		setCurrentIndex((prevIndex) => prevIndex - 1);
+	};
+
+	const handleNext = () => {
+		setCurrentIndex((prevIndex) => prevIndex + 1);
+	};
+
+	return (
+		<figure>
+			<div className="figure-border-container ">
+				<Image className={imageClassName} src={images[currentIndex].image} alt={images[currentIndex].alt} />
+				<figcaption>
+					<p className="figlabel">
+						Figure {images[currentIndex].figNumber}
+						{images[currentIndex].caption === undefined ? "" : ": "}
+					</p>
+					{images[currentIndex].caption}
+				</figcaption>
+				<div className="button-container">
+					<button onClick={handlePrev} disabled={images.length <= 1 || currentIndex == 0}>
+						{"Previous"}
+					</button>
+					<button onClick={handleNext} disabled={images.length <= 1 || currentIndex == images.length - 1}>
+						{"Next"}
+					</button>
+				</div>
+			</div>
+		</figure>
+	);
+};
+
+export { DualImageCarousel, MultiImageCarousel };

@@ -1,6 +1,12 @@
 import SEO from "@/components/SEO";
 import { Metadata } from "next";
-import { titleShort, titleLong, description } from "@/pages/blog/TargetSpawningSystem";
+
+const titleShort = "BeatShot's Target Spawning System: Part 1 | Developer Blog";
+const titleLong = "BeatShot's Target Spawning System: Part 1 - Core Classes and Conventions";
+const description =
+	"In this first part of the series, you’ll learn about the classes, state management systems, and some of the " +
+	"conventions used to make the game function smoothly, alongside insights into the decision-making process that " +
+	"guided their selection and implementation.";
 
 export const metadata: Metadata = SEO({
 	title: titleShort,

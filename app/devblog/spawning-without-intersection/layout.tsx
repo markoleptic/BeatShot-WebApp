@@ -1,34 +1,34 @@
 import SEO from "@/components/SEO";
 import { Metadata } from "next";
 
-const titleShort = "GAS in BeatShot | Developer Blog";
-const titleLong = "An Overview of Unreal's Gameplay Ability System in BeatShot";
-const description =
-	"Why is the Gameplay Ability System used in BeatShot? This article explains the role of GAS and " +
-	"provides a walkthrough of a common ability.";
+const titleShort = "Spawning Targets Without Intersection | Developer Blog";
+const titleLong = "Spawning Targets Without Intersection";
+const description = "TODO";
 
 export const metadata: Metadata = SEO({
 	title: titleShort,
 	ogTwitterTitle: titleLong,
 	description: description,
 	type: "article",
-	url: "/devblog/gameplay-ability-system-overview",
+	url: "/devblog/spawning-without-intersection",
 	twitterCard: "summary_large_image",
 	additionalKeywords: [
+		"aim-training",
+		"aim training",
+		"game",
 		"unreal",
 		"engine",
 		"ue",
-		"gameplay",
-		"ability",
-		"system",
-		"gas",
-		"gameplay task",
+		"c++",
+		"component",
+		"actor",
+		"object",
+		"delegate",
 		"ability system component",
 		"gameplay ability system",
 		"attribute",
-		"gameplay effect",
-		"delegate",
-		"c++",
+		"spawning",
+		"debug",
 	],
 });
 

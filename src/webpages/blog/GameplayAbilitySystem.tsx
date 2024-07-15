@@ -1,22 +1,38 @@
 "use client";
 
+import React, { useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import React, { useRef } from "react";
-import useOnScreen from "@/hooks/useScreenObserver";
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DateTime } from "luxon";
+
+import Sidebar from "@/components/Sidebar";
+import useOnScreen from "@/hooks/useScreenObserver";
 import { SidebarHashLink } from "@/components/SidebarHashLink";
 import { BSInlineFunction } from "@/components/CodeBlock";
 import { BlogHeadingClass, BlogHeading } from "@/components/BlogHeading";
 import { BlueprintGraph } from "@/components/BlueprintGraph";
-import Sidebar from "@/components/Sidebar";
-import image_Hero from "public/GAS_Diagram_Cropped.png";
-import DA_InputConfig from "public/DA_InputConfig.png";
-import DA_KnifeAbilitySet from "public/DA_KnifeAbilitySet.png";
+
+import image_Card from "public/gameplayAbilitySystem/GAS_Diagram.png";
+import image_Hero from "public/gameplayAbilitySystem/GAS_Diagram_Cropped.png";
+import DA_InputConfig from "public/gameplayAbilitySystem/DA_InputConfig.png";
+import DA_KnifeAbilitySet from "public/gameplayAbilitySystem/DA_KnifeAbilitySet.png";
+
+import type { BlogPostData } from "@/types/blog.types";
+
 import "@/styles/Article.scss";
 import "@/styles/Codeblock.scss";
 import "@/styles/Hero.scss";
+
+const titleShort = "GAS in BeatShot | Developer Blog";
+const titleLong = "An Overview of Unreal's Gameplay Ability System in BeatShot";
+const description =
+	"Why is the Gameplay Ability System used in BeatShot? This article explains the role of GAS and " +
+	"provides a walkthrough of a common ability.";
+const postDate: DateTime = DateTime.fromFormat("September 15, 2023", "DDD");
+const editDate: DateTime = DateTime.fromFormat("July 14, 2024", "DDD");
+
 const GameplayAbilitySystem = () => {
 	const Ref_gasC = useRef(null);
 	const Ref_gasC_asc = useRef(null);
@@ -746,7 +762,7 @@ const GameplayAbilitySystem = () => {
 												</li>
 												<li>
 													<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-													If a valid pointer to a target is returned, the ablitity creates a
+													If a valid pointer to a target is returned, the ability creates a
 													new <BSInlineFunction>::UBSAT_AimToTarget</BSInlineFunction> task
 													and binds to its <span className="text-light">OnCancelled</span> and{" "}
 													<span className="text-light">OnCompleted</span> delegates.{" "}
@@ -942,8 +958,8 @@ const GameplayAbilitySystem = () => {
 								<blockquote className="otro-blockquote">
 									GameplayEffects (GE) are the vessels through which abilities change attributes and
 									Gameplay Tags on themselves and others. They can cause immediate attribute changes
-									like damage or healing or apply long term status buff/debuffs like a movespeed boost
-									or stunning. The UGameplayEffect class is a meant to be a data-only class that
+									like damage or healing or apply long term status buff/debuffs like a movement speed
+									boost or stunning. The UGameplayEffect class is a meant to be a data-only class that
 									defines a single gameplay effect. No additional logic should be added to
 									GameplayEffects. Typically designers will create many Blueprint child classes of
 									UGameplayEffect.
@@ -1529,7 +1545,7 @@ const GameplayAbilitySystem = () => {
 														<li>
 															<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 															As previously mentioned, BeatShot uses two types of damage:
-															Hit and Tracking. These attributes are snapshotted from the
+															Hit and Tracking. These attributes are snapshot from the
 															source (damage causer) during initialization of the of a{" "}
 															<span className="text-light">GESpec</span>.
 														</li>
@@ -1773,10 +1789,12 @@ const GameplayAbilitySystem = () => {
 						</div>
 						<div>
 							<p className="inline posted-date">
-								<span className="inline text-light">Posted:</span> September 15, 2023
+								<span className="inline text-light">Posted: </span>
+								{postDate.toFormat("DDD")}
 								<br></br>
-								<time dateTime="2023-12-23">
-									<span className="inline text-light">Updated:</span> December 23, 2023
+								<time dateTime={editDate.toHTTP() as string}>
+									<span className="inline text-light">Updated: </span>
+									{editDate.toFormat("DDD")}
 								</time>
 							</p>
 						</div>
@@ -1787,4 +1805,13 @@ const GameplayAbilitySystem = () => {
 	);
 };
 
-export default GameplayAbilitySystem;
+const blogPostData: BlogPostData = {
+	titleShort: titleShort,
+	titleLong: titleLong,
+	description: description,
+	cardImage: image_Card,
+	postDate: postDate,
+	editDate: editDate,
+};
+
+export { GameplayAbilitySystem, blogPostData };
