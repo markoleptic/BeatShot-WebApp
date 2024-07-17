@@ -1,30 +1,31 @@
 "use client";
 
 import React, { useRef } from "react";
-import Image from "next/image";
-import Link from "next/link";
+
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateTime } from "luxon";
+import Image from "next/image";
+import Link from "next/link";
 
-import Sidebar from "@/components/Sidebar";
-import useOnScreen from "@/hooks/useScreenObserver";
-import { SidebarHashLink } from "@/components/SidebarHashLink";
+import { BlogHeading, BlogHeadingClass } from "@/components/BlogHeading";
+import BlueprintGraph from "@/components/BlueprintGraph";
 import { BSInlineFunction } from "@/components/CodeBlock";
-import { BlogHeadingClass, BlogHeading } from "@/components/BlogHeading";
-import { BlueprintGraph } from "@/components/BlueprintGraph";
-
-import image_Card from "public/gameplayAbilitySystem/GAS_Diagram.png";
-import image_Hero from "public/gameplayAbilitySystem/GAS_Diagram_Cropped.png";
-import DA_InputConfig from "public/gameplayAbilitySystem/DA_InputConfig.png";
-import DA_KnifeAbilitySet from "public/gameplayAbilitySystem/DA_KnifeAbilitySet.png";
-
-import type { BlogPostData } from "@/types/blog.types";
+import Figure from "@/components/Figure";
+import Sidebar from "@/components/Sidebar";
+import SidebarHashLink from "@/components/SidebarHashLink";
+import useOnScreen from "@/hooks/useScreenObserver";
 
 import "@/styles/Article.scss";
 import "@/styles/Codeblock.scss";
 import "@/styles/Hero.scss";
 
+import DA_InputConfig from "public/gameplayAbilitySystem/DA_InputConfig.png";
+import DA_KnifeAbilitySet from "public/gameplayAbilitySystem/DA_KnifeAbilitySet.png";
+import image_Card from "public/gameplayAbilitySystem/GAS_Diagram.png";
+import image_Hero from "public/gameplayAbilitySystem/GAS_Diagram_Cropped.png";
+
+import type { BlogPostData } from "@/types/blog.types";
 const titleShort = "GAS in BeatShot | Developer Blog";
 const titleLong = "An Overview of Unreal's Gameplay Ability System in BeatShot";
 const description =
@@ -1103,15 +1104,14 @@ const GameplayAbilitySystem = () => {
 										<span className="text-light">IA</span> associated with firing the weapon is also{" "}
 										<span className="text-light">Input.Fire</span>.
 									</p>
-									<figure className="max-width-1000">
-										<div className="figure-border-container" id="figure-1">
-											<Image src={DA_InputConfig} quality={100} alt="DA_InputConfig" />
-											<figcaption>
-												<p className="figlabel">Figure 1: </p>
-												The input configuration for a character in BeatShot.
-											</figcaption>
-										</div>
-									</figure>
+									<Figure
+										id="figure-1"
+										image={DA_InputConfig}
+										figNumber={1}
+										figCaption={`The input configuration for a character in BeatShot.`}
+										alt="DA_InputConfig"
+										limitMaxWidth
+									/>
 								</div>
 							</div>
 							<div className="article-subsection" ref={Ref_gasC_as} id="classes-UBSAbilitySet">
@@ -1170,15 +1170,14 @@ const GameplayAbilitySystem = () => {
 									all the abilities already have it in their{" "}
 									<span className="text-light">Ability Tags</span>.
 								</p>
-								<figure>
-									<div className="figure-border-container max-width-1000" id="figure-2">
-										<Image src={DA_KnifeAbilitySet} quality={100} alt="DA_KnifeAbilitySet" />
-										<figcaption>
-											<p className="figlabel">Figure 2: </p>
-											The Ability Set for the when the character has a knife equipped.
-										</figcaption>
-									</div>
-								</figure>
+								<Figure
+									id="figure-2"
+									image={DA_KnifeAbilitySet}
+									figNumber={2}
+									figCaption={`The Ability Set for the when the character has a knife equipped.`}
+									alt="DA_KnifeAbilitySet"
+									limitMaxWidth
+								/>
 							</div>
 							<div className="article-subsection" ref={Ref_gasC_dec} id="classes-UBSDamageExecCalc">
 								<BlogHeadingClass

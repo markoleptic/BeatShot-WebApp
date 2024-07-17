@@ -1,14 +1,16 @@
 "use client";
 import React from "react";
-import { usePathname } from "next/navigation";
-import Link, { LinkProps } from "next/link";
 
-type NavLinkProps = React.PropsWithChildren<LinkProps> & {
+import Link, { LinkProps } from "next/link";
+import { usePathname } from "next/navigation";
+
+type NavLinkProps = LinkProps & {
+	children: React.ReactNode;
 	activeClassName?: string;
 	className?: string;
 };
 
-export const NavLink = ({ children, activeClassName = "active", className, ...props }: NavLinkProps) => {
+const NavLink = ({ children, activeClassName = "active", className, ...props }: NavLinkProps): React.JSX.Element => {
 	const pathname = usePathname();
 	const isActive = pathname?.startsWith(props.href.toString()) || pathname === props.as;
 
@@ -18,3 +20,5 @@ export const NavLink = ({ children, activeClassName = "active", className, ...pr
 		</Link>
 	);
 };
+
+export default NavLink;

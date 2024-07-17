@@ -1,17 +1,12 @@
 "use client";
 
 import React, { useRef } from "react";
-import Image from "next/image";
+
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateTime } from "luxon";
+import Image from "next/image";
 
-import Sidebar from "@/components/Sidebar";
-import useOnScreen from "@/hooks/useScreenObserver";
-import { SidebarHashLink } from "@/components/SidebarHashLink";
-import { BSCodeBlock, BSInlineCode, BSInlineEnum, BSInlineFunction } from "@/components/CodeBlock";
-import { BlogHeading, BlogHeadingClass } from "@/components/BlogHeading";
-import { MultiImageCarousel } from "@/components/ImageCarousel";
 import {
 	ActivateTarget,
 	EGridIndexType,
@@ -22,22 +17,19 @@ import {
 	RemovingOverlappingSpawnLocations,
 	SpawnTarget,
 } from "@/components/blog/TargetSpawningSystemFunctions";
+import { BlogHeading, BlogHeadingClass } from "@/components/BlogHeading";
+import { BSCodeBlock, BSInlineCode, BSInlineEnum, BSInlineFunction } from "@/components/CodeBlock";
+import { MultiImageCarousel } from "@/components/ImageCarousel";
+import Sidebar from "@/components/Sidebar";
+import SidebarHashLink from "@/components/SidebarHashLink";
+import useOnScreen from "@/hooks/useScreenObserver";
+import { BlogPostData } from "@/types/blog.types";
 
-import image_Hero from "public/targetSpawningSystem/SpawnMemory_Hero_Cropped.png";
-import image_Card from "public/targetSpawningSystem/TargetSpawningSystemCard.png";
+import "@/styles/Article.scss";
+import "@/styles/Hero.scss";
+import "@/styles/Utility.scss";
 
-import image_OverlappingVerts from "public/targetSpawningSystem/OverlappingVerts.png";
-import image_SpawnMemory_Dynamic_FewRecent from "public/targetSpawningSystem/SpawnMemory_Dynamic_FewRecent.png";
-import image_SpawnMemory_Dynamic_ManyRecent from "public/targetSpawningSystem/SpawnMemory_Dynamic_ManyRecent.png";
 import image_Execution1 from "public/targetSpawningSystem/execution/Execution1.png";
-import image_Execution2 from "public/targetSpawningSystem/execution/Execution2.png";
-import image_Execution3 from "public/targetSpawningSystem/execution/Execution3.png";
-import image_Execution4 from "public/targetSpawningSystem/execution/Execution4.png";
-import image_Execution5 from "public/targetSpawningSystem/execution/Execution5.png";
-import image_Execution6 from "public/targetSpawningSystem/execution/Execution6.png";
-import image_Execution7 from "public/targetSpawningSystem/execution/Execution7.png";
-import image_Execution8 from "public/targetSpawningSystem/execution/Execution8.png";
-import image_Execution9 from "public/targetSpawningSystem/execution/Execution9.png";
 import image_Execution10 from "public/targetSpawningSystem/execution/Execution10.png";
 import image_Execution11 from "public/targetSpawningSystem/execution/Execution11.png";
 import image_Execution12 from "public/targetSpawningSystem/execution/Execution12.png";
@@ -48,14 +40,21 @@ import image_Execution16 from "public/targetSpawningSystem/execution/Execution16
 import image_Execution17 from "public/targetSpawningSystem/execution/Execution17.png";
 import image_Execution18 from "public/targetSpawningSystem/execution/Execution18.png";
 import image_Execution19 from "public/targetSpawningSystem/execution/Execution19.png";
+import image_Execution2 from "public/targetSpawningSystem/execution/Execution2.png";
 import image_Execution20 from "public/targetSpawningSystem/execution/Execution20.png";
 import image_Execution21 from "public/targetSpawningSystem/execution/Execution21.png";
-
-import { BlogPostData } from "@/types/blog.types";
-
-import "@/styles/Article.scss";
-import "@/styles/Hero.scss";
-import "@/styles/Utility.scss";
+import image_Execution3 from "public/targetSpawningSystem/execution/Execution3.png";
+import image_Execution4 from "public/targetSpawningSystem/execution/Execution4.png";
+import image_Execution5 from "public/targetSpawningSystem/execution/Execution5.png";
+import image_Execution6 from "public/targetSpawningSystem/execution/Execution6.png";
+import image_Execution7 from "public/targetSpawningSystem/execution/Execution7.png";
+import image_Execution8 from "public/targetSpawningSystem/execution/Execution8.png";
+import image_Execution9 from "public/targetSpawningSystem/execution/Execution9.png";
+import image_OverlappingVerts from "public/targetSpawningSystem/OverlappingVerts.png";
+import image_SpawnMemory_Dynamic_FewRecent from "public/targetSpawningSystem/SpawnMemory_Dynamic_FewRecent.png";
+import image_SpawnMemory_Dynamic_ManyRecent from "public/targetSpawningSystem/SpawnMemory_Dynamic_ManyRecent.png";
+import image_Hero from "public/targetSpawningSystem/SpawnMemory_Hero_Cropped.png";
+import image_Card from "public/targetSpawningSystem/TargetSpawningSystemCard.png";
 
 const titleShort = "BeatShot's Target Spawning System: Part 2 | Developer Blog";
 const titleLong = "BeatShot's Target Spawning System: Part 2 - Target Lifecycle";
@@ -231,36 +230,27 @@ const TargetSpawningSystemPart2 = () => {
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 										<BSInlineEnum>::RuntimeOnly</BSInlineEnum>: Spawns targets based on beat
 										thresholds being met by the audio analyzer, which triggers the game mode to call{" "}
-										<BSInlineFunction>::HandleAudioAnalyzerBeat</BSInlineFunction> on the Target
-										Manager. If using a song from a file, this would occur exactly Spawn Beat Delay
-										seconds before you hear the beat.
+										<BSInlineFunction>::HandleAudioAnalyzerBeat</BSInlineFunction> on the Target{" "}
+										Manager.
 									</li>
 								</ul>
 								<p>
-									The first function <BSInlineFunction>::OnAudioAnalyzerBeat</BSInlineFunction> calls
-									is <BSInlineFunction>::HandleRuntimeSpawning</BSInlineFunction>. Here, the
-									TargetManager determines how many targets to spawn. It ensures it only spawns
+									The first function <BSInlineFunction>::HandleAudioAnalyzerBeat</BSInlineFunction>{" "}
+									calls is <BSInlineFunction>::HandleRuntimeSpawning</BSInlineFunction>. Here, the
+									Target Manager determines how many targets to spawn. It ensures it only spawns
 									targets that can be activated, unless the game mode allows spawning without
 									activation. If three targets are currently activated, and the{" "}
 									<em>Maximum Number of Activated Targets at Once</em> is set to four, only one target
 									will be spawned regardless of the Number of Runtime Targets to Spawn.
 								</p>
 								<p>
-									At the end of <BSInlineFunction>::HandleRuntimeSpawning</BSInlineFunction>,{" "}
-									<BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction> is called. The size of
-									the total spawn area is updated, and the size of the targets to spawn are determined
-									using a curve table lookup if dynamic, or randomly selected if random. Finally, the
-									Target Manager retrieves a set of{" "}
+									At the end of <BSInlineFunction>::HandleRuntimeSpawning</BSInlineFunction>, the size
+									of the total spawn area is updated, and the size of the targets to spawn are
+									determined using a curve table lookup if dynamic, or randomly selected if random.
+									Finally, the Target Manager retrieves a set of{" "}
 									<BSInlineFunction>FTargetSpawnParams</BSInlineFunction> from the Spawn Area Manager
 									by calling <BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction>, where the
 									number of targets to spawn and an array of target sizes are passed to the function.
-								</p>
-								<p>
-									<BSInlineFunction>ATarget::Init</BSInlineFunction> sets the Max Health attribute of
-									the target and provides all the information the target needs about the game mode.
-									The Target Manager binds to the target&#39;s OnTargetDamageEventOrTimeout delegate,
-									which is broadcast when the health of the target is changed. This delegate is
-									discussed more in the Deactivation section.
 								</p>
 								<p>
 									<BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction> is the heart of spawn
@@ -276,40 +266,51 @@ const TargetSpawningSystemPart2 = () => {
 										</figcaption>
 									</div>
 								</figure> */}
-								<p>
-									<BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction> begins by considering
-									the set of Spawn Areas that fall within the current total spawn area as potential
-									candidates for spawning. The set of invalid Spawn Areas, or Spawn Areas which should
-									not be considered for spawn locations, is the union of the managed, activated, and
-									recent Spawn Area sets.{" "}
-								</p>
-								<p>
-									The main loop inside <BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction>{" "}
-									iterates over the number of targets to spawn. At each iteration, a copy of the
-									potential Spawn Area candidates is made, and{" "}
-									<BSInlineFunction>::RemoveOverlappingSpawnAreas</BSInlineFunction> is called to
-									modify the Spawn Area candidates copy. It removes any invalid spawn areas from the
-									candidates set, as well as any Spawn Areas where the target overlaps neighboring
-									Spawn Areas. A sphere trace is performed to find the surrounding Spawn Areas that
-									should also be removed from consideration due to the target overlapping.
-								</p>
-								<p>
-									Back inside <BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction>,{" "}
-									<BSInlineFunction>::ChooseSpawnableSpawnAreas</BSInlineFunction> is called with the
-									modified candidate set, along with the previous Spawn Area, and a set of Spawn Areas
-									that have been chosen during iteration. This function determines which Spawn Area to
-									pick from the available selection based on game mode settings like{" "}
-									<em>Spawn Every Other Target In Center</em>,{" "}
-									<em>Spawn At Origin Whenever Possible</em>, and can also request a spawn location
-									from the Reinforcement Learning Component if the game mode uses AI. The last
-									priority is simply choosing a random Spawn Area from the candidates.{" "}
-								</p>
-								<p>
-									If <BSInlineFunction>::ChooseSpawnableSpawnAreas</BSInlineFunction> returned a valid
-									Spawn Area, it is added to the set to be returned by{" "}
-									<BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction>. It is also removed from
-									the candidate set and added to the invalid set, since it cannot be chosen again.
-								</p>
+								<ol>
+									<li>
+										The set of Spawn Areas that fall within the current total spawn area are
+										considered candidates for spawning.
+									</li>
+									<li>
+										Spawn Areas that are managed, activated, or recent need to be removed from the
+										candidates. Each time a Spawn Area is chosen, it needs to be removed from the
+										candidates as well.
+									</li>
+									<li>
+										The main loop iterates over the number of targets to spawn. At each iteration, a
+										copy of the Spawn Area candidates is made, and{" "}
+										<BSInlineFunction>::RemoveOverlappingSpawnAreas</BSInlineFunction> is called to
+										modify the Spawn Area candidates copy. It removes any managed, activated, or
+										recent Spawn Areas from the candidate set, as well as any adjacent Spawn Areas
+										where the target overlapped. A sphere trace is performed to find the adjacent
+										Spawn Areas that should also be removed from due to the target overlapping.
+									</li>
+									<li>
+										<BSInlineFunction>::ChooseSpawnableSpawnAreas</BSInlineFunction> is called with
+										the modified candidate set along and a set of Spawn Areas that have been chosen
+										during iteration. This function determines which Spawn Area to choose using a
+										priority list based on game mode settings:
+										<ol>
+											<li>
+												<em>Spawn Every Other Target In Center</em>
+											</li>
+											<li>
+												<em>Spawn At Origin Whenever Possible</em>
+											</li>
+											<li>
+												If the game mode uses AI, it will request a Spawn Area from the
+												Reinforcement Learning Component
+											</li>
+											<li>Choosing a random Spawn Area from the candidates.</li>
+										</ol>
+									</li>
+									<li>
+										If <BSInlineFunction>::ChooseSpawnableSpawnAreas</BSInlineFunction> returned a
+										valid Spawn Area, it is added to the set that is returned. It is also removed
+										from the candidate set and added to the invalid set, since it cannot be chosen
+										again.
+									</li>
+								</ol>
 								<p>
 									Once the <BSInlineCode>FTargetSpawnParams</BSInlineCode> have been obtained,{" "}
 									<BSInlineFunction>::SpawnTarget</BSInlineFunction> is called for each element in the
@@ -317,20 +318,19 @@ const TargetSpawningSystemPart2 = () => {
 									it deals to itself in{" "}
 									<BSInlineFunction>::PostInitializeComponents</BSInlineFunction>, but it needs the
 									game mode configuration data to do this. I use the{" "}
-									<BSInlineFunction>::SpawnActor</BSInlineFunction> overload that takes{" "}
+									<BSInlineFunction>::SpawnActor</BSInlineFunction> overload with{" "}
 									<BSInlineCode>FActorSpawnParameters</BSInlineCode> to create a
 									CustomPreSpawnInitialization function that calls{" "}
 									<BSInlineFunction>ATarget::Init</BSInlineFunction>, which passes the relevant game
 									mode configuration to the target. Using a CustomPreSpawnInitialization function is
 									nice because <BSInlineFunction>::Init</BSInlineFunction> is guaranteed to be called
 									before <BSInlineFunction>::PostInitializeComponents</BSInlineFunction>.
-									Additionally, any immunity is applied to the target here, and the
-									ProjectileMovementComponent is configured based on the game mode’s movement
-									settings.
+									Additionally, any immunity is applied to the target here, and the Projectile
+									Movement Component is configured based on the game mode’s movement settings.
 								</p>
 								<p>
-									Once the target has been spawned, the target is added to the Target Manager&#39;s
-									map of managed targets. The Spawn Area Manager&#39;s{" "}
+									Once a target has been spawned, it is added to the Target Manager&#39;s map of
+									managed targets. The Spawn Area Manager&#39;s{" "}
 									<BSInlineFunction>::FlagSpawnAreaAsManaged</BSInlineFunction> function is called by
 									the Target Manager to assign the target&#39;s <BSInlineCode>FGuid</BSInlineCode>, or
 									globally unique identifier, to the Spawn Area and flagged it as managed, signifying
@@ -395,8 +395,8 @@ const TargetSpawningSystemPart2 = () => {
 							<div className="article-subsection" ref={Ref_Activation} id="target-lifecycle-Activation">
 								<BlogHeading headingText="Activation" headingLevel={2} />
 								<p>
-									The second function <BSInlineFunction>::OnAudioAnalyzerBeat</BSInlineFunction> calls
-									is <BSInlineFunction>::HandleTargetActivation</BSInlineFunction>.
+									The second function <BSInlineFunction>::HandleAudioAnalyzerBeat</BSInlineFunction>{" "}
+									calls is <BSInlineFunction>::HandleTargetActivation</BSInlineFunction>.
 								</p>
 								{/* <BSCodeBlock>{OnAudioAnalyzerBeat}</BSCodeBlock> */}
 								<p>

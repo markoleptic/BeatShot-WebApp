@@ -1,7 +1,8 @@
 "use client";
-import React, { useState, useEffect } from "react";
-import { DateTime } from "luxon";
+import React, { useEffect, useState } from "react";
 import ReactSlider from "react-slider";
+
+import { DateTime } from "luxon";
 import styled from "styled-components";
 
 interface StyledTrackProps {
@@ -41,7 +42,7 @@ interface DateRangeSliderProps {
 	onDateRangeChange: (startDate: DateTime, endDate: DateTime) => void;
 }
 
-export const DateFilter: React.FC<DateRangeSliderProps> = ({ minDate, range, onDateRangeChange }) => {
+const DateFilter = ({ minDate, range, onDateRangeChange }: DateRangeSliderProps): React.JSX.Element => {
 	const [dateRange, setDateRange] = useState<number>(range);
 	const [value, setValue] = React.useState([0, range]);
 
@@ -84,3 +85,5 @@ export const DateFilter: React.FC<DateRangeSliderProps> = ({ minDate, range, onD
 		</>
 	);
 };
+
+export default DateFilter;

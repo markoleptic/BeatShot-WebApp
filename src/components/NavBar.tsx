@@ -1,15 +1,19 @@
 "use client";
-import { NavLink } from "@/components/Navlink";
-import Link from "next/link";
-import logo from "public/logo.ico";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBars } from "@fortawesome/free-solid-svg-icons";
 import React, { useEffect, useRef, useState } from "react";
-import { useAuthContext } from "@/context/AuthContext";
+
+import { faBars } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Image from "next/image";
+import Link from "next/link";
+
+import NavLink from "@/components/NavLink";
+import { useAuthContext } from "@/context/AuthContext";
+
 import "@/styles/NavBar.scss";
 
-const NavBar = () => {
+import logo from "public/logo.ico";
+
+const NavBar = (): React.JSX.Element => {
 	const [visible, setVisibility] = useState(false);
 	const visibleRef = useRef(visible);
 	const { auth } = useAuthContext();

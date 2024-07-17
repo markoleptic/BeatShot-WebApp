@@ -1,7 +1,10 @@
 "use client";
 import React from "react";
-import { BSInlineCode } from "@/components/CodeBlock";
+
 import Link from "next/link";
+
+import { BSInlineCode } from "@/components/CodeBlock";
+
 import "@/styles/Codeblock.scss";
 
 const getBaseClassText = (baseClass: string, headingLevel: number) => {
@@ -163,7 +166,7 @@ const getHeadingText = (headingText: string, headingLevel: number, color: string
 	}
 };
 
-const BlogHeading = ({ headingText, headingLevel, color = "text-light" }: BlogHeadingProps) => {
+const BlogHeading = ({ headingText, headingLevel, color = "text-light" }: BlogHeadingProps): React.JSX.Element => {
 	return (
 		<div className="article-heading">
 			<span className="line-top" />

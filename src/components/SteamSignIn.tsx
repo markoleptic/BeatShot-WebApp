@@ -1,10 +1,12 @@
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSteam } from "@fortawesome/free-brands-svg-icons";
 import React from "react";
+
+import { faSteam } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
+
 import "@/styles/Steam.scss";
 
-export default function SteamSignIn() {
+const SteamSignIn = (): React.JSX.Element => {
 	return (
 		<Link className="link hover-blue steam-login-container" href={"/login/steam"}>
 			<div className="steam-login-container-top">
@@ -20,4 +22,6 @@ export default function SteamSignIn() {
 			</div>
 		</Link>
 	);
-}
+};
+
+export default SteamSignIn;

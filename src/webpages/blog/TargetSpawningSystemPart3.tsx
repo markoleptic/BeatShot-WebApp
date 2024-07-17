@@ -1,38 +1,38 @@
 "use client";
 
 import React, { useRef } from "react";
-import Image from "next/image";
-import Link from "next/link";
-import { DateTime } from "luxon";
+
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DateTime } from "luxon";
+import Image from "next/image";
+import Link from "next/link";
 
-import Sidebar from "@/components/Sidebar";
-import useOnScreen from "@/hooks/useScreenObserver";
-import { DualImageCarousel } from "@/components/ImageCarousel";
-import { SidebarHashLink } from "@/components/SidebarHashLink";
-import { BSInlineEnum, BSInlineFunction } from "@/components/CodeBlock";
 import { BlogHeading, BlogHeadingClass } from "@/components/BlogHeading";
-
-import image_Hero from "public/targetSpawningSystem/SpawnMemory_Hero_Cropped.png";
-import image_Card from "public/targetSpawningSystem/TargetSpawningSystemCard.png";
-
-import image_BoxBounds from "public/targetSpawningSystem/BoxBounds.png";
-import image_ClusterBeat from "public/targetSpawningSystem/ClusterBeat.png";
-import image_TotalSpawnArea from "public/targetSpawningSystem/TotalSpawnArea.png";
-import image_SphereColorGradient from "public/targetSpawningSystem/SphereColorGradient.png";
-import image_BeatGrid from "public/targetSpawningSystem/BeatGrid.png";
-import image_NonBeatGrid from "public/targetSpawningSystem/NonBeatGrid.png";
-import image_GridBlockSpawning from "public/targetSpawningSystem/GridBlockSpawning.png";
-import image_ClusterBeatLog1 from "public/targetSpawningSystem/ClusterBeatExampleLog1.png";
-import image_ClusterBeatLog2 from "public/targetSpawningSystem/ClusterBeatExampleLog2.png";
-import image_ClusterBeatLog3 from "public/targetSpawningSystem/ClusterBeatExampleLog3.png";
-
+import { BSInlineEnum } from "@/components/CodeBlock";
+import Figure from "@/components/Figure";
+import { DualImageCarousel } from "@/components/ImageCarousel";
+import Sidebar from "@/components/Sidebar";
+import SidebarHashLink from "@/components/SidebarHashLink";
+import useOnScreen from "@/hooks/useScreenObserver";
 import { BlogPostData } from "@/types/blog.types";
 
 import "@/styles/Article.scss";
 import "@/styles/Hero.scss";
 import "@/styles/Utility.scss";
+
+import image_BeatGrid from "public/targetSpawningSystem/BeatGrid.png";
+import image_BoxBounds from "public/targetSpawningSystem/BoxBounds.png";
+import image_ClusterBeat from "public/targetSpawningSystem/ClusterBeat.png";
+import image_ClusterBeatLog1 from "public/targetSpawningSystem/ClusterBeatExampleLog1.png";
+import image_ClusterBeatLog2 from "public/targetSpawningSystem/ClusterBeatExampleLog2.png";
+import image_ClusterBeatLog3 from "public/targetSpawningSystem/ClusterBeatExampleLog3.png";
+import image_GridBlockSpawning from "public/targetSpawningSystem/GridBlockSpawning.png";
+import image_NonBeatGrid from "public/targetSpawningSystem/NonBeatGrid.png";
+import image_Hero from "public/targetSpawningSystem/SpawnMemory_Hero_Cropped.png";
+import image_SphereColorGradient from "public/targetSpawningSystem/SphereColorGradient.png";
+import image_Card from "public/targetSpawningSystem/TargetSpawningSystemCard.png";
+import image_TotalSpawnArea from "public/targetSpawningSystem/TotalSpawnArea.png";
 
 const titleShort = "BeatShot's Target Spawning System: Part 3 | Developer Blog";
 const titleLong = "BeatShot's Target Spawning System: Part 3";
@@ -191,15 +191,12 @@ const TargetSpawningSystemPart3 = () => {
 									: not damageable by the player, shown as purple in Figure TODO
 								</li>
 							</ul>
-							<figure>
-								<div className="figure-border-container">
-									<Image src={image_SphereColorGradient} alt="BoxBounds" />
-									<figcaption>
-										<p className="figlabel">Figure TODO: </p>
-										Activated target colors
-									</figcaption>
-								</div>
-							</figure>
+							<Figure
+								image={image_SphereColorGradient}
+								figNumber={0}
+								figCaption={`Activated target colors`}
+								alt="ActivatedTargetColors"
+							/>
 						</div>
 						<div className="article-subsection" ref={Ref_SpawnAreaStates} id="states-spawn-area">
 							<BlogHeading headingText="Spawn Area States" headingLevel={2} />
@@ -246,19 +243,7 @@ const TargetSpawningSystemPart3 = () => {
 									</ul>
 								</div>
 								<div className="div-50">
-									<figure>
-										<div className="figure-border-container">
-											<Image
-												className=" max-height-500"
-												src={image_ClusterBeat}
-												alt="BoxBounds"
-											/>
-											<figcaption>
-												<p className="figlabel">Figure TODO: </p>
-												TODO
-											</figcaption>
-										</div>
-									</figure>
+									<Figure image={image_ClusterBeat} figNumber={0} figCaption="TODO" alt="TODO" />
 								</div>
 							</div>
 						</div>
@@ -425,20 +410,20 @@ const TargetSpawningSystemPart3 = () => {
 							</div>
 							<div className="article-section-row">
 								<div className="div-50">
-									<figure>
-										<div className="figure-border-container">
-											<Image src={image_NonBeatGrid} alt="BoxBounds" />
-											<figcaption>Full-range (Spawn Area size: 50x50)</figcaption>
-										</div>
-									</figure>
+									<Figure
+										image={image_NonBeatGrid}
+										figNumber={0}
+										figCaption="Full-range (Spawn Area size: 50x50)"
+										alt="TODO"
+									/>
 								</div>
 								<div className="div-50">
-									<figure>
-										<div className="figure-border-container">
-											<Image src={image_BeatGrid} alt="BoxBounds" />
-											<figcaption>Grid-Based (Spawn Area size: 145x145)</figcaption>
-										</div>
-									</figure>
+									<Figure
+										image={image_BeatGrid}
+										figNumber={0}
+										figCaption="Grid-Based (Spawn Area size: 145x145)"
+										alt="TODO"
+									/>
 								</div>
 							</div>
 						</div>
@@ -478,32 +463,26 @@ const TargetSpawningSystemPart3 = () => {
 							<BSInlineEnum>::NearbyGridBlock</BSInlineEnum> creates a synergistic interaction used to
 							create the ClusterBeat game mode, shown below in Figure TODO.
 						</p>
-						<figure>
-							<div className="figure-border-container">
-								<Image src={image_GridBlockSpawning} alt="TotalSpawnArea" />
-								<figcaption>
-									<p className="figlabel">Figure TODO: </p>
-									ClusterBeat game mode with 25 targets spawned at a time using{" "}
-									<BSInlineEnum>::NearbyGridBlock</BSInlineEnum> and batch spawning
-								</figcaption>
-							</div>
-						</figure>
+						<Figure
+							image={image_GridBlockSpawning}
+							figNumber={0}
+							figCaption={`ClusterBeat game mode with 25 targets spawned at a time using ${(
+								<BSInlineEnum>::NearbyGridBlock</BSInlineEnum>
+							)} and batch spawning`}
+							alt="TotalSpawnArea"
+						/>
 						<p>
 							When implementing the spawn selection modes, I created a console command to console log a
 							matrix visualizing Spawn Area states. The numbers correspond to each Spawn Area index and
 							indicate a valid spawn location, while underscores indicates that the Spawn Area was not a
 							valid spawn location. Figure TODO shows the console output corresponding to Figure TODO.
 						</p>
-						<figure>
-							<div className="figure-border-container">
-								<Image src={image_ClusterBeatLog1} alt="TotalSpawnArea" />
-								<figcaption>
-									<p className="figlabel">Figure TODO: </p>
-									Console output showing Spawn Area indices and recent Spawn Area locations for
-									Grid-based game modes.
-								</figcaption>
-							</div>
-						</figure>
+						<Figure
+							image={image_ClusterBeatLog1}
+							figNumber={0}
+							figCaption={`Console output showing Spawn Area indices and recent Spawn Area locations for Grid-based game modes.`}
+							alt="TotalSpawnArea"
+						/>
 						<p>
 							The light-blue dashed rectangles are where the two previous grid blocks spawned, and each
 							Spawn Area in these rectangles are flagged as recent. The green dashed rectangle is the
@@ -598,15 +577,12 @@ const TargetSpawningSystemPart3 = () => {
 							area. The red Spawn Areas shown in Figure TODO are Spawn Areas that are outside of the
 							current total spawn area.
 						</p>
-						<figure>
-							<div className="figure-border-container">
-								<Image src={image_TotalSpawnArea} alt="TotalSpawnArea" />
-								<figcaption>
-									<p className="figlabel">Figure TODO: </p>
-									Individual Spawn Areas making up the total spawn area
-								</figcaption>
-							</div>
-						</figure>
+						<Figure
+							image={image_TotalSpawnArea}
+							figNumber={0}
+							figCaption={`Individual Spawn Areas making up the total spawn area`}
+							alt="TotalSpawnArea"
+						/>
 					</div>
 					<div className="article-section" ref={Ref_Conclusion} id="conclusion">
 						<BlogHeading headingText="Conclusion" headingLevel={1} />

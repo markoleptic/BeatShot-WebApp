@@ -1,22 +1,25 @@
 "use client";
 
 import React, { useRef } from "react";
-import Image from "next/image";
-import Link from "next/link";
+
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateTime } from "luxon";
-import { MathJax, MathJaxContext } from "better-react-mathjax";
+import Image from "next/image";
+import Link from "next/link";
 
-import Sidebar from "@/components/Sidebar";
-import useOnScreen from "@/hooks/useScreenObserver";
-import { SidebarHashLink } from "@/components/SidebarHashLink";
-import { BSInlineEnum, BSInlineFunction } from "@/components/CodeBlock";
 import { BlogHeading, BlogHeadingClass } from "@/components/BlogHeading";
+import { BSInlineEnum, BSInlineFunction } from "@/components/CodeBlock";
 import { MultiImageCarousel } from "@/components/ImageCarousel";
+import Sidebar from "@/components/Sidebar";
+import SidebarHashLink from "@/components/SidebarHashLink";
+import useOnScreen from "@/hooks/useScreenObserver";
 
-import image_Hero from "public/targetSpawningSystem/SpawnMemory_Hero_Cropped.png";
-import image_Card from "public/targetSpawningSystem/TargetSpawningSystemCard.png";
+import "@/styles/Article.scss";
+import "@/styles/Hero.scss";
+import "@/styles/Utility.scss";
+
+import { MathJax, MathJaxContext } from "better-react-mathjax";
 import SpawningWithoutIntersection1 from "public/spawningWithoutIntersection/SpawningWithoutIntersection1.png";
 import SpawningWithoutIntersection2 from "public/spawningWithoutIntersection/SpawningWithoutIntersection2.png";
 import SpawningWithoutIntersection3 from "public/spawningWithoutIntersection/SpawningWithoutIntersection3.png";
@@ -24,12 +27,10 @@ import SpawningWithoutIntersection4 from "public/spawningWithoutIntersection/Spa
 import SpawningWithoutIntersection5 from "public/spawningWithoutIntersection/SpawningWithoutIntersection5.png";
 import SpawningWithoutIntersection6 from "public/spawningWithoutIntersection/SpawningWithoutIntersection6.png";
 import SpawningWithoutIntersection7 from "public/spawningWithoutIntersection/SpawningWithoutIntersection72.png";
+import image_Hero from "public/targetSpawningSystem/SpawnMemory_Hero_Cropped.png";
+import image_Card from "public/targetSpawningSystem/TargetSpawningSystemCard.png";
 
 import type { BlogPostData } from "@/types/blog.types";
-
-import "@/styles/Article.scss";
-import "@/styles/Hero.scss";
-import "@/styles/Utility.scss";
 
 const titleShort = "Spawning Targets Without Intersection | Developer Blog";
 const titleLong = "Spawning Targets Without Intersection";
@@ -225,34 +226,29 @@ const SpawningTargetsWithoutIntersection = () => {
 										</li>
 									</ul>
 								</div>
-								<div className="div-50">
+								<div className="div-50 justify-content-center">
 									<MultiImageCarousel
 										imageClassName="height-400-width-100"
 										images={[
 											{
 												image: SpawningWithoutIntersection1,
 												figNumber: 0.1,
-
 												alt: "TODO",
 											},
 											{
 												image: SpawningWithoutIntersection2,
 												figNumber: 0.2,
-
 												alt: "TODO",
 											},
 											{
 												image: SpawningWithoutIntersection3,
 												figNumber: 0.3,
-
 												alt: "TODO",
 											},
 											{
 												image: SpawningWithoutIntersection4,
 												figNumber: 0.4,
-
 												alt: "TODO",
-												buttonText: "Optimal",
 											},
 											{
 												image: SpawningWithoutIntersection5,
@@ -262,13 +258,11 @@ const SpawningTargetsWithoutIntersection = () => {
 											{
 												image: SpawningWithoutIntersection6,
 												figNumber: 0.6,
-
 												alt: "TODO",
 											},
 											{
 												image: SpawningWithoutIntersection7,
 												figNumber: 0.7,
-
 												alt: "TODO",
 											},
 										]}

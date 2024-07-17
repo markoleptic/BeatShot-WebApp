@@ -1,11 +1,13 @@
 "use client";
 import React, { ReactNode, useEffect } from "react";
-import "@/styles/Sidebar.scss";
-interface SidebarProps {
-	children: ReactNode;
-}
 
-const Sidebar: React.FC<SidebarProps> = ({ children }) => {
+import "@/styles/Sidebar.scss";
+
+type SidebarProps = {
+	children: ReactNode;
+};
+
+const Sidebar = ({ children }: SidebarProps): React.JSX.Element => {
 	const handleScroll = () => {
 		const sidebarContainer = document.querySelector<HTMLElement>(".sidebar-container");
 		const footer = document.querySelector<HTMLElement>(".footer-container");

@@ -1,7 +1,7 @@
 "use client";
 import React, { useState } from "react";
 
-export default function Loading() {
+const Loading = (): React.JSX.Element => {
 	const [currentLoadingText, setCurrentLoadingText] = useState("Loading..");
 
 	setInterval(function () {
@@ -21,4 +21,6 @@ export default function Loading() {
 			</div>
 		</>
 	);
-}
+};
+
+export default Loading;

@@ -1,29 +1,30 @@
 "use client";
 
 import React, { useRef } from "react";
-import Image from "next/image";
-import Link from "next/link";
+
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateTime } from "luxon";
+import Image from "next/image";
+import Link from "next/link";
 
-import Sidebar from "@/components/Sidebar";
-import useOnScreen from "@/hooks/useScreenObserver";
-import { SidebarHashLink } from "@/components/SidebarHashLink";
-import { BSInlineFunction } from "@/components/CodeBlock";
 import { BlogHeading, BlogHeadingClass } from "@/components/BlogHeading";
-
-import image_BoxBounds from "public/targetSpawningSystem/BoxBounds.png";
-import image_TotalSpawnArea from "public/targetSpawningSystem/TotalSpawnArea.png";
-import image_Hero from "public/targetSpawningSystem/SpawnMemory_Hero_Cropped.png";
-import image_Card from "public/targetSpawningSystem/TargetSpawningSystemCard.png";
-
-import type { BlogPostData } from "@/types/blog.types";
+import { BSInlineFunction } from "@/components/CodeBlock";
+import Figure from "@/components/Figure";
+import Sidebar from "@/components/Sidebar";
+import SidebarHashLink from "@/components/SidebarHashLink";
+import useOnScreen from "@/hooks/useScreenObserver";
 
 import "@/styles/Article.scss";
 import "@/styles/Hero.scss";
 import "@/styles/Utility.scss";
 
+import image_BoxBounds from "public/targetSpawningSystem/BoxBounds.png";
+import image_Hero from "public/targetSpawningSystem/SpawnMemory_Hero_Cropped.png";
+import image_Card from "public/targetSpawningSystem/TargetSpawningSystemCard.png";
+import image_TotalSpawnArea from "public/targetSpawningSystem/TotalSpawnArea.png";
+
+import type { BlogPostData } from "@/types/blog.types";
 const titleShort = "BeatShot's Target Spawning System: Part 1 | Developer Blog";
 const titleLong = "BeatShot's Target Spawning System: Part 1 - Core Classes and Conventions";
 const description =
@@ -238,15 +239,12 @@ const TargetSpawningSystem = () => {
 									or <em>total spawn area</em>. A Spawn Area is simply a piece of the spatial grid.
 								</p>
 								<p>When maxed out, the total spawn area represents 3.2 million individual points.</p>
-								<figure>
-									<div className="figure-border-container">
-										<Image src={image_TotalSpawnArea} alt="TotalSpawnArea" />
-										<figcaption>
-											<p className="figlabel">Figure TODO: </p>
-											Individual Spawn Areas making up the total spawn area
-										</figcaption>
-									</div>
-								</figure>
+								<Figure
+									image={image_TotalSpawnArea}
+									figNumber={0}
+									figCaption="Individual Spawn Areas making up the total spawn area"
+									alt="TotalSpawnArea"
+								/>
 							</div>
 							<div className="article-subsection" ref={Ref_ATargetManager} id="classes-ATargetManager">
 								<BlogHeadingClass
@@ -304,15 +302,12 @@ const TargetSpawningSystem = () => {
 										use one box component, but &#34;hollow collision&#34; is not a thing. They form
 										a closed volume, but are offset in Figure TODO for visibility.
 									</p>
-									<figure>
-										<div className="figure-border-container">
-											<Image src={image_BoxBounds} alt="BoxBounds" />
-											<figcaption>
-												<p className="figlabel">Figure TODO: </p>
-												Target Manager Box Components
-											</figcaption>
-										</div>
-									</figure>
+									<Figure
+										image={image_BoxBounds}
+										figNumber={0}
+										figCaption="Target Manager Box Components"
+										alt="BoxBounds"
+									/>
 								</div>
 								<div
 									className="article-subsection-2"

@@ -1,6 +1,8 @@
 import React from "react";
-import { CodeBlock } from "react-code-blocks";
+
 import "@/styles/Codeblock.scss";
+
+import { CodeBlock } from "react-code-blocks";
 
 const codeBlockStyle = {
 	overflowX: "scroll",
@@ -71,7 +73,7 @@ const theme = {
 	numberColor: `#bd93f9`,
 };
 
-export const BSCodeBlock: React.FC<BSCodeBlockProps> = ({ children, fontSize = "0.65rem" }) => {
+const BSCodeBlock = ({ children, fontSize = "0.65rem" }: BSCodeBlockProps): React.JSX.Element => {
 	customStyle.fontSize = fontSize;
 	customStyle.lineHeight = "inherit";
 	codeBlockStyle.lineHeight = "inherit";
@@ -108,11 +110,11 @@ type BSInlineCodeProps = {
 	link?: boolean;
 };
 
-export const BSInlineCode: React.FC<BSInlineCodeProps> = ({
+const BSInlineCode = ({
 	children,
 	inlineCodeType = InlineCodeType.Any,
 	link = false,
-}) => {
+}: BSInlineCodeProps): React.JSX.Element => {
 	if (!children) {
 		return <span className="inline-code">{children}</span>;
 	}
@@ -155,10 +157,12 @@ export const BSInlineCode: React.FC<BSInlineCodeProps> = ({
 	return <span className={`inline-code class-color${linkStyleName}`}>{children}</span>;
 };
 
-export const BSInlineFunction: React.FC<{ children?: string }> = ({ children }) => {
+const BSInlineFunction = ({ children }: BSCodeBlockProps): React.JSX.Element => {
 	return <BSInlineCode inlineCodeType={InlineCodeType.Function}>{children}</BSInlineCode>;
 };
 
-export const BSInlineEnum: React.FC<{ children?: string }> = ({ children }) => {
+const BSInlineEnum = ({ children }: BSCodeBlockProps): React.JSX.Element => {
 	return <BSInlineCode inlineCodeType={InlineCodeType.Enum}>{children}</BSInlineCode>;
 };
+
+export { BSCodeBlock, BSInlineCode, BSInlineFunction, BSInlineEnum };

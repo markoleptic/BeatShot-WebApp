@@ -1,25 +1,23 @@
 "use client";
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
+
+import { DateTime } from "luxon";
+
 import LineChart from "@/components/charts/LineChart";
+import LocationAccuracyHeatmap from "@/components/charts/LocationAccuracyMap";
+import DateFilter from "@/components/DateFilter";
 import SelectBox from "@/components/SelectBox";
 import { usePlayerDataContext } from "@/context/PlayerDataContext";
-import LocationAccuracyHeatmap from "@/components/charts/LocationAccuracyMap";
-import { DateFilter } from "@/components/DateFilter";
-import { DateTime } from "luxon";
 import {
-	getGameModes,
-	getScores,
-	getMatchingSongOptions,
-	findMostRecentGameModeOption,
-	findMostRecentSongOption,
-	updateAvgs,
-	updateBests,
+	findMostRecentGameModeOption, findMostRecentSongOption, getGameModes, getMatchingSongOptions,
+	getScores, updateAvgs, updateBests
 } from "@/utility/StatFunctions";
+
+import "@/styles/GameModes.scss";
+
 import type { LabelValue } from "@/types/chart.types";
 import type { FilteredScore } from "@/types/profile.types";
 import type { Score } from "@/types/score.types";
-import "@/styles/GameModes.scss";
-
 const CustomModes = () => {
 	// Select box options
 	const [gameModeOptions, setGameModeOptions] = useState<LabelValue[]>([]);

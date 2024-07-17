@@ -1,10 +1,12 @@
 "use client";
 import React from "react";
-import LiteYouTubeEmbed from "react-lite-youtube-embed";
-import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
+
 import "@/styles/Video.scss";
 
-const Video = () => {
+import LiteYouTubeEmbed from "react-lite-youtube-embed";
+import "react-lite-youtube-embed/dist/LiteYouTubeEmbed.css";
+
+const Video = (): React.JSX.Element => {
 	return (
 		<div className="video">
 			<LiteYouTubeEmbed

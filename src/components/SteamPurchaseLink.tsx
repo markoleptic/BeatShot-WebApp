@@ -1,10 +1,12 @@
-import Link from "next/link";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSteam } from "@fortawesome/free-brands-svg-icons";
 import React from "react";
+
+import { faSteam } from "@fortawesome/free-brands-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link";
+
 import "@/styles/Steam.scss";
 
-export default function SteamSteamPurchaseLink() {
+const SteamSteamPurchaseLink = (): React.JSX.Element => {
 	return (
 		<Link
 			className="link hover-blue steam-login-container steam-purchase-container"
@@ -23,4 +25,6 @@ export default function SteamSteamPurchaseLink() {
 			</div>
 		</Link>
 	);
-}
+};
+
+export default SteamSteamPurchaseLink;

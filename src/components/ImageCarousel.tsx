@@ -1,9 +1,11 @@
 "use client";
 
 import React, { useState } from "react";
+
 import Image, { StaticImageData } from "next/image";
-import "@/styles/ImageCarousel.scss";
+
 import "@/styles/Article.scss";
+import "@/styles/ImageCarousel.scss";
 
 type ImageData = {
 	image: StaticImageData;
@@ -18,7 +20,7 @@ type ImageSliderProps = {
 	imageClassName?: string;
 };
 
-const DualImageCarousel: React.FC<ImageSliderProps> = ({ images, imageClassName = "" }) => {
+const DualImageCarousel = ({ images, imageClassName = "" }: ImageSliderProps): React.JSX.Element => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 
 	const handleFirst = () => {
@@ -32,38 +34,36 @@ const DualImageCarousel: React.FC<ImageSliderProps> = ({ images, imageClassName 
 	};
 
 	return (
-		<figure>
-			<div className="figure-border-container">
-				<Image className={imageClassName} src={images[currentIndex].image} alt={images[currentIndex].alt} />
-				<figcaption>
-					<p className="figlabel">
-						Figure {images[currentIndex].figNumber}
-						{images[currentIndex].caption === undefined ? "" : ": "}
-					</p>
-					{images[currentIndex].caption}
-				</figcaption>
-				<div className="button-container">
-					<button
-						className={currentIndex == 0 ? "active" : ""}
-						onClick={handleFirst}
-						disabled={images.length <= 1}
-					>
-						{images.length >= 1 ? images[0].buttonText : "1"}
-					</button>
-					<button
-						className={currentIndex == 1 ? "active" : ""}
-						onClick={handleSecond}
-						disabled={images.length <= 1}
-					>
-						{images.length >= 1 ? images[1].buttonText : "2"}
-					</button>
-				</div>
+		<figure className="figure-border-container">
+			<Image className={imageClassName} src={images[currentIndex].image} alt={images[currentIndex].alt} />
+			<figcaption>
+				<p className="figlabel">
+					Figure {images[currentIndex].figNumber}
+					{images[currentIndex].caption === undefined ? "" : ": "}
+				</p>
+				{images[currentIndex].caption}
+			</figcaption>
+			<div className="button-container">
+				<button
+					className={currentIndex == 0 ? "active" : ""}
+					onClick={handleFirst}
+					disabled={images.length <= 1}
+				>
+					{images.length >= 1 ? images[0].buttonText : "1"}
+				</button>
+				<button
+					className={currentIndex == 1 ? "active" : ""}
+					onClick={handleSecond}
+					disabled={images.length <= 1}
+				>
+					{images.length >= 1 ? images[1].buttonText : "2"}
+				</button>
 			</div>
 		</figure>
 	);
 };
 
-const MultiImageCarousel: React.FC<ImageSliderProps> = ({ images, imageClassName = "" }) => {
+const MultiImageCarousel = ({ images, imageClassName = "" }: ImageSliderProps): React.JSX.Element => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 
 	const handlePrev = () => {
@@ -75,24 +75,22 @@ const MultiImageCarousel: React.FC<ImageSliderProps> = ({ images, imageClassName
 	};
 
 	return (
-		<figure>
-			<div className="figure-border-container ">
-				<Image className={imageClassName} src={images[currentIndex].image} alt={images[currentIndex].alt} />
-				<figcaption>
-					<p className="figlabel">
-						Figure {images[currentIndex].figNumber}
-						{images[currentIndex].caption === undefined ? "" : ": "}
-					</p>
-					{images[currentIndex].caption}
-				</figcaption>
-				<div className="button-container">
-					<button onClick={handlePrev} disabled={images.length <= 1 || currentIndex == 0}>
-						{"Previous"}
-					</button>
-					<button onClick={handleNext} disabled={images.length <= 1 || currentIndex == images.length - 1}>
-						{"Next"}
-					</button>
-				</div>
+		<figure className="figure-border-container">
+			<Image className={imageClassName} src={images[currentIndex].image} alt={images[currentIndex].alt} />
+			<figcaption>
+				<p className="figlabel">
+					Figure {images[currentIndex].figNumber}
+					{images[currentIndex].caption === undefined ? "" : ": "}
+				</p>
+				{images[currentIndex].caption}
+			</figcaption>
+			<div className="button-container">
+				<button onClick={handlePrev} disabled={images.length <= 1 || currentIndex == 0}>
+					{"Previous"}
+				</button>
+				<button onClick={handleNext} disabled={images.length <= 1 || currentIndex == images.length - 1}>
+					{"Next"}
+				</button>
 			</div>
 		</figure>
 	);

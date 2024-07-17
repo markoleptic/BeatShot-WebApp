@@ -8,7 +8,7 @@ type BlueprintGraphProps = {
 	id?: string;
 };
 
-export const BlueprintGraph = ({ bpLink, label, description, id = "" }: BlueprintGraphProps) => {
+const BlueprintGraph = ({ bpLink, label, description, id = "" }: BlueprintGraphProps): React.JSX.Element => {
 	return (
 		<div className="blueprint-container" id={id}>
 			<iframe className="blueprint" src={bpLink} scrolling="no" allowFullScreen></iframe>
@@ -19,3 +19,5 @@ export const BlueprintGraph = ({ bpLink, label, description, id = "" }: Blueprin
 		</div>
 	);
 };
+
+export default BlueprintGraph;

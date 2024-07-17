@@ -1,5 +1,7 @@
 import React from "react";
+
 import Select, { ActionMeta, GroupBase, StylesConfig } from "react-select";
+
 import type { LabelValue } from "@/types/chart.types";
 
 export type SelectBoxProps = {
@@ -10,7 +12,7 @@ export type SelectBoxProps = {
 	id: string | undefined;
 };
 
-const SelectBox: React.FC<SelectBoxProps> = ({ options, onChange, placeholder, value, id }) => {
+const SelectBox = ({ options, onChange, placeholder, value, id }: SelectBoxProps): React.JSX.Element => {
 	const coloredSelectStyles = (): StylesConfig<any, false, GroupBase<any>> => ({
 		menu: (provided) => {
 			return {
