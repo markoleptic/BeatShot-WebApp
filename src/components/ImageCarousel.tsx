@@ -96,4 +96,58 @@ const MultiImageCarousel = ({ images, imageClassName = "" }: ImageSliderProps): 
 	);
 };
 
-export { DualImageCarousel, MultiImageCarousel };
+type StaticMultiImageSliderProps = ImageSliderProps & {
+	staticTop?: ImageData;
+	staticBottom?: ImageData;
+};
+
+const StaticMultiImageCarousel = ({
+	images,
+	staticTop,
+	staticBottom,
+	imageClassName = "",
+}: StaticMultiImageSliderProps): React.JSX.Element => {
+	const [currentIndex, setCurrentIndex] = useState(0);
+
+	const handlePrev = () => {
+		setCurrentIndex((prevIndex) => prevIndex - 1);
+	};
+
+	const handleNext = () => {
+		setCurrentIndex((prevIndex) => prevIndex + 1);
+	};
+
+	const staticTopComponent = () => {
+		return staticTop ? <Image className={imageClassName} src={staticTop.image} alt={staticTop.alt} /> : null;
+	};
+	const staticBottomComponent = () => {
+		return staticBottom ? (
+			<Image className={imageClassName} src={staticBottom.image} alt={staticBottom.alt} />
+		) : null;
+	};
+
+	return (
+		<figure className="figure-border-container">
+			{staticTopComponent()}
+			<Image className={imageClassName} src={images[currentIndex].image} alt={images[currentIndex].alt} />
+			{staticBottomComponent()}
+			<figcaption>
+				<p className="figlabel">
+					Figure {images[currentIndex].figNumber}
+					{images[currentIndex].caption === undefined ? "" : ": "}
+				</p>
+				{images[currentIndex].caption}
+			</figcaption>
+			<div className="button-container">
+				<button onClick={handlePrev} disabled={images.length <= 1 || currentIndex == 0}>
+					{"Previous"}
+				</button>
+				<button onClick={handleNext} disabled={images.length <= 1 || currentIndex == images.length - 1}>
+					{"Next"}
+				</button>
+			</div>
+		</figure>
+	);
+};
+
+export { DualImageCarousel, MultiImageCarousel, StaticMultiImageCarousel };

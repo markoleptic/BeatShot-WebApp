@@ -8,6 +8,7 @@ import { DateTime } from "luxon";
 import Image from "next/image";
 import Link from "next/link";
 
+import ArticleDateFooter from "@/components/blog/ArticleDateFooter";
 import { BlogHeading, BlogHeadingClass } from "@/components/BlogHeading";
 import { BSInlineEnum } from "@/components/CodeBlock";
 import Figure from "@/components/Figure";
@@ -588,17 +589,7 @@ const TargetSpawningSystemPart3 = () => {
 						<BlogHeading headingText="Conclusion" headingLevel={1} />
 						<p>TODO:</p>
 					</div>
-					<div className="article-section">
-						<p className="inline posted-date">
-							<span className="inline text-light">Posted: </span>
-							{postDate.toFormat("DDD")}
-							<br></br>
-							<time dateTime={editDate.toHTTP() as string}>
-								<span className="inline text-light">Updated: </span>
-								{editDate.toFormat("DDD")}
-							</time>
-						</p>
-					</div>
+					<ArticleDateFooter postDate={postDate} editDate={editDate} />
 				</article>
 			</div>
 		</div>

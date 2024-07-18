@@ -106,3 +106,24 @@
 	max-height: 400px;
 	width: 100%;
 }
+.inline-flex {
+	display: inline-flex;
+}
+.align-self-flex-start {
+	align-self: flex-start;
+}
+.align-self-flex-end {
+	align-self: flex-end;
+}
+.max-width-850 {
+	max-width: 850px;
+}
+.max-width-750 {
+	max-width: 750px;
+}
+.justify-content-flex-end {
+	justify-content: flex-end;
+}
+.justify-content-flex-start {
+	justify-content: flex-start;
+}
