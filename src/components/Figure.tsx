@@ -1,13 +1,13 @@
 "use client";
 
-import React, { HTMLAttributes } from "react";
+import React, { HTMLAttributes, ReactNode } from "react";
 
 import Image, { StaticImageData } from "next/image";
 
 type FigureProps = HTMLAttributes<HTMLElement> & {
 	image: StaticImageData;
 	figNumber: number;
-	figCaption: string;
+	figCaption: string | ReactNode;
 	alt?: string;
 	limitMaxWidth?: boolean;
 	imageClassName?: string;

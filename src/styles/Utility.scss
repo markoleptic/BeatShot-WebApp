@@ -21,6 +21,9 @@
 .text-green {
 	color: #00d702;
 }
+.text-orange {
+	color: #FFA500
+}
 
 .text-center {
 	text-align: center;
@@ -120,6 +123,7 @@
 }
 .max-width-750 {
 	max-width: 750px;
+	min-width: 0px;
 }
 .justify-content-flex-end {
 	justify-content: flex-end;

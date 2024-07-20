@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { ReactNode, useState } from "react";
 
 import Image, { StaticImageData } from "next/image";
 
@@ -11,7 +11,7 @@ type ImageData = {
 	image: StaticImageData;
 	alt: string;
 	figNumber: number;
-	caption?: string;
+	caption?: string | ReactNode;
 	buttonText?: string;
 };
 
@@ -96,6 +96,45 @@ const MultiImageCarousel = ({ images, imageClassName = "" }: ImageSliderProps): 
 	);
 };
 
+const ConsistentHeightMultiImageCarousel = ({ images }: ImageSliderProps): React.JSX.Element => {
+	const [currentIndex, setCurrentIndex] = useState(0);
+
+	const handlePrev = () => {
+		setCurrentIndex((prevIndex) => prevIndex - 1);
+	};
+
+	const handleNext = () => {
+		setCurrentIndex((prevIndex) => prevIndex + 1);
+	};
+
+	return (
+		<figure className="consistent-height-img-bg">
+			<div className="consistent-height-img-container">
+				<Image
+					className="consistent-height-img"
+					src={images[currentIndex].image}
+					alt={images[currentIndex].alt}
+				/>
+			</div>
+			<figcaption>
+				<p className="figlabel">
+					Figure {images[currentIndex].figNumber}
+					{images[currentIndex].caption === undefined ? "" : ": "}
+				</p>
+				{images[currentIndex].caption}
+			</figcaption>
+			<div className="button-container">
+				<button onClick={handlePrev} disabled={images.length <= 1 || currentIndex == 0}>
+					{"Previous"}
+				</button>
+				<button onClick={handleNext} disabled={images.length <= 1 || currentIndex == images.length - 1}>
+					{"Next"}
+				</button>
+			</div>
+		</figure>
+	);
+};
+
 type StaticMultiImageSliderProps = ImageSliderProps & {
 	staticTop?: ImageData;
 	staticBottom?: ImageData;
@@ -150,4 +189,4 @@ const StaticMultiImageCarousel = ({
 	);
 };
 
-export { DualImageCarousel, MultiImageCarousel, StaticMultiImageCarousel };
+export { DualImageCarousel, MultiImageCarousel, StaticMultiImageCarousel, ConsistentHeightMultiImageCarousel };

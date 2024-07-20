@@ -15,7 +15,7 @@ import {
 import { BlogHeading } from "@/components/BlogHeading";
 import { BSCodeBlock, BSInlineCode, BSInlineFunction } from "@/components/CodeBlock";
 import Figure from "@/components/Figure";
-import { DualImageCarousel, MultiImageCarousel, StaticMultiImageCarousel } from "@/components/ImageCarousel";
+import { ConsistentHeightMultiImageCarousel, StaticMultiImageCarousel } from "@/components/ImageCarousel";
 import Sidebar from "@/components/Sidebar";
 import SidebarHashLink from "@/components/SidebarHashLink";
 import useOnScreen from "@/hooks/useScreenObserver";
@@ -25,9 +25,11 @@ import "@/styles/Hero.scss";
 import "@/styles/Utility.scss";
 
 import { MathJax, MathJaxContext } from "better-react-mathjax";
+import image_Card from "public/spawningWithoutIntersection/Card.jpg";
+import image_Hero from "public/spawningWithoutIntersection/Hero.jpg";
 import OverlappingBottomLeft from "public/spawningWithoutIntersection/Overlapping_BottomLeftPoint.png";
 import OverlappingCenter from "public/spawningWithoutIntersection/Overlapping_CenterPoint.png";
-import OverlappingVerts from "public/spawningWithoutIntersection/OverlappingVerts.png";
+import OverlappingVertices from "public/spawningWithoutIntersection/OverlappingVertices.jpg";
 import SpawningWithoutIntersection1 from "public/spawningWithoutIntersection/SpawningWithoutIntersection1.png";
 import SpawningWithoutIntersection2 from "public/spawningWithoutIntersection/SpawningWithoutIntersection2.png";
 import SpawningWithoutIntersection3 from "public/spawningWithoutIntersection/SpawningWithoutIntersection3.png";
@@ -35,8 +37,6 @@ import SpawningWithoutIntersection4 from "public/spawningWithoutIntersection/Spa
 import SpawningWithoutIntersection5 from "public/spawningWithoutIntersection/SpawningWithoutIntersection5.png";
 import SpawningWithoutIntersection6 from "public/spawningWithoutIntersection/SpawningWithoutIntersection6.png";
 import SpawningWithoutIntersection7 from "public/spawningWithoutIntersection/SpawningWithoutIntersection7.png";
-import image_Hero from "public/targetSpawningSystem/SpawnMemory_Hero_Cropped.png";
-import image_Card from "public/targetSpawningSystem/TargetSpawningSystemCard.png";
 import SessionFrontendAllSizes from "public/testing/SessionFrontendAllSizes.png";
 import SessionFrontendAutomation from "public/testing/SessionFrontendAutomation.png";
 import SessionFrontendBig from "public/testing/SessionFrontendBig.png";
@@ -183,25 +183,41 @@ const SpawningTargetsWithoutIntersection = () => {
 										Remove these Spawn Areas from consideration
 									</li>
 								</ul>
-								<MathJax> {`\\[ ${equations} \\]`}</MathJax>
-								<div className="article-section-row">
+								<div className="justify-content-center padding-top-05rem" id="">
+									<figure className={`figure-border-container`}>
+										<MathJax className="mathjax-equation">{`\\[ ${equations} \\]`}</MathJax>
+										<figcaption>
+											<p className="figlabel">Figure 1: </p>
+											Equations for calculating{" "}
+											<MathJax inline={true}>
+												<span>{`$\\text{R}_{min}$`}</span>
+											</MathJax>{" "}
+											and{" "}
+											<MathJax inline={true}>
+												<span>{`$\\text{R}_{trace}$`}</span>
+											</MathJax>
+										</figcaption>
+									</figure>
+								</div>
+								<div className="article-section-row padding-top-05rem padding-bottom-05rem">
 									<div className="div-50" id="">
 										<ul>
 											<li>
 												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												The green box in Figure 1.1 represents the managed Spawn Area for this
+												The green box in Figure 2.1 represents the managed Spawn Area for this
 												example.
 											</li>
 											<li>
 												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												The spheres shown in Figure 1.2 in show the limits of where a target can
+												The spheres shown in Figure 2.2 in show the limits of where a target can
 												spawn in the Spawn Area (four corners).
 											</li>
 											<li>
 												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 												<MathJax inline={true}>
 													The minimum radius, <span>{`$\\text{R}_{min}$`}</span> is half the
-													maximum width/height of the Spawn Area, shown in Figure 1.3.
+													maximum width/height of the Spawn Area, shown in Figure 1 and Figure
+													2.3.
 												</MathJax>
 											</li>
 											<li>
@@ -210,7 +226,7 @@ const SpawningTargetsWithoutIntersection = () => {
 													The current radius, <span>{`$\\text{R}_{current}$`}</span> is the
 													radius of the target that we want to spawn. The existing radius,{" "}
 													<span>{`$\\text{R}_{existing}$`}</span> is the radius of the target
-													already spawned in the Spawn Area. Both are shown in Figure 1.4.
+													already spawned in the Spawn Area. Both are shown in Figure 2.4.
 												</MathJax>
 											</li>
 											<li>
@@ -237,77 +253,76 @@ const SpawningTargetsWithoutIntersection = () => {
 												<MathJax inline={true}>
 													The rounded up value is multiplied by <span>{`$2\\sqrt{2}$`}</span>{" "}
 													so that the diagonal vertices are included in the sphere. The result
-													is <span>{`$\\text{R}_{trace}$`}</span>, shown in Figure 1.5
+													is <span>{`$\\text{R}_{trace}$`}</span>, shown in Figure 1 and
+													Figure 2.5
 												</MathJax>
 											</li>
 											<li>
 												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												The white and red vertices in Figure 1.6 are the vertices that the
+												The white and red vertices in Figure 2.6 are the vertices that the
 												sphere trace captured.
 											</li>
 											<li>
 												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												The red boxes in Figure 1.7 show the Spawn Areas that correspond to the
+												The red boxes in Figure 2.7 show the Spawn Areas that correspond to the
 												vertices captured in the sphere trace.
 											</li>
 										</ul>
 									</div>
 									<div className="div-50 justify-content-center">
-										<MultiImageCarousel
-											imageClassName="height-400-width-100"
+										<ConsistentHeightMultiImageCarousel
 											images={[
 												{
 													image: SpawningWithoutIntersection1,
-													figNumber: 1.1,
+													figNumber: 2.1,
 													alt: "ManagedSpawnArea",
 												},
 												{
 													image: SpawningWithoutIntersection2,
-													figNumber: 1.2,
+													figNumber: 2.2,
 													alt: "SpawnAreaLimits",
 												},
 												{
 													image: SpawningWithoutIntersection3,
-													figNumber: 1.3,
+													figNumber: 2.3,
 													alt: "MinimumRadius",
 												},
 												{
 													image: SpawningWithoutIntersection4,
-													figNumber: 1.4,
+													figNumber: 2.4,
 													alt: "ExistingRadius",
 												},
 												{
 													image: SpawningWithoutIntersection5,
-													figNumber: 1.5,
+													figNumber: 2.5,
 													alt: "TraceRadius",
 												},
 												{
 													image: SpawningWithoutIntersection6,
-													figNumber: 1.6,
+													figNumber: 2.6,
 													alt: "CapturedVertices",
 												},
 												{
 													image: SpawningWithoutIntersection7,
-													figNumber: 1.7,
+													figNumber: 2.7,
 													alt: "CapturedSpawnAreas",
 												},
 											]}
 										/>
 									</div>
 								</div>
-								<div className="padding-top-05rem" />
 								<p>
-									Figure 2 and 3 show the difference between using the center vertex and the bottom
+									Figure 3 and 4 show the difference between using the center vertex and the bottom
 									left vertex as the sphere trace origin. Since a target may spawn anywhere within a
 									Spawn Area, it caused a collision due to targets spawning near the edges of their
 									Spawn Area. Using the bottom left vertex guarantees the targets will not collide due
 									spawning on the edges.
 								</p>
-								<div className="article-section-row align-self-center max-width-850 padding-top-05rem padding-bottom-05rem">
+								<div className="static-article-section-row align-self-center max-width-850 padding-top-05rem padding-bottom-05rem">
 									<div className="div-50 flex-row justify-content-flex-end">
 										<Figure
 											image={OverlappingCenter}
-											figNumber={2}
+											figNumber={3}
 											figCaption="Overlapping vertices generated using the center vertex"
 											alt="OverlappingVerticesCenter"
 										/>
@@ -315,14 +330,14 @@ const SpawningTargetsWithoutIntersection = () => {
 									<div className="div-50 flex-row justify-content-flex-start">
 										<Figure
 											image={OverlappingBottomLeft}
-											figNumber={3}
+											figNumber={4}
 											figCaption="Overlapping vertices generated using the bottom left vertex"
 											alt="OverlappingVerticesBottomLeft"
 										/>
 									</div>
 								</div>
 								<p>
-									Figure 4 shows what the results of the sphere trace look like in game. The{" "}
+									Figure 5 shows what the results of the sphere trace look like in game. The{" "}
 									<span className="text-red">red points</span> are vertices that fell within the
 									sphere trace for the Spawn Area where a target was spawned, while the{" "}
 									<span className="text-red">red boxes</span> are the Spawn Areas that the vertices
@@ -331,11 +346,10 @@ const SpawningTargetsWithoutIntersection = () => {
 								</p>
 								<div className="padding-top-05rem padding-bottom-05rem">
 									<Figure
-										image={OverlappingVerts}
-										imageClassName="max-width-750"
-										figNumber={4}
+										image={OverlappingVertices}
+										figNumber={5}
 										figCaption="In-Game Representation of Overlapping vertices"
-										alt="OverlappingVerts"
+										alt="OverlappingVertices"
 									/>
 								</div>
 								<p>
@@ -492,7 +506,7 @@ const SpawningTargetsWithoutIntersection = () => {
 											this is slightly more interesting to look at for an article.
 										</p>
 										<p>
-											Figure 5 shows the test browser after running the three different types of{" "}
+											Figure 6 shows the test browser after running the three different types of{" "}
 											<BSInlineCode>TargetCollisionTest</BSInlineCode> I created: All Sizes,
 											Large, and Small. These are automatically populated by the Automation
 											Controller when it calls <BSInlineFunction>::GetTests</BSInlineFunction>.
@@ -500,13 +514,13 @@ const SpawningTargetsWithoutIntersection = () => {
 										<div className="padding-top-05rem padding-bottom-05rem">
 											<Figure
 												image={SessionFrontendAutomation}
-												figNumber={5}
+												figNumber={6}
 												figCaption="Unreal Engine Session Frontend"
 												alt="SessionFrontend"
 											/>
 										</div>
 										<p>
-											Figure 6 shows the console tab of the Session Frontend. The information I
+											Figure 7 shows the console tab of the Session Frontend. The information I
 											added at the end of each collision test is printed to the console after each
 											of the three collision tests. Just over 147,000 targets were spawned across
 											all three tests, which took around four minutes to complete. Targets are
@@ -519,19 +533,19 @@ const SpawningTargetsWithoutIntersection = () => {
 												images={[
 													{
 														image: SessionFrontendAllSizes,
-														figNumber: 6.1,
+														figNumber: 7.1,
 														alt: "AllTargetSizesCollisionTest",
 														caption: "Console Output From All Target Sizes Collision Test",
 													},
 													{
 														image: SessionFrontendBig,
-														figNumber: 6.2,
+														figNumber: 7.2,
 														alt: "LargeTargetCollisionTest",
 														caption: "Console Output From Large Target Collision Test",
 													},
 													{
 														image: SessionFrontendSmall,
-														figNumber: 6.3,
+														figNumber: 7.3,
 														alt: "SmallTargetCollisionTest",
 														caption: "Console Output From Small Target Collision Test",
 													},

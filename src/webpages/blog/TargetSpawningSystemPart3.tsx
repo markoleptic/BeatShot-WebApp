@@ -9,7 +9,7 @@ import Image from "next/image";
 import Link from "next/link";
 
 import ArticleDateFooter from "@/components/blog/ArticleDateFooter";
-import { BlogHeading, BlogHeadingClass } from "@/components/BlogHeading";
+import { BlogHeading } from "@/components/BlogHeading";
 import { BSInlineEnum } from "@/components/CodeBlock";
 import Figure from "@/components/Figure";
 import { DualImageCarousel } from "@/components/ImageCarousel";
@@ -22,18 +22,17 @@ import "@/styles/Article.scss";
 import "@/styles/Hero.scss";
 import "@/styles/Utility.scss";
 
-import image_BeatGrid from "public/targetSpawningSystem/BeatGrid.png";
-import image_BoxBounds from "public/targetSpawningSystem/BoxBounds.png";
-import image_ClusterBeat from "public/targetSpawningSystem/ClusterBeat.png";
+import image_BeatGrid from "public/targetSpawningSystem/BeatGridDebug.jpg";
+import image_ClusterBeat from "public/targetSpawningSystem/ClusterBeatDebug.jpg";
 import image_ClusterBeatLog1 from "public/targetSpawningSystem/ClusterBeatExampleLog1.png";
 import image_ClusterBeatLog2 from "public/targetSpawningSystem/ClusterBeatExampleLog2.png";
 import image_ClusterBeatLog3 from "public/targetSpawningSystem/ClusterBeatExampleLog3.png";
 import image_GridBlockSpawning from "public/targetSpawningSystem/GridBlockSpawning.png";
-import image_NonBeatGrid from "public/targetSpawningSystem/NonBeatGrid.png";
-import image_Hero from "public/targetSpawningSystem/SpawnMemory_Hero_Cropped.png";
+import image_NonBeatGrid from "public/targetSpawningSystem/NonBeatGridDebug.jpg";
+import image_Card from "public/targetSpawningSystem/Part3Card.jpg";
+import image_Hero from "public/targetSpawningSystem/Part3Hero.jpg";
 import image_SphereColorGradient from "public/targetSpawningSystem/SphereColorGradient.png";
-import image_Card from "public/targetSpawningSystem/TargetSpawningSystemCard.png";
-import image_TotalSpawnArea from "public/targetSpawningSystem/TotalSpawnArea.png";
+import image_TotalSpawnArea from "public/targetSpawningSystem/TotalSpawnArea.jpg";
 
 const titleShort = "BeatShot's Target Spawning System: Part 3 | Developer Blog";
 const titleLong = "BeatShot's Target Spawning System: Part 3";
@@ -363,7 +362,7 @@ const TargetSpawningSystemPart3 = () => {
 							Spawn Areas. A target does not need to fit inside the Spawn Area it is associated with.
 						</p>
 						<div className="article-subsection" id="">
-							<div className="article-section-row">
+							<div className="static-article-section-row">
 								<div className="div-50">
 									<BlogHeading headingText="Full-range" headingLevel={2} />
 									<ul>
@@ -409,7 +408,7 @@ const TargetSpawningSystemPart3 = () => {
 									</ul>
 								</div>
 							</div>
-							<div className="article-section-row">
+							<div className="static-article-section-row">
 								<div className="div-50">
 									<Figure
 										image={image_NonBeatGrid}
@@ -467,9 +466,12 @@ const TargetSpawningSystemPart3 = () => {
 						<Figure
 							image={image_GridBlockSpawning}
 							figNumber={0}
-							figCaption={`ClusterBeat game mode with 25 targets spawned at a time using ${(
-								<BSInlineEnum>::NearbyGridBlock</BSInlineEnum>
-							)} and batch spawning`}
+							figCaption={
+								<>
+									ClusterBeat game mode with 25 targets spawned at a time using{" "}
+									<BSInlineEnum>::NearbyGridBlock</BSInlineEnum> and batch spawning
+								</>
+							}
 							alt="TotalSpawnArea"
 						/>
 						<p>

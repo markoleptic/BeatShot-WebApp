@@ -20,10 +20,9 @@ import "@/styles/Article.scss";
 import "@/styles/Hero.scss";
 import "@/styles/Utility.scss";
 
-import image_BoxBounds from "public/targetSpawningSystem/BoxBounds.png";
-import image_Hero from "public/targetSpawningSystem/SpawnMemory_Hero_Cropped.png";
-import image_Card from "public/targetSpawningSystem/TargetSpawningSystemCard.png";
-import image_TotalSpawnArea from "public/targetSpawningSystem/TotalSpawnArea.png";
+import image_BoxBounds from "public/targetSpawningSystem/BoxBounds.jpg";
+import image_Card from "public/targetSpawningSystem/Part1Card.jpg";
+import image_Hero from "public/targetSpawningSystem/Part1Hero.jpg";
 
 import type { BlogPostData } from "@/types/blog.types";
 const titleShort = "BeatShot's Target Spawning System: Part 1 | Developer Blog";
@@ -240,12 +239,6 @@ const TargetSpawningSystem = () => {
 									or <em>total spawn area</em>. A Spawn Area is simply a piece of the spatial grid.
 								</p>
 								<p>When maxed out, the total spawn area represents 3.2 million individual points.</p>
-								<Figure
-									image={image_TotalSpawnArea}
-									figNumber={0}
-									figCaption="Individual Spawn Areas making up the total spawn area"
-									alt="TotalSpawnArea"
-								/>
 							</div>
 							<div className="article-subsection" ref={Ref_ATargetManager} id="classes-ATargetManager">
 								<BlogHeadingClass

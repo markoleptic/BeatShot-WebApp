@@ -21,10 +21,10 @@ import "@/styles/Article.scss";
 import "@/styles/Codeblock.scss";
 import "@/styles/Hero.scss";
 
+import image_Card from "public/gameplayAbilitySystem/Card.jpg";
 import DA_InputConfig from "public/gameplayAbilitySystem/DA_InputConfig.png";
 import DA_KnifeAbilitySet from "public/gameplayAbilitySystem/DA_KnifeAbilitySet.png";
-import image_Card from "public/gameplayAbilitySystem/GAS_Diagram.png";
-import image_Hero from "public/gameplayAbilitySystem/GAS_Diagram_Cropped.png";
+import image_Hero from "public/gameplayAbilitySystem/Hero.jpg";
 
 import type { BlogPostData } from "@/types/blog.types";
 const titleShort = "GAS in BeatShot | Developer Blog";

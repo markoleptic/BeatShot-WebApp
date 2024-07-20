@@ -6,20 +6,13 @@ import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { DateTime } from "luxon";
 import Image from "next/image";
+import Link from "next/link";
 
 import ArticleDateFooter from "@/components/blog/ArticleDateFooter";
-import {
-	ActivateTarget,
-	EGridIndexType,
-	FindNextTargetProperties,
-	GetValidSpawnLocations,
-	HandleDeactivation,
-	OnAudioAnalyzerBeat,
-	RemovingOverlappingSpawnLocations,
-	SpawnTarget,
-} from "@/components/blog/TargetSpawningSystemFunctions";
-import { BlogHeading, BlogHeadingClass } from "@/components/BlogHeading";
+import { EGridIndexType } from "@/components/blog/TargetSpawningSystemFunctions";
+import { BlogHeading } from "@/components/BlogHeading";
 import { BSCodeBlock, BSInlineCode, BSInlineEnum, BSInlineFunction } from "@/components/CodeBlock";
+import Figure from "@/components/Figure";
 import { MultiImageCarousel } from "@/components/ImageCarousel";
 import Sidebar from "@/components/Sidebar";
 import SidebarHashLink from "@/components/SidebarHashLink";
@@ -51,11 +44,9 @@ import image_Execution6 from "public/targetSpawningSystem/execution/Execution6.p
 import image_Execution7 from "public/targetSpawningSystem/execution/Execution7.png";
 import image_Execution8 from "public/targetSpawningSystem/execution/Execution8.png";
 import image_Execution9 from "public/targetSpawningSystem/execution/Execution9.png";
-import image_OverlappingVerts from "public/targetSpawningSystem/OverlappingVerts.png";
-import image_SpawnMemory_Dynamic_FewRecent from "public/targetSpawningSystem/SpawnMemory_Dynamic_FewRecent.png";
-import image_SpawnMemory_Dynamic_ManyRecent from "public/targetSpawningSystem/SpawnMemory_Dynamic_ManyRecent.png";
-import image_Hero from "public/targetSpawningSystem/SpawnMemory_Hero_Cropped.png";
-import image_Card from "public/targetSpawningSystem/TargetSpawningSystemCard.png";
+import image_Card from "public/targetSpawningSystem/Part1Card.jpg";
+import image_Hero from "public/targetSpawningSystem/Part1Hero.jpg";
+import image_TotalSpawnArea from "public/targetSpawningSystem/TotalSpawnArea.jpg";
 
 const titleShort = "BeatShot's Target Spawning System: Part 2 | Developer Blog";
 const titleLong = "BeatShot's Target Spawning System: Part 2 - Target Lifecycle";
@@ -178,18 +169,12 @@ const TargetSpawningSystemPart2 = () => {
 					{sideBar}
 					<article className="devblog-article flex-container-column" id="article">
 						<p>
-							I wrote this article with the goal that the reader doesn&#39;t need to understand C++ to
-							grasp the main concepts that BeatShot uses in its target spawning system. The code blocks
-							are supplementary and I follow a general pattern when inserting them: introduce the function
-							and context, insert code block, describe what&#39;s happening in the code block.
+							Every target goes through the same lifecycle of spawning, activation, deactivation, and
+							destruction. This article focuses on what triggers these lifecycle events and the execution
+							paths that lead to them.
 						</p>
 						<div className="article-section" ref={Ref_TargetLifeCycle} id="target-lifecycle">
 							<BlogHeading headingText="Target Lifecycle" headingLevel={1} />
-							<p>
-								Every target goes through the same lifecycle of spawning, activation, deactivation, and
-								destruction. Before discussing those events, I&#39;ll describe the initialization
-								process that the involved actors go through.
-							</p>
 							<div
 								className="article-subsection"
 								ref={Ref_Initialization}
@@ -197,11 +182,10 @@ const TargetSpawningSystemPart2 = () => {
 							>
 								<BlogHeading headingText="Initialization" headingLevel={2} />
 								<p>
-									When you first load into the map, the game mode spawns the Target Manager and passes
-									the game mode configuration to it. The Target Manager then determines the minimum
-									and maximum size of the total spawn area and sets the dimensions of all box
-									components to appropriate values. Next, each component of the Targe Manager is
-									initialized.
+									When the map is loaded, the game mode spawns the Target Manager and passes the game
+									mode configuration to it. The Target Manager determines the minimum and maximum size
+									of the total spawn area and sets the dimensions of all box components to appropriate
+									values. Next, each component of the Target Manager is initialized.
 								</p>
 								<p>
 									The Spawn Area Manager determines the dimensions of all Spawn Areas using the
@@ -212,8 +196,8 @@ const TargetSpawningSystemPart2 = () => {
 									When a Spawn Area is created, it determines its{" "}
 									<BSInlineEnum>EGridIndexType</BSInlineEnum> based on the location and index it
 									received from the Spawn Area Manager. Using this, it stores the direction and index
-									of all adjacent Spawn Areas in a map which are primarily used in Grid-based game
-									modes
+									of all adjacent Spawn Areas in a map, which are used to find bordering Spawn Areas
+									in Grid-based game modes.
 								</p>
 								<BSCodeBlock>{EGridIndexType}</BSCodeBlock>
 							</div>
@@ -237,12 +221,12 @@ const TargetSpawningSystemPart2 = () => {
 								</ul>
 								<p>
 									The first function <BSInlineFunction>::HandleAudioAnalyzerBeat</BSInlineFunction>{" "}
-									calls is <BSInlineFunction>::HandleRuntimeSpawning</BSInlineFunction>. Here, the
+									calls is <BSInlineFunction>::HandleRuntimeSpawning</BSInlineFunction>, where the
 									Target Manager determines how many targets to spawn. It ensures it only spawns
 									targets that can be activated, unless the game mode allows spawning without
-									activation. If three targets are currently activated, and the{" "}
+									activation. For example, if three targets are currently activated, and the{" "}
 									<em>Maximum Number of Activated Targets at Once</em> is set to four, only one target
-									will be spawned regardless of the Number of Runtime Targets to Spawn.
+									will be spawned regardless of the <em>Number of Runtime Targets to Spawn</em>.
 								</p>
 								<p>
 									At the end of <BSInlineFunction>::HandleRuntimeSpawning</BSInlineFunction>, the size
@@ -253,79 +237,109 @@ const TargetSpawningSystemPart2 = () => {
 									by calling <BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction>, where the
 									number of targets to spawn and an array of target sizes are passed to the function.
 								</p>
+								<div className="padding-top-05rem padding-bottom-05rem">
+									<Figure
+										image={image_TotalSpawnArea}
+										figNumber={1}
+										figCaption={
+											<>
+												The <span className="text-orange">current total spawn</span> inside the
+												total spawn area
+											</>
+										}
+										alt="TotalSpawnArea"
+									/>
+								</div>
 								<p>
-									<BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction> is the heart of spawn
-									location decision making, and a lot is involved. The{" "}
-									<em>Target Distribution Policy</em> dictates which series of functions are executed.
+									<BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction> is the heart of the
+									spawn location decision making, and a lot is involved. The procedure for all{" "}
+									<em>Target Distribution Policies</em> besides <BSInlineEnum>::Grid</BSInlineEnum> is
+									as follows:
 								</p>
-								{/* <figure>
-									<div className="figure-border-container">
-										<Image src={image_OverlappingVerts} alt="OverlappingVerts" />
-										<figcaption>
-											<p className="figlabel">Figure TODO: </p>
-											Overlapping Vertices generated after each target was flagged as Managed.
-										</figcaption>
-									</div>
-								</figure> */}
 								<ol>
 									<li>
-										The set of Spawn Areas that fall within the current total spawn area are
-										considered candidates for spawning.
+										The set of Spawn Areas inside the current total spawn area, shown as an{" "}
+										<span className="text-orange">orange box</span> in Figure 1, are considered
+										candidates for spawning.
 									</li>
 									<li>
-										Spawn Areas that are managed, activated, or recent need to be removed from the
-										candidates. Each time a Spawn Area is chosen, it needs to be removed from the
-										candidates as well.
+										The set of Spawn Areas that are managed, activated, or recent is obtained. Since
+										these Spawn Areas will be removed from the candidate set, I will refer to these
+										as the invalid set.
 									</li>
 									<li>
 										The main loop iterates over the number of targets to spawn. At each iteration, a
-										copy of the Spawn Area candidates is made, and{" "}
-										<BSInlineFunction>::RemoveOverlappingSpawnAreas</BSInlineFunction> is called to
-										modify the Spawn Area candidates copy. It removes any managed, activated, or
-										recent Spawn Areas from the candidate set, as well as any adjacent Spawn Areas
-										where the target overlapped. A sphere trace is performed to find the adjacent
-										Spawn Areas that should also be removed from due to the target overlapping.
+										copy of the Spawn Area candidates is passed to{" "}
+										<BSInlineFunction>::RemoveOverlappingSpawnAreas</BSInlineFunction>, which does
+										the following:
+										<ol>
+											<li>
+												All Spawn Areas that are managed, activated, or recent are removed from
+												the candidates.
+											</li>
+											<li>
+												For each managed, activated, or recent Spawn Area, a sphere trace is
+												performed to find adjacent Spawn Areas that should be removed due to a
+												target overlapping adjacent Spawn Areas. These are the{" "}
+												<span className="text-red">red boxes</span> <b>inside</b> the{" "}
+												<span className="text-orange">current total spawn area</span> in Figure
+												1.
+											</li>
+											<li>
+												If you want to learn more about this process, check out the{" "}
+												<Link
+													className="text-light hover-white"
+													href="devblog/spawning-targets-without-intersection"
+												>
+													Spawning Targets Without Intersection article
+												</Link>
+												.
+											</li>
+										</ol>
 									</li>
 									<li>
 										<BSInlineFunction>::ChooseSpawnableSpawnAreas</BSInlineFunction> is called with
 										the modified candidate set along and a set of Spawn Areas that have been chosen
 										during iteration. This function determines which Spawn Area to choose using a
-										priority list based on game mode settings:
+										priority list based on game mode settings, defaulting to random if a higher
+										priority setting fails to choose a valid Spawn Area.
 										<ol>
 											<li>
-												<em>Spawn Every Other Target In Center</em>
+												<em>Force Every Other Target In Center</em> will choose the center-most
+												Spawn Area.
 											</li>
 											<li>
-												<em>Spawn At Origin Whenever Possible</em>
+												<em>Spawn In Center When Possible</em> will choose the center-most Spawn
+												Area, if available.
 											</li>
 											<li>
-												If the game mode uses AI, it will request a Spawn Area from the
-												Reinforcement Learning Component
+												If <em>AI Enabled</em>, the modified candidate set is passed to the
+												Reinforcement Learning Component and it chooses a Spawn Area.
 											</li>
-											<li>Choosing a random Spawn Area from the candidates.</li>
+											<li>A random Spawn Area is chosen from the candidates.</li>
 										</ol>
 									</li>
 									<li>
 										If <BSInlineFunction>::ChooseSpawnableSpawnAreas</BSInlineFunction> returned a
-										valid Spawn Area, it is added to the set that is returned. It is also removed
-										from the candidate set and added to the invalid set, since it cannot be chosen
-										again.
+										valid Spawn Area, it is removed from the candidate set, added to the invalid
+										set, and an <BSInlineCode>FTargetSpawnParams</BSInlineCode> structure is created
+										and added to the set that is returned.
 									</li>
 								</ol>
 								<p>
-									Once the <BSInlineCode>FTargetSpawnParams</BSInlineCode> have been obtained,{" "}
+									Once the set of <BSInlineCode>FTargetSpawnParams</BSInlineCode> has been obtained,{" "}
 									<BSInlineFunction>::SpawnTarget</BSInlineFunction> is called for each element in the
 									set. The target sets its Attribute Set values like health and the amount of damage
 									it deals to itself in{" "}
 									<BSInlineFunction>::PostInitializeComponents</BSInlineFunction>, but it needs the
 									game mode configuration data to do this. I use the{" "}
 									<BSInlineFunction>::SpawnActor</BSInlineFunction> overload with{" "}
-									<BSInlineCode>FActorSpawnParameters</BSInlineCode> to create a
-									CustomPreSpawnInitialization function that calls{" "}
+									<BSInlineCode>FActorSpawnParameters</BSInlineCode> to create a custom pre-spawn
+									initialization function that calls{" "}
 									<BSInlineFunction>ATarget::Init</BSInlineFunction>, which passes the relevant game
-									mode configuration to the target. Using a CustomPreSpawnInitialization function is
-									nice because <BSInlineFunction>::Init</BSInlineFunction> is guaranteed to be called
-									before <BSInlineFunction>::PostInitializeComponents</BSInlineFunction>.
+									mode configuration to the target. Using a custom pre-spawn initialization function
+									is nice because <BSInlineFunction>::Init</BSInlineFunction> is guaranteed to be
+									called before <BSInlineFunction>::PostInitializeComponents</BSInlineFunction>.
 									Additionally, any immunity is applied to the target here, and the Projectile
 									Movement Component is configured based on the game mode’s movement settings.
 								</p>
@@ -333,65 +347,100 @@ const TargetSpawningSystemPart2 = () => {
 									Once a target has been spawned, it is added to the Target Manager&#39;s map of
 									managed targets. The Spawn Area Manager&#39;s{" "}
 									<BSInlineFunction>::FlagSpawnAreaAsManaged</BSInlineFunction> function is called by
-									the Target Manager to assign the target&#39;s <BSInlineCode>FGuid</BSInlineCode>, or
-									globally unique identifier, to the Spawn Area and flagged it as managed, signifying
-									the Spawn Area now represents a target. The Spawn Area Manager maps the{" "}
-									<BSInlineCode>FGuid</BSInlineCode> to the Spawn Area inside the GuidMap and the
-									SpawnArea is added to the set of cached managed Spawn Areas, CachedManaged.
+									the Target Manager. Here, the target&#39;s <BSInlineCode>FGuid</BSInlineCode>, or
+									globally unique identifier, is assigned to the Spawn Area, signifying it now
+									represents a target. Lastly, it is cached to the set of managed Spawn Areas.
 								</p>
-								<MultiImageCarousel
-									images={[
-										{
-											image: image_Execution1,
-											figNumber: 0.1,
-											caption: "The largest valid rectangle of the total spawn area.",
-											alt: "TODO",
-											buttonText: "Largest",
-										},
-										{
-											image: image_Execution2,
-											figNumber: 0.2,
-											caption: "The largest rectangles that can fit a 5x5 grid block.",
-											alt: "TODO",
-											buttonText: "Optimal",
-										},
-										{
-											image: image_Execution3,
-											figNumber: 0.3,
-											caption: "The largest valid rectangle of the total spawn area.",
-											alt: "TODO",
-											buttonText: "Largest",
-										},
-										{
-											image: image_Execution4,
-											figNumber: 0.4,
-											caption: "The largest rectangles that can fit a 5x5 grid block.",
-											alt: "TODO",
-											buttonText: "Optimal",
-										},
-										{
-											image: image_Execution5,
-											figNumber: 0.5,
-											caption: "The largest rectangles that can fit a 5x5 grid block.",
-											alt: "TODO",
-											buttonText: "Optimal",
-										},
-										{
-											image: image_Execution6,
-											figNumber: 0.6,
-											caption: "The largest valid rectangle of the total spawn area.",
-											alt: "TODO",
-											buttonText: "Largest",
-										},
-										{
-											image: image_Execution7,
-											figNumber: 0.7,
-											caption: "The largest rectangles that can fit a 5x5 grid block.",
-											alt: "TODO",
-											buttonText: "Optimal",
-										},
-									]}
-								/>
+								<p>Figure 2 shows the execution path covered up to this point.</p>
+								<div className="padding-top-05rem padding-bottom-05rem">
+									<MultiImageCarousel
+										images={[
+											{
+												image: image_Execution1,
+												figNumber: 2.1,
+												caption: (
+													<>
+														The game mode calls{" "}
+														<BSInlineFunction>::HandleAudioAnalyzerBeat</BSInlineFunction>.
+													</>
+												),
+												alt: "HandleAudioAnalyzerBeat",
+											},
+											{
+												image: image_Execution2,
+												figNumber: 2.2,
+												caption: (
+													<>
+														<BSInlineFunction>::HandleRuntimeSpawning</BSInlineFunction> is
+														called inside{" "}
+														<BSInlineFunction>::HandleAudioAnalyzerBeat</BSInlineFunction>.
+													</>
+												),
+												alt: "HandleRuntimeSpawning",
+											},
+											{
+												image: image_Execution3,
+												figNumber: 2.3,
+												caption: (
+													<>
+														<BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction> is
+														called by the Target Manager inside{" "}
+														<BSInlineFunction>::HandleRuntimeSpawning</BSInlineFunction>.
+													</>
+												),
+												alt: "GetTargetSpawnParams",
+											},
+											{
+												image: image_Execution4,
+												figNumber: 2.4,
+												caption: (
+													<>
+														<BSInlineFunction>::SpawnTarget</BSInlineFunction> is called
+														inside{" "}
+														<BSInlineFunction>::HandleRuntimeSpawning</BSInlineFunction>.
+													</>
+												),
+												alt: "SpawnTarget",
+											},
+											{
+												image: image_Execution5,
+												figNumber: 2.5,
+												caption: (
+													<>
+														<BSInlineFunction>::FlagSpawnAreaAsManaged</BSInlineFunction> is
+														called by the Target Manager inside{" "}
+														<BSInlineFunction>::HandleRuntimeSpawning</BSInlineFunction>.
+													</>
+												),
+												alt: "FlagSpawnAreaAsManaged",
+											},
+											{
+												image: image_Execution6,
+												figNumber: 2.6,
+												caption: (
+													<>
+														<BSInlineFunction>::SetGuid</BSInlineFunction> is called by the
+														Spawn Area Manager inside{" "}
+														<BSInlineFunction>::FlagSpawnAreaAsManaged</BSInlineFunction>.
+													</>
+												),
+												alt: "SetGuid",
+											},
+											{
+												image: image_Execution7,
+												figNumber: 2.7,
+												caption: (
+													<>
+														<BSInlineFunction>::SetIsManaged</BSInlineFunction> is called by
+														the Spawn Area Manager inside{" "}
+														<BSInlineFunction>::FlagSpawnAreaAsManaged</BSInlineFunction>.
+													</>
+												),
+												alt: "SetIsManaged",
+											},
+										]}
+									/>
+								</div>
 							</div>
 							<div className="article-subsection" ref={Ref_Activation} id="target-lifecycle-Activation">
 								<BlogHeading headingText="Activation" headingLevel={2} />
@@ -399,84 +448,113 @@ const TargetSpawningSystemPart2 = () => {
 									The second function <BSInlineFunction>::HandleAudioAnalyzerBeat</BSInlineFunction>{" "}
 									calls is <BSInlineFunction>::HandleTargetActivation</BSInlineFunction>.
 								</p>
-								{/* <BSCodeBlock>{OnAudioAnalyzerBeat}</BSCodeBlock> */}
 								<p>
-									Here, the TargetManager queries the Spawn Area Manager to get the number of
-									activated and deactivated Spawn Areas and uses these values and the game mode
-									settings to determine how many targets to activate. The Target Manager receives a
-									set of target <BSInlineCode>FGuid</BSInlineCode>s from the Spawn Area Manager by
-									calling <BSInlineFunction>::GetActivatableTargets</BSInlineFunction>, where the
-									number of targets to activate are passed to the function.
+									The TargetManager queries the Spawn Area Manager to get the number of activated and
+									deactivated Spawn Areas and uses these values and the game mode settings to
+									determine how many targets to activate. The Target Manager receives a set of target{" "}
+									<BSInlineCode>FGuid</BSInlineCode>s from the Spawn Area Manager by calling{" "}
+									<BSInlineFunction>::GetActivatableTargets</BSInlineFunction>, where the number of
+									targets to activate are passed to the function.
 								</p>
 								<p>TODO: Massive breakdown of GetActivatableTargets</p>
 								<p>
-									Once the target <BSInlineCode>FGuid</BSInlineCode>s have been obtained,{" "}
-									<BSInlineFunction>::ActivateTarget</BSInlineFunction> is called for each one. This
-									is where any Target Activation Responses are applied to the target.{" "}
+									Once the set of target <BSInlineCode>FGuid</BSInlineCode>s have been obtained,{" "}
+									<BSInlineFunction>::ActivateTarget</BSInlineFunction> is called for each element in
+									the set. This is where any <em>Target Activation Responses</em> are applied to the
+									target.{" "}
 								</p>
 								<p>
 									The Target Manager executes{" "}
 									<BSInlineFunction>::FlagSpawnAreaAsActivated</BSInlineFunction> on the Spawn Area
-									Manager, where the Spawn Area is added to the set of activated Spawn Areas
-									(CachedActivated), the Spawn Area state is updated, and the target scale when
-									activated is stored in the Spawn Area.
+									Manager, where the Spawn Area state is updated, the target scale when activated is
+									stored, and the Spawn Area is cached to the set of activated Spawn Areas.
 								</p>
-								{/* <BSCodeBlock>{ActivateTarget}</BSCodeBlock> */}
 								<p>
 									As soon as the target is activated by the Target Manager, the timelines that control
 									the color and/or scale of the target begin playing and a timer is set for the
-									duration of its Max Lifespan. If the timer is allowed to expire, the target inflicts
-									damage to itself equal to the Expiration Health Penalty using a{" "}
+									duration of its <em>Max Lifespan</em>. If the timer is allowed to expire, the target
+									inflicts damage to itself equal to the <em>Expiration Health Penalty</em> using a{" "}
 									<BSInlineCode>UGameplayEffect</BSInlineCode>.
 								</p>
-								{/* <BSCodeBlock>{FindNextTargetProperties}</BSCodeBlock> */}
-								{/* <BSCodeBlock>{GetValidSpawnLocations}</BSCodeBlock> */}
-								<MultiImageCarousel
-									images={[
-										{
-											image: image_Execution8,
-											figNumber: 0.1,
-											caption: "The largest valid rectangle of the total spawn area.",
-											alt: "TODO",
-											buttonText: "Largest",
-										},
-										{
-											image: image_Execution9,
-											figNumber: 0.2,
-											caption: "The largest rectangles that can fit a 5x5 grid block.",
-											alt: "TODO",
-											buttonText: "Optimal",
-										},
-										{
-											image: image_Execution10,
-											figNumber: 0.3,
-											caption: "The largest valid rectangle of the total spawn area.",
-											alt: "TODO",
-											buttonText: "Largest",
-										},
-										{
-											image: image_Execution11,
-											figNumber: 0.4,
-											caption: "The largest rectangles that can fit a 5x5 grid block.",
-											alt: "TODO",
-											buttonText: "Optimal",
-										},
-										{
-											image: image_Execution12,
-											figNumber: 0.5,
-											caption: "The largest rectangles that can fit a 5x5 grid block.",
-											alt: "TODO",
-											buttonText: "Optimal",
-										},
-										{
-											image: image_Execution13,
-											figNumber: 0.6,
-											caption: "The largest valid rectangle of the total spawn area.",
-											alt: "TODO",
-											buttonText: "Largest",
-										},
-									]}
-								/>
+								<p>Figure 3 shows the execution path covered up to this point.</p>
+								<div className="padding-top-05rem padding-bottom-05rem">
+									<MultiImageCarousel
+										images={[
+											{
+												image: image_Execution8,
+												figNumber: 3.1,
+												caption: (
+													<>
+														<BSInlineFunction>::HandleTargetActivation</BSInlineFunction> is
+														called inside{" "}
+														<BSInlineFunction>::HandleAudioAnalyzerBeat</BSInlineFunction>.
+													</>
+												),
+												alt: "HandleTargetActivation",
+											},
+											{
+												image: image_Execution9,
+												figNumber: 3.2,
+												caption: (
+													<>
+														<BSInlineFunction>::GetActivatableTargets</BSInlineFunction> is
+														called by the Target Manager inside{" "}
+														<BSInlineFunction>::HandleTargetActivation</BSInlineFunction>.
+													</>
+												),
+												alt: "GetActivatableTargets",
+											},
+											{
+												image: image_Execution10,
+												figNumber: 3.3,
+												caption: (
+													<>
+														<BSInlineFunction>::ActivateTarget</BSInlineFunction> is called
+														inside{" "}
+														<BSInlineFunction>::HandleTargetActivation</BSInlineFunction>.
+													</>
+												),
+												alt: "ActivateTarget",
+											},
+											{
+												image: image_Execution11,
+												figNumber: 3.4,
+												caption: (
+													<>
+														<BSInlineFunction>::ActivateTarget</BSInlineFunction> is called
+														by the Target Manager inside{" "}
+														<BSInlineFunction>::ActivateTarget</BSInlineFunction>.
+													</>
+												),
+												alt: "ActivateTarget2",
+											},
+											{
+												image: image_Execution12,
+												figNumber: 3.5,
+												caption: (
+													<>
+														<BSInlineFunction>::FlagSpawnAreaAsActivated</BSInlineFunction>{" "}
+														is called by the Target Manager inside{" "}
+														<BSInlineFunction>::ActivateTarget</BSInlineFunction>.
+													</>
+												),
+												alt: "FlagSpawnAreaAsActivated",
+											},
+											{
+												image: image_Execution13,
+												figNumber: 3.6,
+												caption: (
+													<>
+														<BSInlineFunction>::SetIsActivated</BSInlineFunction> is called
+														by the Spawn Area Manager inside{" "}
+														<BSInlineFunction>::FlagSpawnAreaAsActivated</BSInlineFunction>.
+													</>
+												),
+												alt: "SetIsActivated",
+											},
+										]}
+									/>
+								</div>
 							</div>
 							<div
 								className="article-subsection"
@@ -487,8 +565,8 @@ const TargetSpawningSystemPart2 = () => {
 								<p>
 									The catalyst for deactivation is the target health attribute changing. Any time this
 									occurs, the <BSInlineCode>OnTargetDamageEvent</BSInlineCode> delegate is broadcast
-									with a <BSInlineCode>FTargetDamageEvent</BSInlineCode> payload containing the
-									following:
+									from the target with a <BSInlineCode>FTargetDamageEvent</BSInlineCode> payload
+									containing the following:
 								</p>
 								<ul>
 									<li>
@@ -497,7 +575,7 @@ const TargetSpawningSystemPart2 = () => {
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										<BSInlineCode>FGuid</BSInlineCode> for the target
+										<BSInlineCode>FGuid</BSInlineCode> of the target
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -506,7 +584,7 @@ const TargetSpawningSystemPart2 = () => {
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										Amount of health the target lost from this instance of damage
+										Amount of health the target lost from the damage event
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -514,30 +592,42 @@ const TargetSpawningSystemPart2 = () => {
 									</li>
 								</ul>
 								<p>
-									Every delegate is bound to the Target Manager&#39;s{" "}
-									<BSInlineFunction>::HandleTargetDamageEvent</BSInlineFunction> function. The Target
-									Manager uses the data from the <BSInlineCode>FTargetDamageEvent</BSInlineCode> and
-									the Target Deactivation Conditions to determine whether the target should be
-									deactivated inside the <BSInlineFunction>::ShouldDeactivateTarget</BSInlineFunction>{" "}
-									function. If it should be deactivated,{" "}
-									<BSInlineFunction>::DeactivateTarget</BSInlineFunction> is called, which handles
-									applying all Target Deactivation Responses to the target and executes{" "}
-									<BSInlineFunction>ATarget::DeactivateTarget</BSInlineFunction>. Similarly, the
-									Target Destruction Conditions to determine whether the target should be destroyed
-									inside the <BSInlineFunction>::ShouldDestroyTarget</BSInlineFunction> function.
+									Every <BSInlineCode>OnTargetDamageEvent</BSInlineCode> delegate is bound to the
+									Target Manager&#39;s <BSInlineFunction>::HandleTargetDamageEvent</BSInlineFunction>{" "}
+									function. The Target Manager passes the data from the{" "}
+									<BSInlineCode>FTargetDamageEvent</BSInlineCode> to the following functions to
+									adjudicate the target&#39;s fate:
 								</p>
+								<ul>
+									<li>
+										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+										<BSInlineFunction>::ShouldDeactivateTarget</BSInlineFunction> uses the{" "}
+										<em>Target Deactivation Conditions</em> to determine whether the target should
+										be deactivated. If it should,{" "}
+										<BSInlineFunction>::DeactivateTarget</BSInlineFunction> is called, which handles
+										applying all <em>Target Deactivation Responses</em> to the target and executes{" "}
+										<BSInlineFunction>ATarget::DeactivateTarget</BSInlineFunction>.
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+										<BSInlineFunction>::ShouldDestroyTarget</BSInlineFunction> uses the{" "}
+										<em>Target Destruction Conditions</em> to determine whether the target should be
+										destroyed.
+									</li>
+								</ul>
+
 								<p>
 									By this point, all data has been extracted from the target, and the{" "}
 									<BSInlineCode>FTargetDamageEvent</BSInlineCode> has been updated indicating if the
-									target will be deactivated and if the target will be destroyed.
+									target was deactivated and if the target will be destroyed.
 								</p>
 								<p>
-									Then, the Target Manager updates the consecutive targets hit and adjusts the dynamic
-									scale factor. This value controls the target scale if using a{" "}
+									The Target Manager updates the consecutive targets hit and adjusts the dynamic scale
+									factor. This value controls the target scale if using a{" "}
 									<BSInlineEnum>::SkillBased</BSInlineEnum> Consecutive Target Scale Policy and the
 									total spawn area if using a <BSInlineEnum>::Dynamic</BSInlineEnum> Bounds Scaling
-									Policy. The struct is then forwarded to the game mode which updates the score and
-									player HUD.
+									Policy. The <BSInlineCode>FTargetDamageEvent</BSInlineCode> is then forwarded to the
+									game mode which updates the score and player HUD.
 								</p>
 								<p>
 									Next,{" "}
@@ -546,98 +636,156 @@ const TargetSpawningSystemPart2 = () => {
 									</BSInlineFunction>{" "}
 									is called. The Spawn Area associated with the Target Guid is found and data about
 									whether the target was successfully hit is stored. If the damage event indicates
-									that the target was deactivated or destroyed,{" "}
-									<BSInlineFunction>::RemoveActivatedFlagFromSpawnArea</BSInlineFunction> and
-									<BSInlineFunction>::FlagSpawnAreaAsRecent</BSInlineFunction> are called. If the
-									damage event indicates the target was destroyed,{" "}
-									<BSInlineFunction>::RemoveManagedFlagFromSpawnArea</BSInlineFunction> is called.
+									that the target was deactivated or will be destroyed, the following two functions
+									are called:
+								</p>
+								<ul>
+									<li>
+										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+										<BSInlineFunction>::RemoveActivatedFlagFromSpawnArea</BSInlineFunction> removes
+										the the Spawn Area from the cached set of Activated Spawn Areas and updates the
+										state of the Spawn Area.
+									</li>
+									<li>
+										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+										<BSInlineFunction>::FlagSpawnAreaAsRecent</BSInlineFunction> caches the Spawn
+										Area to the set of recent Spawn Areas. Depending on the{" "}
+										<em>Recent Target Memory Policy</em>, the Spawn Area is either removed
+										immediately, on a timer, or at a later time based on the number of recent Spawn
+										Areas.
+									</li>
+								</ul>
+								<p>
+									If the damage event indicates the target will be destroyed,{" "}
+									<BSInlineFunction>::RemoveManagedFlagFromSpawnArea</BSInlineFunction> is called to
+									remove the the Spawn Area from the cached set of Managed Spawn Areas
 								</p>
 								<p>
-									<BSInlineFunction>::RemoveActivatedFlagFromSpawnArea</BSInlineFunction> removes the
-									the Spawn Area from the CachedManaged set and updates the state of the Spawn Area to
-									be deactivated. <BSInlineFunction>::FlagSpawnAreaAsRecent</BSInlineFunction> adds
-									the Spawn Area to the set of recent Spawn Areas, CachedRecent. Depending on the
-									Recent Target Memory Policy, the Spawn Area is either removed, set to be removed on
-									a timer, or removed at a later time based on the number of recent Spawn Areas.
+									If <em>AI Enabled</em>, the reward for the previous-current target location pair is
+									updated in the Reinforcement Learning Component.
 								</p>
-								<p>
-									Next, if the game mode uses AI, the reward for the previous-current target location
-									pair is updated in the the Reinforcement Learning Component.
-								</p>
-								<MultiImageCarousel
-									images={[
-										{
-											image: image_Execution14,
-											figNumber: 0.1,
-											caption: "The largest valid rectangle of the total spawn area.",
-											alt: "TODO",
-											buttonText: "Largest",
-										},
-										{
-											image: image_Execution15,
-											figNumber: 0.2,
-											caption: "The largest rectangles that can fit a 5x5 grid block.",
-											alt: "TODO",
-											buttonText: "Optimal",
-										},
-										{
-											image: image_Execution16,
-											figNumber: 0.3,
-											caption: "The largest valid rectangle of the total spawn area.",
-											alt: "TODO",
-											buttonText: "Largest",
-										},
-										{
-											image: image_Execution17,
-											figNumber: 0.4,
-											caption: "The largest rectangles that can fit a 5x5 grid block.",
-											alt: "TODO",
-											buttonText: "Optimal",
-										},
-										{
-											image: image_Execution18,
-											figNumber: 0.5,
-											caption: "The largest rectangles that can fit a 5x5 grid block.",
-											alt: "TODO",
-											buttonText: "Optimal",
-										},
-										{
-											image: image_Execution19,
-											figNumber: 0.6,
-											caption: "The largest valid rectangle of the total spawn area.",
-											alt: "TODO",
-											buttonText: "Largest",
-										},
-										{
-											image: image_Execution20,
-											figNumber: 0.7,
-											caption: "The largest rectangles that can fit a 5x5 grid block.",
-											alt: "TODO",
-											buttonText: "Optimal",
-										},
-										{
-											image: image_Execution21,
-											figNumber: 0.8,
-											caption: "The largest rectangles that can fit a 5x5 grid block.",
-											alt: "TODO",
-											buttonText: "Optimal",
-										},
-									]}
-								/>
-								{/* <BSCodeBlock>{HandleDeactivation}</BSCodeBlock> */}
+								<p>Figure 4 shows the execution path starting from when a target is damaged.</p>
+								<div className="padding-top-05rem padding-bottom-05rem">
+									<MultiImageCarousel
+										images={[
+											{
+												image: image_Execution14,
+												figNumber: 4.1,
+												caption: (
+													<>
+														<BSInlineFunction>::HandleDamageEvent</BSInlineFunction> is
+														called by the target&#39;s health component due to a health
+														attribute change.
+													</>
+												),
+												alt: "HandleDamageEvent",
+											},
+											{
+												image: image_Execution15,
+												figNumber: 4.2,
+												caption: (
+													<>
+														<BSInlineFunction>::HandleTargetDamageEvent</BSInlineFunction>{" "}
+														is called since it is bound to the{" "}
+														<BSInlineCode>OnTargetDamageEvent</BSInlineCode> delegate, which
+														is called inside{" "}
+														<BSInlineFunction>::HandleDamageEvent</BSInlineFunction>.
+													</>
+												),
+												alt: "HandleTargetDamageEvent",
+											},
+											{
+												image: image_Execution16,
+												figNumber: 4.3,
+												caption: (
+													<>
+														<BSInlineFunction>::DeactivateTarget</BSInlineFunction> is
+														called inside{" "}
+														<BSInlineFunction>::HandleTargetDamageEvent</BSInlineFunction>{" "}
+														if the target should be deactivated.
+													</>
+												),
+												alt: "DeactivateTarget",
+											},
+											{
+												image: image_Execution17,
+												figNumber: 4.4,
+												caption: (
+													<>
+														<BSInlineFunction>::DeactivateTarget</BSInlineFunction> is
+														called by the Target Manager inside{" "}
+														<BSInlineFunction>::DeactivateTarget</BSInlineFunction> if the
+														target should be deactivated.
+													</>
+												),
+												alt: "DeactivateTarget2",
+											},
+											{
+												image: image_Execution18,
+												figNumber: 4.5,
+												caption: (
+													<>
+														<BSInlineFunction>::HandleTargetDamageEvent</BSInlineFunction>{" "}
+														is called by the Target Manager inside{" "}
+														<BSInlineFunction>::HandleTargetDamageEvent</BSInlineFunction>.
+													</>
+												),
+												alt: "HandleTargetDamageEvent2",
+											},
+											{
+												image: image_Execution19,
+												figNumber: 4.6,
+												caption: (
+													<>
+														<BSInlineFunction>::SetIsManaged</BSInlineFunction> is called by
+														the Spawn Area Manager inside{" "}
+														<BSInlineFunction>
+															::RemoveManagedFlagFromSpawnArea
+														</BSInlineFunction>{" "}
+														if the target will be destroyed.
+													</>
+												),
+												alt: "SetIsManaged",
+											},
+											{
+												image: image_Execution20,
+												figNumber: 4.7,
+												caption: (
+													<>
+														<BSInlineFunction>::SetIsActivated</BSInlineFunction> is called
+														by the Spawn Area Manager inside{" "}
+														<BSInlineFunction>
+															::RemoveActivatedFlagFromSpawnArea
+														</BSInlineFunction>{" "}
+														if the target was deactivated or will be destroyed.
+													</>
+												),
+												alt: "SetIsActivated",
+											},
+											{
+												image: image_Execution21,
+												figNumber: 4.8,
+												caption: (
+													<>
+														<BSInlineFunction>::SetIsRecent</BSInlineFunction> is called by
+														the Spawn Area Manager inside{" "}
+														<BSInlineFunction>::FlagSpawnAreaAsRecent</BSInlineFunction> if
+														the target was deactivated or will be destroyed.
+													</>
+												),
+												alt: "SetIsRecent",
+											},
+										]}
+									/>
+								</div>
 							</div>
 							<div className="article-subsection" ref={Ref_Destruction} id="target-lifecycle-Destruction">
 								<BlogHeading headingText="Destruction" headingLevel={2} />
 								<p>
-									Continuing right where the Deactivation section left off, if the target should be
-									destroyed, the target is removed from the Target Manager&#39;s managed target map,
-									and <BSInlineFunction>::Destroy</BSInlineFunction> is called on the target.
+									If the target should be destroyed, the target is removed from the Target
+									Manager&#39;s managed target map, and <BSInlineFunction>::Destroy</BSInlineFunction>{" "}
+									is called on the target.
 								</p>
-								<ol>
-									Destruction conditions are based on a combination of only two factors:
-									<li>If the target expired or did not expire</li>
-									<li>If the target&#39;s current health is zero</li>
-								</ol>
 							</div>
 						</div>
 						<div className="article-section" ref={Ref_Conclusion} id="conclusion">
