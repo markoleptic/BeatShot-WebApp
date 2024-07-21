@@ -24,7 +24,7 @@ import "@/styles/Article.scss";
 import "@/styles/Hero.scss";
 import "@/styles/Utility.scss";
 
-import { MathJax, MathJaxContext } from "better-react-mathjax";
+import { MathJax, MathJax3Config, MathJaxContext } from "better-react-mathjax";
 import image_Card from "public/spawningWithoutIntersection/Card.jpg";
 import image_Hero from "public/spawningWithoutIntersection/Hero.jpg";
 import OverlappingBottomLeft from "public/spawningWithoutIntersection/Overlapping_BottomLeftPoint.png";
@@ -36,7 +36,6 @@ import SpawningWithoutIntersection3 from "public/spawningWithoutIntersection/Spa
 import SpawningWithoutIntersection4 from "public/spawningWithoutIntersection/SpawningWithoutIntersection4.png";
 import SpawningWithoutIntersection5 from "public/spawningWithoutIntersection/SpawningWithoutIntersection5.png";
 import SpawningWithoutIntersection6 from "public/spawningWithoutIntersection/SpawningWithoutIntersection6.png";
-import SpawningWithoutIntersection7 from "public/spawningWithoutIntersection/SpawningWithoutIntersection7.png";
 import SessionFrontendAllSizes from "public/testing/SessionFrontendAllSizes.png";
 import SessionFrontendAutomation from "public/testing/SessionFrontendAutomation.png";
 import SessionFrontendBig from "public/testing/SessionFrontendBig.png";
@@ -51,8 +50,8 @@ const titleLong = "Spawning Targets Without Intersection";
 const description =
 	"This article discusses the methods used to prevent target intersection and includes a section on testing " +
 	"procedures created using Unreal Engine's Automation System.";
-const postDate: DateTime = DateTime.fromFormat("July 17, 2024", "DDD");
-const editDate: DateTime = DateTime.fromFormat("July 17, 2024", "DDD");
+const postDate: DateTime = DateTime.fromFormat("July 20, 2024", "DDD");
+const editDate: DateTime = DateTime.fromFormat("July 20, 2024", "DDD");
 
 const SpawningTargetsWithoutIntersection = () => {
 	const Ref_SphereTrace = useRef(null);
@@ -122,8 +121,12 @@ const SpawningTargetsWithoutIntersection = () => {
 		R_{trace} &= \\text{ceil}\\left(\\frac{\\max(R_{current}, R_{existing})}{R_{min}} \\right) \\times R_{min} \\times 2\\sqrt{2}
 		\\end{align*}
 `;
-
-	const config = {
+	const config: MathJax3Config = {
+		options: {
+			renderActions: {
+				addMenu: [0, "", ""],
+			},
+		},
 		loader: { load: ["[tex]/html"] },
 		tex: {
 			packages: { "[+]": ["html"] },
@@ -151,11 +154,11 @@ const SpawningTargetsWithoutIntersection = () => {
 					<div className="flex-container-row">
 						{sideBar}
 						<article className="devblog-article flex-container-column" id="article">
-							<p>
+							<p className="fs-300">
 								One of the most challenging aspects of creating BeatShot was coming up with a way to
-								pseudo-randomly spawn targets anywhere within the spawn area without intersecting other
-								targets. This by itself seems easy, but when targets can spawn with varying sizes and
-								can move, it quickly becomes complicated.
+								pseudo-randomly spawn targets within the spawn area without intersecting other targets.
+								This by itself seems easy, but when targets can spawn with varying sizes and can move,
+								it quickly becomes complicated.
 							</p>
 							<div className="article-section" ref={Ref_SphereTrace} id="sphere-trace">
 								<BlogHeading headingText="Sphere Trace" headingLevel={1} />
@@ -165,162 +168,136 @@ const SpawningTargetsWithoutIntersection = () => {
 									are already spawned. The general procedure is as follows:
 								</p>
 								<ul>
-									<p>
-										For each Managed Spawn Area (implies either activated/deactivated target exists
-										inside):
-									</p>
+									<p>For each managed, activated, or recent Spawn Area:</p>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										Trace a sphere with its origin at the bottom left vertex of the Spawn Area
+										Trace a sphere with its origin at the bottom left vertex of the Spawn Area.
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										Use vertices that fall within the sphere trace to find the corresponding Spawn
-										Areas
+										Use vertices within the sphere trace to find corresponding Spawn Areas.
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										Remove these Spawn Areas from consideration
+										Remove these Spawn Areas from consideration.
 									</li>
 								</ul>
-								<div className="justify-content-center padding-top-05rem" id="">
-									<figure className={`figure-border-container`}>
-										<MathJax className="mathjax-equation">{`\\[ ${equations} \\]`}</MathJax>
-										<figcaption>
-											<p className="figlabel">Figure 1: </p>
-											Equations for calculating{" "}
-											<MathJax inline={true}>
-												<span>{`$\\text{R}_{min}$`}</span>
-											</MathJax>{" "}
-											and{" "}
-											<MathJax inline={true}>
-												<span>{`$\\text{R}_{trace}$`}</span>
-											</MathJax>
-										</figcaption>
-									</figure>
-								</div>
-								<div className="article-section-row padding-top-05rem padding-bottom-05rem">
-									<div className="div-50" id="">
-										<ul>
-											<li>
-												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												The green box in Figure 2.1 represents the managed Spawn Area for this
-												example.
-											</li>
-											<li>
-												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												The spheres shown in Figure 2.2 in show the limits of where a target can
-												spawn in the Spawn Area (four corners).
-											</li>
-											<li>
-												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+								<div className="padding-top-05rem padding-bottom-05rem">
+									<div className="figure-border-container-math">
+										<figure className="figure-border-container-math-inner">
+											<MathJax className="fs-300">{`\\[ ${equations} \\]`}</MathJax>
+											<figcaption>
+												<p className="figlabel">Figure 1: </p>
+												Equations for calculating{" "}
 												<MathJax inline={true}>
-													The minimum radius, <span>{`$\\text{R}_{min}$`}</span> is half the
-													maximum width/height of the Spawn Area, shown in Figure 1 and Figure
-													2.3.
-												</MathJax>
-											</li>
-											<li>
-												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
+													<span>{`$\\text{R}_{min}$`}</span>
+												</MathJax>{" "}
+												and{" "}
 												<MathJax inline={true}>
-													The current radius, <span>{`$\\text{R}_{current}$`}</span> is the
-													radius of the target that we want to spawn. The existing radius,{" "}
-													<span>{`$\\text{R}_{existing}$`}</span> is the radius of the target
-													already spawned in the Spawn Area. Both are shown in Figure 2.4.
+													<span>{`$\\text{R}_{trace}$`}</span>
 												</MathJax>
-											</li>
-											<li>
-												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												<MathJax inline={true}>
-													We only care about the maximum of{" "}
-													<span>{`$\\text{R}_{current}$`}</span> and{" "}
-													<span>{`$\\text{R}_{existing}$`}</span> since the largest is the
-													worse-case scenario.
-												</MathJax>
-											</li>
-											<li>
-												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												<MathJax inline={true}>
-													The maximum is rounded up to the nearest multiple of{" "}
-													<span>{`$\\text{R}_{min}$`}</span> by dividing by{" "}
-													<span>{`$\\text{R}_{min}$`}</span>, taking the{" "}
-													<span>{`$\\text{ceil}$`}</span>, and then multiplying by{" "}
-													<span>{`$\\text{R}_{min}$`}</span>.
-												</MathJax>
-											</li>
-											<li>
-												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												<MathJax inline={true}>
-													The rounded up value is multiplied by <span>{`$2\\sqrt{2}$`}</span>{" "}
-													so that the diagonal vertices are included in the sphere. The result
-													is <span>{`$\\text{R}_{trace}$`}</span>, shown in Figure 1 and
-													Figure 2.5
-												</MathJax>
-											</li>
-											<li>
-												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												The white and red vertices in Figure 2.6 are the vertices that the
-												sphere trace captured.
-											</li>
-											<li>
-												<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-												The red boxes in Figure 2.7 show the Spawn Areas that correspond to the
-												vertices captured in the sphere trace.
-											</li>
-										</ul>
-									</div>
-									<div className="div-50 justify-content-center">
-										<ConsistentHeightMultiImageCarousel
-											images={[
-												{
-													image: SpawningWithoutIntersection1,
-													figNumber: 2.1,
-													alt: "ManagedSpawnArea",
-												},
-												{
-													image: SpawningWithoutIntersection2,
-													figNumber: 2.2,
-													alt: "SpawnAreaLimits",
-												},
-												{
-													image: SpawningWithoutIntersection3,
-													figNumber: 2.3,
-													alt: "MinimumRadius",
-												},
-												{
-													image: SpawningWithoutIntersection4,
-													figNumber: 2.4,
-													alt: "ExistingRadius",
-												},
-												{
-													image: SpawningWithoutIntersection5,
-													figNumber: 2.5,
-													alt: "TraceRadius",
-												},
-												{
-													image: SpawningWithoutIntersection6,
-													figNumber: 2.6,
-													alt: "CapturedVertices",
-												},
-												{
-													image: SpawningWithoutIntersection7,
-													figNumber: 2.7,
-													alt: "CapturedSpawnAreas",
-												},
-											]}
-										/>
+											</figcaption>
+										</figure>
 									</div>
 								</div>
 								<p>
-									Figure 3 and 4 show the difference between using the center vertex and the bottom
-									left vertex as the sphere trace origin. Since a target may spawn anywhere within a
-									Spawn Area, it caused a collision due to targets spawning near the edges of their
-									Spawn Area. Using the bottom left vertex guarantees the targets will not collide due
-									spawning on the edges.
+									Figure 1 shows the equations used to derive the radius of the sphere trace,{" "}
+									<MathJax inline={true}>
+										<span>{`$\\text{R}_{trace}$`}</span>
+									</MathJax>
+									, at each iteration. We only care about the larger of{" "}
+									<span>{`$\\text{R}_{current}$`}</span> and <span>{`$\\text{R}_{existing}$`}</span>{" "}
+									since the maximum is the worst-case scenario. This value is rounded up to the
+									nearest multiple of <span>{`$\\text{R}_{min}$`}</span> and multiplied by{" "}
+									<span>{`$2\\sqrt{2}$`}</span> so that the diagonal vertices are included in the
+									trace. Figure 2 walks through a visual representation of obtaining{" "}
+									<MathJax inline={true}>
+										<span>{`$\\text{R}_{trace}$`}</span>
+									</MathJax>
+									.
+								</p>
+								<div className="padding-top-05rem padding-bottom-05rem">
+									<ConsistentHeightMultiImageCarousel
+										images={[
+											{
+												image: SpawningWithoutIntersection1,
+												figNumber: 2.1,
+												caption: "The minimum radius of the managed Spawn Area",
+												alt: "MinimumRadius",
+											},
+											{
+												image: SpawningWithoutIntersection2,
+												figNumber: 2.2,
+												caption:
+													"The limits of where a target can spawn in the Spawn Area (four corners)",
+												alt: "SpawnAreaLimits",
+											},
+											{
+												image: SpawningWithoutIntersection3,
+												figNumber: 2.3,
+												caption: (
+													<MathJax inline={true}>
+														<span>{`$\\text{R}_{current}$`}</span> is the radius of the
+														target that we want to spawn, while{" "}
+														<span>{`$\\text{R}_{existing}$`}</span> is the radius of the
+														target already spawned in the Spawn Area
+													</MathJax>
+												),
+												alt: "ExistingRadius",
+											},
+											{
+												image: SpawningWithoutIntersection4,
+												figNumber: 2.4,
+												caption: (
+													<>
+														The sphere trace is performed at the bottom-left vertex of the
+														Spawn Area
+													</>
+												),
+												alt: "TraceRadius",
+											},
+											{
+												image: SpawningWithoutIntersection5,
+												figNumber: 2.5,
+												caption: (
+													<>
+														The white and red vertices represent the vertices that the
+														sphere trace captured
+													</>
+												),
+
+												alt: "CapturedVertices",
+											},
+											{
+												image: SpawningWithoutIntersection6,
+												figNumber: 2.6,
+												caption: (
+													<>
+														The red boxes show the Spawn Areas that correspond to the
+														vertices captured in the sphere trace
+													</>
+												),
+												alt: "CapturedSpawnAreas",
+											},
+										]}
+									/>
+								</div>
+								<p>
+									The lower bound of the sphere trace is based on the Spawn Area dimensions, meaning
+									that no matter the target radius, the trace will always capture at least nine
+									vertices.
+								</p>
+								<p>
+									Figure 3 and 4 illustrate the difference between using the center and bottom left
+									vertex as the sphere trace origin. Since a target may spawn anywhere within a Spawn
+									Area, the center vertex approach caused a collision due to targets spawning near the
+									edges of their Spawn Area. Using the bottom left vertex guarantees that targets will
+									not collide due to spawning on the edges.
 								</p>
 								<div className="static-article-section-row align-self-center max-width-850 padding-top-05rem padding-bottom-05rem">
 									<div className="div-50 flex-row justify-content-flex-end">
 										<Figure
+											className="align-self-stretch justify-content-flex-start"
 											image={OverlappingCenter}
 											figNumber={3}
 											figCaption="Overlapping vertices generated using the center vertex"
@@ -329,6 +306,7 @@ const SpawningTargetsWithoutIntersection = () => {
 									</div>
 									<div className="div-50 flex-row justify-content-flex-start">
 										<Figure
+											className="align-self-stretch justify-content-flex-start"
 											image={OverlappingBottomLeft}
 											figNumber={4}
 											figCaption="Overlapping vertices generated using the bottom left vertex"
@@ -337,12 +315,18 @@ const SpawningTargetsWithoutIntersection = () => {
 									</div>
 								</div>
 								<p>
-									Figure 5 shows what the results of the sphere trace look like in game. The{" "}
-									<span className="text-red">red points</span> are vertices that fell within the
-									sphere trace for the Spawn Area where a target was spawned, while the{" "}
-									<span className="text-red">red boxes</span> are the Spawn Areas that the vertices
-									correspond to. The <span className="text-green">green boxes</span> show all Spawn
-									Areas that are not overlapping with the spawned targets.
+									Figure 5 shows what the results of the sphere trace look like in-game. The red
+									points indicate vertices within the sphere trace, while the red boxes are the
+									overlapping Spawn Areas. Green boxes represent non-overlapping Spawn Areas.
+								</p>
+								<p>
+									For smaller targets, the sphere trace looks more like a cube trace, but becomes more
+									spherical as target size increases. The shape variation is also influenced by the
+									chosen Spawn Area resolution. If Spawn Areas were 25x25 instead of 50x50, the
+									spherical shape would be more apparent but at the cost of increased computation
+									resources. Green points denote vertices outside the largest target&#39;s sphere
+									trace, while blue points mark the bottom-left vertices of Spawn Areas. Some of these
+									points are not visible due to target size.
 								</p>
 								<div className="padding-top-05rem padding-bottom-05rem">
 									<Figure
@@ -352,43 +336,25 @@ const SpawningTargetsWithoutIntersection = () => {
 										alt="OverlappingVertices"
 									/>
 								</div>
-								<p>
-									For smaller targets, the sphere trace looks more like a cube trace, but as the
-									target becomes larger, the trace becomes more spherical in shape. This is also due
-									the resolution chosen for the Spawn Areas. If Spawn Areas were 25x25 instead of
-									50x50, the spherical shape would be more apparent but at the cost of increased
-									computation resources. The <span className="text-green">green points</span> show
-									vertices that fell outside the largest target&#39;s sphere trace.
-								</p>
-								<p>
-									The <span className="text-light">blue points</span> are show the bottom-left vertex
-									of the Spawn Area that each target is spawned at. Some of these points are not
-									visible due to target size.
-								</p>
 							</div>
 							<div className="article-section" ref={Ref_Issues} id="issues">
 								<BlogHeading headingText="Issues" headingLevel={1} />
 								<ul>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										This approach is very conservative since it’s always rounding up to the nearest
-										Spawn Area dimension and must consider the worst-case scenario.
+										The method is conservative, always rounding up to the nearest Spawn Area
+										dimension to account for the worst-case scenario.
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										Generating the vertices from the Sphere Trace is expensive, but they could be
-										pre-computed at initialization since there will only ever be a few sets of
+										Sphere trace vertex generation is computationally expensive but could be
+										pre-computed during initialization since there will only ever be a few sets of
 										generated vertices due to rounding up and having a max target size.
 									</li>
 									<li>
 										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										Duplicate calculations will be made since Spawn Areas can be directly beside one
-										another and they will only differ by a few vertices.
-									</li>
-									<li>
-										<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-										Since few targets are ever actually spawned at once, this isn’t really a
-										concern.
+										Duplicate calculations occur for adjacent Spawn Areas, though this is not a
+										major concern as few targets are ever actually spawned at once.
 									</li>
 								</ul>
 							</div>
@@ -397,11 +363,11 @@ const SpawningTargetsWithoutIntersection = () => {
 								<p>
 									Unreal Engine provides the Automation System for testing. The Automation test (
 									<BSInlineCode>FAutomationTestBase</BSInlineCode>) is the lowest level of automated
-									testing and is outside of the <BSInlineCode>UObject</BSInlineCode> ecosystem. The
-									common lifecycle functions that <BSInlineCode>UObject</BSInlineCode> classes depend
-									on, such as all the Target Spawning system classes, aren’t executed without a world
-									actor. Additionally, you can’t spawn actors without a world. To solve these
-									problems, I created a class that is inherited from{" "}
+									testing and operates outside of the <BSInlineCode>UObject</BSInlineCode> ecosystem.
+									The common lifecycle functions that <BSInlineCode>UObject</BSInlineCode> classes
+									depend on, such as all the target spawning system classes, aren’t executed without a
+									world actor. Additionally, you can’t spawn actors without a world. To solve these
+									problems, I created a class that inherits from{" "}
 									<BSInlineCode>AutomationTestBase</BSInlineCode> called{" "}
 									<BSInlineCode>TargetManagerTestWithWorld</BSInlineCode>.
 								</p>
@@ -434,7 +400,7 @@ const SpawningTargetsWithoutIntersection = () => {
 								<div className="article-subsection" ref={ref_CollisionTesting} id="collision-testing">
 									<BlogHeading headingText="Collision Testing" headingLevel={2} />
 									<p>
-										The <BSInlineCode>TargetCollisionTest</BSInlineCode> class is inherited from{" "}
+										The <BSInlineCode>TargetCollisionTest</BSInlineCode> class inherits from{" "}
 										<BSInlineCode>TargetManagerTestWithWorld</BSInlineCode>, and has two notable
 										functions, <BSInlineFunction>::GetTests</BSInlineFunction> and{" "}
 										<BSInlineFunction>::RunTest</BSInlineFunction>. The Automation Controller calls{" "}
@@ -460,39 +426,39 @@ const SpawningTargetsWithoutIntersection = () => {
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 											<BSInlineFunction>::HandleAudioAnalyzerBeat</BSInlineFunction> is manually
-											called to spawn the targets
+											called to spawn the targets.
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											All targets that were spawned are obtained from the Target Manager
+											All targets that were spawned are obtained from the Target Manager.
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 											Primitive sphere objects are created to represent the targets, and the
-											spheres are added to an array
+											spheres are added to an array.
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 											Each target is told to destroy itself and treat it as if it were external
-											damage
+											damage.
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 											The world is ticked so that <BSInlineCode>UObject</BSInlineCode>s get a
-											chance to tick
+											chance to tick.
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											All spheres are tested for intersection against each other
+											All spheres are tested for intersection against each other.
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 											The test verifies that all targets have been destroyed at the end of the
-											iteration
+											iteration.
 										</li>
 									</ul>
 									<p>
-										Testing every single sphere against one another isn’t very efficient but I
+										Testing every single sphere against one another isn’t very efficient, but I
 										didn’t want to add additional complexity and the calculation is simple and
 										quick. After the iterations are complete, some additional information is added,
 										the test variables are reset, and the world is destroyed.
@@ -502,7 +468,7 @@ const SpawningTargetsWithoutIntersection = () => {
 										<BlogHeading headingText="Session Frontend" headingLevel={3} />
 										<p>
 											The Session Frontend is the GUI for automation testing available in the
-											editor. Automation Tests can also be run using the command line, but I think
+											editor. Automation tests can also be run using the command line, but I think
 											this is slightly more interesting to look at for an article.
 										</p>
 										<p>
@@ -576,12 +542,12 @@ const SpawningTargetsWithoutIntersection = () => {
 							</div>
 							<div className="article-section" ref={Ref_Conclusion} id="conclusion">
 								<BlogHeading headingText="Conclusion" headingLevel={1} />
-								<p>
+								<p className="fs-300">
 									Since no collisions occurred across over 147,000 target spawns and the minimum
 									distance between two targets was relatively small, I conclude that the trace radius
-									used during <BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction> is the
-									correct and minimum. There is certainly room for improvement and optimization but
-									long as there are no collisions, I am satisfied.
+									used during <BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction> is correct
+									and minimal. There is certainly room for improvement and optimization but long as
+									there are no collisions, I am satisfied.
 								</p>
 							</div>
 							<ArticleDateFooter postDate={postDate} editDate={editDate} />

@@ -7,7 +7,7 @@
 .mobile-nav-toggle-background {
 	display: none !important;
 }
-.header-container {
+header {
 	display: flex;
 	margin-left: auto;
 	margin-right: auto;
@@ -19,7 +19,7 @@
 	background: $clr-beatshot-bluegrey;
 	z-index: 9999;
 }
-header {
+.header-container {
 	display: flex;
 	margin-left: auto;
 	margin-right: auto;
@@ -31,7 +31,7 @@ header {
 	padding: 0.5rem 1rem 0.5rem 1rem;
 	z-index: 9999;
 }
-header a {
+.header-container a {
 	height: 100%;
 	width: auto;
 }
@@ -41,7 +41,7 @@ header a {
 }
 
 @media (min-width: 101.25rem) {
-	header {
+	.header-container {
 		max-width: 1625px;
 	}
 }

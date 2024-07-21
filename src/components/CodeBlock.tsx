@@ -1,4 +1,4 @@
-import React from "react";
+import React, { HTMLAttributes } from "react";
 
 import "@/styles/Codeblock.scss";
 
@@ -8,7 +8,7 @@ const codeBlockStyle = {
 	overflowX: "scroll",
 	overflowY: "scroll",
 	lineHeight: "inherit",
-	width: "100%",
+	//width: "100%",
 };
 
 const codeContainerStyle = {
@@ -26,10 +26,10 @@ const customStyle = {
 	borderRadius: "0.25rem",
 	fontSize: "inherit",
 	lineHeight: "inherit",
-	width: "100%",
+	//width: "100%",
 };
 
-type BSCodeBlockProps = {
+type BSCodeBlockProps = HTMLAttributes<HTMLElement> & {
 	children?: string;
 	fontSize?: string;
 };
@@ -73,13 +73,13 @@ const theme = {
 	numberColor: `#bd93f9`,
 };
 
-const BSCodeBlock = ({ children, fontSize = "0.65rem" }: BSCodeBlockProps): React.JSX.Element => {
+const BSCodeBlock = ({ children, fontSize = "0.65rem", ...rest }: BSCodeBlockProps): React.JSX.Element => {
 	customStyle.fontSize = fontSize;
 	customStyle.lineHeight = "inherit";
 	codeBlockStyle.lineHeight = "inherit";
 	codeContainerStyle.lineHeight = "inherit";
 	return (
-		<div className="code-border-container">
+		<div className="code-border-container" {...rest}>
 			<div className="code-border">
 				<div className="codeblock-container">
 					<CodeBlock

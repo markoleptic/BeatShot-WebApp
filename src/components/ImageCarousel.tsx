@@ -25,12 +25,10 @@ const DualImageCarousel = ({ images, imageClassName = "" }: ImageSliderProps): R
 
 	const handleFirst = () => {
 		setCurrentIndex(0);
-		//setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
 	};
 
 	const handleSecond = () => {
 		setCurrentIndex(1);
-		//setCurrentIndex((prevIndex) => (prevIndex - 1 + images.length) % images.length);
 	};
 
 	return (
@@ -108,7 +106,7 @@ const ConsistentHeightMultiImageCarousel = ({ images }: ImageSliderProps): React
 	};
 
 	return (
-		<figure className="consistent-height-img-bg">
+		<figure className="consistent-height-img-bg max-width-850">
 			<div className="consistent-height-img-container">
 				<Image
 					className="consistent-height-img"
@@ -116,7 +114,7 @@ const ConsistentHeightMultiImageCarousel = ({ images }: ImageSliderProps): React
 					alt={images[currentIndex].alt}
 				/>
 			</div>
-			<figcaption>
+			<figcaption className="min-height-twice-line-height">
 				<p className="figlabel">
 					Figure {images[currentIndex].figNumber}
 					{images[currentIndex].caption === undefined ? "" : ": "}

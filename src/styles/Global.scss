@@ -60,10 +60,7 @@ body {
 	background-color: $clr-beatshot-darkblue;
 }
 :root {
-	display: flex;
-	flex-direction: column;
 	min-height: 100vh;
-	flex-grow: 1;
 }
 canvas {
 	width: 100% !important;
@@ -151,6 +148,7 @@ button {
 	gap: 1rem;
 	width: 100%;
 	min-width: 0;
+	align-items: stretch;
 }
 .flex-container-column {
 	display: flex;

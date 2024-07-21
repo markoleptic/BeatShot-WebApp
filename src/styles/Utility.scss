@@ -22,7 +22,7 @@
 	color: #00d702;
 }
 .text-orange {
-	color: #FFA500
+	color: #ffa500;
 }
 
 .text-center {
@@ -105,6 +105,9 @@
 .flex-row {
 	flex-direction: row;
 }
+.flex-col {
+	flex-direction: column;
+}
 .height-400-width-100 {
 	max-height: 400px;
 	width: 100%;
@@ -118,6 +121,9 @@
 .align-self-flex-end {
 	align-self: flex-end;
 }
+.align-self-stretch {
+	align-self: stretch;
+}
 .max-width-850 {
 	max-width: 850px;
 }
@@ -130,4 +136,15 @@
 }
 .justify-content-flex-start {
 	justify-content: flex-start;
+}
+.overflow-x-auto {
+	overflow-x: auto;
+}
+.min-height-twice-line-height {
+	min-height: 70px;
+}
+@media (max-width: 40em) {
+	.min-height-twice-line-height {
+		min-height: 105px;
+	}
 }

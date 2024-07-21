@@ -13,9 +13,7 @@ div .card-label {
 	width: fit-content;
 	box-shadow: -0.5rem 0.5rem 0.5rem #000;
 	display: flex;
-	flex-direction: column;
 	cursor: pointer;
-	align-self: flex-start;
 }
 .card img {
 	box-shadow: none;
@@ -39,7 +37,6 @@ div .card-label {
 	display: flex;
 	flex-direction: column;
 	cursor: pointer;
-	gap: 0.5rem;
 }
 .card .sub-heading {
 	display: inline-flex;
@@ -47,9 +44,11 @@ div .card-label {
 	align-items: baseline;
 	vertical-align: baseline;
 	font-size: $fs-200;
+	padding-bottom: 0.5rem;
 }
 .card .card-sub-label {
 	font-size: $fs-100;
+	padding-top: 0.5rem;
 }
 
 @media (max-width: 40em) {

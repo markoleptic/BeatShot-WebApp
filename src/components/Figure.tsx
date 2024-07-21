@@ -23,7 +23,10 @@ const Figure = ({
 	...rest
 }: FigureProps): React.JSX.Element => {
 	return (
-		<figure {...rest} className={`figure-border-container${limitMaxWidth ? " max-width-1000" : ""}`}>
+		<figure
+			{...rest}
+			className={`figure-border-container${limitMaxWidth ? " max-width-1000" : ""} ` + rest.className}
+		>
 			<Image className={imageClassName} src={image} alt={alt} />
 			<figcaption>
 				<p className="figlabel">Figure {figNumber}: </p>
