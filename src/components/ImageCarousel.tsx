@@ -6,6 +6,7 @@ import Image, { StaticImageData } from "next/image";
 
 import "@/styles/Article.scss";
 import "@/styles/ImageCarousel.scss";
+import "@/styles/Utility.scss";
 
 type ImageData = {
 	image: StaticImageData;
@@ -106,7 +107,7 @@ const ConsistentHeightMultiImageCarousel = ({ images }: ImageSliderProps): React
 	};
 
 	return (
-		<figure className="consistent-height-img-bg max-width-850">
+		<figure className="consistent-height-img-bg">
 			<div className="consistent-height-img-container">
 				<Image
 					className="consistent-height-img"

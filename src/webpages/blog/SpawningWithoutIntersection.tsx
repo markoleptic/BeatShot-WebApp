@@ -9,13 +9,14 @@ import Image from "next/image";
 import ArticleDateFooter from "@/components/blog/ArticleDateFooter";
 import blogPostData from "@/components/blog/SpawningWithoutIntersectionData";
 import {
-	TargetManagerTestWithWorldInit,
-	TargetManagerTestWithWorldInitTargetManager,
+	TargetManagerTestWithWorldInit, TargetManagerTestWithWorldInitTargetManager
 } from "@/components/blog/TargetSpawningSystemFunctions";
 import { BlogHeading } from "@/components/BlogHeading";
 import { BSCodeBlock, BSInlineCode, BSInlineFunction } from "@/components/CodeBlock";
 import Figure from "@/components/Figure";
-import { ConsistentHeightMultiImageCarousel, StaticMultiImageCarousel } from "@/components/ImageCarousel";
+import {
+	ConsistentHeightMultiImageCarousel, StaticMultiImageCarousel
+} from "@/components/ImageCarousel";
 import Sidebar from "@/components/Sidebar";
 import SidebarHashLink from "@/components/SidebarHashLink";
 import useOnScreen from "@/hooks/useScreenObserver";
@@ -25,7 +26,6 @@ import "@/styles/Hero.scss";
 import "@/styles/Utility.scss";
 
 import { MathJax, MathJax3Config, MathJaxContext } from "better-react-mathjax";
-import image_Card from "public/spawningWithoutIntersection/Card.jpg";
 import image_Hero from "public/spawningWithoutIntersection/Hero.jpg";
 import OverlappingBottomLeft from "public/spawningWithoutIntersection/Overlapping_BottomLeftPoint.png";
 import OverlappingCenter from "public/spawningWithoutIntersection/Overlapping_CenterPoint.png";
@@ -457,9 +457,7 @@ const SpawningTargetsWithoutIntersection = () => {
 										<div className="code-border-container padding-top-05rem padding-bottom-05rem">
 											<div className="code-border">
 												<div className="codeblock-container">
-													<span
-														className={`inline-code fs-75 text-white padding-05rem line-height-1_5`}
-													>
+													<span className="inline-code-bash">
 														<span className="text-lightgrey">{`U:/EpicGames/UE_5.4_Source_Installed/Engine/Binaries/Win64/UnrealEditor.exe `}</span>
 														<span className="text-green">{`C:/P4-Workspaces/mark_BeatShot/BeatShot/BeatShot.uproject `}</span>
 														<span className="text-yellow">{`-nullrhi -nosplash -stdout -unattended -nopause -nosound -log -ExecCmds`}</span>

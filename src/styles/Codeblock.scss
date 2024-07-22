@@ -64,6 +64,17 @@
 	padding-left: 0.1em;
 	padding-right: 0.1em;
 }
+.inline-code-bash {
+	display: inline;
+	word-wrap: break-word !important;
+	font-size: $fs-75;
+	text-align: left;
+	line-height: 1.5;
+	font-family: var(--font-roboto-mono);
+	border-radius: 3px;
+	background-color: #1e1e1e;
+	padding: 0.5rem;
+}
 .inline-code.separator {
 	border-radius: 0px;
 	padding-left: 0em;
