@@ -4,11 +4,11 @@ import React, { useRef } from "react";
 
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DateTime } from "luxon";
 import Image from "next/image";
 import Link from "next/link";
 
 import ArticleDateFooter from "@/components/blog/ArticleDateFooter";
+import blogPostData from "@/components/blog/GameplayAbilitySystemData";
 import { BlogHeading, BlogHeadingClass } from "@/components/BlogHeading";
 import BlueprintGraph from "@/components/BlueprintGraph";
 import { BSInlineFunction } from "@/components/CodeBlock";
@@ -21,19 +21,9 @@ import "@/styles/Article.scss";
 import "@/styles/Codeblock.scss";
 import "@/styles/Hero.scss";
 
-import image_Card from "public/gameplayAbilitySystem/Card.jpg";
 import DA_InputConfig from "public/gameplayAbilitySystem/DA_InputConfig.png";
 import DA_KnifeAbilitySet from "public/gameplayAbilitySystem/DA_KnifeAbilitySet.png";
 import image_Hero from "public/gameplayAbilitySystem/Hero.jpg";
-
-import type { BlogPostData } from "@/types/blog.types";
-const titleShort = "GAS in BeatShot | Developer Blog";
-const titleLong = "An Overview of Unreal's Gameplay Ability System in BeatShot";
-const description =
-	"Why is the Gameplay Ability System used in BeatShot? This article explains the role of GAS and " +
-	"provides a walkthrough of a common ability.";
-const postDate: DateTime = DateTime.fromFormat("September 15, 2023", "DDD");
-const editDate: DateTime = DateTime.fromFormat("July 14, 2024", "DDD");
 
 const GameplayAbilitySystem = () => {
 	const Ref_gasC = useRef(null);
@@ -339,11 +329,8 @@ const GameplayAbilitySystem = () => {
 			<div className="flex-container-column">
 				<div className="hero-container">
 					<div className="hero">
-						<h1>An Overview of Unreal&#39;s Gameplay Ability System in BeatShot</h1>
-						<p className="hero-lead">
-							How is the Gameplay Ability System used in BeatShot? This article shows the implementation
-							and walks through the execution of a common ability.
-						</p>
+						<h1>{blogPostData.titleLong}</h1>
+						<p className="hero-lead">{blogPostData.description}</p>
 						<Image className="hero-image" priority src={image_Hero} quality={100} alt="logo" />
 					</div>
 				</div>
@@ -1601,7 +1588,7 @@ const GameplayAbilitySystem = () => {
 								hope you learned something and thanks for reading!
 							</p>
 						</div>
-						<ArticleDateFooter postDate={postDate} editDate={editDate} />
+						<ArticleDateFooter postDate={blogPostData.postDate} editDate={blogPostData.editDate} />
 					</article>
 				</div>
 			</div>
@@ -1609,13 +1596,4 @@ const GameplayAbilitySystem = () => {
 	);
 };
 
-const blogPostData: BlogPostData = {
-	titleShort: titleShort,
-	titleLong: titleLong,
-	description: description,
-	cardImage: image_Card,
-	postDate: postDate,
-	editDate: editDate,
-};
-
-export { GameplayAbilitySystem, blogPostData };
+export default GameplayAbilitySystem;

@@ -5,10 +5,10 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 
-import { blogPostData as SpawningWithoutBlogPostData } from "@/pages/blog/SpawningWithoutIntersection";
-import { blogPostData as targetSpawningSystemBlogPostData } from "@/pages/blog/TargetSpawningSystem";
-import { blogPostData as targetSpawningSystemPart2BlogPostData } from "@/pages/blog/TargetSpawningSystemPart2";
-import { blogPostData as gameplayAbilitySystemBlogPostData } from "@/webpages/blog/GameplayAbilitySystem";
+import gameplayAbilitySystemBlogPostData from "@/components/blog/GameplayAbilitySystemData";
+import SpawningWithoutBlogPostData from "@/components/blog/SpawningWithoutIntersectionData";
+import targetSpawningSystemBlogPostData from "@/components/blog/TargetSpawningSystemData";
+import targetSpawningSystemPart2BlogPostData from "@/components/blog/TargetSpawningSystemDataPart2";
 
 import "@/styles/Card.scss";
 import "@/styles/Hero.scss";

@@ -1,20 +1,28 @@
-import SEO from "@/components/SEO";
 import { Metadata } from "next";
 
-const titleShort = "Spawning Targets Without Intersection | Developer Blog";
-const titleLong = "Spawning Targets Without Intersection";
-const description = "TODO";
+import blogPostData from "@/components/blog/SpawningWithoutIntersectionData";
+import SEO from "@/components/SEO";
 
 export const metadata: Metadata = SEO({
-	title: titleShort,
-	ogTwitterTitle: titleLong,
-	description: description,
+	title: blogPostData.titleShort,
+	ogTwitterTitle: blogPostData.titleLong,
+	description: blogPostData.description,
 	type: "article",
 	url: "/devblog/spawning-without-intersection",
 	twitterCard: "summary_large_image",
 	additionalKeywords: [
 		"aim-training",
 		"aim training",
+		"target spawning system",
+		"collision detection",
+		"target intersection",
+		"sphere trace",
+		"spatial grid",
+		"automation testing",
+		"automation system",
+		"FAutomationTestBase",
+		"DispatchBeginPlay",
+		"Session Frontend",
 		"game",
 		"unreal",
 		"engine",
@@ -24,10 +32,6 @@ export const metadata: Metadata = SEO({
 		"actor",
 		"object",
 		"delegate",
-		"ability system component",
-		"gameplay ability system",
-		"attribute",
-		"spawning",
 		"debug",
 	],
 });

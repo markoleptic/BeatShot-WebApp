@@ -1,5 +1,6 @@
-import { TargetSpawningSystemPart2 } from "@/webpages/blog/TargetSpawningSystemPart2";
 import React from "react";
+
+import TargetSpawningSystemPart2 from "@/webpages/blog/TargetSpawningSystemPart2";
 
 const Page = () => {
 	return <TargetSpawningSystemPart2 />;

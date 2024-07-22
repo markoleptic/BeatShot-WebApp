@@ -24,7 +24,9 @@
 .text-orange {
 	color: #ffa500;
 }
-
+.text-yellow {
+	color: #dcdcaa;
+}
 .text-center {
 	text-align: center;
 }
@@ -142,6 +144,9 @@
 }
 .min-height-twice-line-height {
 	min-height: 70px;
+}
+.line-height-1_5 {
+	line-height: 1.5;
 }
 @media (max-width: 40em) {
 	.min-height-twice-line-height {

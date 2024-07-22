@@ -4,11 +4,11 @@ import React, { useRef } from "react";
 
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DateTime } from "luxon";
 import Image from "next/image";
 import Link from "next/link";
 
 import ArticleDateFooter from "@/components/blog/ArticleDateFooter";
+import blogPostData from "@/components/blog/TargetSpawningSystemDataPart2";
 import { EGridIndexType } from "@/components/blog/TargetSpawningSystemFunctions";
 import { BlogHeading } from "@/components/BlogHeading";
 import { BSCodeBlock, BSInlineCode, BSInlineEnum, BSInlineFunction } from "@/components/CodeBlock";
@@ -17,7 +17,6 @@ import { MultiImageCarousel } from "@/components/ImageCarousel";
 import Sidebar from "@/components/Sidebar";
 import SidebarHashLink from "@/components/SidebarHashLink";
 import useOnScreen from "@/hooks/useScreenObserver";
-import { BlogPostData } from "@/types/blog.types";
 
 import "@/styles/Article.scss";
 import "@/styles/Hero.scss";
@@ -44,16 +43,8 @@ import image_Execution6 from "public/targetSpawningSystem/execution/Execution6.p
 import image_Execution7 from "public/targetSpawningSystem/execution/Execution7.png";
 import image_Execution8 from "public/targetSpawningSystem/execution/Execution8.png";
 import image_Execution9 from "public/targetSpawningSystem/execution/Execution9.png";
-import image_Card from "public/targetSpawningSystem/Part2Card.jpg";
 import image_Hero from "public/targetSpawningSystem/Part2Hero.jpg";
 import image_TotalSpawnArea from "public/targetSpawningSystem/TotalSpawnArea.jpg";
-
-const titleShort = "BeatShot's Target Spawning System: Part 2 | Developer Blog";
-const titleLong = "BeatShot's Target Spawning System: Part 2 - Target Lifecycle";
-const description =
-	"Discover how the classes and conventions introduced in Part 1 work together, as key functions and their roles are outlined throughout the target lifecycle.";
-const postDate: DateTime = DateTime.fromFormat("July 20, 2024", "DDD");
-const editDate: DateTime = DateTime.fromFormat("July 20, 2024", "DDD");
 
 const TargetSpawningSystemPart2 = () => {
 	const Ref_Initialization = useRef(null);
@@ -153,18 +144,18 @@ const TargetSpawningSystemPart2 = () => {
 			<div className="flex-container-column">
 				<div className="hero-container">
 					<div className="hero">
-						<h1>{titleLong}</h1>
-						<p className="hero-lead">{description}</p>
+						<h1>{blogPostData.titleLong}</h1>
+						<p className="hero-lead">{blogPostData.description}</p>
 						<Image className="hero-image" priority src={image_Hero} quality={100} alt="logo" />
 					</div>
 				</div>
 				<div className="flex-container-row">
 					{sideBar}
 					<article className="devblog-article flex-container-column" id="article">
-						<p className="fs-300">
-							Building on the foundation laid in Part 1, this section breaks down the triggers and
-							execution paths that guide each target through its lifecycle. From spawning and activation
-							to deactivation and eventual destruction, each step serves a unique purpose. Understanding
+						<p>
+							Building on the foundation laid in Part 1, this part breaks down the triggers and execution
+							paths that guide each target through its lifecycle. From spawning and activation to
+							deactivation and eventual destruction, each step serves a unique purpose. Understanding
 							these processes is crucial for grasping the intricacies of how targets are managed within
 							the game.
 						</p>
@@ -266,7 +257,7 @@ const TargetSpawningSystemPart2 = () => {
 											For more details on this process, check out the{" "}
 											<Link
 												className="text-light hover-white"
-												href="devblog/spawning-targets-without-intersection"
+												href="/devblog/spawning-without-intersection"
 											>
 												Spawning Targets Without Intersection article
 											</Link>
@@ -383,7 +374,7 @@ const TargetSpawningSystemPart2 = () => {
 												<>
 													<BSInlineFunction>::FlagSpawnAreaAsManaged</BSInlineFunction> is
 													called by the Target Manager inside{" "}
-													<BSInlineFunction>::HandleRuntimeSpawning</BSInlineFunction>.
+													<BSInlineFunction>::SpawnTarget</BSInlineFunction>.
 												</>
 											),
 											alt: "FlagSpawnAreaAsManaged",
@@ -580,7 +571,7 @@ const TargetSpawningSystemPart2 = () => {
 							<ul>
 								<li>
 									<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-									The Current health of the target
+									The current health of the target
 								</li>
 								<li>
 									<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -792,7 +783,7 @@ const TargetSpawningSystemPart2 = () => {
 						</div>
 						<div className="article-section" ref={Ref_Conclusion} id="conclusion">
 							<BlogHeading headingText="Conclusion" headingLevel={1} />
-							<p className="fs-300">
+							<p>
 								Exploring the intricate processes behind target spawning, activation, deactivation, and
 								destruction highlights the complexity of creating a target management system for an
 								aim-training game. The detailed breakdown of each step in the target lifecycle helps
@@ -801,7 +792,7 @@ const TargetSpawningSystemPart2 = () => {
 								target spawning system.
 							</p>
 						</div>
-						<ArticleDateFooter postDate={postDate} editDate={editDate} />
+						<ArticleDateFooter postDate={blogPostData.postDate} editDate={blogPostData.editDate} />
 					</article>
 				</div>
 			</div>
@@ -809,13 +800,4 @@ const TargetSpawningSystemPart2 = () => {
 	);
 };
 
-const blogPostData: BlogPostData = {
-	titleShort: titleShort,
-	titleLong: titleLong,
-	description: description,
-	cardImage: image_Card,
-	postDate: postDate,
-	editDate: editDate,
-};
-
-export { TargetSpawningSystemPart2, blogPostData };
+export default TargetSpawningSystemPart2;

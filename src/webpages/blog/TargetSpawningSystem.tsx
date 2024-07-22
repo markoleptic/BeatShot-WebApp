@@ -4,11 +4,11 @@ import React, { useRef } from "react";
 
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DateTime } from "luxon";
 import Image from "next/image";
 import Link from "next/link";
 
 import ArticleDateFooter from "@/components/blog/ArticleDateFooter";
+import blogPostData from "@/components/blog/TargetSpawningSystemData";
 import {
 	ActivationResponses,
 	DeactivationConditions,
@@ -36,20 +36,9 @@ import image_ClusterBeatLog2 from "public/targetSpawningSystem/ClusterBeatExampl
 import image_ClusterBeatLog3 from "public/targetSpawningSystem/ClusterBeatExampleLog3.png";
 import image_GridBlockSpawning from "public/targetSpawningSystem/GridBlockSpawning.png";
 import image_NonBeatGrid from "public/targetSpawningSystem/NonBeatGridDebug.jpg";
-import image_Card from "public/targetSpawningSystem/Part1Card.jpg";
 import image_Hero from "public/targetSpawningSystem/Part1Hero.jpg";
 import image_SphereColorGradient from "public/targetSpawningSystem/SphereColorGradient.png";
 import image_TotalSpawnArea from "public/targetSpawningSystem/TotalSpawnArea.jpg";
-
-import type { BlogPostData } from "@/types/blog.types";
-
-const titleShort = "BeatShot's Target Spawning System: Part 1 | Developer Blog";
-const titleLong = "BeatShot's Target Spawning System: Part 1 - Core Classes and Conventions";
-const description =
-	"Learn about the classes, state management systems, and some of the conventions used to create a target spawning " +
-	"system in an aim-training game.";
-const postDate: DateTime = DateTime.fromFormat("July 2, 2023", "DDD");
-const editDate: DateTime = DateTime.fromFormat("July 14, 2024", "DDD");
 
 const TargetSpawningSystem = () => {
 	const Ref_Classes = useRef(null);
@@ -255,15 +244,15 @@ const TargetSpawningSystem = () => {
 			<div className="flex-container-column">
 				<div className="hero-container">
 					<div className="hero">
-						<h1>{titleLong}</h1>
-						<p className="hero-lead">{description}</p>
+						<h1>{blogPostData.titleLong}</h1>
+						<p className="hero-lead">{blogPostData.description}</p>
 						<Image className="hero-image" priority src={image_Hero} quality={100} alt="logo" />
 					</div>
 				</div>
 				<div className="flex-container-row">
 					{sideBar}
 					<article className="devblog-article flex-container-column" id="article">
-						<p className="fs-300">
+						<p>
 							This article explores the foundational elements of BeatShot&#39;s target spawning system. It
 							provides an overview of the key classes involved, detailing their roles and the various
 							states they can occupy. It also covers the reasoning behind the chosen conventions and their
@@ -342,7 +331,7 @@ const TargetSpawningSystem = () => {
 									<p>
 										The other six components form a rectangular prism (blue, green, front & back red
 										planes in Figure 1) used to confine moving targets. I would&#39;ve preferred to
-										only use one box component, &#34;hollow collision&#34; is not feasible. They
+										only use one box component, but &#34;hollow collision&#34; is not feasible. They
 										form a closed volume but are offset in Figure 1 for visibility.
 									</p>
 									<Figure
@@ -504,7 +493,7 @@ const TargetSpawningSystem = () => {
 										childClassLink="https://github.com/markoleptic/BeatShot/blob/c4d05de0786f2db218338d4910e6f32816584d32/BeatShot/Private/Character/BSHealthComponent.cpp"
 									/>
 									<p>
-										The health component is initialized with ability system component so that it can
+										The health component is initialized with Ability System Component so that it can
 										monitor for changes to the target&#39;s health attribute. The target binds the
 										health component&#39;s <BSInlineCode>FBSDamageEvent</BSInlineCode> delegate to
 										its <BSInlineFunction>::HandleDamageEvent</BSInlineFunction> function. If you
@@ -542,7 +531,7 @@ const TargetSpawningSystem = () => {
 										With this setup, the target can identify if it was the actor who caused the
 										damage event. This is crucial because the target damages itself if it expires.
 										The <BSInlineCode>FGameplayEffectSpec</BSInlineCode> pointer allows receivers of
-										this structure can query the Effect Spec&#39;s dynamic asset tags.
+										this structure to query the Effect Spec&#39;s dynamic asset tags.
 									</p>
 								</div>
 							</div>
@@ -676,8 +665,8 @@ const TargetSpawningSystem = () => {
 									<ul>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											<BSInlineEnum>::OnSpecificHealthLoss</BSInlineEnum> as the only deactivation
-											condition:
+											<BSInlineEnum>::OnSpecificHealthLoss</BSInlineEnum> as the only{" "}
+											<em>Deactivation Condition</em>:
 											<ul>
 												<li>
 													<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -687,19 +676,19 @@ const TargetSpawningSystem = () => {
 														<li>
 															<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 															If <BSInlineEnum>::OnHealthReachedZero</BSInlineEnum> is the
-															only target destruction condition, targets are deactivated
-															at health levels of 200, 100, and 0.
+															only <em>Target Destruction Condition</em>, targets are
+															deactivated at health levels of 200, 100, and 0.
 														</li>
 														<li>
 															<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 															If <BSInlineEnum>
 																::OnSpecificHealthLost
 															</BSInlineEnum> and{" "}
-															<BSInlineEnum>::OnExpiration</BSInlineEnum> are target
-															destruction conditions, targets are deactivated at health
-															levels of 200, 100, and 0 when damaged by the player but
-															will be immediately destroyed if the player fails to damage
-															the target while it is activated.
+															<BSInlineEnum>::OnExpiration</BSInlineEnum> are{" "}
+															<em>Target Destruction Conditions</em>, targets are
+															deactivated at health levels of 200, 100, and 0 when damaged
+															by the player but will be immediately destroyed if the
+															player fails to damage the target while it is activated.
 														</li>
 													</ul>
 												</li>
@@ -708,7 +697,8 @@ const TargetSpawningSystem = () => {
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 											<BSInlineEnum>::OnAnyExternalDamageTaken</BSInlineEnum> and{" "}
-											<BSInlineEnum>::OnExpiration</BSInlineEnum> as deactivation conditions:
+											<BSInlineEnum>::OnExpiration</BSInlineEnum> as{" "}
+											<em>Deactivation Conditions</em>:
 											<ul>
 												<li>
 													<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -772,8 +762,8 @@ const TargetSpawningSystem = () => {
 							<BlogHeading headingText="Target Distribution Policy" headingLevel={1} />
 							<p>
 								The <em>Target Distribution Policy</em> determines how targets are distributed within
-								individual Spawn Areas. A target does not need to fit inside the Spawn Area it is
-								associated with.
+								the total spawn area and individual Spawn Areas. A target does not need to fit inside
+								the Spawn Area it is associated with.
 							</p>
 							<div className="article-subsection" id="">
 								<div className="static-article-section-row">
@@ -869,12 +859,12 @@ const TargetSpawningSystem = () => {
 								</p>
 								<li>
 									<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-									<BSInlineEnum>::Random</BSInlineEnum>: Randomly chooses an available SpawnArea.
+									<BSInlineEnum>::Random</BSInlineEnum>: Randomly chooses an available Spawn Area.
 								</li>
 								<li>
 									<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-									<BSInlineEnum>::Bordering</BSInlineEnum>: Chooses a random bordering SpawnArea based
-									on recent Spawn Areas.
+									<BSInlineEnum>::Bordering</BSInlineEnum>: Chooses a random bordering Spawn Area
+									based on recent Spawn Areas.
 								</li>
 								<li>
 									<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -907,10 +897,11 @@ const TargetSpawningSystem = () => {
 								/>
 							</div>
 							<p>
-								When implementing the spawn selection modes, I created a console command to log a matrix
-								visualizing Spawn Area states. The numbers correspond to each Spawn Area index and
-								indicate a valid spawn location, while underscores indicates that the Spawn Area is not
-								a valid spawn location. Figure 7 shows the console output corresponding to Figure 6.
+								When implementing the <em>Spawn Selection</em> setting, I created a console command to
+								log a matrix visualizing Spawn Area states. The numbers correspond to each Spawn Area
+								index and indicate a valid spawn location, while underscores indicates that the Spawn
+								Area is not a valid spawn location. Figure 7 shows the console output corresponding to
+								Figure 6.
 							</p>
 							<div className="padding-top-05rem padding-bottom-05rem">
 								<Figure
@@ -921,55 +912,41 @@ const TargetSpawningSystem = () => {
 								/>
 							</div>
 							<p>
-								The light-blue dashed rectangles indicate where the two previous grid blocks spawned,
-								and each Spawn Area in these rectangles are flagged as recent. The green dashed
-								rectangle represents the largest rectangle found, while the purple dashed rectangle
-								shows the grid block that was chosen.
+								The light-blue dashed boxes indicate where the two previous grid blocks spawned, and
+								each Spawn Area in these boxes are flagged as recent. The green dashed box represents
+								the largest rectangle found, while the purple dashed box shows the grid block that was
+								chosen.
 							</p>
-							<ul>
-								<p>
-									<BSInlineEnum>::RandomGridBlock</BSInlineEnum> and{" "}
-									<BSInlineEnum>::NearbyGridBlock</BSInlineEnum> attempt to spawn groups of targets in
-									the most compact arrangement possible using the following procedure:
-								</p>
+							<p>
+								<BSInlineEnum>::RandomGridBlock</BSInlineEnum> and{" "}
+								<BSInlineEnum>::NearbyGridBlock</BSInlineEnum> attempt to spawn groups of targets in the
+								most compact arrangement possible using the following procedure:
+							</p>
+							<ol>
 								<li>
-									<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 									Compute all possible dimensions for the grid block. For example, groups of 25
-									targets have dimensions or factors:
-									<ul>
-										<li>
-											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											5x5
-										</li>
-										<li>
-											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											1x25
-										</li>
-									</ul>
+									targets have dimensions or factors of 5x5 and 1x25.
 								</li>
 								<li>
-									<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 									Use a modified version of the Largest Rectangle in a Histogram algorithm to identify
 									rectangles that can accommodate any of the grid block dimensions found earlier.
 								</li>
 								<li>
-									<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 									After obtaining the rectangles, select one that fits a grid block with dimensions
 									having the smallest differences between them. This heuristic ensures the most
 									compact arrangement.
 								</li>
 								<li>
-									<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
 									Once the rectangle is chosen, determine the location and orientation of the grid
 									block within the rectangle. For NearbyGridBlock, it will attempt to select a
 									location that borders a recent Spawn Area.
 								</li>
-							</ul>
+							</ol>
 							<p>
 								Figure 8 illustrates that sometimes the absolute largest rectangle does not accommodate
-								the desired target formation. The first image shows that the absolute largest rectangle
-								could only fit a 1x25 grid block. The second image shows why multiple rectangles are
-								considered, prioritizing those that can fit more compact grid blocks.
+								the desired target formation. Figure 8.1 shows that the absolute largest rectangle could
+								only fit a 1x25 grid block. Figure 8.2 shows why multiple rectangles are considered,
+								prioritizing those that can fit more compact grid blocks.
 							</p>
 							<div className="padding-top-05rem">
 								<DualImageCarousel
@@ -1032,7 +1009,7 @@ const TargetSpawningSystem = () => {
 						</div>
 						<div className="article-section" ref={Ref_Conclusion} id="conclusion">
 							<BlogHeading headingText="Conclusion" headingLevel={1} />
-							<p className="fs-300">
+							<p>
 								The system I have described is by no means the only way to approach the problem; it is
 								simply the method that made the most sense to me and worked effectively. I hoped you
 								learned something and weren&#39;t too overwhelmed. Part 2 of the Target Spawning System
@@ -1040,7 +1017,6 @@ const TargetSpawningSystem = () => {
 								their roles are outlined throughout the target lifecycle.
 							</p>
 						</div>
-
 						<h3 className="text-center">
 							<Link
 								className="link text-light hover-white"
@@ -1049,7 +1025,7 @@ const TargetSpawningSystem = () => {
 								Check out Part 2 here!
 							</Link>
 						</h3>
-						<ArticleDateFooter postDate={postDate} editDate={editDate} />
+						<ArticleDateFooter postDate={blogPostData.postDate} editDate={blogPostData.editDate} />
 					</article>
 				</div>
 			</div>
@@ -1057,13 +1033,4 @@ const TargetSpawningSystem = () => {
 	);
 };
 
-const blogPostData: BlogPostData = {
-	titleShort: titleShort,
-	titleLong: titleLong,
-	description: description,
-	cardImage: image_Card,
-	postDate: postDate,
-	editDate: editDate,
-};
-
-export { TargetSpawningSystem, blogPostData };
+export default TargetSpawningSystem;

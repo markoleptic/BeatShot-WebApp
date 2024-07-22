@@ -1,16 +1,12 @@
-import SEO from "@/components/SEO";
 import { Metadata } from "next";
 
-const titleShort = "GAS in BeatShot | Developer Blog";
-const titleLong = "An Overview of Unreal's Gameplay Ability System in BeatShot";
-const description =
-	"Why is the Gameplay Ability System used in BeatShot? This article explains the role of GAS and " +
-	"provides a walkthrough of a common ability.";
+import blogPostData from "@/components/blog/GameplayAbilitySystemData";
+import SEO from "@/components/SEO";
 
 export const metadata: Metadata = SEO({
-	title: titleShort,
-	ogTwitterTitle: titleLong,
-	description: description,
+	title: blogPostData.titleShort,
+	ogTwitterTitle: blogPostData.titleLong,
+	description: blogPostData.description,
 	type: "article",
 	url: "/devblog/gameplay-ability-system-overview",
 	twitterCard: "summary_large_image",
@@ -27,6 +23,7 @@ export const metadata: Metadata = SEO({
 		"gameplay ability system",
 		"attribute",
 		"gameplay effect",
+		"execution calculation",
 		"delegate",
 		"c++",
 	],

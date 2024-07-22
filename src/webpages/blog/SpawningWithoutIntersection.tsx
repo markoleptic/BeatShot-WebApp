@@ -4,10 +4,10 @@ import React, { useRef } from "react";
 
 import { faCrosshairs } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DateTime } from "luxon";
 import Image from "next/image";
 
 import ArticleDateFooter from "@/components/blog/ArticleDateFooter";
+import blogPostData from "@/components/blog/SpawningWithoutIntersectionData";
 import {
 	TargetManagerTestWithWorldInit,
 	TargetManagerTestWithWorldInitTargetManager,
@@ -42,16 +42,6 @@ import SessionFrontendBig from "public/testing/SessionFrontendBig.png";
 import SessionFrontendBottom from "public/testing/SessionFrontendBottom.png";
 import SessionFrontendConsoleMain from "public/testing/SessionFrontendConsoleMain.png";
 import SessionFrontendSmall from "public/testing/SessionFrontendSmall.png";
-
-import type { BlogPostData } from "@/types/blog.types";
-
-const titleShort = "Spawning Targets Without Intersection | Developer Blog";
-const titleLong = "Spawning Targets Without Intersection";
-const description =
-	"This article discusses the methods used to prevent target intersection and includes a section on testing " +
-	"procedures created using Unreal Engine's Automation System.";
-const postDate: DateTime = DateTime.fromFormat("July 20, 2024", "DDD");
-const editDate: DateTime = DateTime.fromFormat("July 20, 2024", "DDD");
 
 const SpawningTargetsWithoutIntersection = () => {
 	const Ref_SphereTrace = useRef(null);
@@ -146,19 +136,19 @@ const SpawningTargetsWithoutIntersection = () => {
 				<div className="flex-container-column">
 					<div className="hero-container">
 						<div className="hero">
-							<h1>{titleLong}</h1>
-							<p className="hero-lead">{description}</p>
+							<h1>{blogPostData.titleLong}</h1>
+							<p className="hero-lead">{blogPostData.description}</p>
 							<Image className="hero-image" priority src={image_Hero} quality={100} alt="logo" />
 						</div>
 					</div>
 					<div className="flex-container-row">
 						{sideBar}
 						<article className="devblog-article flex-container-column" id="article">
-							<p className="fs-300">
+							<p>
 								One of the most challenging aspects of creating BeatShot was coming up with a way to
-								pseudo-randomly spawn targets within the spawn area without intersecting other targets.
-								This by itself seems easy, but when targets can spawn with varying sizes and can move,
-								it quickly becomes complicated.
+								pseudo-randomly spawn targets without intersecting other targets. This by itself seems
+								easy, but when targets can spawn with varying sizes and can move, it quickly becomes
+								complicated.
 							</p>
 							<div className="article-section" ref={Ref_SphereTrace} id="sphere-trace">
 								<BlogHeading headingText="Sphere Trace" headingLevel={1} />
@@ -201,20 +191,17 @@ const SpawningTargetsWithoutIntersection = () => {
 									</div>
 								</div>
 								<p>
-									Figure 1 shows the equations used to derive the radius of the sphere trace,{" "}
 									<MathJax inline={true}>
-										<span>{`$\\text{R}_{trace}$`}</span>
+										Figure 1 shows the equations used to derive the radius of the sphere trace,{" "}
+										<span>{`$\\text{R}_{trace}$`}</span>, at each iteration. We only care about the
+										larger of <span>{`$\\text{R}_{current}$`}</span> and{" "}
+										<span>{`$\\text{R}_{existing}$`}</span> since the maximum is the worst-case
+										scenario. This value is rounded up to the nearest multiple of{" "}
+										<span>{`$\\text{R}_{min}$`}</span> and multiplied by{" "}
+										<span>{`$2\\sqrt{2}$`}</span> so that the diagonal vertices are included in the
+										trace. Figure 2 walks through a visual representation of obtaining{" "}
+										<span>{`$\\text{R}_{trace}$`}</span>.
 									</MathJax>
-									, at each iteration. We only care about the larger of{" "}
-									<span>{`$\\text{R}_{current}$`}</span> and <span>{`$\\text{R}_{existing}$`}</span>{" "}
-									since the maximum is the worst-case scenario. This value is rounded up to the
-									nearest multiple of <span>{`$\\text{R}_{min}$`}</span> and multiplied by{" "}
-									<span>{`$2\\sqrt{2}$`}</span> so that the diagonal vertices are included in the
-									trace. Figure 2 walks through a visual representation of obtaining{" "}
-									<MathJax inline={true}>
-										<span>{`$\\text{R}_{trace}$`}</span>
-									</MathJax>
-									.
 								</p>
 								<div className="padding-top-05rem padding-bottom-05rem">
 									<ConsistentHeightMultiImageCarousel
@@ -222,7 +209,12 @@ const SpawningTargetsWithoutIntersection = () => {
 											{
 												image: SpawningWithoutIntersection1,
 												figNumber: 2.1,
-												caption: "The minimum radius of the managed Spawn Area",
+												caption: (
+													<MathJax inline={true}>
+														The minimum radius, <span>{`$\\text{R}_{Min}$`}</span>, is
+														calculated using the existing Spawn Area
+													</MathJax>
+												),
 												alt: "MinimumRadius",
 											},
 											{
@@ -248,35 +240,22 @@ const SpawningTargetsWithoutIntersection = () => {
 											{
 												image: SpawningWithoutIntersection4,
 												figNumber: 2.4,
-												caption: (
-													<>
-														The sphere trace is performed at the bottom-left vertex of the
-														Spawn Area
-													</>
-												),
+												caption:
+													"The sphere trace is performed at the bottom-left vertex of the existing Spawn Area",
 												alt: "TraceRadius",
 											},
 											{
 												image: SpawningWithoutIntersection5,
 												figNumber: 2.5,
-												caption: (
-													<>
-														The white and red vertices represent the vertices that the
-														sphere trace captured
-													</>
-												),
+												caption: "The white and red vertices are captured by the sphere trace",
 
 												alt: "CapturedVertices",
 											},
 											{
 												image: SpawningWithoutIntersection6,
 												figNumber: 2.6,
-												caption: (
-													<>
-														The red boxes show the Spawn Areas that correspond to the
-														vertices captured in the sphere trace
-													</>
-												),
+												caption:
+													"The red boxes show the Spawn Areas that correspond to the vertices captured in the sphere trace",
 												alt: "CapturedSpawnAreas",
 											},
 										]}
@@ -290,7 +269,7 @@ const SpawningTargetsWithoutIntersection = () => {
 								<p>
 									Figure 3 and 4 illustrate the difference between using the center and bottom left
 									vertex as the sphere trace origin. Since a target may spawn anywhere within a Spawn
-									Area, the center vertex approach caused a collision due to targets spawning near the
+									Area, the center vertex approach causes a collision due to targets spawning near the
 									edges of their Spawn Area. Using the bottom left vertex guarantees that targets will
 									not collide due to spawning on the edges.
 								</p>
@@ -323,7 +302,7 @@ const SpawningTargetsWithoutIntersection = () => {
 									For smaller targets, the sphere trace looks more like a cube trace, but becomes more
 									spherical as target size increases. The shape variation is also influenced by the
 									chosen Spawn Area resolution. If Spawn Areas were 25x25 instead of 50x50, the
-									spherical shape would be more apparent but at the cost of increased computation
+									spherical shape would be more apparent at the cost of increased computation
 									resources. Green points denote vertices outside the largest target&#39;s sphere
 									trace, while blue points mark the bottom-left vertices of Spawn Areas. Some of these
 									points are not visible due to target size.
@@ -368,8 +347,8 @@ const SpawningTargetsWithoutIntersection = () => {
 									depend on, such as all the target spawning system classes, aren’t executed without a
 									world actor. Additionally, you can’t spawn actors without a world. To solve these
 									problems, I created a class that inherits from{" "}
-									<BSInlineCode>AutomationTestBase</BSInlineCode> called{" "}
-									<BSInlineCode>TargetManagerTestWithWorld</BSInlineCode>.
+									<BSInlineCode>FAutomationTestBase</BSInlineCode> called{" "}
+									<BSInlineCode>FTargetManagerTestWithWorld</BSInlineCode>.
 								</p>
 								<p>
 									<BSInlineFunction>::Init</BSInlineFunction> creates the world, adds the package to
@@ -385,7 +364,7 @@ const SpawningTargetsWithoutIntersection = () => {
 								<p>
 									The blueprint version of the Target Manager class is loaded using{" "}
 									<BSInlineFunction>::StaticLoadObject</BSInlineFunction>. This is due to the fact
-									that <BSInlineCode>TargetManagerTestWithWorld</BSInlineCode> is a{" "}
+									that <BSInlineCode>FTargetManagerTestWithWorld</BSInlineCode> is a{" "}
 									<span className="inline-flex">C++</span> only class deriving from{" "}
 									<BSInlineCode>FAutomationTestBase</BSInlineCode>, which cannot be used with the
 									reflection system. The Target Manager is spawned using the blueprint generated class
@@ -400,8 +379,8 @@ const SpawningTargetsWithoutIntersection = () => {
 								<div className="article-subsection" ref={ref_CollisionTesting} id="collision-testing">
 									<BlogHeading headingText="Collision Testing" headingLevel={2} />
 									<p>
-										The <BSInlineCode>TargetCollisionTest</BSInlineCode> class inherits from{" "}
-										<BSInlineCode>TargetManagerTestWithWorld</BSInlineCode>, and has two notable
+										The <BSInlineCode>FTargetCollisionTest</BSInlineCode> class inherits from{" "}
+										<BSInlineCode>FTargetManagerTestWithWorld</BSInlineCode>, and has two notable
 										functions, <BSInlineFunction>::GetTests</BSInlineFunction> and{" "}
 										<BSInlineFunction>::RunTest</BSInlineFunction>. The Automation Controller calls{" "}
 										<BSInlineFunction>::GetTests</BSInlineFunction> to populate the array of test
@@ -444,8 +423,8 @@ const SpawningTargetsWithoutIntersection = () => {
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
-											The world is ticked so that <BSInlineCode>UObject</BSInlineCode>s get a
-											chance to tick.
+											The world is ticked so that classes inheriting from{" "}
+											<BSInlineCode>UObject</BSInlineCode> get a chance to tick.
 										</li>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -466,16 +445,41 @@ const SpawningTargetsWithoutIntersection = () => {
 
 									<div className="article-subsection-2" ref={null} id="session-frontend">
 										<BlogHeading headingText="Session Frontend" headingLevel={3} />
+
+										<p>
+											Automation tests can be run from the command line, inside the Unreal Editor,
+											or inside an IDE. The code block below shows the command I use to execute
+											the collision tests from the command line. The arguments ensure that no
+											splash screen appears, no process window is created, the test output is
+											logged, and only tests matching the name
+											&#34;TargetManager.TargetCollision&#34; are executed.
+										</p>
+										<div className="code-border-container padding-top-05rem padding-bottom-05rem">
+											<div className="code-border">
+												<div className="codeblock-container">
+													<span
+														className={`inline-code fs-75 text-white padding-05rem line-height-1_5`}
+													>
+														<span className="text-lightgrey">{`U:/EpicGames/UE_5.4_Source_Installed/Engine/Binaries/Win64/UnrealEditor.exe `}</span>
+														<span className="text-green">{`C:/P4-Workspaces/mark_BeatShot/BeatShot/BeatShot.uproject `}</span>
+														<span className="text-yellow">{`-nullrhi -nosplash -stdout -unattended -nopause -nosound -log -ExecCmds`}</span>
+														<span className="text-red">{`=`}</span>
+														<span className="text-green">{`Automation RunTest TargetManager.TargetCollision; Quit`}</span>
+													</span>
+												</div>
+											</div>
+										</div>
 										<p>
 											The Session Frontend is the GUI for automation testing available in the
-											editor. Automation tests can also be run using the command line, but I think
-											this is slightly more interesting to look at for an article.
-										</p>
-										<p>
-											Figure 6 shows the test browser after running the three different types of{" "}
-											<BSInlineCode>TargetCollisionTest</BSInlineCode> I created: All Sizes,
-											Large, and Small. These are automatically populated by the Automation
-											Controller when it calls <BSInlineFunction>::GetTests</BSInlineFunction>.
+											Unreal Editor. Figure 6 shows the test browser after running the three
+											different types of <BSInlineCode>FTargetCollisionTest</BSInlineCode> I
+											created: All Sizes, Large, and Small. These are automatically populated by
+											the Automation Controller when it calls{" "}
+											<BSInlineFunction>::GetTests</BSInlineFunction>.{" "}
+											<BSInlineCode>FTargetCollisionTest</BSInlineCode> overrides the{" "}
+											<BSInlineFunction>::GetBeautifiedTestName</BSInlineFunction> function so
+											that the tests show up under the TargetManager &#8594; TargetCollision
+											category.
 										</p>
 										<div className="padding-top-05rem padding-bottom-05rem">
 											<Figure
@@ -542,7 +546,7 @@ const SpawningTargetsWithoutIntersection = () => {
 							</div>
 							<div className="article-section" ref={Ref_Conclusion} id="conclusion">
 								<BlogHeading headingText="Conclusion" headingLevel={1} />
-								<p className="fs-300">
+								<p>
 									Since no collisions occurred across over 147,000 target spawns and the minimum
 									distance between two targets was relatively small, I conclude that the trace radius
 									used during <BSInlineFunction>::GetTargetSpawnParams</BSInlineFunction> is correct
@@ -550,7 +554,7 @@ const SpawningTargetsWithoutIntersection = () => {
 									there are no collisions, I am satisfied.
 								</p>
 							</div>
-							<ArticleDateFooter postDate={postDate} editDate={editDate} />
+							<ArticleDateFooter postDate={blogPostData.postDate} editDate={blogPostData.editDate} />
 						</article>
 					</div>
 				</div>
@@ -559,13 +563,4 @@ const SpawningTargetsWithoutIntersection = () => {
 	);
 };
 
-const blogPostData: BlogPostData = {
-	titleShort: titleShort,
-	titleLong: titleLong,
-	description: description,
-	cardImage: image_Card,
-	postDate: postDate,
-	editDate: editDate,
-};
-
-export { SpawningTargetsWithoutIntersection, blogPostData };
+export default SpawningTargetsWithoutIntersection;
