@@ -1,11 +1,13 @@
 "use client";
-import Link from "next/link";
 import React, { useEffect, useState } from "react";
+
+import { faCrosshairs, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faCrosshairs } from "@fortawesome/free-solid-svg-icons";
-import "@/styles/PatchNotes.scss";
 import { DateTime } from "luxon";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
+
+import "@/styles/PatchNotes.scss";
 
 type PatchNotesData = {
 	version: string;
@@ -15,6 +17,30 @@ type PatchNotesData = {
 };
 
 const patchNotesData: PatchNotesData[] = [
+	{
+		version: "0.7.3",
+		date: DateTime.fromFormat("August 21, 2024", "DDD"),
+		link: "4252047773011032145",
+		content: (
+			<ul>
+				<p className="fs-300"></p>
+				<li>
+					<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+					<p className="fs-300">Bug fixes</p>
+					<ul>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>
+								Fixed a bug where mp3 and ogg files were not being accepted if they didn&#39;t contain
+								metadata. The file name is now used as the title of the song if this is the case. Thanks
+								to YogPoz, JaxxHunter, and anyone who submitted a bug report about this!
+							</p>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		),
+	},
 	{
 		version: "0.7.2",
 		date: DateTime.fromFormat("July 4, 2024", "DDD"),
