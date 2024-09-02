@@ -18,6 +18,26 @@ type PatchNotesData = {
 
 const patchNotesData: PatchNotesData[] = [
 	{
+		version: "0.7.4",
+		date: DateTime.fromFormat("August 24, 2024", "DDD"),
+		link: "4252047773022064428",
+		content: (
+			<ul>
+				<p className="fs-300"></p>
+				<li>
+					<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+					<p className="fs-300">Bug fixes</p>
+					<ul>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>Fixed a bug where the game would exit upon completing a song.</p>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		),
+	},
+	{
 		version: "0.7.3",
 		date: DateTime.fromFormat("August 21, 2024", "DDD"),
 		link: "4252047773011032145",
