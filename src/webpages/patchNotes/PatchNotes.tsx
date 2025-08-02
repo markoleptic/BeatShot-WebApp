@@ -18,6 +18,30 @@ type PatchNotesData = {
 
 const patchNotesData: PatchNotesData[] = [
 	{
+		version: "0.7.5",
+		date: DateTime.fromFormat("August 1, 2025", "DDD"),
+		link: "516342955916657841",
+		content: (
+			<ul>
+				<p className="fs-300"></p>
+				<li>
+					<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+					<p className="fs-300">General</p>
+					<ul>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>Updated engine to Unreal Engine 5.6.</p>
+						</li>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>Updated Nvidia DLSS to 4.0.</p>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		),
+	},
+	{
 		version: "0.7.4",
 		date: DateTime.fromFormat("August 24, 2024", "DDD"),
 		link: "4252047773022064428",
