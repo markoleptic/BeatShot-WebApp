@@ -1,0 +1,3 @@
+beatshot.gg, www.beatshot.gg {
+  reverse_proxy nextjs:3000
+}
