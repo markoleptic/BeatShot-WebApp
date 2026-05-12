@@ -7,7 +7,6 @@ import Image from "next/image";
 import Link from "next/link";
 
 import NavLink from "@/components/NavLink";
-import { useAuthContext } from "@/context/AuthContext";
 
 import "@/styles/NavBar.scss";
 
@@ -17,9 +16,6 @@ const NavBar = (): React.JSX.Element => {
 	const [visible, setVisibility] = useState(false);
 	const visibleRef = useRef(visible);
 	const headerRef = useRef<HTMLElement>(null);
-	const { auth } = useAuthContext();
-	const [profileStateText, setProfileStateText] = useState<string>("Login");
-	const [profileStatePath, setProfileStatePath] = useState<string>("/login");
 	const lastScrollTop = useRef(0);
 	const headerHeight = useRef(60);
 
@@ -58,12 +54,6 @@ const NavBar = (): React.JSX.Element => {
 		};
 	}, []);
 
-	useEffect(() => {
-		const signedIn = auth?.userID && auth?.accessToken;
-		setProfileStatePath(signedIn ? "/logout" : "/login");
-		setProfileStateText(signedIn ? "Logout" : "Login");
-	}, [auth]);
-
 	return (
 		<header ref={headerRef}>
 			<div className="header-container">
@@ -94,28 +84,6 @@ const NavBar = (): React.JSX.Element => {
 								onClick={() => setVisibility(false)}
 							>
 								Patch Notes
-							</NavLink>
-						</li>
-						{auth?.userID && auth?.accessToken ? (
-							<li className="uppercase">
-								<NavLink
-									href={`/profile/${auth.userID}`}
-									className="hover-blue link"
-									onClick={() => setVisibility(false)}
-								>
-									Profile
-								</NavLink>
-							</li>
-						) : (
-							""
-						)}
-						<li className="uppercase">
-							<NavLink
-								href={profileStatePath}
-								className="hover-blue link"
-								onClick={() => setVisibility(false)}
-							>
-								{profileStateText}
 							</NavLink>
 						</li>
 					</ul>

@@ -1,10 +1,12 @@
-import Navbar from "@/components/NavBar";
-import Footer from "@/components/Footer";
-import { AuthProvider } from "@/context/AuthContext";
-import { Metadata } from "next";
-import SEO from "@/components/SEO";
-import { Roboto, Roboto_Mono, Montserrat } from "next/font/google";
 import React from "react";
+
+import { Metadata } from "next";
+import { Montserrat, Roboto, Roboto_Mono } from "next/font/google";
+
+import Footer from "@/components/Footer";
+import Navbar from "@/components/NavBar";
+import SEO from "@/components/SEO";
+
 import "@/styles/Global.scss";
 import "@/styles/Utility.scss";
 
@@ -46,11 +48,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 					async
 					src="//gc.zgo.at/count.js"
 				></script>
-				<AuthProvider>
-					<Navbar />
-					{children}
-					<Footer />
-				</AuthProvider>
+				<Navbar />
+				{children}
+				<Footer />
 			</body>
 		</html>
 	);
