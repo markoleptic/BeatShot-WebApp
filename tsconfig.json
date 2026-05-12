@@ -1,41 +1,72 @@
 {
-	"compilerOptions": {
-		"target": "esnext",
-		"module": "ESNext",
-		"moduleResolution": "Bundler",
-		"esModuleInterop": true,
-		"resolveJsonModule": true,
-		"isolatedModules": true,
-		"experimentalDecorators": true,
-		"emitDecoratorMetadata": true,
-		"lib": ["DOM", "DOM.Iterable", "ESNext"],
-		"allowJs": true,
-		"skipLibCheck": true,
-		"strict": true,
-		"forceConsistentCasingInFileNames": true,
-		"noEmit": true,
-		"jsx": "preserve",
-		"incremental": true,
-		"allowSyntheticDefaultImports": true,
-		"plugins": [
-			{
-				"name": "next"
-			}
-		],
-		"baseUrl": "./",
-		"paths": {
-			"@/*": ["./src/*"],
-			"@/styles/*": ["./src/styles/*"],
-			"@/types/*": ["./src/types/*"],
-			"@/utility/*": ["./src/utility/*"],
-			"@/hooks/*": ["./src/hooks/*"],
-			"@/context/*": ["./src/context/*"],
-			"@/models/*": ["./src/models/*"],
-			"@/pages/*": ["./src/webpages/*"],
-			"@/components/*": ["./src/components/*"],
-			"public/*": ["./public/*"]
-		}
-	},
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
-	"exclude": ["node_modules"]
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "ESNext",
+    "moduleResolution": "Bundler",
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
+    ],
+    "allowJs": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "incremental": true,
+    "allowSyntheticDefaultImports": true,
+    "plugins": [
+      {
+        "name": "next"
+      }
+    ],
+    "paths": {
+      "@/*": [
+        "./src/*"
+      ],
+      "@/styles/*": [
+        "./src/styles/*"
+      ],
+      "@/types/*": [
+        "./src/types/*"
+      ],
+      "@/utility/*": [
+        "./src/utility/*"
+      ],
+      "@/hooks/*": [
+        "./src/hooks/*"
+      ],
+      "@/context/*": [
+        "./src/context/*"
+      ],
+      "@/models/*": [
+        "./src/models/*"
+      ],
+      "@/pages/*": [
+        "./src/webpages/*"
+      ],
+      "@/components/*": [
+        "./src/components/*"
+      ],
+      "public/*": [
+        "./public/*"
+      ]
+    }
+  },
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    ".next/dev/types/**/*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

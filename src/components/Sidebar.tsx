@@ -31,7 +31,7 @@ const Sidebar = ({ children }: SidebarProps): React.JSX.Element => {
 		const sidebarContainer = document.querySelector<HTMLElement>(".sidebar-main");
 		if (sidebarContainer) {
 			const hashLinks = document.querySelectorAll(".sidebar-hash-link.link.active");
-			let lastLink = hashLinks[hashLinks.length - 1];
+			const lastLink = hashLinks[hashLinks.length - 1];
 			if (lastLink instanceof HTMLElement) {
 				lastLink.scrollIntoView({
 					behavior: "smooth",

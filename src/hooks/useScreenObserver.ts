@@ -1,7 +1,7 @@
 "use client";
-import { useState, useEffect, useRef, RefObject } from "react";
+import { RefObject, useEffect, useRef, useState } from "react";
 
-let options = {
+const options = {
 	root: null,
 	rootMargin: "-71px 0px 0px 0px",
 	trackVisibility: true,
@@ -9,7 +9,7 @@ let options = {
 	delay: 100,
 };
 
-export default function useOnScreen(ref: RefObject<Element>) {
+export default function useOnScreen(ref: RefObject<Element | null>) {
 	const observerRef = useRef<IntersectionObserver | null>(null);
 	const [isOnScreen, setIsOnScreen] = useState(false);
 

@@ -1,4 +1,5 @@
 import { Metadata } from "next";
+
 import type { OpenGraphType } from "next/dist/lib/metadata/types/opengraph-types";
 
 export type SEOInterface = {
@@ -13,19 +14,19 @@ export type SEOInterface = {
 	isRoot?: boolean;
 };
 
-export default function SEO(params: SEOInterface): Metadata {
+export default function SEO({
+	title,
+	type,
+	ogTwitterTitle,
+	description,
+	url,
+	twitterCard,
+	additionalKeywords,
+	clearDefaultKeywords = false,
+	isRoot = false,
+}: SEOInterface): Metadata {
 	const host = process.env.NODE_ENV === "development" ? process.env.host_development : process.env.host_production;
-	let {
-		title,
-		type,
-		ogTwitterTitle,
-		description,
-		url,
-		twitterCard,
-		additionalKeywords,
-		clearDefaultKeywords = false,
-		isRoot = false,
-	} = params;
+
 	title = title || "BeatShot";
 	type = type || "website";
 	description = description || "the rhythm-based aim trainer";

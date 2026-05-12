@@ -1,4 +1,4 @@
-@import "Variables";
+@use "Variables";
 
 .steam-login-container {
 	display: flex;
@@ -10,8 +10,8 @@
 }
 .steam-login-container:hover {
 	cursor: pointer;
-	color: $clr-beatshot-lightblue;
-	box-shadow: 0rem 0rem 0.25rem 0rem $clr-beatshot-lightblue;
+	color: Variables.$clr-beatshot-lightblue;
+	box-shadow: 0rem 0rem 0.25rem 0rem Variables.$clr-beatshot-lightblue;
 	border-radius: 0.25rem;
 }
 .steam-login-container-top {
@@ -19,7 +19,7 @@
 	flex-direction: row;
 	justify-content: center;
 	align-items: center;
-	background-color: $clr-beatshot-bluegrey;
+	background-color: Variables.$clr-beatshot-bluegrey;
 	border-radius: 0.25rem 0.25rem 0 0;
 	padding: 0.25rem 0.75rem;
 	gap: 0.25rem;
@@ -54,7 +54,7 @@
 	width: auto !important;
 }
 .steam-login-text-bottom {
-	color: $clr-beatshot-lightgrey;
+	color: Variables.$clr-beatshot-lightgrey;
 	text-align: center;
 	font-size: 0.6rem;
 }

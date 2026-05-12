@@ -74,16 +74,12 @@ const theme = {
 };
 
 const BSCodeBlock = ({ children, fontSize = "0.65rem", ...rest }: BSCodeBlockProps): React.JSX.Element => {
-	customStyle.fontSize = fontSize;
-	customStyle.lineHeight = "inherit";
-	codeBlockStyle.lineHeight = "inherit";
-	codeContainerStyle.lineHeight = "inherit";
 	return (
 		<div className="code-border-container" {...rest}>
 			<div className="code-border">
 				<div className="codeblock-container">
 					<CodeBlock
-						customStyle={customStyle}
+						customStyle={{ ...customStyle, fontSize: fontSize }}
 						text={children}
 						language={"cpp"}
 						showLineNumbers={false}

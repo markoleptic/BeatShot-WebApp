@@ -1,13 +1,13 @@
-@import "Variables";
+@use "Variables";
 
 div .card-label {
 	display: flex;
 	margin-top: 0.5rem;
 	line-height: 1.1;
-	font-weight: $fw-600;
+	font-weight: Variables.$fw-600;
 }
 .card-container {
-	background-color: $clr-sidebar;
+	background-color: Variables.$clr-sidebar;
 	border-radius: 0.25rem;
 	padding: 1rem;
 	width: fit-content;
@@ -22,14 +22,14 @@ div .card-label {
 	height: auto;
 }
 .card-container:hover .card-label {
-	color: $clr-beatshot-lightblue;
+	color: Variables.$clr-beatshot-lightblue;
 }
 .card-container:hover .sub-heading,
 .card-sub-label {
-	color: $clr-white;
+	color: Variables.$clr-white;
 }
 .card-container:hover img {
-	box-shadow: 0rem 0rem 0.25rem 0rem $clr-beatshot-lightblue;
+	box-shadow: 0rem 0rem 0.25rem 0rem Variables.$clr-beatshot-lightblue;
 }
 .card {
 	width: fit-content;
@@ -43,11 +43,11 @@ div .card-label {
 	justify-content: space-between;
 	align-items: baseline;
 	vertical-align: baseline;
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	padding-bottom: 0.5rem;
 }
 .card .card-sub-label {
-	font-size: $fs-100;
+	font-size: Variables.$fs-100;
 	padding-top: 0.5rem;
 }
 

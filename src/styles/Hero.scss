@@ -1,4 +1,4 @@
-@import "Variables";
+@use "Variables";
 
 div.hero {
 	display: flex;
@@ -27,7 +27,7 @@ div.hero-container {
 }
 .hero-lead {
 	margin-top: 0.5rem;
-	font-size: $fs-400;
+	font-size: Variables.$fs-400;
 }
 
 @media (min-width: 101.25rem) {

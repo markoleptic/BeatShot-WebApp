@@ -1,16 +1,16 @@
-@import "Variables";
+@use "Variables";
 
 .inline {
 	display: inline;
 }
 .text-light {
-	color: $clr-beatshot-lightblue;
+	color: Variables.$clr-beatshot-lightblue;
 }
 .text-lightgrey {
-	color: $clr-beatshot-lightgrey;
+	color: Variables.$clr-beatshot-lightgrey;
 }
 .text-white {
-	color: $clr-white;
+	color: Variables.$clr-white;
 }
 .text-red {
 	color: red;
@@ -35,19 +35,19 @@
 	white-space: nowrap;
 }
 .fs-400 {
-	font-size: $fs-400;
+	font-size: Variables.$fs-400;
 }
 .fs-300 {
-	font-size: $fs-300;
+	font-size: Variables.$fs-300;
 }
 .fs-200 {
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 }
 .fs-100 {
-	font-size: $fs-100;
+	font-size: Variables.$fs-100;
 }
 .fs-75 {
-	font-size: $fs-75;
+	font-size: Variables.$fs-75;
 }
 .padding-05rem {
 	padding: 0.5rem;
@@ -68,10 +68,10 @@
 	margin-top: 0.5rem;
 }
 .fw-semibold {
-	font-weight: $fw-600;
+	font-weight: Variables.$fw-600;
 }
 .fw-bold {
-	font-weight: $fw-700;
+	font-weight: Variables.$fw-700;
 }
 .align-self-center {
 	align-self: center;

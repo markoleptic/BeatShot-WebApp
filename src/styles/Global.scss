@@ -1,4 +1,4 @@
-@import "Variables";
+@use "Variables";
 
 * {
 	margin: 0;
@@ -45,7 +45,7 @@ select {
 }
 html {
 	font-size: 22px;
-	color: $clr-white;
+	color: Variables.$clr-white;
 	height: 100%;
 	scroll-behavior: smooth !important;
 }
@@ -53,11 +53,11 @@ body {
 	display: flex;
 	flex-direction: column;
 	font-family: var(--font-montserrat);
-	font-size: $fs-400;
-	font-weight: $fw-400;
+	font-size: Variables.$fs-400;
+	font-weight: Variables.$fw-400;
 	line-height: 1.5;
 	min-height: 100vh;
-	background-color: $clr-beatshot-darkblue;
+	background-color: Variables.$clr-beatshot-darkblue;
 }
 :root {
 	min-height: 100vh;
@@ -69,40 +69,40 @@ canvas {
 a {
 	outline: none;
 	text-decoration: none;
-	color: $clr-white;
+	color: Variables.$clr-white;
 	&:hover {
-		color: $clr-beatshot-lightblue;
+		color: Variables.$clr-beatshot-lightblue;
 	}
 	&.active {
-		color: $clr-beatshot-lightblue;
+		color: Variables.$clr-beatshot-lightblue;
 	}
 }
 .hover-white:hover {
-	color: $clr-white;
+	color: Variables.$clr-white;
 }
 h1 {
-	font-size: $fs-h1;
-	font-weight: $fw-800;
+	font-size: Variables.$fs-h1;
+	font-weight: Variables.$fw-800;
 }
 h2 {
-	font-size: $fs-h2;
-	font-weight: $fw-700;
+	font-size: Variables.$fs-h2;
+	font-weight: Variables.$fw-700;
 }
 h3 {
-	font-size: $fs-h3;
-	font-weight: $fw-600;
+	font-size: Variables.$fs-h3;
+	font-weight: Variables.$fw-600;
 }
 h4 {
-	font-size: $fs-h4;
-	font-weight: $fw-600;
+	font-size: Variables.$fs-h4;
+	font-weight: Variables.$fw-600;
 }
 h5 {
-	font-size: $fs-h5;
-	font-weight: $fw-400;
+	font-size: Variables.$fs-h5;
+	font-weight: Variables.$fw-400;
 }
 h6 {
-	font-size: $fs-h6;
-	font-weight: $fw-400;
+	font-size: Variables.$fs-h6;
+	font-weight: Variables.$fw-400;
 }
 li {
 	list-style-type: none;
@@ -115,20 +115,20 @@ button {
 	padding: 0.25rem;
 	cursor: pointer;
 	&:hover {
-		background-color: $clr-beatshot-lightblue;
+		background-color: Variables.$clr-beatshot-lightblue;
 	}
 	&:disabled {
 		border-radius: 0.25rem;
-		background-color: $clr-beatshot-lightgrey;
+		background-color: Variables.$clr-beatshot-lightgrey;
 		&:hover {
-			background-color: $clr-beatshot-darkgrey;
+			background-color: Variables.$clr-beatshot-darkgrey;
 		}
 	}
 }
 
 .button-recover {
 	margin-inline: unset;
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	margin-top: 0.5rem;
 }
 .fake-button,
@@ -177,8 +177,8 @@ button {
 	gap: 1rem;
 }
 .content-header-text {
-	font-size: $fs-500;
-	font-weight: $fw-500;
+	font-size: Variables.$fs-500;
+	font-weight: Variables.$fw-500;
 	text-align: center;
 }
 .centered-bordered-container {
@@ -190,8 +190,8 @@ button {
 	gap: 0.75rem;
 	width: 100%;
 	max-width: 800px;
-	background-color: $clr-beatshot-darkblue;
-	box-shadow: 0rem 0rem 0.25rem 0rem $clr-beatshot-lightblue;
+	background-color: Variables.$clr-beatshot-darkblue;
+	box-shadow: 0rem 0rem 0.25rem 0rem Variables.$clr-beatshot-lightblue;
 	border-radius: 0.25rem;
 	padding: 1rem;
 }
@@ -204,8 +204,8 @@ button {
 	gap: 0rem;
 	width: 100%;
 	max-width: 800px;
-	background-color: $clr-beatshot-darkblue;
-	box-shadow: 0rem 0rem 0.25rem 0rem $clr-beatshot-lightblue;
+	background-color: Variables.$clr-beatshot-darkblue;
+	box-shadow: 0rem 0rem 0.25rem 0rem Variables.$clr-beatshot-lightblue;
 	border-radius: 0.25rem;
 }
 .centered-bordered-container-1000 {
@@ -217,23 +217,23 @@ button {
 	gap: 0.75rem;
 	width: 100%;
 	max-width: 1000px;
-	background-color: $clr-beatshot-darkblue;
-	box-shadow: 0rem 0rem 0.25rem 0rem $clr-beatshot-lightblue;
+	background-color: Variables.$clr-beatshot-darkblue;
+	box-shadow: 0rem 0rem 0.25rem 0rem Variables.$clr-beatshot-lightblue;
 	border-radius: 0.25rem;
 	padding: 1rem;
 }
 .profile-name-text {
-	font-weight: $fw-600;
-	text-shadow: 0 0 4px $clr-beatshot-lightblue;
-	color: $clr-beatshot-lightblue;
+	font-weight: Variables.$fw-600;
+	text-shadow: 0 0 4px Variables.$clr-beatshot-lightblue;
+	color: Variables.$clr-beatshot-lightblue;
 	text-align: center;
 	text-decoration: none;
 	outline: none;
 	min-height: 1.25em;
 }
 .profile-name-text:hover {
-	text-shadow: 0 0 4px $clr-white;
-	color: $clr-white;
+	text-shadow: 0 0 4px Variables.$clr-white;
+	color: Variables.$clr-white;
 }
 .loading-container {
 	padding-top: 1rem;
@@ -244,9 +244,9 @@ button {
 	text-align: center;
 }
 .loading-text {
-	font-weight: $fw-600;
-	text-shadow: 0 0 4px $clr-beatshot-lightblue;
-	color: $clr-beatshot-lightblue;
+	font-weight: Variables.$fw-600;
+	text-shadow: 0 0 4px Variables.$clr-beatshot-lightblue;
+	color: Variables.$clr-beatshot-lightblue;
 }
 
 /*---------------*/

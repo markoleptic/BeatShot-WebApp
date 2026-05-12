@@ -1,5 +1,5 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import React from "react";
 
 import { faCrosshairs, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -1767,11 +1767,7 @@ const ITEMS_PER_PAGE = 5;
 
 const PatchNotes = ({ initialPage }: { initialPage: number }) => {
 	const router = useRouter();
-	const [currentPage, setCurrentPage] = useState(initialPage);
-
-	useEffect(() => {
-		setCurrentPage(initialPage);
-	}, [initialPage]);
+	const currentPage = initialPage;
 
 	const totalPages = Math.ceil(patchNotesData.length / ITEMS_PER_PAGE);
 

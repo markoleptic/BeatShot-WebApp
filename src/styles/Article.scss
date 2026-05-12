@@ -1,6 +1,6 @@
-@import "Variables";
+@use "Variables";
 
-$fs-multiplier: calc(#{$fs-200 * 0.9});
+$fs-multiplier: calc(#{Variables.$fs-200 * 0.9});
 $padding-calc: calc(#{$fs-multiplier} + 0.25em);
 $text-indent-calc: calc(#{$padding-calc} * -1);
 $padding-calc-wide: calc(#{$fs-multiplier} + 0.75em);
@@ -24,7 +24,7 @@ article div {
 	display: flex;
 	flex-shrink: 1;
 	flex-direction: column;
-	scroll-margin-top: $header-height;
+	scroll-margin-top: Variables.$header-height;
 }
 
 .article-heading {
@@ -71,7 +71,7 @@ article div {
 .line-top,
 .line-bottom {
 	display: inline-block;
-	background-color: $clr-beatshot-darkgrey;
+	background-color: Variables.$clr-beatshot-darkgrey;
 	background-clip: content-box, padding-box;
 }
 .article-section .line-top,
@@ -81,29 +81,29 @@ article div {
 .article-subsection .line-top,
 .article-subsection .line-bottom {
 	height: 4px;
-	background-color: rgba($clr-beatshot-darkgrey, 0.75);
+	background-color: rgba(Variables.$clr-beatshot-darkgrey, 0.75);
 }
 .article-subsection-2 .line-top,
 .article-subsection-2 .line-bottom {
 	height: 2px;
-	background-color: rgba($clr-beatshot-darkgrey, 0.75);
+	background-color: rgba(Variables.$clr-beatshot-darkgrey, 0.75);
 }
 
 /* Lists */
 article ul {
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	display: flex;
 	flex-direction: column;
 	gap: 0.25rem;
 }
 article ol {
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	display: flex;
 	flex-direction: column;
 	gap: 0.25rem;
 }
 article ul li {
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	padding-left: $padding-calc;
 	text-indent: $text-indent-calc;
 	vertical-align: baseline;
@@ -113,27 +113,27 @@ article ul ul ul > li:first-of-type {
 	padding-top: 0.25rem;
 }
 article ol li {
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	list-style-type: decimal;
 	list-style-position: inside;
 	padding-left: $padding-calc;
 	text-indent: $text-indent-calc;
 }
 article ol li:nth-child(9) ~ li {
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	list-style-type: decimal;
 	list-style-position: inside;
 	padding-left: $padding-calc;
 	text-indent: $text-indent-calc;
 }
 article .li-icon {
-	color: $clr-beatshot-lightblue;
+	color: Variables.$clr-beatshot-lightblue;
 	font-size: $fs-multiplier;
 	width: $fs-multiplier;
 	padding-right: 0.25em;
 }
 article p {
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	padding: 0;
 	vertical-align: baseline;
 }
@@ -154,25 +154,25 @@ article figure {
 	display: flex;
 	flex-direction: column;
 	flex-grow: 1;
-	background-color: $clr-sidebar;
+	background-color: Variables.$clr-sidebar;
 	border-radius: 0.25rem;
 	width: 100%;
 	padding: 0.5rem;
 	overflow: hidden;
 }
 .blueprint-container figcaption {
-	font-size: $fs-100;
+	font-size: Variables.$fs-100;
 	text-align: center;
 	padding-top: 0.5rem;
-	color: $clr-beatshot-lightgrey;
+	color: Variables.$clr-beatshot-lightgrey;
 }
 .blueprint-container .figlabel {
 	display: inline;
 	line-height: inherit;
 	vertical-align: inherit;
-	font-size: $fs-100;
+	font-size: Variables.$fs-100;
 	font-weight: 700;
-	color: $clr-beatshot-lightgrey;
+	color: Variables.$clr-beatshot-lightgrey;
 }
 article figure img {
 	display: flex;
@@ -187,7 +187,7 @@ article figure img {
 	flex-direction: column;
 	justify-content: center;
 	align-self: center;
-	background-color: $clr-sidebar;
+	background-color: Variables.$clr-sidebar;
 	border-radius: 0.25rem;
 	padding: 0.5rem;
 }
@@ -206,8 +206,8 @@ article figure img {
 .figure-border-container-math-inner {
 	min-width: 0 !important;
 	max-width: 100%;
-	font-size: $fs-200;
-	background-color: $clr-sidebar;
+	font-size: Variables.$fs-200;
+	background-color: Variables.$clr-sidebar;
 	border-radius: 0.25rem;
 	padding-bottom: 1rem;
 	padding-left: 0.5rem;
@@ -216,26 +216,26 @@ article figure img {
 }
 
 article figure figcaption {
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	text-align: center;
 	padding-top: 0.5rem;
-	color: $clr-beatshot-lightgrey;
+	color: Variables.$clr-beatshot-lightgrey;
 }
 article figure .figlabel {
 	display: inline;
 	line-height: inherit;
 	vertical-align: inherit;
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	font-weight: 700;
-	color: $clr-beatshot-lightgrey;
+	color: Variables.$clr-beatshot-lightgrey;
 }
 article .posted-date {
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	font-weight: 700;
 	padding: 0;
 }
 article .updated-date {
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	font-weight: 700;
 	padding: 0;
 }

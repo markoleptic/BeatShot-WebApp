@@ -1,4 +1,4 @@
-@import "Variables";
+@use "Variables";
 
 /* mobile navigation toggle */
 .mobile-nav-toggle {
@@ -14,9 +14,9 @@ header {
 	align-items: center;
 	top: 0;
 	position: sticky;
-	height: $header-height;
+	height: Variables.$header-height;
 	width: 100%;
-	background: $clr-beatshot-bluegrey;
+	background: Variables.$clr-beatshot-bluegrey;
 	z-index: 9999;
 }
 .header-container {
@@ -25,7 +25,7 @@ header {
 	margin-right: auto;
 	justify-content: space-between;
 	align-items: center;
-	font-weight: $fw-400;
+	font-weight: Variables.$fw-400;
 	height: 100%;
 	width: 100%;
 	padding: 0.5rem 1rem 0.5rem 1rem;
@@ -48,13 +48,13 @@ header {
 
 @media (max-width: 40em) {
 	.primary-navigation {
-		margin-top: $header-height;
+		margin-top: Variables.$header-height;
 		flex-wrap: nowrap;
 		position: fixed;
 		flex-direction: column;
 		inset: 0 0 0 auto;
 		padding: 0.5rem 1.75rem 0.5rem 1rem;
-		background: $clr-beatshot-bluegrey;
+		background: Variables.$clr-beatshot-bluegrey;
 		height: fit-content;
 		width: fit-content;
 		z-index: -1;
@@ -65,21 +65,21 @@ header {
 		transition: transform 250ms ease-in;
 	}
 	.primary-navigation[data-visible="false"] {
-		transform: translateY(calc(-100% - #{$header-height}));
+		transform: translateY(calc(-100% - #{Variables.$header-height}));
 		transition: transform 250ms ease-out;
 	}
 	.mobile-nav-toggle-background {
 		display: block !important;
 		z-index: 9999;
 		width: 100%;
-		height: $header-height;
-		background: $clr-beatshot-bluegrey;
+		height: Variables.$header-height;
+		background: Variables.$clr-beatshot-bluegrey;
 		margin-right: -2rem;
 	}
 	.mobile-nav-toggle {
 		display: block !important;
 		z-index: 9999;
-		height: calc(#{$header-height} - 2vh) !important;
+		height: calc(#{Variables.$header-height} - 2vh) !important;
 		right: 1rem;
 		top: 1vh;
 		position: absolute;
@@ -97,5 +97,5 @@ header {
 	display: flex;
 	z-index: 9998;
 	gap: 1rem;
-	font-size: $fs-300;
+	font-size: Variables.$fs-300;
 }

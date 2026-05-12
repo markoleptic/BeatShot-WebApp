@@ -1,4 +1,4 @@
-@import "Variables";
+@use "Variables";
 
 .form-container {
 	width: auto;
@@ -40,17 +40,17 @@ form {
 }
 .form-title {
 	font-size: 1.25rem;
-	color: $clr-beatshot-lightblue;
+	color: Variables.$clr-beatshot-lightblue;
 	text-align: center;
 }
 .form-label {
-	font-size: $fs-100;
+	font-size: Variables.$fs-100;
 	display: flex;
 	align-items: center;
 }
 .form-text {
-	font-size: $fs-200;
-	background: $clr-white;
+	font-size: Variables.$fs-200;
+	background: Variables.$clr-white;
 	border: none;
 	padding: 0.15rem;
 	border-radius: 0.25rem;
@@ -64,17 +64,17 @@ form {
 .errmsg {
 	background-color: lightpink;
 	color: firebrick;
-	font-weight: $fw-600;
-	font-size: $fs-200;
+	font-weight: Variables.$fw-600;
+	font-size: Variables.$fs-200;
 	text-transform: capitalize;
 	text-align: center;
 	border-radius: 0.25rem;
 	padding: 0.25rem;
 }
 .checkEmailMsg {
-	background-color: $clr-beatshot-lightblue;
+	background-color: Variables.$clr-beatshot-lightblue;
 	//color: $clr-dark;
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	text-align: center;
 	border-radius: 0.25rem;
 	padding: 0.25rem;
@@ -84,9 +84,9 @@ form {
 	flex-direction: column;
 	gap: 0.25rem;
 	line-height: 1;
-	font-size: $fs-100;
-	background: $clr-beatshot-bluegrey;
-	color: $clr-white;
+	font-size: Variables.$fs-100;
+	background: Variables.$clr-beatshot-bluegrey;
+	color: Variables.$clr-white;
 	padding: 0.25rem;
 	position: relative;
 	bottom: -5px;
@@ -100,9 +100,9 @@ form {
 	padding-right: 0.2rem;
 }
 .instructions {
-	font-size: $fs-100;
-	background: $clr-beatshot-bluegrey;
-	color: $clr-white;
+	font-size: Variables.$fs-100;
+	background: Variables.$clr-beatshot-bluegrey;
+	color: Variables.$clr-white;
 	padding: 0.2rem;
 }
 /* checkbox container */
@@ -113,7 +113,7 @@ form {
 	align-items: center;
 	width: fit-content;
 	&:hover {
-		color: $clr-beatshot-lightblue;
+		color: Variables.$clr-beatshot-lightblue;
 	}
 }
 .form input[type="checkbox"] {
@@ -129,11 +129,11 @@ form {
 }
 /* hover unchecked icon */
 .form input[type="checkbox"] + label.fa:hover {
-	color: $clr-beatshot-lightblue;
+	color: Variables.$clr-beatshot-lightblue;
 }
 /* pressed unchecked icon */
 .form input[type="checkbox"] + label.fa:active {
-	color: rgba($clr-beatshot-lightblue, 0.5);
+	color: rgba(Variables.$clr-beatshot-lightblue, 0.5);
 }
 /* checked icon */
 .form input[type="checkbox"]:checked + label.fa:before {
@@ -142,15 +142,15 @@ form {
 }
 /* checked icon color */
 .form input[type="checkbox"]:checked + label.fa {
-	color: $clr-beatshot-lightblue;
+	color: Variables.$clr-beatshot-lightblue;
 }
 /* hovered checked icon */
 .form input[type="checkbox"]:checked + label.fa:hover {
-	color: $clr-beatshot-lightgrey;
+	color: Variables.$clr-beatshot-lightgrey;
 }
 /* pressed checked icon */
 .form input[type="checkbox"]:checked + label.fa:active {
-	color: $clr-beatshot-darkgrey;
+	color: Variables.$clr-beatshot-darkgrey;
 }
 .offscreen {
 	position: absolute;

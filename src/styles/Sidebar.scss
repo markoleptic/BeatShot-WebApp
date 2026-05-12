@@ -1,12 +1,12 @@
-@import "Variables";
+@use "Variables";
 div.sidebar-container {
 	display: flex;
 	align-self: flex-start;
 	flex-direction: column;
-	background: $clr-sidebar;
+	background: Variables.$clr-sidebar;
 	padding: 1rem 0 1rem 0;
-	background: $clr-beatshot-darkblue;
-	top: $header-height;
+	background: Variables.$clr-beatshot-darkblue;
+	top: Variables.$header-height;
 	position: sticky;
 	height: auto;
 	line-height: normal;
@@ -14,13 +14,13 @@ div.sidebar-container {
 div.sidebar-container.centered {
 	min-width: 250px;
 	max-width: 250px;
-	font-size: $fs-300;
+	font-size: Variables.$fs-300;
 	text-align: center;
 }
 div.sidebar-container.left {
 	min-width: 200px;
 	max-width: 200px;
-	font-size: $fs-75;
+	font-size: Variables.$fs-75;
 	text-align: left;
 }
 div.sidebar-main {
@@ -29,7 +29,7 @@ div.sidebar-main {
 	flex-direction: column;
 	width: 100%;
 	gap: 0.5rem;
-	color: $clr-white;
+	color: Variables.$clr-white;
 	overflow-y: auto;
 	padding-right: 0.6rem;
 }
@@ -45,7 +45,7 @@ div.sidebar-main ul li {
 	display: block;
 	border: 1px;
 	border-style: solid;
-	border-color: $clr-white;
+	border-color: Variables.$clr-white;
 }
 /* All sidebar links */
 div.sidebar-main li a {

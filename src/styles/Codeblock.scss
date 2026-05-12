@@ -1,4 +1,4 @@
-@import "Variables";
+@use "Variables";
 
 .code-border-container {
 	display: flex;
@@ -16,7 +16,7 @@
 	margin: auto;
 	width: 100%;
 	max-height: 20rem;
-	background-color: $clr-sidebar;
+	background-color: Variables.$clr-sidebar;
 	border-radius: 0.25rem;
 }
 .codeblock-container {
@@ -36,15 +36,15 @@
 	font-style: italic;
 	color: #d4d4d4;
 	padding: 0.5em 1em;
-	border-left: 0.65em solid $clr-beatshot-lightblue;
+	border-left: 0.65em solid Variables.$clr-beatshot-lightblue;
 	line-height: 1.5;
 	position: relative;
 	background: #1e1e1e;
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 }
 .inline-code-header {
 	font-family: var(--font-roboto-mono);
-	color: $clr-class;
+	color: Variables.$clr-class;
 	overflow-wrap: break-word;
 	white-space: normal !important;
 	align-self: center;
@@ -67,7 +67,7 @@
 .inline-code-bash {
 	display: inline;
 	word-wrap: break-word !important;
-	font-size: $fs-75;
+	font-size: Variables.$fs-75;
 	text-align: left;
 	line-height: 1.5;
 	font-family: var(--font-roboto-mono);
@@ -90,20 +90,20 @@
 	padding-left: 0em;
 }
 .class-color {
-	color: $clr-class;
+	color: Variables.$clr-class;
 }
 .enum-color {
-	color: $clr-enum;
+	color: Variables.$clr-enum;
 }
 .function-color {
-	color: $clr-function;
+	color: Variables.$clr-function;
 }
 .scope-res-operator-color {
-	color: $clr-white;
+	color: Variables.$clr-white;
 }
 .link-inline-code-block-header {
 	color: inherit;
 }
 .link-inline-code-block-header:hover {
-	color: $clr-white;
+	color: Variables.$clr-white;
 }

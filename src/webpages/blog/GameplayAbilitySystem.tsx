@@ -1138,11 +1138,7 @@ const GameplayAbilitySystem = () => {
 									</li>
 								</ul>
 								<div className="article-subsection-2" ref={Ref_tl_aa_st} id="timeline-StartTargeting">
-									<BlogHeadingClass
-										childClassColor="#50fa7b"
-										childClass="StartTargeting"
-										headingLevel={3}
-									/>
+									<BlogHeadingClass childClass="StartTargeting" headingLevel={3} />
 									<ul>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -1184,11 +1180,7 @@ const GameplayAbilitySystem = () => {
 									ref={Ref_tl_aa_otdrc}
 									id="timeline-OnTargetDataReadyCallback"
 								>
-									<BlogHeadingClass
-										childClassColor="#50fa7b"
-										childClass="OnTargetDataReadyCallback"
-										headingLevel={3}
-									/>
+									<BlogHeadingClass childClass="OnTargetDataReadyCallback" headingLevel={3} />
 									<ul>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -1214,11 +1206,7 @@ const GameplayAbilitySystem = () => {
 									ref={Ref_tl_aa_otdr}
 									id="timeline-OnTargetDataReady"
 								>
-									<BlogHeadingClass
-										childClassColor="#50fa7b"
-										childClass="OnTargetDataReady"
-										headingLevel={3}
-									/>
+									<BlogHeadingClass childClass="OnTargetDataReady" headingLevel={3} />
 									<ul>
 										<li>
 											<FontAwesomeIcon icon={faCrosshairs} className="li-icon" />
@@ -1307,11 +1295,7 @@ const GameplayAbilitySystem = () => {
 									ref={Ref_tl_geApp_agets}
 									id="timeline-ApplyGESpectoSelf"
 								>
-									<BlogHeadingClass
-										childClassColor="#50fa7b"
-										childClass="ApplyGameplayEffectSpecToSelf"
-										headingLevel={3}
-									/>
+									<BlogHeadingClass childClass="ApplyGameplayEffectSpecToSelf" headingLevel={3} />
 									<p>
 										<BSInlineFunction>::ApplyGameplayEffectSpecToTarget</BSInlineFunction> is just a
 										convenience function that calls{" "}
@@ -1355,11 +1339,7 @@ const GameplayAbilitySystem = () => {
 											ref={Ref_tl_geApp_ege}
 											id="timeline-ExecuteGameplayEffect"
 										>
-											<BlogHeadingClass
-												childClassColor="#50fa7b"
-												childClass="ExecuteGameplayEffect"
-												headingLevel={4}
-											/>
+											<BlogHeadingClass childClass="ExecuteGameplayEffect" headingLevel={4} />
 											<p>
 												<BSInlineFunction>::ExecuteGameplayEffect</BSInlineFunction> calls{" "}
 												<BSInlineFunction>::ExecuteActiveEffectsFrom</BSInlineFunction> on the{" "}

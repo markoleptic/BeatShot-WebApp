@@ -1,18 +1,18 @@
 import nodemailer, { Transporter } from "nodemailer";
 
-import * as aws from "@aws-sdk/client-ses";
+import { SendEmailCommand, SESv2Client, SESv2ClientConfig } from "@aws-sdk/client-sesv2";
 
 export async function sendFeedbackEmail(title: string, content: string) {
-	const config: aws.SESClientConfig = {
+	const config: SESv2ClientConfig = {
 		credentials: {
 			accessKeyId: process.env.AWS_ACCESS_KEY_ID as string,
 			secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY as string,
 		},
 		region: process.env.AWS_REGION as string,
 	};
-	const ses = new aws.SES(config);
+	const sesClient = new SESv2Client(config);
 	const transporter: Transporter = nodemailer.createTransport({
-		SES: { ses, aws },
+		SES: { sesClient, SendEmailCommand },
 	});
 	const sendMessageInfo = await transporter.sendMail({
 		from: "BeatShot Support <support@beatshot.gg>",

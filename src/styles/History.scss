@@ -1,4 +1,4 @@
-@import "Variables";
+@use "Variables";
 
 div.table-wrapper {
 	display: flex;
@@ -17,7 +17,7 @@ div.table-container {
 table.history-table {
 	border-collapse: separate;
 	border-spacing: 0;
-	font-size: $fs-100;
+	font-size: Variables.$fs-100;
 	text-align: center;
 }
 table.history-table tr {
@@ -28,7 +28,7 @@ table.history-table tr.tr-header {
 	top: 0;
 	left: 0;
 	z-index: 999;
-	background-color: $clr-sidebar;
+	background-color: Variables.$clr-sidebar;
 }
 table.history-table tr.tr-header th {
 	padding: 4px;
@@ -53,7 +53,7 @@ table.history-table tr td:nth-child(2),
 table.history-table tr th:nth-child(2) {
 	position: sticky;
 	z-index: 998;
-	background-color: $clr-sidebar;
+	background-color: Variables.$clr-sidebar;
 }
 table.history-table tr th:nth-child(1),
 table.history-table tr td:nth-child(1) {
@@ -84,9 +84,9 @@ table.history-table td.combined > p {
 
 @media (max-width: 40em) {
 	.table-header {
-		font-size: $fs-300;
+		font-size: Variables.$fs-300;
 	}
 	.table-row {
-		font-size: $fs-75;
+		font-size: Variables.$fs-75;
 	}
 }

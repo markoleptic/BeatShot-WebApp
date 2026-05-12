@@ -1,4 +1,4 @@
-@import "Variables";
+@use "Variables";
 
 .home-top-container {
 	display: flex;
@@ -8,8 +8,8 @@
 	gap: 1rem;
 	width: 100%;
 	max-width: 800px;
-	background-color: $clr-beatshot-darkblue;
-	box-shadow: 0rem 0rem 0.25rem 0rem $clr-beatshot-lightblue;
+	background-color: Variables.$clr-beatshot-darkblue;
+	box-shadow: 0rem 0rem 0.25rem 0rem Variables.$clr-beatshot-lightblue;
 	border-radius: 0.25rem;
 	padding: 1rem;
 	font-family: var(--font-roboto);
@@ -23,12 +23,12 @@
 	gap: 1rem;
 	width: 100%;
 	max-width: 800px;
-	background-color: $clr-beatshot-darkblue;
-	box-shadow: 0rem 0rem 0.25rem 0rem $clr-beatshot-lightblue;
+	background-color: Variables.$clr-beatshot-darkblue;
+	box-shadow: 0rem 0rem 0.25rem 0rem Variables.$clr-beatshot-lightblue;
 	border-radius: 0.25rem;
 	padding: 1rem;
 	font-family: var(--font-roboto);
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	line-height: 1.5em;
 }
 .home-container li > p,
@@ -42,7 +42,7 @@
 	gap: 0.25em;
 }
 .home-container > ul > li {
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 }
 /* top indent/padding */
 .home-container ul li {
@@ -57,14 +57,14 @@
 }
 /* top level icons */
 .home-container ul svg {
-	color: $clr-beatshot-lightblue;
+	color: Variables.$clr-beatshot-lightblue;
 	height: auto;
 	width: 0.75em;
 	padding-right: 0.25em;
 }
 /* 2nd level icons */
 .home-container ul ul svg {
-	color: $clr-beatshot-lightblue;
+	color: Variables.$clr-beatshot-lightblue;
 	height: auto;
 	width: 0.6em;
 	padding-right: 0.25em;
@@ -72,14 +72,14 @@
 /* Description p before 1st */
 .home-container > ul > p {
 	padding: 0.25em 0em 0.25em 0em;
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	line-height: 1.25em;
 	text-indent: 0em;
 }
 /* Description p before 2nd */
 .home-container > ul > li > ul > p {
 	padding: 0.25em 0em 0.25em 0em;
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	line-height: 1.25em;
 	text-indent: 0em;
 }

@@ -1,13 +1,13 @@
-import { NextResponse, NextRequest } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest) {
+export async function GET(_req: NextRequest) {
 	return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 }
 
-export async function POST(req: NextRequest) {
+export async function POST(_req: NextRequest) {
 	return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 }
 
-export async function DELETE(req: NextRequest) {
+export async function DELETE(_req: NextRequest) {
 	return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
 }

@@ -1,7 +1,7 @@
-@import "Variables";
+@use "Variables";
 
 .pn-container {
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	font-family: var(--font-roboto);
 	width: 100%;
 }
@@ -13,19 +13,19 @@
 }
 /* 1st level size */
 .pn-container > ul > li {
-	font-size: $fs-400;
+	font-size: Variables.$fs-400;
 	line-height: 1.25em;
 	font-weight: 700;
 }
 /* 2nd level size */
 .pn-container > ul > li > ul {
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	line-height: 1.25em;
 	font-weight: 400;
 }
 /* 3rd level size */
 .pn-container > ul > li > ul > li > ul {
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	line-height: 1.25em;
 	font-weight: 400;
 }
@@ -52,34 +52,34 @@
 /* Description p before 1st */
 .pn-container > ul > p {
 	padding: 0.5em 0em 0.5em 0em;
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	line-height: 1.25em;
 	font-weight: 400;
 	text-indent: 0em;
-	color: $clr-white;
+	color: Variables.$clr-white;
 }
 /* Description p before 2nd */
 .pn-container > ul > li > ul > p {
 	padding: 0.5em 0em 0.5em 0em;
-	font-size: $fs-200;
+	font-size: Variables.$fs-200;
 	line-height: 1.25em;
 	font-weight: 400;
 	text-indent: 0em;
-	color: $clr-white;
+	color: Variables.$clr-white;
 }
 /* top level text/icon color */
 .pn-container > ul > li > p {
-	color: $clr-beatshot-lightblue;
+	color: Variables.$clr-beatshot-lightblue;
 }
 .pn-container > ul > li > svg {
-	color: $clr-white;
+	color: Variables.$clr-white;
 }
 /* 2nd level text/icon color */
 .pn-container > ul > li > p {
-	color: $clr-beatshot-lightblue;
+	color: Variables.$clr-beatshot-lightblue;
 }
 .pn-container > ul > li > ul svg {
-	color: $clr-beatshot-lightblue;
+	color: Variables.$clr-beatshot-lightblue;
 }
 
 /* text indent should be same width as total svg width (width + padding-right) */
@@ -109,20 +109,20 @@
 }
 .pn-title {
 	text-align: center;
-	font-size: $fs-600;
-	font-weight: $fw-500;
-	text-shadow: 0 0 4px $clr-beatshot-lightblue;
-	color: $clr-beatshot-lightblue;
+	font-size: Variables.$fs-600;
+	font-weight: Variables.$fw-500;
+	text-shadow: 0 0 4px Variables.$clr-beatshot-lightblue;
+	color: Variables.$clr-beatshot-lightblue;
 }
 .pn-version-number {
-	font-weight: $fw-600;
+	font-weight: Variables.$fw-600;
 	color: white;
-	font-size: $fs-h3;
+	font-size: Variables.$fs-h3;
 }
 .pn-date {
 	display: flex;
 	justify-content: flex-end;
-	font-size: $fs-100;
+	font-size: Variables.$fs-100;
 	letter-spacing: 0.05rem;
 	text-align: end;
 }
@@ -134,7 +134,7 @@
 	padding-bottom: 0.3em;
 }
 .pn-dev-note {
-	color: $clr-beatshot-lightblue;
+	color: Variables.$clr-beatshot-lightblue;
 	text-indent: 0em !important;
 	padding-left: 0em !important;
 	line-height: 1.25em !important;
@@ -148,7 +148,7 @@
 	margin: auto;
 	button {
 		width: 100%;
-		font-size: $fs-425;
-		font-weight: $fw-600;
+		font-size: Variables.$fs-425;
+		font-weight: Variables.$fw-600;
 	}
 }

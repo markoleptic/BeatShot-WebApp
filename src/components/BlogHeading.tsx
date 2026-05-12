@@ -11,16 +11,16 @@ const getBaseClassText = (baseClass: string, headingLevel: number) => {
 	if (baseClass.length === 0) {
 		return <></>;
 	}
-	let fontSize =
+	const fontSize =
 		headingLevel == 1
 			? "fs-400"
 			: headingLevel == 2
-			? "fs-300"
-			: headingLevel == 3
-			? "fs-200"
-			: headingLevel == 4
-			? "fs-100"
-			: "fs-200";
+				? "fs-300"
+				: headingLevel == 3
+					? "fs-200"
+					: headingLevel == 4
+						? "fs-100"
+						: "fs-200";
 	return (
 		<>
 			<h4 className="align-self-center fs-100"> inherits from </h4>
@@ -35,16 +35,16 @@ const getComponentOfText = (compOf: string, compOfText: string, headingLevel: nu
 	if (compOf.length === 0) {
 		return <></>;
 	}
-	let fontSize =
+	const fontSize =
 		headingLevel == 1
 			? "fs-400"
 			: headingLevel == 2
-			? "fs-300"
-			: headingLevel == 3
-			? "fs-200"
-			: headingLevel == 4
-			? "fs-100"
-			: "fs-200";
+				? "fs-300"
+				: headingLevel == 3
+					? "fs-200"
+					: headingLevel == 4
+						? "fs-100"
+						: "fs-200";
 	return (
 		<>
 			<h4 className="align-self-center fs-400"> | </h4>
@@ -56,44 +56,39 @@ const getComponentOfText = (compOf: string, compOfText: string, headingLevel: nu
 	);
 };
 
-const getChildClassText = (
-	headingLevel: number,
-	childClass: string,
-	childClassLink: string,
-	childClassColor: string
-): React.JSX.Element => {
+const getChildClassText = (headingLevel: number, childClass: string, childClassLink: string): React.JSX.Element => {
 	if (headingLevel === 0) {
 		return <></>;
 	}
 	if (headingLevel === 1) {
 		return (
 			<>
-				<h1 className="inline-code-header">{getCodeBlock(childClass, childClassLink, childClassColor)}</h1>
+				<h1 className="inline-code-header">{getCodeBlock(childClass, childClassLink)}</h1>
 			</>
 		);
 	}
 	if (headingLevel === 2) {
 		return (
 			<>
-				<h2 className="inline-code-header">{getCodeBlock(childClass, childClassLink, childClassColor)}</h2>
+				<h2 className="inline-code-header">{getCodeBlock(childClass, childClassLink)}</h2>
 			</>
 		);
 	}
 	if (headingLevel === 3) {
 		return (
 			<>
-				<h3 className="inline-code-header">{getCodeBlock(childClass, childClassLink, childClassColor)}</h3>
+				<h3 className="inline-code-header">{getCodeBlock(childClass, childClassLink)}</h3>
 			</>
 		);
 	}
 	return (
 		<>
-			<h4 className="inline-code-header">{getCodeBlock(childClass, childClassLink, childClassColor)}</h4>
+			<h4 className="inline-code-header">{getCodeBlock(childClass, childClassLink)}</h4>
 		</>
 	);
 };
 
-const getCodeBlock = (childClass: string, childClassLink: string, childClassColor: string) => {
+const getCodeBlock = (childClass: string, childClassLink: string) => {
 	if (childClassLink.length === 0) {
 		return <BSInlineCode>{childClass}</BSInlineCode>;
 	}
@@ -111,7 +106,6 @@ type BlogHeadingClassProps = {
 	compOf?: string;
 	compOfText?: string;
 	childClassLink?: string;
-	childClassColor?: string;
 };
 
 const BlogHeadingClass = ({
@@ -121,13 +115,12 @@ const BlogHeadingClass = ({
 	compOf = "",
 	compOfText = "component of ",
 	childClassLink = "",
-	childClassColor = "inherit",
 }: BlogHeadingClassProps) => {
 	return (
 		<div className="article-heading">
 			<div className="line-top"></div>
 			<div className="article-heading-content ">
-				{getChildClassText(headingLevel, childClass, childClassLink, childClassColor)}
+				{getChildClassText(headingLevel, childClass, childClassLink)}
 				{getBaseClassText(baseClass, headingLevel - 1)}
 				{getComponentOfText(compOf, compOfText, headingLevel - 1)}
 			</div>

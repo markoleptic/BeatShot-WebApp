@@ -4,7 +4,7 @@ import React from "react";
 type BlueprintGraphProps = {
 	bpLink: string;
 	label: string;
-	description: any;
+	description: React.JSX.Element | string;
 	id?: string;
 };
 
