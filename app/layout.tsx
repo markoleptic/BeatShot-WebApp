@@ -41,7 +41,11 @@ const roboto_mono = Roboto_Mono({
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
 	return (
-		<html lang="en" className={`${montserrat.variable} ${roboto.variable} ${roboto_mono.variable}`}>
+		<html
+			lang="en"
+			className={`${montserrat.variable} ${roboto.variable} ${roboto_mono.variable}`}
+			data-scroll-behavior="smooth"
+		>
 			<body>
 				<script
 					data-goatcounter="https://beatshot.goatcounter.com/count"

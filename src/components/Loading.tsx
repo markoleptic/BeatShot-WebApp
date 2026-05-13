@@ -1,18 +1,24 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 const Loading = (): React.JSX.Element => {
 	const [currentLoadingText, setCurrentLoadingText] = useState("Loading..");
 
-	setInterval(function () {
-		if (currentLoadingText === "Loading.") {
-			setCurrentLoadingText("Loading..");
-		} else if (currentLoadingText === "Loading..") {
-			setCurrentLoadingText("Loading...");
-		} else {
-			setCurrentLoadingText("Loading.");
-		}
-	}, 500);
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setCurrentLoadingText((prev) => {
+				if (prev === "Loading.") {
+					return "Loading..";
+				} else if (prev === "Loading..") {
+					return "Loading...";
+				}
+
+				return "Loading.";
+			});
+		}, 500);
+
+		return () => clearInterval(interval);
+	}, []);
 
 	return (
 		<>

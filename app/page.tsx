@@ -1,12 +1,16 @@
 import React from "react";
+
+import { faCrosshairs, faPlay } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlay, faCrosshairs } from "@fortawesome/free-solid-svg-icons";
+import Image from "next/image";
+
+import SteamSteamPurchaseLink from "@/components/SteamPurchaseLink";
+import Video from "@/components/Video";
+
+import "@/styles/Home.scss";
+
 import Timing from "public/frontPage/BeatShotTiming_large.png";
 import StatsPreview from "public/frontPage/Stats_Preview.gif";
-import Image from "next/image";
-import Video from "@/components/Video";
-import SteamSteamPurchaseLink from "@/components/SteamPurchaseLink";
-import "@/styles/Home.scss";
 
 const Home = () => {
 	return (
@@ -15,8 +19,8 @@ const Home = () => {
 				<div className="home-top-container">
 					<Video />
 					<p className="fs-300 text-center">
-						<p className="inline text-light">BeatShot</p> is a rhythm-based aim-trainer where your music
-						sets the tempo for precision aiming challenges. Conquer engaging default game modes, craft
+						<span className="inline text-light">BeatShot</span> is a rhythm-based aim-trainer where your
+						music sets the tempo for precision aiming challenges. Conquer engaging default game modes, craft
 						custom game modes, and make aim-training less of a chore.
 					</p>
 					<SteamSteamPurchaseLink></SteamSteamPurchaseLink>

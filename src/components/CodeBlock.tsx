@@ -5,28 +5,21 @@ import "@/styles/Codeblock.scss";
 import { CodeBlock } from "react-code-blocks";
 
 const codeBlockStyle = {
-	overflowX: "scroll",
-	overflowY: "scroll",
 	lineHeight: "inherit",
-	//width: "100%",
 };
 
 const codeContainerStyle = {
-	overflowX: "scroll",
-	overflowY: "scroll",
 	lineHeight: "inherit",
 	width: "100%",
 };
 
 const customStyle = {
 	display: "flex",
-	overflowX: "scroll",
 	fontFamily: "inherit",
 	padding: "0.25rem",
 	borderRadius: "0.25rem",
 	fontSize: "inherit",
 	lineHeight: "inherit",
-	//width: "100%",
 };
 
 type BSCodeBlockProps = HTMLAttributes<HTMLElement> & {

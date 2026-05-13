@@ -1,8 +1,10 @@
-import PatchNotes from "@/webpages/patchNotes/PatchNotes";
 import React from "react";
 
-const Page = ({ params }: { params: { page: string } }) => {
-	const currentPage = parseInt(params.page, 10);
+import PatchNotes from "@/webpages/patchNotes/PatchNotes";
+
+const Page = async ({ params }: { params: Promise<{ page: string }> }) => {
+	const { page } = await params;
+	const currentPage = parseInt(page, 10);
 	return <PatchNotes initialPage={currentPage || 1} />;
 };
 

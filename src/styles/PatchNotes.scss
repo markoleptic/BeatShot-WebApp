@@ -140,15 +140,17 @@
 	line-height: 1.25em !important;
 }
 .pn-page-container {
-	display: block;
-	column-count: 3;
-	column-gap: 0.5rem;
-	justify-content: center;
-	width: min-content;
+	display: grid;
+	grid-auto-flow: column;
+	grid-auto-columns: 1fr;
+	gap: 0.5rem;
 	margin: auto;
 	button {
 		width: 100%;
 		font-size: Variables.$fs-425;
 		font-weight: Variables.$fw-600;
+		&.active {
+			background-color: Variables.$clr-beatshot-lightblue;
+		}
 	}
 }
