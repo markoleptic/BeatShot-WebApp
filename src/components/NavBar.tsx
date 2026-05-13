@@ -73,17 +73,17 @@ const NavBar = (): React.JSX.Element => {
 				<nav>
 					<ul id="primary-navigation" className="primary-navigation" data-visible={visible}>
 						<li className="uppercase">
-							<NavLink href="/devblog" className="hover-blue link" onClick={() => setVisibility(false)}>
-								Dev Blog
-							</NavLink>
-						</li>
-						<li className="uppercase">
 							<NavLink
 								href="/patchnotes"
 								className="hover-blue link"
 								onClick={() => setVisibility(false)}
 							>
 								Patch Notes
+							</NavLink>
+						</li>
+						<li className="uppercase">
+							<NavLink href="/devblog" className="hover-blue link" onClick={() => setVisibility(false)}>
+								Dev Blog
 							</NavLink>
 						</li>
 					</ul>
