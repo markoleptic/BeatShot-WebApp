@@ -18,6 +18,102 @@ type PatchNotesData = {
 
 const patchNotesData: PatchNotesData[] = [
 	{
+		version: "0.8.0",
+		date: DateTime.fromFormat("September 20, 2026", "DDD"),
+		link: "672879825739842641",
+		content: (
+			<ul>
+				<p className="fs-300"></p>
+				<li>
+					<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+					<p className="fs-300">In Game Performance Statistics</p>
+					<ul>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>
+								Performance statistics are now directly integrated into the game and no longer rely on
+								an in-game web browser to display this information from the BeatShot website.
+							</p>
+						</li>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>Scores are no longer saved to an external database.</p>
+						</li>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>
+								Scores previously stored in the database are no longer be viewable on the BeatShot
+								website. However, those same scores should also be saved in your local save game file
+								and will still be accessible.
+							</p>
+						</li>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>
+								BeatShot no longer requires access to the internet to fully function, aside from Steam
+								achievements.
+							</p>
+						</li>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>
+								The charts and graphs should all look very similar to the ones previously located on the
+								website.
+							</p>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+					<p className="fs-300">General</p>
+					<ul>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>Added the option to remove all scores when removing all custom game modes.</p>
+						</li>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>Added the option to delete scores from the History tab of the Scores menu.</p>
+						</li>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>Added a max character length constraint for custom game mode names.</p>
+							<ul>
+								<li>
+									<FontAwesomeIcon icon={faPlay} />
+									<p>
+										Existing custom game mode names longer than 40 characters will be chopped.
+										Scores corresponding to these custom game modes will also be updated.
+									</p>
+								</li>
+							</ul>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+					<p className="fs-300">Bug fixes</p>
+					<ul>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>
+								Fixed unintended behavior where shots fired before a game mode started would count
+								towards shots fired.
+							</p>
+						</li>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>
+								Fixed a bug where audio analyzer could sometimes fail to initialize correctly, leading
+								to inconsistent target spawning behavior.
+							</p>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		),
+	},
+	{
 		version: "0.7.5",
 		date: DateTime.fromFormat("August 1, 2025", "DDD"),
 		link: "516342955916657841",
