@@ -8,15 +8,27 @@ services:
       - 3000
     env_file:
       - /.env
+    networks:
+      - web
   caddy:
     image: caddy:latest
     container_name: caddy
+    restart: always
     ports:
       - "80:80"
       - "443:443"
     volumes:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - caddy-data:/data
-      - caddy-config:/config
     depends_on:
       - nextjs
+    networks:
+      - web
+
+# Not needed in production since caddy uses specific volume mounts
+volumes:
+  caddy-data:
+  caddy-config:
+
+networks:
+  web:
