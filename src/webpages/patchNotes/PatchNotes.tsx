@@ -18,6 +18,70 @@ type PatchNotesData = {
 
 const patchNotesData: PatchNotesData[] = [
 	{
+		version: "0.9.0",
+		date: DateTime.fromFormat("November 1, 2026", "DDD"),
+		link: "708913061799397598",
+		content: (
+			<ul>
+				<p className="fs-300"></p>
+				<li>
+					<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+					<p className="fs-300">Song Selection</p>
+					<ul>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>
+								Songs now have more metadata: Artist, Album, Year, and Genre, in addition to the
+								existing Title and Length.
+							</p>
+						</li>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>Songs selected from this menu are now saved separately from your scores.</p>
+							<ul>
+								<li>
+									<FontAwesomeIcon icon={faPlay} />
+									<p>
+										Scores you&apos;ve already saved for a song will be filled in with the new
+										metadata the next time you load that song (matched by song name and length).
+									</p>
+								</li>
+							</ul>
+						</li>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>
+								The last song used for each mode (file and audio device) is remembered and automatically
+								populated the next time the Choose Audio Source popup is opened.
+							</p>
+						</li>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>Added an option to sort song lists by Song Title or by Most Recent.</p>
+						</li>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>Added the ability to edit and delete song metadata.</p>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+					<p className="fs-300">Scores</p>
+					<ul>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>
+								Score viewers now display full song metadata when needed to disambiguate multiple songs
+								with the same title.
+							</p>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		),
+	},
+	{
 		version: "0.8.0",
 		date: DateTime.fromFormat("September 20, 2026", "DDD"),
 		link: "672879825739842641",
