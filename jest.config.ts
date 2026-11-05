@@ -5,8 +5,6 @@
 
 import type { Config } from "jest";
 import nextJest from "next/jest.js";
-import { pathsToModuleNameMapper } from "ts-jest";
-import { compilerOptions } from "./tsconfig.json";
 
 const createJestConfig = nextJest({
 	// Provide the path to your Next.js app to load next.config.js and .env files in your test environment
@@ -24,7 +22,10 @@ const config: Config = {
 
 	globalTeardown: "<rootDir>/__tests__/jest.teardown.ts",
 
-	moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths),
+	moduleNameMapper: {
+		// Mirrors the tsconfig "paths" aliases, which all resolve under ./src/*
+		"^@/(.*)$": "<rootDir>/src/$1",
+	},
 
 	testEnvironment: "node",
 };
