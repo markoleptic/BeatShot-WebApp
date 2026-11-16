@@ -18,6 +18,26 @@ type PatchNotesData = {
 
 const patchNotesData: PatchNotesData[] = [
 	{
+		version: "0.9.1",
+		date: DateTime.fromFormat("November 15, 2026", "DDD"),
+		link: "668381936995009566",
+		content: (
+			<ul>
+				<p className="fs-300"></p>
+				<li>
+					<FontAwesomeIcon className="fs-300" icon={faCrosshairs} />
+					<p className="fs-300">Bug Fixes</p>
+					<ul>
+						<li>
+							<FontAwesomeIcon icon={faPlay} />
+							<p>Fixed a bug where a custom game mode export string couldn&apos;t be imported.</p>
+						</li>
+					</ul>
+				</li>
+			</ul>
+		),
+	},
+	{
 		version: "0.9.0",
 		date: DateTime.fromFormat("November 1, 2026", "DDD"),
 		link: "708913061799397598",
